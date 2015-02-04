@@ -1,0 +1,4 @@
+Data
+{"data":{"dataObject":{"manufacturer_id":"1","category_id":"1","part_num":"248","description":"ouivoiuv","amt_on_hand":"4","location_id":"2","location_name":"ouivoiuv","active":"0","cc_id":"1"},"options":{"associated":["manufacturers","categories","locations","costcenters"],"validate":true}},"result":null}
+Options
+{"manufacturer_id":"1","category_id":"1","part_num":"248","description":"ouivoiuv","amt_on_hand":"4","location_id":"2","location_name":"ouivoiuv","active":"0","cc_id":"1"}
