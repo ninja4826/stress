@@ -22,7 +22,7 @@ class ManufacturersTable extends Table
     public function initialize(array $config)
     {
         $this->table('manufacturers');
-        $this->displayField('name');
+        $this->displayField('manufacturer_name');
         $this->primaryKey('id');
     }
 
@@ -37,8 +37,8 @@ class ManufacturersTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->requirePresence('name', 'create')
-            ->notEmpty('name')
+            ->requirePresence('manufacturer_name', 'create')
+            ->notEmpty('manufacturer_name')
             ->add('active', 'valid', ['rule' => 'boolean'])
             ->requirePresence('active', 'create')
             ->notEmpty('active');

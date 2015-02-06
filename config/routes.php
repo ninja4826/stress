@@ -105,6 +105,20 @@ Router::scope('/parts', function($routes) {
         $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
         $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
     });
+    
+    $routes->scope('/vendors', ['controller' => 'Vendors'], function($sub) {
+        $sub->connect('/', ['action' => 'index']);
+        $sub->connect('/add', ['action' => 'add']);
+        $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+        $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+    });
+    
+    $routes->scope('/vendor_hist', ['controller' => 'VendorHistories'], function($sub) {
+        $sub->connect('/', ['action' => 'index']);
+        $sub->connect('/add', ['action' => 'add']);
+        $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+        $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+    });
 });
 
 /**

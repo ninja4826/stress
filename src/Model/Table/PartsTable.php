@@ -24,7 +24,7 @@ class PartsTable extends Table
     public function initialize(array $config)
     {
         $this->table('parts');
-        $this->displayField('id');
+        $this->displayField('part_num');
         $this->primaryKey('id');
         $this->belongsTo('Manufacturers', [
             'foreignKey' => 'manufacturer_id'
@@ -93,35 +93,39 @@ class PartsTable extends Table
         return $rules;
     }
     
-    public function beforeMarshal($data, $options)
+    public function beforeMarshal($event, $data, $options)
     {
-        if (is_null($options['location_name']))
+        if (is_null($data['location_name']))
         {
             return false;
         }
         
         $loc_table = TableRegistry::get('Locations');
         
-        $location = $loc_table->findByName($options['location_name'])->first();
+        $location = $loc_table->findByLocationName($data['location_name'])->first();
         
         if(is_null($location))
         {
-            $location = $loc_table->newEntity(['name' => $options['location_name']]);
-            
+            $location = $loc_table->processName(['location_name' => $data['location_name']]);
+            Log::write('debug', 'Creating new location.');
+            Log::write('debug', gettype($location));
+            Log::write('debug', $location);
             if ($loc_table->save($location))
             {
-                $options['location_id'] = $location['id'];
-                if ($options['location_id'] == $location['id'])
+                Log::write('debug', 'Location saved...?');
+                $data['location_id'] = $location['id'];
+                if ($data['location_id'] == $location['id'])
                 {
                     return true;
+                    
                 } else {
                     return false;
                 }
             }
         } else {
-            $options['location_id'] = $location['id'];
+            $data['location_id'] = $location['id'];
             
-            if ($options['location_id'] == $location['id'])
+            if ($data['location_id'] == $location['id'])
             {
                 return true;
             } else {
@@ -129,5 +133,16 @@ class PartsTable extends Table
             }
         }
         return false;
+    }
+    
+    public function getPartNums() {
+        $parts = $this->find('all')->toArray();
+        
+        foreach ($parts as $k => $v)
+        {
+            $parts[$k] = $v->toArray()['part_num'];
+        }
+        
+        return $parts;
     }
 }

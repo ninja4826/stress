@@ -9,7 +9,7 @@
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('id') ?></th>
-            <th><?= $this->Paginator->sort('name') ?></th>
+            <th><?= $this->Paginator->sort('vendor_name') ?></th>
             <th><?= $this->Paginator->sort('comment') ?></th>
             <th><?= $this->Paginator->sort('website') ?></th>
             <th><?= $this->Paginator->sort('email') ?></th>
@@ -21,7 +21,7 @@
     <?php foreach ($vendors as $vendor): ?>
         <tr>
             <td><?= $this->Number->format($vendor->id) ?></td>
-            <td><?= h($vendor->name) ?></td>
+            <td><?= h($vendor->vendor_name) ?></td>
             <td><?= h($vendor->comment) ?></td>
             <td><?= h($vendor->website) ?></td>
             <td><?= h($vendor->email) ?></td>

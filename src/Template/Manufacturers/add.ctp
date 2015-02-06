@@ -9,7 +9,7 @@
     <fieldset>
         <legend><?= __('Add Manufacturer') ?></legend>
         <?php
-            echo $this->Form->input('name');
+            echo $this->Form->input('manufacturer_name');
             echo $this->Form->input('active');
         ?>
     </fieldset>

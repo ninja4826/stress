@@ -15,7 +15,7 @@
             echo $this->Form->input('seg');
             echo $this->Form->input('shelf');
             echo $this->Form->input('box');
-            echo $this->Form->input('name');
+            echo $this->Form->input('location_name');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

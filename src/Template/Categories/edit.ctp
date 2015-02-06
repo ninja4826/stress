@@ -15,7 +15,7 @@
     <fieldset>
         <legend><?= __('Edit Category') ?></legend>
         <?php
-            echo $this->Form->input('category');
+            echo $this->Form->input('category_name');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

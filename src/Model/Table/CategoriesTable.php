@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  */
 class CategoriesTable extends Table
 {
-
+    
     /**
      * Initialize method
      *
@@ -22,7 +22,7 @@ class CategoriesTable extends Table
     public function initialize(array $config)
     {
         $this->table('categories');
-        $this->displayField('category');
+        $this->displayField('category_name');
         $this->primaryKey('id');
     }
 
@@ -37,8 +37,8 @@ class CategoriesTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->requirePresence('category', 'create')
-            ->notEmpty('category');
+            ->requirePresence('category_name', 'create')
+            ->notEmpty('category_name');
 
         return $validator;
     }

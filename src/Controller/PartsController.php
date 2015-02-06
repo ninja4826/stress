@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Log\Log;
+use Cake\ORM\TableRegistry;
 
 /**
  * Parts Controller
@@ -25,7 +26,7 @@ class PartsController extends AppController
         $this->set('parts', $this->paginate($this->Parts));
         $this->set('_serialize', ['parts']);
     }
-
+    
     /**
      * View method
      *
@@ -38,6 +39,11 @@ class PartsController extends AppController
         $part = $this->Parts->get($id, [
             'contain' => ['Manufacturers', 'Categories', 'Locations', 'CostCenters']
         ]);
+        /*
+        $vendor_histories = TableRegistry::get('VendorHistories')->getByPartId($part->id, [
+            'contain' => ['Vendors']
+        ]);
+        */
         $this->set('part', $part);
         $this->set('_serialize', ['part']);
     }
@@ -51,19 +57,27 @@ class PartsController extends AppController
     {
         $part = $this->Parts->newEntity();
         if ($this->request->is('post')) {
-            $part = $this->Parts->patchEntity($part, $this->request->data);
+            
+            if (!is_null($foundPart = $this->Parts->findByPartNum($this->request->data['part_num'])->first()))
+            {
+                $part = $foundPart;
+                $part->amt_on_hand += $this->request->data['amt_on_hand'];
+            } else {
+                $part = $this->Parts->patchEntity($part, $this->request->data);
+            }
             if ($this->Parts->save($part)) {
                 $this->Flash->success('The part has been saved.');
                 return $this->redirect(['action' => 'index']);
             } else {
                 $this->Flash->error('The part could not be saved. Please, try again.');
+                Log::write('debug', $part);
             }
         }
+        $allParts = $this->Parts->getPartNums();
         $manufacturers = $this->Parts->Manufacturers->find('list', ['limit' => 200]);
         $categories = $this->Parts->Categories->find('list', ['limit' => 200]);
-        $locations = $this->Parts->Locations->find('list', ['limit' => 200]);
         $costCenters = $this->Parts->CostCenters->find('list', ['limit' => 200]);
-        $this->set(compact('part', 'manufacturers', 'categories', 'locations', 'costCenters'));
+        $this->set(compact('part', 'manufacturers', 'categories', 'locations', 'costCenters', 'allParts'));
         $this->set('_serialize', ['part']);
     }
 

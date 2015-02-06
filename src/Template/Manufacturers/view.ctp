@@ -8,11 +8,11 @@
     </ul>
 </div>
 <div class="manufacturers view large-10 medium-9 columns">
-    <h2><?= h($manufacturer->name) ?></h2>
+    <h2><?= h($manufacturer->manufacturer_name) ?></h2>
     <div class="row">
         <div class="large-5 columns strings">
             <h6 class="subheader"><?= __('Name') ?></h6>
-            <p><?= h($manufacturer->name) ?></p>
+            <p><?= h($manufacturer->manufacturer_name) ?></p>
         </div>
         <div class="large-2 columns numbers end">
             <h6 class="subheader"><?= __('Id') ?></h6>

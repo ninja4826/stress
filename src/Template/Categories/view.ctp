@@ -12,7 +12,7 @@
     <div class="row">
         <div class="large-5 columns strings">
             <h6 class="subheader"><?= __('Category') ?></h6>
-            <p><?= h($category->category) ?></p>
+            <p><?= h($category->category_name) ?></p>
         </div>
         <div class="large-2 columns numbers end">
             <h6 class="subheader"><?= __('Id') ?></h6>

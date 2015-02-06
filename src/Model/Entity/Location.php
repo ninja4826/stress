@@ -19,7 +19,7 @@ class Location extends Entity
         'seg' => true,
         'shelf' => true,
         'box' => true,
-        'name' => true,
+        'name_name' => true,
         'parts' => true,
     ];
 }

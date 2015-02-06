@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Log\Log;
+use Cake\ORM\TableRegistry;
 
 /**
  * Locations Controller
@@ -34,7 +36,16 @@ class LocationsController extends AppController
         $location = $this->Locations->get($id, [
             'contain' => ['Parts']
         ]);
+        $parts = [];
+        $partsTable = TableRegistry::get('Parts');
+        foreach ($location->parts as $part)
+        {
+            $parts[] = $partsTable->get($part->id, [
+                'contain' => ['Manufacturers', 'Categories', 'Locations', 'CostCenters']
+            ]);
+        }
         $this->set('location', $location);
+        $this->set('parts', $parts);
         $this->set('_serialize', ['location']);
     }
 

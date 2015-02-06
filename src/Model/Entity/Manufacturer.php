@@ -15,7 +15,7 @@ class Manufacturer extends Entity
      * @var array
      */
     protected $_accessible = [
-        'name' => true,
+        'manufacturer_name' => true,
         'active' => true,
     ];
 }

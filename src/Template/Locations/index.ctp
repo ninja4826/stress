@@ -11,7 +11,7 @@
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('id') ?></th>
-            <th><?= $this->Paginator->sort('name') ?></th>
+            <th><?= $this->Paginator->sort('location_name') ?></th>
             <th><?= $this->Paginator->sort('isle') ?></th>
             <th><?= $this->Paginator->sort('seg') ?></th>
             <th><?= $this->Paginator->sort('shelf') ?></th>
@@ -23,7 +23,7 @@
     <?php foreach ($locations as $location): ?>
         <tr>
             <td><?= $this->Number->format($location->id) ?></td>
-            <td><?= h($location->name) ?></td>
+            <td><?= h($location->location_name) ?></td>
             <td><?= h($location->isle) ?></td>
             <td><?= $this->Number->format($location->seg) ?></td>
             <td><?= h($location->shelf) ?></td>

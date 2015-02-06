@@ -9,7 +9,7 @@
     <thead>
         <tr>
             <th><?= $this->Paginator->sort('id') ?></th>
-            <th><?= $this->Paginator->sort('name') ?></th>
+            <th><?= $this->Paginator->sort('manufacturer_name') ?></th>
             <th><?= $this->Paginator->sort('active') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
         </tr>
@@ -18,7 +18,7 @@
     <?php foreach ($manufacturers as $manufacturer): ?>
         <tr>
             <td><?= $this->Number->format($manufacturer->id) ?></td>
-            <td><?= h($manufacturer->name) ?></td>
+            <td><?= h($manufacturer->manufacturer_name) ?></td>
             <td><?= h($manufacturer->active) ?></td>
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['action' => 'view', $manufacturer->id]) ?>

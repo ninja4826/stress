@@ -31,16 +31,16 @@
         <tr>
             <td><?= $this->Number->format($part->id) ?></td>
             <td>
-                <?= $part->has('manufacturer') ? $this->Html->link($part->manufacturer->name, ['controller' => 'Manufacturers', 'action' => 'view', $part->manufacturer->id]) : '' ?>
+                <?= $part->has('manufacturer') ? $this->Html->link($part->manufacturer->manufacturer_name, ['controller' => 'Manufacturers', 'action' => 'view', $part->manufacturer->id]) : '' ?>
             </td>
             <td>
-                <?= $part->has('category') ? $this->Html->link($part->category->id, ['controller' => 'Categories', 'action' => 'view', $part->category->id]) : '' ?>
+                <?= $part->has('category') ? $this->Html->link($part->category->category_name, ['controller' => 'Categories', 'action' => 'view', $part->category->id]) : '' ?>
             </td>
             <td><?= h($part->part_num) ?></td>
             <td><?= h($part->description) ?></td>
             <td><?= $this->Number->format($part->amt_on_hand) ?></td>
             <td>
-                <?= $part->has('location') ? $this->Html->link($part->location->id, ['controller' => 'Locations', 'action' => 'view', $part->location->id]) : '' ?>
+                <?= $part->has('location') ? $this->Html->link($part->location->location_name, ['controller' => 'Locations', 'action' => 'view', $part->location->id]) : '' ?>
             </td>
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['action' => 'view', $part->id]) ?>

@@ -15,7 +15,7 @@ class Vendor extends Entity
      * @var array
      */
     protected $_accessible = [
-        'name' => true,
+        'vendor_name' => true,
         'comment' => true,
         'website' => true,
         'email' => true,

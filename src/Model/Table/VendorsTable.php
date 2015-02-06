@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  */
 class VendorsTable extends Table
 {
-
+    
     /**
      * Initialize method
      *
@@ -22,7 +22,7 @@ class VendorsTable extends Table
     public function initialize(array $config)
     {
         $this->table('vendors');
-        $this->displayField('name');
+        $this->displayField('vendor_name');
         $this->primaryKey('id');
     }
 
@@ -37,8 +37,8 @@ class VendorsTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->requirePresence('name', 'create')
-            ->notEmpty('name')
+            ->requirePresence('vendor_name', 'create')
+            ->notEmpty('vendor_name')
             ->allowEmpty('comment')
             ->allowEmpty('website')
             ->add('email', 'valid', ['rule' => 'email'])

@@ -9,7 +9,7 @@
     <fieldset>
         <legend><?= __('Add Vendor') ?></legend>
         <?php
-            echo $this->Form->input('name');
+            echo $this->Form->input('vendor_name');
             echo $this->Form->input('comment');
             echo $this->Form->input('website');
             echo $this->Form->input('email');
