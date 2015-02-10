@@ -12,7 +12,7 @@ use Cake\Validation\Validator;
  */
 class VendorsTable extends Table
 {
-    
+
     /**
      * Initialize method
      *
@@ -39,10 +39,13 @@ class VendorsTable extends Table
             ->allowEmpty('id', 'create')
             ->requirePresence('vendor_name', 'create')
             ->notEmpty('vendor_name')
-            ->allowEmpty('comment')
-            ->allowEmpty('website')
+            ->requirePresence('comment', 'create')
+            ->notEmpty('comment')
+            ->requirePresence('website', 'create')
+            ->notEmpty('website')
             ->add('email', 'valid', ['rule' => 'email'])
-            ->allowEmpty('email')
+            ->requirePresence('email', 'create')
+            ->notEmpty('email')
             ->add('active', 'valid', ['rule' => 'boolean'])
             ->requirePresence('active', 'create')
             ->notEmpty('active');

@@ -198,19 +198,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/migrations.git",
-                "reference": "b9573889adbabbe81878ebfc351b76566145e3f9"
+                "reference": "0acd5acfe61591967eecadbb9cf547c8a603227e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/migrations/zipball/b9573889adbabbe81878ebfc351b76566145e3f9",
-                "reference": "b9573889adbabbe81878ebfc351b76566145e3f9",
+                "url": "https://api.github.com/repos/cakephp/migrations/zipball/0acd5acfe61591967eecadbb9cf547c8a603227e",
+                "reference": "0acd5acfe61591967eecadbb9cf547c8a603227e",
                 "shasum": ""
             },
             "require": {
                 "cakephp/cakephp": "3.0.x-dev",
-                "cakephp/plugin-installer": "*",
                 "php": ">=5.4",
-                "robmorgan/phinx": "*"
+                "robmorgan/phinx": "~0.4"
             },
             "require-dev": {
                 "cakephp/bake": "dev-master",
@@ -244,7 +243,7 @@
                 "cakephp",
                 "migrations"
             ],
-            "time": "2015-02-04 09:56:56"
+            "time": "2015-02-06 02:05:29"
         },
         {
             "name": "cakephp/plugin-installer",

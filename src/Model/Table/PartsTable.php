@@ -38,6 +38,9 @@ class PartsTable extends Table
         $this->belongsTo('CostCenters', [
             'foreignKey' => 'cc_id'
         ]);
+        $this->hasMany('PartVendors', [
+            'foreignKey' => 'part_id'
+        ]);
     }
 
     /**
