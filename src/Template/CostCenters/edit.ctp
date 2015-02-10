@@ -18,7 +18,7 @@
             echo $this->Form->input('e_code');
             echo $this->Form->input('description');
             echo $this->Form->input('active');
-            echo $this->Form->input('def');
+            echo $this->Form->input('default_value');
             echo $this->Form->input('project_number');
         ?>
     </fieldset>

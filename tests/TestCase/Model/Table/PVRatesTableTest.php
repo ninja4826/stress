@@ -1,14 +1,14 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\LocationsTable;
+use App\Model\Table\PVRatesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\LocationsTable Test Case
+ * App\Model\Table\PVRatesTable Test Case
  */
-class LocationsTableTest extends TestCase
+class PVRatesTableTest extends TestCase
 {
 
     /**
@@ -17,17 +17,15 @@ class LocationsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'Locations' => 'app.locations',
+        'PVRates' => 'app.p_v_rates',
+        'PVRateHistories' => 'app.p_v_rate_histories',
+        'PartVendors' => 'app.part_vendors',
         'Parts' => 'app.parts',
         'Manufacturers' => 'app.manufacturers',
         'Categories' => 'app.categories',
+        'Locations' => 'app.locations',
         'CostCenters' => 'app.cost_centers',
-        'PartVendors' => 'app.part_vendors',
-        'Vendors' => 'app.vendors',
-        'PVRateHistories' => 'app.p_v_rate_histories',
-        'PVRates' => 'app.p_v_rates',
-        'PartPriceHistories' => 'app.part_price_histories',
-        'PartTransactions' => 'app.part_transactions'
+        'Vendors' => 'app.vendors'
     ];
 
     /**
@@ -38,8 +36,8 @@ class LocationsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Locations') ? [] : ['className' => 'App\Model\Table\LocationsTable'];
-        $this->Locations = TableRegistry::get('Locations', $config);
+        $config = TableRegistry::exists('PVRates') ? [] : ['className' => 'App\Model\Table\PVRatesTable'];
+        $this->PVRates = TableRegistry::get('PVRates', $config);
     }
 
     /**
@@ -49,7 +47,7 @@ class LocationsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Locations);
+        unset($this->PVRates);
 
         parent::tearDown();
     }
@@ -70,16 +68,6 @@ class LocationsTableTest extends TestCase
      * @return void
      */
     public function testValidationDefault()
-    {
-        $this->markTestIncomplete('Not implemented yet.');
-    }
-
-    /**
-     * Test processName method
-     *
-     * @return void
-     */
-    public function testProcessName()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

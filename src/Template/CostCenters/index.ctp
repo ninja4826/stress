@@ -12,7 +12,7 @@
             <th><?= $this->Paginator->sort('e_code') ?></th>
             <th><?= $this->Paginator->sort('description') ?></th>
             <th><?= $this->Paginator->sort('active') ?></th>
-            <th><?= $this->Paginator->sort('def') ?></th>
+            <th><?= $this->Paginator->sort('default_value') ?></th>
             <th><?= $this->Paginator->sort('project_number') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
         </tr>
@@ -24,7 +24,7 @@
             <td><?= h($costCenter->e_code) ?></td>
             <td><?= h($costCenter->description) ?></td>
             <td><?= h($costCenter->active) ?></td>
-            <td><?= h($costCenter->def) ?></td>
+            <td><?= h($costCenter->default_value) ?></td>
             <td><?= $this->Number->format($costCenter->project_number) ?></td>
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['action' => 'view', $costCenter->id]) ?>

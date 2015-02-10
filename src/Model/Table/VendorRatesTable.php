@@ -1,16 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\CostCenter;
+use App\Model\Entity\VendorRate;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * CostCenters Model
+ * VendorRates Model
  */
-class CostCentersTable extends Table
+class VendorRatesTable extends Table
 {
 
     /**
@@ -21,7 +21,7 @@ class CostCentersTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('cost_centers');
+        $this->table('vendor_rates');
         $this->displayField('id');
         $this->primaryKey('id');
     }
@@ -37,17 +37,9 @@ class CostCentersTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->requirePresence('e_code', 'create')
-            ->notEmpty('e_code')
-            ->allowEmpty('description')
-            ->add('active', 'valid', ['rule' => 'boolean'])
-            ->requirePresence('active', 'create')
-            ->notEmpty('active')
-            ->requirePresence('default_value', 'create')
-            ->notEmpty('default_value')
-            ->add('project_number', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('project_number', 'create')
-            ->notEmpty('project_number');
+            ->add('rate', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('rate', 'create')
+            ->notEmpty('rate');
 
         return $validator;
     }

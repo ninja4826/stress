@@ -1,14 +1,14 @@
 <?php
 namespace App\Test\TestCase\Model\Table;
 
-use App\Model\Table\LocationsTable;
+use App\Model\Table\PartPriceHistoriesTable;
 use Cake\ORM\TableRegistry;
 use Cake\TestSuite\TestCase;
 
 /**
- * App\Model\Table\LocationsTable Test Case
+ * App\Model\Table\PartPriceHistoriesTable Test Case
  */
-class LocationsTableTest extends TestCase
+class PartPriceHistoriesTableTest extends TestCase
 {
 
     /**
@@ -17,17 +17,14 @@ class LocationsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'Locations' => 'app.locations',
+        'PartPriceHistories' => 'app.part_price_histories',
+        'PartVendors' => 'app.part_vendors',
         'Parts' => 'app.parts',
         'Manufacturers' => 'app.manufacturers',
         'Categories' => 'app.categories',
+        'Locations' => 'app.locations',
         'CostCenters' => 'app.cost_centers',
-        'PartVendors' => 'app.part_vendors',
-        'Vendors' => 'app.vendors',
-        'PVRateHistories' => 'app.p_v_rate_histories',
-        'PVRates' => 'app.p_v_rates',
-        'PartPriceHistories' => 'app.part_price_histories',
-        'PartTransactions' => 'app.part_transactions'
+        'Vendors' => 'app.vendors'
     ];
 
     /**
@@ -38,8 +35,8 @@ class LocationsTableTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $config = TableRegistry::exists('Locations') ? [] : ['className' => 'App\Model\Table\LocationsTable'];
-        $this->Locations = TableRegistry::get('Locations', $config);
+        $config = TableRegistry::exists('PartPriceHistories') ? [] : ['className' => 'App\Model\Table\PartPriceHistoriesTable'];
+        $this->PartPriceHistories = TableRegistry::get('PartPriceHistories', $config);
     }
 
     /**
@@ -49,7 +46,7 @@ class LocationsTableTest extends TestCase
      */
     public function tearDown()
     {
-        unset($this->Locations);
+        unset($this->PartPriceHistories);
 
         parent::tearDown();
     }
@@ -75,11 +72,11 @@ class LocationsTableTest extends TestCase
     }
 
     /**
-     * Test processName method
+     * Test buildRules method
      *
      * @return void
      */
-    public function testProcessName()
+    public function testBuildRules()
     {
         $this->markTestIncomplete('Not implemented yet.');
     }

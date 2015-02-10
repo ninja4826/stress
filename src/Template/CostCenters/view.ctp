@@ -15,8 +15,8 @@
             <p><?= h($costCenter->e_code) ?></p>
             <h6 class="subheader"><?= __('Description') ?></h6>
             <p><?= h($costCenter->description) ?></p>
-            <h6 class="subheader"><?= __('Def') ?></h6>
-            <p><?= h($costCenter->def) ?></p>
+            <h6 class="subheader"><?= __('Default Value') ?></h6>
+            <p><?= h($costCenter->default_value) ?></p>
         </div>
         <div class="large-2 columns numbers end">
             <h6 class="subheader"><?= __('Id') ?></h6>

@@ -4,9 +4,9 @@ namespace App\Model\Entity;
 use Cake\ORM\Entity;
 
 /**
- * CostCenter Entity.
+ * PVRate Entity.
  */
-class CostCenter extends Entity
+class PVRate extends Entity
 {
 
     /**
@@ -15,10 +15,7 @@ class CostCenter extends Entity
      * @var array
      */
     protected $_accessible = [
-        'e_code' => true,
-        'description' => true,
-        'active' => true,
-        'default_value' => true,
-        'project_number' => true,
+        'rate' => true,
+        'p_v_rate_histories' => true,
     ];
 }

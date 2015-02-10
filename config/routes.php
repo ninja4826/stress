@@ -79,47 +79,49 @@ Router::scope('/parts', function($routes) {
     $routes->connect('/:id', ['controller' => 'Parts', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
     $routes->connect('/:id/edit', ['controller' => 'Parts', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
     
-    $routes->scope('/manufacturers', ['controller' => 'Manufacturers'], function($sub) {
-        $sub->connect('/', ['action' => 'index']);
-        $sub->connect('/add', ['action' => 'add']);
-        $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-        $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-    });
     
-    $routes->scope('/categories', ['controller' => 'Categories'], function($sub) {
-        $sub->connect('/', ['action' => 'index']);
-        $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-        $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-    });
+    $routes->connect('/:id/vendors/add', ['controller' => 'PartVendors'], ['id' => '\d+', 'pass' => ['id']]);
     
-    $routes->scope('/locations', ['controller' => 'Locations'], function($sub) {
-        $sub->connect('/', ['action' => 'index']);
-        $sub->connect('/add', ['action' => 'add']);
-        $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-        $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-    });
-    
-    $routes->scope('/cost_centers', ['controller' => 'CostCenters'], function($sub) {
-        $sub->connect('/', ['action' => 'index']);
-        $sub->connect('/add', ['action' => 'add']);
-        $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-        $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-    });
-    
-    $routes->scope('/vendors', ['controller' => 'Vendors'], function($sub) {
-        $sub->connect('/', ['action' => 'index']);
-        $sub->connect('/add', ['action' => 'add']);
-        $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-        $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-    });
-    
-    $routes->scope('/vendor_hist', ['controller' => 'VendorHistories'], function($sub) {
-        $sub->connect('/', ['action' => 'index']);
-        $sub->connect('/add', ['action' => 'add']);
+    $routes->scope('/vendors', ['controller' => 'PartVendors'], function($sub) {
         $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
         $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
     });
 });
+
+Router::scope('/manufacturers', ['controller' => 'Manufacturers'], function($sub) {
+    $sub->connect('/', ['action' => 'index']);
+    $sub->connect('/add', ['action' => 'add']);
+    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+});
+
+Router::scope('/categories', ['controller' => 'Categories'], function($sub) {
+    $sub->connect('/', ['action' => 'index']);
+    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+});
+
+Router::scope('/locations', ['controller' => 'Locations'], function($sub) {
+    $sub->connect('/', ['action' => 'index']);
+    $sub->connect('/add', ['action' => 'add']);
+    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+});
+
+Router::scope('/cost_centers', ['controller' => 'CostCenters'], function($sub) {
+    $sub->connect('/', ['action' => 'index']);
+    $sub->connect('/add', ['action' => 'add']);
+    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+});
+
+Router::scope('/vendors', ['controller' => 'Vendors'], function($sub) {
+    $sub->connect('/', ['action' => 'index']);
+    $sub->connect('/add', ['action' => 'add']);
+    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+});
+
 
 /**
  * Load all plugin routes.  See the Plugin documentation on

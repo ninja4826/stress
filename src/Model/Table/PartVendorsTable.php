@@ -31,7 +31,6 @@ class PartVendorsTable extends Table
             'foreignKey' => 'vendor_id'
         ]);
         
-        /*
         $this->hasMany('PVRateHistories', [
             'foreignKey' => 'part_vendor_id'
         ]);
@@ -41,7 +40,7 @@ class PartVendorsTable extends Table
         $this->hasMany('PartTransactions', [
             'foreignKey' => 'part_vendor_id'
         ]);
-        */
+        
     }
 
     /**
