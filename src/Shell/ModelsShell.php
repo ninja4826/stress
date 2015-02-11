@@ -2,9 +2,11 @@
 namespace App\Shell;
 
 use Cake\Console\Shell;
+use Cake\Datasource\ConnectionManager;
 
 class ModelsShell extends Shell
 {
+    private $conn;
     public function initialize()
     {
         parent::initialize();
@@ -15,10 +17,12 @@ class ModelsShell extends Shell
         $this->loadModel('Parts');
         $this->loadModel('Vendors');
         $this->loadModel('PartVendors');
+        $this->conn = ConnectionManager::get('default');
     }
     
     public function main()
     {
+        $this->clean();
         $category = $this->Categories->save($this->Categories->newEntity([
             'category_name' => 'Relays'
         ]));
@@ -57,6 +61,22 @@ class ModelsShell extends Shell
                 'location_id' => 1
             ]));
             $this->out($part);
+        }
+    }
+    
+    public function clean() {
+        $tables = [
+            'parts' => $this->Parts,
+            'categories' => $this->Categories,
+            'cost_centers' => $this->CostCenters,
+            'locations' => $this->Locations,
+            'manufacturers' => $this->Manufacturers
+        ];
+        foreach($tables as $k => $v) {
+            $v->deleteAll('1=1', true);
+            $this->out(gettype($v));
+            $this->conn->query("ALTER TABLE " . $k . " AUTO_INCREMENT = 1");
+            $this->out($k . " table reset");
         }
     }
 }

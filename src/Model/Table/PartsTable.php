@@ -98,9 +98,11 @@ class PartsTable extends Table
     
     public function beforeMarshal($event, $data, $options)
     {
-        if (is_null($data['location_name']))
+        if (!array_key_exists('location_name', $data))
         {
             return false;
+        } elseif (array_key_exists('location_id', $data)) {
+            return true;
         }
         
         $loc_table = TableRegistry::get('Locations');
