@@ -38,7 +38,7 @@ class PartVendorsController extends AppController
             $partVendor = $this->PartVendors->patchEntity($partVendor, $this->request->data);
             if ($this->PartVendors->save($partVendor)) {
                 $this->Flash->success('The part vendor has been saved.');
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Parts', 'action' => 'view', $id]);
             } else {
                 $this->Flash->error('The part vendor could not be saved. Please, try again.');
             }

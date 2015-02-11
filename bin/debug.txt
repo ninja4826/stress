@@ -1,6 +1,0 @@
-Data
-{"manufacturer_id":"1","category_id":"1","part_num":"248","description":"weoib","amt_on_hand":"4","location_name":"G1C8","active":"0","cc_id":"1"}
-object
-Options
-{"associated":["manufacturers","categories","locations","costcenters"],"validate":true}
-object

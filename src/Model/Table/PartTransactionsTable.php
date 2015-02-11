@@ -6,6 +6,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Log\Log;
+use Cake\ORM\TableRegistry;
 
 /**
  * PartTransactions Model
@@ -70,5 +72,21 @@ class PartTransactionsTable extends Table
     {
         $rules->add($rules->existsIn(['part_vendor_id'], 'PartVendors'));
         return $rules;
+    }
+    
+    public function beforeSave($event, $entity, $options) {
+        $entity = json_decode(json_encode($entity), true);
+        
+        $partPriceHist = TableRegistry::get('PartPriceHistories');
+        $hist = $partPriceHist->newEntity([
+            'part_vendor_id' => $entity['part_vendor_id'],
+            'date_changed' => $entity['date'],
+            'price' => $entity['price']
+        ]);
+        if ($partPriceHist->save($hist)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

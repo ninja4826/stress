@@ -36,6 +36,7 @@ class LocationsController extends AppController
         $location = $this->Locations->get($id, [
             'contain' => ['Parts']
         ]);
+        Log::write('debug', $location);
         $parts = [];
         $partsTable = TableRegistry::get('Parts');
         foreach ($location->parts as $part)

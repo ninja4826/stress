@@ -80,7 +80,7 @@ Router::scope('/parts', function($routes) {
     $routes->connect('/:id/edit', ['controller' => 'Parts', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
     
     
-    $routes->connect('/:id/vendors/add', ['controller' => 'PartVendors'], ['id' => '\d+', 'pass' => ['id']]);
+    $routes->connect('/:id/vendors/add', ['controller' => 'PartVendors', 'action' => 'add'], ['id' => '\d+', 'pass' => ['id']]);
     
     $routes->scope('/vendors', ['controller' => 'PartVendors'], function($sub) {
         $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);

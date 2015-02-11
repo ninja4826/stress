@@ -37,8 +37,22 @@ class PartsController extends AppController
     public function view($id = null)
     {
         $part = $this->Parts->get($id, [
-            'contain' => ['Manufacturers', 'Categories', 'Locations', 'CostCenters']
+            'contain' => ['Manufacturers', 'Categories', 'Locations', 'CostCenters', 'PartVendors']
         ]);
+        
+        $part = $this->Parts->get($id, [
+            'contain' => [
+                'Manufacturers',
+                'Categories',
+                'Locations',
+                'CostCenters',
+                'PartVendors' => function ($pv) {
+                    return $pv->contain(['Vendors']);
+                }
+            ]
+        ]);
+        
+        Log::write('debug', $part);
         /*
         $vendor_histories = TableRegistry::get('VendorHistories')->getByPartId($part->id, [
             'contain' => ['Vendors']

@@ -47,8 +47,16 @@ class ModelsShell extends Shell
             'active' => true
         ]));
         $this->out($manufacturer);
+        $vendor = $this->Vendors->save($this->Vendors->newEntity([
+            'vendor_name' => 'Mouser',
+            'comment' => 'blank comment',
+            'website' => 'http://mouser.com',
+            'email' => 'employee@mouser.com',
+            'active' => true
+        ]));
+        $this->out($vendor);
         
-        if ($category && $cost_center && $location && $manufacturer)
+        if ($category && $cost_center && $location && $manufacturer && $vendor)
         {
             $part = $this->Parts->save($this->Parts->newEntity([
                 'part_num' => 'SN74S74N',
@@ -61,11 +69,24 @@ class ModelsShell extends Shell
                 'location_id' => 1
             ]));
             $this->out($part);
+            if ($part) {
+                $part_vendor = $this->PartVendors->save($this->PartVendors->newEntity([
+                    'part_id' => 1,
+                    'vendor_id' => 1,
+                    'markup' => 'not sure what markup is...',
+                    'discount' => '60',
+                    'preferred' => true
+                ]));
+                $this->out($part_vendor);
+            }
         }
+        
     }
     
     public function clean() {
         $tables = [
+            'part_vendors' => $this->PartVendors,
+            'vendors' => $this->Vendors,
             'parts' => $this->Parts,
             'categories' => $this->Categories,
             'cost_centers' => $this->CostCenters,
