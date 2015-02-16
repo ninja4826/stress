@@ -45,6 +45,8 @@
                                 'Vendor',
                                 'Website',
                                 'Preferred',
+                                'Price',
+                                'Date',
                                 ['Actions' => ['class' => 'actions']]
                             ]);
                         ?>
@@ -53,8 +55,16 @@
                     <tr>
                         <?php $vendor = $part_vendor->vendor; ?>
                         <td><?= $this->Html->link($vendor->vendor_name, ['controller' => 'Vendors', 'action' => 'view', $vendor->id]); ?></td>
-                        <td><?= $this->Html->link($vendor->website, $vendor->website, ['target' => '_blank']); ?></td>
+                        <td><?= $this->Html->link(__('Click Here'), $vendor->website, ['target' => '_blank']); ?></td>
                         <td><?= $part_vendor->preferred ? 'Yes' : 'No' ?></td>
+                        <?php if ($part_vendor->has('part_price_histories') && !empty($part_vendor->part_price_histories)): ?>
+                            <?php $history = $part_vendor->part_price_histories[0]; ?>
+                            <td>$<?= $history->price ?></td>
+                            <td><?= h($history->date_changed) ?></td>
+                        <?php else: ?>
+                            <td></td>
+                            <td></td>
+                        <?php endif; ?>
                         <td>
                             <?= $this->Html->link(__('View'), ['controller' => 'PartVendors', 'action' => 'view', $part_vendor->id]); ?>
                             <?= $this->Html->link(__('Edit'), ['controller' => 'PartVendors', 'action' => 'edit', $part_vendor->id]); ?>

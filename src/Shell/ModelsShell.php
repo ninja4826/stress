@@ -3,6 +3,7 @@ namespace App\Shell;
 
 use Cake\Console\Shell;
 use Cake\Datasource\ConnectionManager;
+use Cake\I18n\Time;
 
 class ModelsShell extends Shell
 {
@@ -17,6 +18,8 @@ class ModelsShell extends Shell
         $this->loadModel('Parts');
         $this->loadModel('Vendors');
         $this->loadModel('PartVendors');
+        $this->loadModel('PartTransactions');
+        $this->loadModel('PartPriceHistories');
         $this->conn = ConnectionManager::get('default');
     }
     
@@ -78,6 +81,16 @@ class ModelsShell extends Shell
                     'preferred' => true
                 ]));
                 $this->out($part_vendor);
+                if ($part_vendor) {
+                    $partTransaction = $this->PartTransactions->save($this->PartTransactions->newEntity([
+                        'part_vendor_id' => 1,
+                        'order_num' => 123456,
+                        'date' => Time::now(),
+                        'change_qty' => 20,
+                        'price' => 30
+                    ]));
+                    $this->out($partTransaction);
+                }
             }
         }
         
@@ -85,6 +98,8 @@ class ModelsShell extends Shell
     
     public function clean() {
         $tables = [
+            'part_price_histories' => $this->PartPriceHistories,
+            'part_transactions' => $this->PartTransactions,
             'part_vendors' => $this->PartVendors,
             'vendors' => $this->Vendors,
             'parts' => $this->Parts,

@@ -18,11 +18,12 @@ class PartsController extends AppController
      *
      * @return void
      */
-    public function index()
+    public function index($partVendor = null)
     {
         $this->paginate = [
             'contain' => ['Manufacturers', 'Categories', 'Locations', 'CostCenters']
         ];
+        $trans = TableRegistry::get('PartTransactions')->find('vendor', ['id' => $partVendor]);
         $this->set('parts', $this->paginate($this->Parts));
         $this->set('_serialize', ['parts']);
     }
@@ -47,12 +48,12 @@ class PartsController extends AppController
                 'Locations',
                 'CostCenters',
                 'PartVendors' => function ($pv) {
-                    return $pv->contain(['Vendors']);
+                    return $pv->contain(['Vendors', 'PartPriceHistories' => function ($pph) {
+                        return $pph->order('date_changed DESC')->limit(1);
+                    }]);
                 }
             ]
         ]);
-        
-        Log::write('debug', $part);
         /*
         $vendor_histories = TableRegistry::get('VendorHistories')->getByPartId($part->id, [
             'contain' => ['Vendors']

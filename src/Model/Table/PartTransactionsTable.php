@@ -8,6 +8,7 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
+use Cake\I18n\Time;
 
 /**
  * PartTransactions Model
@@ -57,7 +58,7 @@ class PartTransactionsTable extends Table
             ->add('price', 'valid', ['rule' => 'numeric'])
             ->requirePresence('price', 'create')
             ->notEmpty('price');
-
+            
         return $validator;
     }
 
@@ -73,14 +74,27 @@ class PartTransactionsTable extends Table
         $rules->add($rules->existsIn(['part_vendor_id'], 'PartVendors'));
         return $rules;
     }
-    
+    /*
+    public function beforeMarshal($event, $data, $options) {
+        
+    }
+    */
     public function beforeSave($event, $entity, $options) {
         $entity = json_decode(json_encode($entity), true);
-        
         $partPriceHist = TableRegistry::get('PartPriceHistories');
+        $transactions = $this->find('all');
+        
+        $histories = $partPriceHist->find('all', ['order' => ['date_changed DESC']])->toArray();
+        
+        if (!empty($histories) && $histories[0]->toArray()['price'] == $entity['price'])
+        {
+            return true;
+        }
+        
         $hist = $partPriceHist->newEntity([
             'part_vendor_id' => $entity['part_vendor_id'],
-            'date_changed' => $entity['date'],
+            // 'date_changed' => new Time($entity['date']),
+            'date_changed' => new Time($entity['date']),
             'price' => $entity['price']
         ]);
         if ($partPriceHist->save($hist)) {
@@ -88,5 +102,12 @@ class PartTransactionsTable extends Table
         } else {
             return false;
         }
+    }
+    
+    public function findVendor(Query $query, array $options) {
+        if (!empty($options) && array_key_exists('id', $options)) {
+            $query->where(['part_vendor_id' => $options['id']]);
+        }
+        return $query;
     }
 }

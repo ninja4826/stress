@@ -10,6 +10,8 @@ use App\Controller\AppController;
  */
 class PartVendorsController extends AppController
 {
+    
+    public $helpers = ['Form', 'Html', 'Time'];
     /**
      * View method
      *

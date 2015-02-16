@@ -61,7 +61,6 @@ class LocationsTable extends Table
     public function processName($location)
     {
         $data = $location;
-        Log::write('debug', 'blah');
         $loc = $data;
         if (!is_null($loc['location_name']))
         {
@@ -120,8 +119,6 @@ class LocationsTable extends Table
             $loc['seg'] = (int)$loc['seg'];
             $loc['box'] = (int)$loc['box'];
             $data = $loc;
-            Log::write('debug', 'All is good. returning true.');
-            Log::write('debug', $data);
             foreach ($data as $k => $v)
             {
                 Log::write('debug', "{$k}:\n" . gettype($v) . "\n{$v}\n");

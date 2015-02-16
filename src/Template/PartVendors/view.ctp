@@ -32,5 +32,35 @@
             <h6 class="subheader"><?= __('Preferred') ?></h6>
             <p><?= $partVendor->preferred ? __('Yes') : __('No'); ?></p>
         </div>
+        <?php if ($partVendor->has('part_price_histories')): ?>
+            <div class="large-6 columns strings">
+                <h4>Price Histories</h4>
+                <h6 class="subheader"><?= $this->Html->link(__('Add Transaction'), ['controller' => 'PartTransactions', 'action' => 'add', $partVendor->id]); ?></h6>
+                <table cellpadding="0" cellspacing="0">
+                    <tr>
+                        <?=
+                            $this->Html->tableHeaders([
+                                'Date',
+                                'Price',
+                                ['Actions' => ['class' => 'actions']]
+                            ]);
+                        ?>
+                    </tr>
+                    <?php foreach($partVendor->part_price_histories as $hist): ?>
+                        <tr>
+                            <?php $hist = json_decode(json_encode($hist), true); ?>
+                            <td><?= $this->Time->nice($hist['date_changed'], 'America/Chicago') ?></td>
+                            <td>$<?= h($hist['price']) ?></td>
+                            <td>
+                                <?= $this->Html->link(__('View'), ['controller' => 'PartPriceHistories', 'action' => 'view', $hist['id']]); ?>
+                                <?= $this->Html->link(__('Edit'), ['controller' => 'PartPriceHistories', 'action' => 'edit', $hist['id']]); ?>
+                                <?= $this->Html->link(__('Delete'), ['controller' => 'PartPriceHistories', 'action' => 'delete', $hist['id']], ['confirm' => __('Are you sure you want to delete # {0}', $hist['id'])]); ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                </table>
+                <h6 class="subheader"><?= $this->Html->link(__('View all transactions'), ['controller' => 'PartTransactions', 'action' => 'index', $partVendor->id]); ?></h6>
+            </div>
+        <?php endif; ?>
     </div>
 </div>

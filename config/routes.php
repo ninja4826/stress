@@ -79,13 +79,33 @@ Router::scope('/parts', function($routes) {
     $routes->connect('/:id', ['controller' => 'Parts', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
     $routes->connect('/:id/edit', ['controller' => 'Parts', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
     
-    
+    /*
     $routes->connect('/:id/vendors/add', ['controller' => 'PartVendors', 'action' => 'add'], ['id' => '\d+', 'pass' => ['id']]);
     
-    $routes->scope('/vendors', ['controller' => 'PartVendors'], function($sub) {
-        $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-        $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+    $routes->scope('/vendors', function($sub) {
+        $sub->connect('/:id', ['controller' => 'PartVendors', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+        $sub->connect('/:id/edit', ['controller' => 'PartVendors', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+        $sub->connect('/:partVendor/trans/add', ['controller' => 'PartTransactions', 'action' => 'add'], ['partVendor' => '\d+', 'pass' => ['partVendor']]);
+        $sub->connect('/:partVendor/trans/', ['controller' => 'PartTransactions', 'action' => 'index'], ['partVendor' => '\d+', 'pass' => ['partVendor']]);
+        $sub->scope('/trans', function($trans) {
+            $trans->connect('/:id', ['controller' => 'PartTransactions', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+            $trans->connect('/:id/edit', ['controller' => 'PartTransactions', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+        });
     });
+    */
+});
+
+Router::scope('/part_vendors', ['controller' => 'PartVendors'], function($sub) {
+    $sub->connect('/add', ['action' => 'add']);
+    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+});
+
+Router::scope('/trans', ['controller' => 'PartTransactions'], function($sub) {
+    $sub->connect('/', ['action' => 'index']);
+    $sub->connect('/add', ['action' => 'add']);
+    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
 });
 
 Router::scope('/manufacturers', ['controller' => 'Manufacturers'], function($sub) {
