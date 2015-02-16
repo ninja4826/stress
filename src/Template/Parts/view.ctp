@@ -37,7 +37,7 @@
         <?php if ($part->has('part_vendors')): ?>
             <div class="large-6 columns strings">
                 <h4>Vendors</h4>
-                <h6 class="subheader"><?= $this->Html->link(__('Add vendor'), ['controller' => 'PartVendors', 'action' => 'add', $part->id]) ?></h6>
+                <h6 class="subheader"><?= $this->Html->link(__('Add vendor'), ['controller' => 'PartVendors', 'action' => 'add', '?' => ['part' => $part->id]]) ?></h6>
                 <table cellpadding="0" cellspacing="0">
                     <tr>
                         <?=

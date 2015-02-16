@@ -33,7 +33,7 @@ class PartVendorsController extends AppController
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add($id = null)
+    public function add()
     {
         $partVendor = $this->PartVendors->newEntity();
         if ($this->request->is('post')) {
@@ -45,9 +45,18 @@ class PartVendorsController extends AppController
                 $this->Flash->error('The part vendor could not be saved. Please, try again.');
             }
         }
-        $part = $id;
-        $vendors = $this->PartVendors->Vendors->find('list', ['limit' => 200]);
-        $this->set(compact('partVendor', 'part', 'vendors'));
+        $q = $this->request->query;
+        if (!array_key_exists('vendor', $q)) {
+            $vendors = $this->PartVendors->Vendors->find('list', ['limit' => 200]);
+        } else {
+            $vendors = null;
+        }
+        if (!array_key_exists('part', $q)) {
+            $parts = $this->PartVendors->Parts->find('list', ['limit' => 200]);
+        } else {
+            $parts = null;
+        }
+        $this->set(compact('partVendor', 'parts', 'vendors', 'q'));
         $this->set('_serialize', ['partVendor']);
     }
 

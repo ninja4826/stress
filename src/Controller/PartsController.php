@@ -41,6 +41,8 @@ class PartsController extends AppController
             'contain' => ['Manufacturers', 'Categories', 'Locations', 'CostCenters', 'PartVendors']
         ]);
         
+        Log::write('debug', $this->request->query);
+        
         $part = $this->Parts->get($id, [
             'contain' => [
                 'Manufacturers',

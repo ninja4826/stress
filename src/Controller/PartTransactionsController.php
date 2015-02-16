@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Log\Log;
+use Cake\Utility\Hash;
 
 /**
  * PartTransactions Controller
@@ -19,13 +20,14 @@ class PartTransactionsController extends AppController
      */
     public function index($partVendor = null) {
         $this->paginate = [
-            'finder' => 'vendor',
+            'finder' => ['vendor' => ['id' => $partVendor]],
             'contain' => [
                 'PartVendors' => function($pv) {
                     return $pv->contain(['Vendors', 'Parts']);
                 }
             ]
         ];
+        
         $this->set('partTransactions', $this->paginate($this->PartTransactions));
         $this->set('_serialize', ['part_transactions']);
     }
