@@ -1,3 +1,5 @@
+
+
 <div class="actions columns large-2 medium-3">
     <h3><?= __('Actions') ?></h3>
     <ul class="side-nav">
@@ -22,3 +24,44 @@
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
+<script>
+    function getVendors(tag, json_str) {
+        var json = $.parseJSON(json);
+        var vendors = json['vendors'];
+        var partVendors = json['part_vendors'];
+        
+        $("#test").autocomplete({
+            source: vendors
+        });
+        
+        $('button').click(function() {
+            var index = $.inArray($(tag).val(), partVendors);
+            if (index == -1) {
+                alert('Vendor exists, but is not affiliated with a part. Redirecting to Vendor - Part form.');
+                window.location = "<?= $this->Url->build(['controller' => 'PartVendors', 'action' => 'add']) ?>"
+            }
+        });
+    }
+    
+    $(document).ready(function() {
+        var json = $.parseJSON('<?= json_encode($vendors) ?>');
+        var vendors = json['vendors'];
+        var partVendors = json['part_vendors'];
+        
+        var tag = "#test";
+        
+        $(tag).autocomplete({
+            source: vendors
+        });
+        
+        $('button').click(function() {
+            var index = $.inArray($(tag).val(), partVendors);
+            if (index == -1) {
+                alert('Vendor exists, but is not affiliated with a part. Redirecting to Vendor - Part form.');
+                // CHANGE VENDOR_ID AND SUBMIT. ADD EMPTY VENDOR_ID CATCH AND REDIRECT TO VENDOR CREATION.
+                // PASS product_id AND vendor_id TO part_vendor CREATION.
+                // CREATE TRANSACTION AFTER PART VENDOR HAS BEEN CREATED.
+            }
+        });
+    });
+</script>

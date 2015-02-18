@@ -32,7 +32,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-    <?= $this->Html->script('http://code.jquery.com/jquery-1.11.2.min.js'); ?>
+    <?= $this->Html->css('http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css') ?>
+    <?= $this->Html->script('http://code.jquery.com/jquery-1.11.2.min.js') ?>
+    <?= $this->Html->script('http://code.jquery.com/ui/1.11.3/jquery-ui.js') ?>
 </head>
 <body>
     <header>

@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Log\Log;
-use Cake\Utility\Hash;
+use Cake\ORM\TableRegistry;
 
 /**
  * PartTransactions Controller
@@ -12,6 +12,11 @@ use Cake\Utility\Hash;
  */
 class PartTransactionsController extends AppController
 {
+    
+    public function initialize() {
+        parent::initialize();
+        $this->helpers[] = 'Url';
+    }
 
     /**
      * Index method
@@ -56,6 +61,7 @@ class PartTransactionsController extends AppController
     public function add($partVendor = null)
     {
         $partTransaction = $this->PartTransactions->newEntity();
+        
         if ($this->request->is('post')) {
             $partTransaction = $this->PartTransactions->patchEntity($partTransaction, $this->request->data);
             if ($this->PartTransactions->save($partTransaction)) {
@@ -65,7 +71,30 @@ class PartTransactionsController extends AppController
                 $this->Flash->error('The part transaction could not be saved. Please, try again.');
             }
         }
-        $this->set(compact('partTransaction', 'partVendor'));
+        
+        $vendors_ = TableRegistry::get('Vendors')->find('all', [
+            'conditions' => ['active' => '1'],
+            'fields' => ['id', 'vendor_name']
+        ])->toArray();
+        foreach ($vendors_ as $k => $v) {
+            $vendors_[$k] = $v->vendor_name;
+        }
+        $this->loadModel('PartVendors');
+        
+        $partVendors = $this->PartVendors->find('all', [
+            'contain' => [
+                'Vendors'
+            ]
+        ])->toArray();
+        
+        foreach ($partVendors as $k => $v) {
+            $partVendors[$k] = $v->vendor->vendor_name;
+        }
+        $vendors = [
+            'vendors' => $vendors_,
+            'part_vendors' => $partVendors
+        ];
+        $this->set(compact('partTransaction', 'partVendor', 'vendors'));
         $this->set('_serialize', ['partTransaction']);
     }
 

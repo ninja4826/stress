@@ -142,7 +142,6 @@ Router::scope('/vendors', ['controller' => 'Vendors'], function($sub) {
     $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
 });
 
-
 /**
  * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.
