@@ -29,21 +29,21 @@ class Vendors extends AbstractMigration
             ->save();
         $table = $this->table('vendor_rates');
         $table
-            ->addColumn('rate', 'decimal', ['precision' => 13, 'scale' => 3])
+            ->addColumn('rate', 'decimal', ['precision' => 12, 'scale' => 2])
             ->save();
         $table = $this->table('part_vendors');
         $table
             ->addColumn('part_id', 'integer')
             ->addColumn('vendor_id', 'integer')
             ->addColumn('markup', 'string')
-            ->addColumn('discount', 'decimal', ['precision' => 13, 'scale' => 3])
+            ->addColumn('discount', 'decimal', ['precision' => 12, 'scale' => 2])
             ->addColumn('preferred', 'boolean')
             ->addForeignKey('part_id', 'parts', 'id')
             ->addForeignKey('vendor_id', 'vendors', 'id')
             ->save();
         $table = $this->table('p_v_rates');
         $table
-            ->addColumn('rate', 'decimal', ['precision' => 13, 'scale' => 3])
+            ->addColumn('rate', 'decimal', ['precision' => 12, 'scale' => 2])
             ->save();
         $table = $this->table('p_v_rate_histories');
         $table
@@ -58,7 +58,7 @@ class Vendors extends AbstractMigration
         $table
             ->addColumn('part_vendor_id', 'integer')
             ->addColumn('date_changed', 'datetime')
-            ->addColumn('price', 'decimal', ['precision' => 13, 'scale' => 3])
+            ->addColumn('price', 'decimal', ['precision' => 12, 'scale' => 2])
             ->addForeignKey('part_vendor_id', 'part_vendors', 'id')
             ->save();
         $table = $this->table('part_transactions');
@@ -67,7 +67,7 @@ class Vendors extends AbstractMigration
             ->addColumn('order_num', 'integer')
             ->addColumn('date', 'datetime')
             ->addColumn('change_qty', 'integer')
-            ->addColumn('price', 'decimal', ['precision' => 13, 'scale' => 3])
+            ->addColumn('price', 'decimal', ['precision' => 12, 'scale' => 2])
             ->addForeignKey('part_vendor_id', 'part_vendors', 'id')
             ->save();
 

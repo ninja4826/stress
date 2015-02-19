@@ -119,10 +119,7 @@ class LocationsTable extends Table
             $loc['seg'] = (int)$loc['seg'];
             $loc['box'] = (int)$loc['box'];
             $data = $loc;
-            foreach ($data as $k => $v)
-            {
-                Log::write('debug', "{$k}:\n" . gettype($v) . "\n{$v}\n");
-            }
+            
             return $this->newEntity($data);
         } else {
             return null;

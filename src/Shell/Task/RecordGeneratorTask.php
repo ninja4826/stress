@@ -1,16 +1,12 @@
 <?php
-namespace App\Shell;
+namespace App\Shell\Task;
 
 use Cake\Console\Shell;
-use Cake\Datasource\ConnectionManager;
 use Cake\I18n\Time;
 
-class ModelsShell extends Shell
-{
+class RecordGeneratorTask extends Shell {
     
-    private $conn;
-    public function initialize()
-    {
+    public function initialize() {
         parent::initialize();
         $this->loadModel('Categories');
         $this->loadModel('CostCenters');
@@ -21,12 +17,10 @@ class ModelsShell extends Shell
         $this->loadModel('PartVendors');
         $this->loadModel('PartTransactions');
         $this->loadModel('PartPriceHistories');
-        $this->conn = ConnectionManager::get('default');
     }
     
     public function main()
     {
-        $this->clean();
         $category = $this->Categories->save($this->Categories->newEntity([
             'category_name' => 'Relays'
         ]));
@@ -95,25 +89,5 @@ class ModelsShell extends Shell
             }
         }
         
-    }
-    
-    public function clean() {
-        $tables = [
-            'part_price_histories' => $this->PartPriceHistories,
-            'part_transactions' => $this->PartTransactions,
-            'part_vendors' => $this->PartVendors,
-            'vendors' => $this->Vendors,
-            'parts' => $this->Parts,
-            'categories' => $this->Categories,
-            'cost_centers' => $this->CostCenters,
-            'locations' => $this->Locations,
-            'manufacturers' => $this->Manufacturers
-        ];
-        foreach($tables as $k => $v) {
-            $v->deleteAll('1=1', true);
-            $this->out(gettype($v));
-            $this->conn->query("ALTER TABLE " . $k . " AUTO_INCREMENT = 1");
-            $this->out($k . " table reset");
-        }
     }
 }

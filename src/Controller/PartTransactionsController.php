@@ -58,7 +58,7 @@ class PartTransactionsController extends AppController
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add($partVendor = null)
+    public function add()
     {
         $partTransaction = $this->PartTransactions->newEntity();
 
@@ -87,13 +87,13 @@ class PartTransactionsController extends AppController
                 'Vendors'
             ]
         ]);
-/*
+
         if (array_key_exists('part', $this->request->query)) {
             $partVendors->where([
                 'part_id' => $this->request->query['part']
             ]);
         }
-*/
+
         $partVendors = $partVendors->toArray();
 
         foreach ($partVendors as $k => $v) {
@@ -103,7 +103,8 @@ class PartTransactionsController extends AppController
             'vendors' => $vendors_,
             'part_vendors' => $partVendors
         ];
-        $this->set(compact('partTransaction', 'partVendor', 'vendors'));
+        $query = $this->request->query;
+        $this->set(compact('partTransaction', 'vendors', 'query'));
         $this->set('_serialize', ['partTransaction']);
     }
 
