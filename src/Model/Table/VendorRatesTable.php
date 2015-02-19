@@ -37,7 +37,18 @@ class VendorRatesTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->add('rate', 'valid', ['rule' => 'numeric'])
+            ->add('rate', 'valid', [
+                'rule' => 'numeric',
+                'on' => function ($context) {
+                    return is_int($context);
+                }
+            ])
+            ->add('rate', 'valid' [
+                'rule' => 'decimal',
+                'on' => function ($context) {
+                    return is_float($context);
+                }
+            ])
             ->requirePresence('rate', 'create')
             ->notEmpty('rate');
 

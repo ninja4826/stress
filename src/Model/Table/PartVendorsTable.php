@@ -30,7 +30,7 @@ class PartVendorsTable extends Table
         $this->belongsTo('Vendors', [
             'foreignKey' => 'vendor_id'
         ]);
-        
+
         $this->hasMany('PVRateHistories', [
             'foreignKey' => 'part_vendor_id'
         ]);
@@ -40,7 +40,7 @@ class PartVendorsTable extends Table
         $this->hasMany('PartTransactions', [
             'foreignKey' => 'part_vendor_id'
         ]);
-        
+
     }
 
     /**
@@ -62,7 +62,18 @@ class PartVendorsTable extends Table
             ->notEmpty('vendor_id')
             ->requirePresence('markup', 'create')
             ->notEmpty('markup')
-            ->add('discount', 'valid', ['rule' => 'numeric'])
+            ->add('discount', 'valid', [
+                'rule' => 'numeric',
+                'on' => function ($context) {
+                    return is_int($context);
+                }
+            ])
+            ->add('discount', 'valid', [
+                'rule' => 'decimal',
+                'on' => function ($context) {
+                    return is_float($context);
+                }
+            ])
             ->requirePresence('discount', 'create')
             ->notEmpty('discount')
             ->add('preferred', 'valid', ['rule' => 'boolean'])

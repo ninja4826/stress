@@ -18,7 +18,7 @@
             echo $this->Form->input('order_num', ['label' => 'Order Number']);
             echo $this->Form->input('date');
             echo $this->Form->input('change_qty', ['label' => 'Quantity']);
-            echo $this->Form->input('price');
+            echo $this->Form->input('price', ['type' => 'decimal']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
@@ -29,11 +29,11 @@
         var json = $.parseJSON(json);
         var vendors = json['vendors'];
         var partVendors = json['part_vendors'];
-        
+
         $("#test").autocomplete({
             source: vendors
         });
-        
+
         $('button').click(function() {
             var index = $.inArray($(tag).val(), partVendors);
             if (index == -1) {
@@ -42,22 +42,22 @@
             }
         });
     }
-    
+
     $(document).ready(function() {
         var json = $.parseJSON('<?= json_encode($vendors) ?>');
         var vendors = json['vendors'];
         var partVendors = json['part_vendors'];
-        
+
         var tag = "#test";
-        
+
         $(tag).autocomplete({
             source: vendors
         });
-        
+
         $('button').click(function() {
             var index = $.inArray($(tag).val(), partVendors);
             if (index == -1) {
-                alert('Vendor exists, but is not affiliated with a part. Redirecting to Vendor - Part form.');
+                alert('Vendor exists, but is not affiliated with a part. Redirecting to Vendor - Part form. ' + json);
                 // CHANGE VENDOR_ID AND SUBMIT. ADD EMPTY VENDOR_ID CATCH AND REDIRECT TO VENDOR CREATION.
                 // PASS product_id AND vendor_id TO part_vendor CREATION.
                 // CREATE TRANSACTION AFTER PART VENDOR HAS BEEN CREATED.

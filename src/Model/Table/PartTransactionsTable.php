@@ -55,10 +55,21 @@ class PartTransactionsTable extends Table
             ->add('change_qty', 'valid', ['rule' => 'numeric'])
             ->requirePresence('change_qty', 'create')
             ->notEmpty('change_qty')
-            ->add('price', 'valid', ['rule' => 'numeric'])
+            ->add('price', 'valid', [
+                'rule' => 'numeric',
+                'on' => function ($context) {
+                    return is_int($context);
+                }
+            ])
+            ->add('price', 'valid', [
+                'rule' => 'decimal',
+                'on' => function ($context) {
+                    return is_float($context);
+                }
+            ])
             ->requirePresence('price', 'create')
             ->notEmpty('price');
-            
+
         return $validator;
     }
 
@@ -76,21 +87,21 @@ class PartTransactionsTable extends Table
     }
     /*
     public function beforeMarshal($event, $data, $options) {
-        
+
     }
     */
     public function beforeSave($event, $entity, $options) {
         $entity = json_decode(json_encode($entity), true);
         $partPriceHist = TableRegistry::get('PartPriceHistories');
         $transactions = $this->find('all');
-        
+
         $histories = $partPriceHist->find('all', ['order' => ['date_changed DESC']])->toArray();
-        
+
         if (!empty($histories) && $histories[0]->toArray()['price'] == $entity['price'])
         {
             return true;
         }
-        
+
         $hist = $partPriceHist->newEntity([
             'part_vendor_id' => $entity['part_vendor_id'],
             // 'date_changed' => new Time($entity['date']),
@@ -103,7 +114,7 @@ class PartTransactionsTable extends Table
             return false;
         }
     }
-    
+
     public function findVendor(Query $query, array $options) {
         if (!empty($options) && array_key_exists('id', $options)) {
             $query->where(['part_vendor_id' => $options['id']]);

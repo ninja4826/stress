@@ -46,7 +46,18 @@ class PartPriceHistoriesTable extends Table
             ->add('date_changed', 'valid', ['rule' => 'datetime'])
             ->requirePresence('date_changed', 'create')
             ->notEmpty('date_changed')
-            ->add('price', 'valid', ['rule' => 'numeric'])
+            ->add('price', 'valid', [
+                'rule' => 'numeric',
+                'on' => function ($context) {
+                    return is_int($context);
+                }
+            ])
+            ->add('price', 'valid', [
+                'rule' => 'decimal',
+                'on' => function ($context) {
+                    return is_float($context);
+                }
+            ])
             ->requirePresence('price', 'create')
             ->notEmpty('price');
 
