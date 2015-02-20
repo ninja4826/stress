@@ -85,11 +85,7 @@ class PartTransactionsTable extends Table
         $rules->add($rules->existsIn(['part_vendor_id'], 'PartVendors'));
         return $rules;
     }
-    /*
-    public function beforeMarshal($event, $data, $options) {
-
-    }
-    */
+    
     public function beforeSave($event, $entity, $options) {
         $entity = json_decode(json_encode($entity), true);
         $partPriceHist = TableRegistry::get('PartPriceHistories');

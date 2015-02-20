@@ -58,11 +58,42 @@ class PartTransactionsController extends AppController
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($part_id = null)
     {
         $partTransaction = $this->PartTransactions->newEntity();
-
+        $query = $this->request->query;
+        $this->loadModel('Vendors');
         if ($this->request->is('post')) {
+            
+            $data = $this->request->data;
+            
+            if (!array_key_exists('vendor_id', $data)) {
+                $part_vendor = null;
+                if (array_key_exists('vendor', $query)) {
+                    $part_vendor = $this->PartTransactions->PartVendors->findByVendorId($query['vendor']);
+                } else {
+                    if (array_key_exists('vendor_name', $data)) {
+                        $vendor = $this->Vendors->findByVendorName($data['vendor_name']);
+                        $part_vendor = $this->PartTransactions->PartVendors->findByVendorId($query['vendor']);
+                        
+                    }
+                }
+                if (is_null($part_vendor)) {
+                    $this->Flash->error('A Part Vendor for this item cannot be found. Once a Part Vendor has been created, the transaction will be saved.');
+                    return $this->redirect([
+                        'controller' => 'PartVendors',
+                        'action' => 'add',
+                        '?' => [
+                            'return_to' => 'trans',
+                            'session' => json_encode($data)
+                        ]
+                    ]);
+                } else {
+                    $this->request->data['part_vendor_id'] = $part_vendor->id;
+                    // TODO: Add flow for when the loop comes back around from PartVendors.
+                }
+            }
+            
             $partTransaction = $this->PartTransactions->patchEntity($partTransaction, $this->request->data);
             if ($this->PartTransactions->save($partTransaction)) {
                 $this->Flash->success('The part transaction has been saved.');
@@ -71,40 +102,8 @@ class PartTransactionsController extends AppController
                 $this->Flash->error('The part transaction could not be saved. Please, try again.');
             }
         }
-
-        $vendors_ = TableRegistry::get('Vendors')->find('all', [
-            'conditions' => ['active' => '1'],
-            'fields' => ['id', 'vendor_name']
-        ])->toArray();
-        foreach ($vendors_ as $k => $v) {
-            $vendors_[$k] = $v->vendor_name;
-        }
-        $this->loadModel('PartVendors');
-
-
-        $partVendors = $this->PartVendors->find('all', [
-            'contain' => [
-                'Vendors'
-            ]
-        ]);
-
-        if (array_key_exists('part', $this->request->query)) {
-            $partVendors->where([
-                'part_id' => $this->request->query['part']
-            ]);
-        }
-
-        $partVendors = $partVendors->toArray();
-
-        foreach ($partVendors as $k => $v) {
-            $partVendors[$k] = $v->vendor->vendor_name;
-        }
-        $vendors = [
-            'vendors' => $vendors_,
-            'part_vendors' => $partVendors
-        ];
-        $query = $this->request->query;
-        $this->set(compact('partTransaction', 'vendors', 'query'));
+        $vendors = $this->Vendors->find('list', ['limit' => 200]);
+        $this->set(compact('partTransaction', 'vendors', 'query', 'part_id'));
         $this->set('_serialize', ['partTransaction']);
     }
 

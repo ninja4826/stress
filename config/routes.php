@@ -103,7 +103,7 @@ Router::scope('/part_vendors', ['controller' => 'PartVendors'], function($sub) {
 
 Router::scope('/trans', ['controller' => 'PartTransactions'], function($sub) {
     $sub->connect('/', ['action' => 'index']);
-    $sub->connect('/add', ['action' => 'add']);
+    $sub->connect('/add/:part_id', ['action' => 'add'], ['part_id' => '\d+', 'pass' => ['part_id']]);
     $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
     $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
 });

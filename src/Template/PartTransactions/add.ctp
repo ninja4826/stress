@@ -13,55 +13,44 @@
     <fieldset>
         <legend><?= __('Add Part Transaction') ?></legend>
         <?php
-            echo $this->Form->hidden('part_vendor_id', ['value' => $partVendor]);
-            echo $this->Form->input('test', ['type' => 'string']);
+            $need_vendor = [false];
+            if (array_key_exists('part_vendor', $query)) {
+                echo $this->Form->hidden('part_vendor_id', ['value' => $query['part_vendor']]);
+            } else {
+                if (array_key_exists('vendor', $query)) {
+                    echo $this->Form->hidden('vendor_name', ['value' => $query['vendor']]);
+                } else {
+                    echo $this->Form->input('vendor_name', ['type' => 'text', 'label' => 'Vendor']);
+                    $need_vendor = [true];
+                }
+                echo $this->Form->hidden('part_id', ['value' => $part_id]);
+            }
+            
             echo $this->Form->input('order_num', ['label' => 'Order Number']);
             echo $this->Form->input('date');
             echo $this->Form->input('change_qty', ['label' => 'Quantity']);
-            echo $this->Form->input('price', ['type' => 'decimal']);
+            echo $this->Form->input('price');
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>
 </div>
 <script>
-    function getVendors(tag, json_str) {
-        var json = $.parseJSON(json);
-        var vendors = json['vendors'];
-        var partVendors = json['part_vendors'];
-
-        $("#test").autocomplete({
-            source: vendors
-        });
-
-        $('button').click(function() {
-            var index = $.inArray($(tag).val(), partVendors);
-            if (index == -1) {
-                alert('Vendor exists, but is not affiliated with a part. Redirecting to Vendor - Part form.');
-                window.location = "<?= $this->Url->build(['controller' => 'PartVendors', 'action' => 'add']) ?>"
-            }
-        });
-    }
 
     $(document).ready(function() {
-        var json = $.parseJSON('<?= json_encode($vendors) ?>');
-        var vendors = json['vendors'];
-        var partVendors = json['part_vendors'];
-
-        var tag = "#test";
-
-        $(tag).autocomplete({
-            source: vendors
-        });
-
-        $('button').click(function() {
-            var index = $.inArray($(tag).val(), partVendors);
-            if (index == -1) {
-                alert('Vendor exists, but is not affiliated with a part. Redirecting to Vendor - Part form. ' + json);
-                // CHANGE VENDOR_ID AND SUBMIT. ADD EMPTY VENDOR_ID CATCH AND REDIRECT TO VENDOR CREATION.
-                // PASS product_id AND vendor_id TO part_vendor CREATION.
-                // CREATE TRANSACTION AFTER PART VENDOR HAS BEEN CREATED.
+        if ($.parseJSON('<?= json_encode($need_vendor) ?>')[0]) {
+            var json = $.parseJSON('<?= json_encode($vendors) ?>');
+            var options = [];
+            for (var k in json) {
+                var v = json[k];
+                options.push(v);
             }
-        });
+            console.log(options);
+            console.log(json);
+            
+            $( "#vendor_name" ).autocomplete({
+                source: options
+            });
+        }
     });
 </script>

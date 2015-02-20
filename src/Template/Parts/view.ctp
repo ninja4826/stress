@@ -27,6 +27,8 @@
             <p><?= $this->Number->format($part->amt_on_hand) ?></p>
             <h6 class="subheader"><?= __('Manufacturer') ?></h6>
             <p><?= $part->has('manufacturer') ? $this->Html->link($part->manufacturer->manufacturer_name, ['controller' => 'Manufacturers', 'action' => 'view', $part->manufacturer->id]) : '' ?></p>
+        </div>
+        <div class="large-5 columns strings">
             <h6 class="subheader"><?= __('Category') ?></h6>
             <p><?= $part->has('category') ? $this->Html->link($part->category->category_name, ['controller' => 'Categories', 'action' => 'view', $part->category->id]) : '' ?></p>
             <h6 class="subheader"><?= __('Cost Center') ?></h6>
@@ -34,10 +36,12 @@
             <h6 class="subheader"><?= __('Active') ?></h6>
             <p><?= $part->active ? __('Yes') : __('No'); ?></p>
         </div>
+    </div>
+    <div class="row">
         <?php if ($part->has('part_vendors')): ?>
-            <div class="large-6 columns strings">
+            <div class="large-12 columns strings">
                 <h4>Vendors</h4>
-                <h6 class="subheader"><?= $this->Html->link(__('Add vendor'), ['controller' => 'PartVendors', 'action' => 'add', '?' => ['part' => $part->id]]) ?></h6>
+                <h6 class="subheader"><?= $this->Html->link(__('Add transaction for a vendor not listed here'), ['controller' => 'PartTransactions', 'action' => 'add', $part->id]) ?></h6>
                 <table cellpadding="0" cellspacing="0">
                     <tr>
                         <?=
@@ -54,7 +58,7 @@
                     <?php foreach($part->part_vendors as $part_vendor): ?>
                     <tr>
                         <?php $vendor = $part_vendor->vendor; ?>
-                        <td><?= $this->Html->link($vendor->vendor_name, ['controller' => 'Vendors', 'action' => 'view', $vendor->id]); ?></td>
+                        <td><?= $this->Html->link($vendor->vendor_name, ['controller' => 'PartVendors', 'action' => 'view', $part_vendor->id]); ?></td>
                         <td><?= $this->Html->link(__('Click Here'), $vendor->website, ['target' => '_blank']); ?></td>
                         <td><?= $part_vendor->preferred ? 'Yes' : 'No' ?></td>
                         <?php if ($part_vendor->has('part_price_histories') && !empty($part_vendor->part_price_histories)): ?>
@@ -66,9 +70,9 @@
                             <td></td>
                         <?php endif; ?>
                         <td>
-                            <?= $this->Html->link(__('View'), ['controller' => 'PartVendors', 'action' => 'view', $part_vendor->id]); ?>
-                            <?= $this->Html->link(__('Edit'), ['controller' => 'PartVendors', 'action' => 'edit', $part_vendor->id]); ?>
-                            <?= $this->Html->link(__('Delete'), ['controller' => 'PartVendors', 'action' => 'delete', $part_vendor->id], ['confirm' => __('Are you sure you want to delete # {0}', $part_vendor->id)]); ?>
+                            <?= $this->Html->link(__('Add Transaction'), ['controller' => 'PartTransactions', 'action' => 'add', $part->id, '?' => ['part_vendor' => $part_vendor->id]]); ?>
+                            <br>
+                            <?= $this->Html->link(__('View Vendor'), ['controller' => 'Vendors', 'action' => 'view', $vendor->id]) ?>
                         </td>
                     </tr>
                     <?php endforeach; ?>
