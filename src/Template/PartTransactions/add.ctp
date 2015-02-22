@@ -39,6 +39,7 @@
 
     $(document).ready(function() {
         if ($.parseJSON('<?= json_encode($need_vendor) ?>')[0]) {
+            console.log('asdf');
             var json = $.parseJSON('<?= json_encode($vendors) ?>');
             var options = [];
             for (var k in json) {
@@ -48,7 +49,7 @@
             console.log(options);
             console.log(json);
             
-            $( "#vendor_name" ).autocomplete({
+            $( "#vendor-name" ).autocomplete({
                 source: options
             });
         }

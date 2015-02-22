@@ -37,6 +37,9 @@ class VendorsTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
+            ->add('vendor_name', [
+                'unique' => ['rule' => 'validateUnique', 'provider' => 'table']
+            ])
             ->requirePresence('vendor_name', 'create')
             ->notEmpty('vendor_name')
             ->requirePresence('comment', 'create')

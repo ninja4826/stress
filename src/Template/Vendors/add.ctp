@@ -13,7 +13,7 @@
             echo $this->Form->input('comment');
             echo $this->Form->input('website');
             echo $this->Form->input('email');
-            echo $this->Form->input('active');
+            echo $this->Form->input('active', ['default' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

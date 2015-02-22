@@ -22,7 +22,7 @@ class CostCentersTable extends Table
     public function initialize(array $config)
     {
         $this->table('cost_centers');
-        $this->displayField('id');
+        $this->displayField('e_code');
         $this->primaryKey('id');
     }
 

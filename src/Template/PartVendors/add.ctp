@@ -18,22 +18,17 @@
     <?= $this->Form->create($partVendor); ?>
     <fieldset>
         <legend><?= __('Add Part Vendor') ?></legend>
+        
             <?php
-                if (is_null($parts)) {
-                    echo $this->Form->hidden('part_id', ['value' => $q['part']]);
-                } else {
-                    echo $this->Form->input('part_id', ['options' => $parts]);
-                }
-                if (is_null($vendors)) {
-                    echo $this->Form->hidden('vendor_id', ['value' => $q['vendor']]);
-                } else {
+                if (!array_key_exists('trans', $q)) {
                     echo $this->Form->input('vendor_id', ['options' => $vendors]);
+                    echo $this->Form->input('part_id', ['options' => $parts]);
                 }
             ?>
             
             <?= $this->Form->input('markup') ?>
             <?= $this->Form->input('discount') ?>
-            <?= $this->Form->input('preferred') ?>
+            <?= $this->Form->input('preferred', ['default' => true]) ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>
     <?= $this->Form->end() ?>

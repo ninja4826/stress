@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Log\Log;
 
 /**
  * PartVendors Model
@@ -40,7 +41,6 @@ class PartVendorsTable extends Table
         $this->hasMany('PartTransactions', [
             'foreignKey' => 'part_vendor_id'
         ]);
-
     }
 
     /**
@@ -95,5 +95,17 @@ class PartVendorsTable extends Table
         $rules->add($rules->existsIn(['part_id'], 'Parts'));
         $rules->add($rules->existsIn(['vendor_id'], 'Vendors'));
         return $rules;
+    }
+    
+    public function beforeMarshal($event, $data, $options) {
+        if (!array_key_exists('part_id', $data) || !array_key_exists('vendor_id', $data)) {
+            return false;
+        }
+        Log::write('debug', $data);
+        $part_vendor = $this->findByVendorIdAndPartId($data['vendor_id'], $data['part_id'])->toArray();
+        if (!empty($part_vendor)) {
+            return false;
+        }
+        return true;
     }
 }

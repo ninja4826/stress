@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Log\Log;
 
 /**
  * PartVendors Controller
@@ -35,27 +36,52 @@ class PartVendorsController extends AppController
      */
     public function add()
     {
+        $q = $this->request->query;
+        $trans = null;
+        if (array_key_exists('trans', $q)) {
+            $trans = json_decode($q['trans'], true);
+        }
         $partVendor = $this->PartVendors->newEntity();
         if ($this->request->is('post')) {
+            Log::write('debug', "OLD DATA: \n");
+            Log::write('debug', $this->request->data);
+            
+            if ($trans && array_key_exists('vendor_name', $trans) && array_key_exists('part_id', $trans)) {
+                
+                $vendor_id = $this->PartVendors->Vendors->findByVendorName($trans['vendor_name'])->first()->id;
+                $data = $this->request->data;
+                $data['part_id'] = $trans['part_id'];
+                $data['vendor_id'] = $vendor_id;
+                Log::write('debug', "NEW DATA: \n");
+                Log::write('debug', $data);
+                $this->request->data = $data;
+            }
             $partVendor = $this->PartVendors->patchEntity($partVendor, $this->request->data);
             if ($this->PartVendors->save($partVendor)) {
+                if ($trans) {
+                    $this->loadModel('PartTransactions');
+                    $trans_data = $trans;
+                    unset($trans_data['vendor_name']);
+                    unset($trans_data['part_id']);
+                    $trans_data['part_vendor_id'] = $partVendor->id;
+                    $part_trans = $this->PartTransactions->newEntity($trans_data);
+                    if ($this->PartTransactions->save($part_trans)) {
+                        $this->Flash->success('The part vendor has been created, and the transaction has been saved.');
+                        if (array_key_exists('redirect', $q)) {
+                            $redirect = json_decode($q['redirect'], true);
+                            return $this->redirect($redirect);
+                        }
+                    }
+                }
                 $this->Flash->success('The part vendor has been saved.');
-                return $this->redirect(['controller' => 'Parts', 'action' => 'view', $id]);
+                return $this->redirect(['controller' => 'PartVendors', 'action' => 'view', $partVendor->id]);
             } else {
                 $this->Flash->error('The part vendor could not be saved. Please, try again.');
             }
         }
-        $q = $this->request->query;
-        if (!array_key_exists('vendor', $q)) {
-            $vendors = $this->PartVendors->Vendors->find('list', ['limit' => 200]);
-        } else {
-            $vendors = null;
-        }
-        if (!array_key_exists('part', $q)) {
-            $parts = $this->PartVendors->Parts->find('list', ['limit' => 200]);
-        } else {
-            $parts = null;
-        }
+        
+        $vendors = $this->PartVendors->Vendors->find('list', ['limit' => 200]);
+        $parts = $this->PartVendors->Parts->find('list', ['limit' => 200]);
         $this->set(compact('partVendor', 'parts', 'vendors', 'q'));
         $this->set('_serialize', ['partVendor']);
     }

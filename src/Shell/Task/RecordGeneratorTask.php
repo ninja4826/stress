@@ -54,6 +54,15 @@ class RecordGeneratorTask extends Shell {
         ]));
         $this->out($vendor);
         
+        $other_vendor = $this->Vendors->save($this->Vendors->newEntity([
+            'vendor_name' => 'Newegg',
+            'comment' => 'newegg shtuff',
+            'website' => 'http://newegg.com',
+            'email' => 'emp@newegg.com',
+            'active' => true
+        ]));
+        $this->out($other_vendor);
+        
         if ($category && $cost_center && $location && $manufacturer && $vendor)
         {
             $part = $this->Parts->save($this->Parts->newEntity([

@@ -66,38 +66,42 @@ class PartTransactionsController extends AppController
         if ($this->request->is('post')) {
             
             $data = $this->request->data;
-            
-            if (!array_key_exists('vendor_id', $data)) {
+            Log::write('debug', $data);
+            if (!array_key_exists('part_vendor_id', $data)) {
                 $part_vendor = null;
-                if (array_key_exists('vendor', $query)) {
-                    $part_vendor = $this->PartTransactions->PartVendors->findByVendorId($query['vendor']);
-                } else {
-                    if (array_key_exists('vendor_name', $data)) {
-                        $vendor = $this->Vendors->findByVendorName($data['vendor_name']);
-                        $part_vendor = $this->PartTransactions->PartVendors->findByVendorId($query['vendor']);
-                        
+                
+                if (array_key_exists('vendor_name', $data)) {
+                    $vendor = $this->Vendors->findByVendorName($data['vendor_name'])->first();
+                    if (!$vendor) {
+                        $this->Flash->error('Vendor does not exist. Transaction could not be created.');
+                        return $this->redirect([
+                            'controller' => 'Parts',
+                            'action' => 'view',
+                            $part_id
+                        ]);
                     }
+                    $part_vendor = $this->PartTransactions->PartVendors->findByVendorIdAndPartId($vendor->id, $part_id)->first();
                 }
-                if (is_null($part_vendor)) {
+                
+                if (!$part_vendor) {
                     $this->Flash->error('A Part Vendor for this item cannot be found. Once a Part Vendor has been created, the transaction will be saved.');
                     return $this->redirect([
                         'controller' => 'PartVendors',
                         'action' => 'add',
                         '?' => [
-                            'return_to' => 'trans',
-                            'session' => json_encode($data)
+                            'redirect' => json_encode(['controller' => 'Parts', 'action' => 'view', $part_id]),
+                            'trans' => json_encode($data)
                         ]
                     ]);
                 } else {
                     $this->request->data['part_vendor_id'] = $part_vendor->id;
-                    // TODO: Add flow for when the loop comes back around from PartVendors.
                 }
             }
-            
+            Log::write('debug', $this->request->data);
             $partTransaction = $this->PartTransactions->patchEntity($partTransaction, $this->request->data);
             if ($this->PartTransactions->save($partTransaction)) {
                 $this->Flash->success('The part transaction has been saved.');
-                return $this->redirect(['controller' => 'Parts', 'action' => 'view', $partVendor]);
+                return $this->redirect(['controller' => 'Parts', 'action' => 'view', $part_id]);
             } else {
                 $this->Flash->error('The part transaction could not be saved. Please, try again.');
             }
