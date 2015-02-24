@@ -40,8 +40,8 @@
     - [ ] index
       - [ ] correct table layout
       
-### Workorders
+### Workorders & Tasks
 - [ ] Create plugin
-
-### Tasks
-- [ ] Create plugin
+- [ ] Move migrations
+  - [x] Create new migration based off of old
+  - [x] Delete old migrations

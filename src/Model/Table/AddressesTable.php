@@ -1,16 +1,16 @@
 <?php
 namespace App\Model\Table;
 
-use App\Model\Entity\VendorRate;
+use App\Model\Entity\Address;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
- * VendorRates Model
+ * Addresses Model
  */
-class VendorRatesTable extends Table
+class AddressesTable extends Table
 {
 
     /**
@@ -21,9 +21,10 @@ class VendorRatesTable extends Table
      */
     public function initialize(array $config)
     {
-        $this->table('vendor_rates');
+        $this->table('addresses');
         $this->displayField('id');
         $this->primaryKey('id');
+        
     }
 
     /**
@@ -37,20 +38,21 @@ class VendorRatesTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->add('rate', 'valid', [
-                'rule' => 'numeric',
-                'on' => function ($context) {
-                    return is_int($context);
-                }
-            ])
-            ->add('rate', 'valid', [
-                'rule' => 'decimal',
-                'on' => function ($context) {
-                    return is_float($context);
-                }
-            ])
-            ->requirePresence('rate', 'create')
-            ->notEmpty('rate');
+            ->requirePresence('address', 'create')
+            ->notEmpty('address')
+            ->requirePresence('city', 'create')
+            ->notEmpty('city')
+            ->add('zip_code', 'valid', ['rule' => 'numeric'])
+            ->requirePresence('zip_code', 'create')
+            ->notEmpty('zip_code')
+            ->requirePresence('country', 'create')
+            ->notEmpty('country')
+            ->requirePresence('state', 'create')
+            ->notEmpty('state')
+            ->requirePresence('m_phone', 'create')
+            ->notEmpty('m_phone')
+            ->requirePresence('f_phone', 'create')
+            ->notEmpty('f_phone');
 
         return $validator;
     }

@@ -196,3 +196,5 @@ Plugin::load('DebugKit', ['bootstrap' => true]);
 DispatcherFactory::add('Asset');
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
+
+Plugin::load('Workorder', ['bootstrap' => false, 'routes' => true]);

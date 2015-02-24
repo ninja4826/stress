@@ -21,7 +21,7 @@ class Users extends AbstractMigration
                 ->addColumn('role_id', 'integer')
                 ->addColumn('created', 'datetime')
                 ->addColumn('modified', 'datetime')
-                ->addForeignKey('staff_id', 'staff', 'id')
+                ->addForeignKey('staff_id', 'staffs', 'id')
                 ->addForeignKey('role_id', 'roles', 'id')
                 ->save();
         }

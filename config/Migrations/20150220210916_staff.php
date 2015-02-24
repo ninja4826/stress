@@ -15,7 +15,7 @@ class Staff extends AbstractMigration
             ->addColumn('m_phone', 'string')
             ->addColumn('f_phone', 'string')
             ->save();
-        $staff = $this->table('staff');
+        $staff = $this->table('staffs');
         $staff
             ->addColumn('first_name', 'string')
             ->addColumn('last_name', 'string')
