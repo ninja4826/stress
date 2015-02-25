@@ -62,6 +62,7 @@ class PartTransactionsController extends AppController
     {
         $partTransaction = $this->PartTransactions->newEntity();
         $query = $this->request->query;
+        $session = $this->request->session();
         $this->loadModel('Vendors');
         if ($this->request->is('post')) {
             
@@ -85,13 +86,15 @@ class PartTransactionsController extends AppController
                 
                 if (!$part_vendor) {
                     $this->Flash->error('A Part Vendor for this item cannot be found. Once a Part Vendor has been created, the transaction will be saved.');
+                    $session->write('Trans.redirect', json_encode(['controller' => 'Parts', 'action' => 'view', $part_id]));
+                    $session->write('Trans.transaction', json_encode($data));
                     return $this->redirect([
                         'controller' => 'PartVendors',
                         'action' => 'add',
-                        '?' => [
-                            'redirect' => json_encode(['controller' => 'Parts', 'action' => 'view', $part_id]),
-                            'trans' => json_encode($data)
-                        ]
+                        // '?' => [
+                        //     'redirect' => json_encode(['controller' => 'Parts', 'action' => 'view', $part_id]),
+                        //     'trans' => json_encode($data)
+                        // ]
                     ]);
                 } else {
                     $this->request->data['part_vendor_id'] = $part_vendor->id;

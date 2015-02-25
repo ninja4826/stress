@@ -37,9 +37,10 @@ class PartVendorsController extends AppController
     public function add()
     {
         $q = $this->request->query;
-        $trans = null;
-        if (array_key_exists('trans', $q)) {
-            $trans = json_decode($q['trans'], true);
+        $session = $this->request->session();
+        $trans = $session->consume('Trans.transaction');
+        if ($trans) {
+            $trans = json_decode($trans, true);
         }
         $partVendor = $this->PartVendors->newEntity();
         if ($this->request->is('post')) {
@@ -67,8 +68,9 @@ class PartVendorsController extends AppController
                     $part_trans = $this->PartTransactions->newEntity($trans_data);
                     if ($this->PartTransactions->save($part_trans)) {
                         $this->Flash->success('The part vendor has been created, and the transaction has been saved.');
-                        if (array_key_exists('redirect', $q)) {
-                            $redirect = json_decode($q['redirect'], true);
+                        $redirect = $session->consume('Trans.redirect');
+                        if ($redirect) {
+                            $redirect = json_decode($redirect, true);
                             return $this->redirect($redirect);
                         }
                     }

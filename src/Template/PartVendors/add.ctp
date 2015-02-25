@@ -20,10 +20,10 @@
         <legend><?= __('Add Part Vendor') ?></legend>
         
             <?php
-                if (!array_key_exists('trans', $q)) {
+                if (!$this->request->session()->read('Trans.transaction')) {
                     echo $this->Form->input('vendor_id', ['options' => $vendors]);
                     echo $this->Form->input('part_id', ['options' => $parts]);
-                }
+                } 
             ?>
             
             <?= $this->Form->input('markup') ?>
