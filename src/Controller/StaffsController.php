@@ -88,10 +88,14 @@ class StaffsController extends AppController
     public function edit($id = null)
     {
         $staff = $this->Staffs->get($id, [
-            'contain' => []
+            'contain' => ['Addresses']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $staff = $this->Staffs->patchEntity($staff, $this->request->data);
+            $staff = $this->Staffs->patchEntity($staff, $this->request->data, [
+                'associated' => [
+                    'Addresses'
+                ]
+            ]);
             if ($this->Staffs->save($staff)) {
                 $this->Flash->success('The staff has been saved.');
                 return $this->redirect(['action' => 'index']);
@@ -99,8 +103,7 @@ class StaffsController extends AppController
                 $this->Flash->error('The staff could not be saved. Please, try again.');
             }
         }
-        $addresses = $this->Staffs->Addresses->find('list', ['limit' => 200]);
-        $this->set(compact('staff', 'addresses'));
+        $this->set(compact('staff'));
         $this->set('_serialize', ['staff']);
     }
 

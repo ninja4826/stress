@@ -29,7 +29,7 @@ require dirname(__DIR__) . '/config/bootstrap.php';
 use Cake\Network\Request;
 use Cake\Network\Response;
 use Cake\Routing\DispatcherFactory;
-
+session_save_path(ROOT . '/tmp');
 $dispatcher = DispatcherFactory::create();
 $dispatcher->dispatch(
     Request::createFromGlobals(),
