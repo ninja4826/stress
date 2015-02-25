@@ -14,8 +14,20 @@
             echo $this->Form->input('first_name');
             echo $this->Form->input('last_name');
             echo $this->Form->input('email');
-            echo $this->Form->input('active');
-            echo $this->Form->input('address_id', ['options' => $addresses]);
+            echo $this->Form->input('active', ['default' => true]);
+            echo $this->Form->hidden('address_id');
+        ?>
+    </fieldset>
+    <fieldset>
+        <legend><?= __('Add an Address') ?></legend>
+        <?php
+            echo $this->Form->input('address.street_address');
+            echo $this->Form->input('address.city');
+            echo $this->Form->input('address.zip_code', ['label' => 'Zip Code']);
+            echo $this->Form->input('address.state');
+            echo $this->Form->input('address.country');
+            echo $this->Form->input('address.m_phone', ['label' => 'Mobile Phone']);
+            echo $this->Form->input('address.f_phone', ['label' => 'Fax Phone']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit')) ?>

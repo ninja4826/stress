@@ -197,4 +197,8 @@ DispatcherFactory::add('Asset');
 DispatcherFactory::add('Routing');
 DispatcherFactory::add('ControllerFactory');
 
-Plugin::load('Workorder', ['bootstrap' => false, 'routes' => true]);
+Configure::write('Session', [
+    'defaults' => 'php'
+]);
+
+// Plugin::load('Workorder', ['bootstrap' => false, 'routes' => true]);

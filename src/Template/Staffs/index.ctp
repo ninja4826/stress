@@ -10,7 +10,6 @@
     <table cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('first_name') ?></th>
             <th><?= $this->Paginator->sort('last_name') ?></th>
             <th><?= $this->Paginator->sort('email') ?></th>
@@ -22,7 +21,6 @@
     <tbody>
     <?php foreach ($staffs as $staff): ?>
         <tr>
-            <td><?= $this->Number->format($staff->id) ?></td>
             <td><?= h($staff->first_name) ?></td>
             <td><?= h($staff->last_name) ?></td>
             <td><?= h($staff->email) ?></td>

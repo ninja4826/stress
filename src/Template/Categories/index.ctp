@@ -8,7 +8,6 @@
     <table cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('category_name') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
         </tr>
@@ -16,7 +15,6 @@
     <tbody>
     <?php foreach ($categories as $category): ?>
         <tr>
-            <td><?= $this->Number->format($category->id) ?></td>
             <td><?= h($category->category_name) ?></td>
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>

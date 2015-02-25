@@ -10,7 +10,6 @@
     <table cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('location_name') ?></th>
             <th><?= $this->Paginator->sort('isle') ?></th>
             <th><?= $this->Paginator->sort('seg') ?></th>
@@ -22,7 +21,6 @@
     <tbody>
     <?php foreach ($locations as $location): ?>
         <tr>
-            <td><?= $this->Number->format($location->id) ?></td>
             <td><?= h($location->location_name) ?></td>
             <td><?= h($location->isle) ?></td>
             <td><?= $this->Number->format($location->seg) ?></td>

@@ -19,12 +19,6 @@
             <p><?= h($vendor->website) ?></p>
             <h6 class="subheader"><?= __('Email') ?></h6>
             <p><?= h($vendor->email) ?></p>
-        </div>
-        <div class="large-2 columns numbers end">
-            <h6 class="subheader"><?= __('Id') ?></h6>
-            <p><?= $this->Number->format($vendor->id) ?></p>
-        </div>
-        <div class="large-2 columns booleans end">
             <h6 class="subheader"><?= __('Active') ?></h6>
             <p><?= $vendor->active ? __('Yes') : __('No'); ?></p>
         </div>

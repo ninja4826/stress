@@ -8,23 +8,15 @@
     </ul>
 </div>
 <div class="costCenters view large-10 medium-9 columns">
-    <h2><?= h($costCenter->id) ?></h2>
+    <h2><?= h($costCenter->e_code) ?></h2>
     <div class="row">
         <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('E Code') ?></h6>
-            <p><?= h($costCenter->e_code) ?></p>
             <h6 class="subheader"><?= __('Description') ?></h6>
             <p><?= h($costCenter->description) ?></p>
             <h6 class="subheader"><?= __('Default Value') ?></h6>
             <p><?= h($costCenter->default_value) ?></p>
-        </div>
-        <div class="large-2 columns numbers end">
-            <h6 class="subheader"><?= __('Id') ?></h6>
-            <p><?= $this->Number->format($costCenter->id) ?></p>
             <h6 class="subheader"><?= __('Project Number') ?></h6>
-            <p><?= $this->Number->format($costCenter->project_number) ?></p>
-        </div>
-        <div class="large-2 columns booleans end">
+            <p><?= h($costCenter->project_number) ?></p>
             <h6 class="subheader"><?= __('Active') ?></h6>
             <p><?= $costCenter->active ? __('Yes') : __('No'); ?></p>
         </div>

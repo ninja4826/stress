@@ -32,9 +32,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-    <?= $this->Html->css('http://code.jquery.com/ui/1.11.3/themes/smoothness/jquery-ui.css') ?>
-    <?= $this->Html->script('http://code.jquery.com/jquery-1.11.2.min.js') ?>
-    <?= $this->Html->script('http://code.jquery.com/ui/1.11.3/jquery-ui.js') ?>
+    <?= $this->Html->script('jquery-1.11.2.min') ?>
+    <?= $this->Html->script('jquery-ui') ?>
+    <?= $this->Html->css('jquery-ui') ?>
 </head>
 <body>
     <header>
@@ -42,7 +42,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             <span><?= $this->fetch('title'); ?></span>
         </div>
         <div class="header-help">
-            <?php $controllers = ['Parts', 'Locations', 'Manufacturers', 'Vendors', 'Categories', 'CostCenters']; ?>
+            <?php $controllers = ['Parts', 'Locations', 'Manufacturers', 'Vendors', 'Categories', 'CostCenters', 'Staffs']; ?>
             <?php foreach ($controllers as $controller): ?>
                 <span><?= $this->Html->link(__($controller), ['controller' => $controller, 'action' => 'index']); ?></span>
             <?php endforeach; ?>

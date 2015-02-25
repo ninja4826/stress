@@ -16,12 +16,11 @@
     <table cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
+            <th><?= __('Part Number') ?></th>
             <th><?= $this->Paginator->sort('manufacturer_id') ?></th>
             <th><?= $this->Paginator->sort('category_id') ?></th>
-            <th><?= $this->Paginator->sort('part_num') ?></th>
             <th><?= $this->Paginator->sort('description') ?></th>
-            <th><?= $this->Paginator->sort('amt_on_hand') ?></th>
+            <th><?= __('Amount on Hand') ?></th>
             <th><?= $this->Paginator->sort('location_id') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
         </tr>
@@ -29,14 +28,13 @@
     <tbody>
     <?php foreach ($parts as $part): ?>
         <tr>
-            <td><?= $this->Number->format($part->id) ?></td>
+            <td><?= h($part->part_num) ?></td>
             <td>
                 <?= $part->has('manufacturer') ? $this->Html->link($part->manufacturer->manufacturer_name, ['controller' => 'Manufacturers', 'action' => 'view', $part->manufacturer->id]) : '' ?>
             </td>
             <td>
                 <?= $part->has('category') ? $this->Html->link($part->category->category_name, ['controller' => 'Categories', 'action' => 'view', $part->category->id]) : '' ?>
             </td>
-            <td><?= h($part->part_num) ?></td>
             <td><?= h($part->description) ?></td>
             <td><?= $this->Number->format($part->amt_on_hand) ?></td>
             <td>

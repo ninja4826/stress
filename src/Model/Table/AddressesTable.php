@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\Log\Log;
 
 /**
  * Addresses Model
@@ -38,8 +39,8 @@ class AddressesTable extends Table
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->requirePresence('address', 'create')
-            ->notEmpty('address')
+            ->requirePresence('street_address', 'create')
+            ->notEmpty('street_address')
             ->requirePresence('city', 'create')
             ->notEmpty('city')
             ->add('zip_code', 'valid', ['rule' => 'numeric'])
@@ -48,11 +49,7 @@ class AddressesTable extends Table
             ->requirePresence('country', 'create')
             ->notEmpty('country')
             ->requirePresence('state', 'create')
-            ->notEmpty('state')
-            ->requirePresence('m_phone', 'create')
-            ->notEmpty('m_phone')
-            ->requirePresence('f_phone', 'create')
-            ->notEmpty('f_phone');
+            ->notEmpty('state');
 
         return $validator;
     }

@@ -8,7 +8,6 @@
     <table cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('e_code') ?></th>
             <th><?= $this->Paginator->sort('description') ?></th>
             <th><?= $this->Paginator->sort('active') ?></th>
@@ -20,12 +19,11 @@
     <tbody>
     <?php foreach ($costCenters as $costCenter): ?>
         <tr>
-            <td><?= $this->Number->format($costCenter->id) ?></td>
             <td><?= h($costCenter->e_code) ?></td>
             <td><?= h($costCenter->description) ?></td>
             <td><?= h($costCenter->active) ?></td>
             <td><?= h($costCenter->default_value) ?></td>
-            <td><?= $this->Number->format($costCenter->project_number) ?></td>
+            <td><?= h($costCenter->project_number) ?></td>
             <td class="actions">
                 <?= $this->Html->link(__('View'), ['action' => 'view', $costCenter->id]) ?>
                 <?= $this->Html->link(__('Edit'), ['action' => 'edit', $costCenter->id]) ?>

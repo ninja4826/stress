@@ -15,7 +15,7 @@ class Address extends Entity
      * @var array
      */
     protected $_accessible = [
-        'address' => true,
+        'street_address' => true,
         'city' => true,
         'zip_code' => true,
         'country' => true,

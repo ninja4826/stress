@@ -8,15 +8,5 @@
     </ul>
 </div>
 <div class="categories view large-10 medium-9 columns">
-    <h2><?= h($category->id) ?></h2>
-    <div class="row">
-        <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('Category') ?></h6>
-            <p><?= h($category->category_name) ?></p>
-        </div>
-        <div class="large-2 columns numbers end">
-            <h6 class="subheader"><?= __('Id') ?></h6>
-            <p><?= $this->Number->format($category->id) ?></p>
-        </div>
-    </div>
+    <h2><?= h($category->category_name) ?></h2>
 </div>

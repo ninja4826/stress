@@ -149,6 +149,13 @@ Router::scope('/staff', ['controller' => 'Staffs'], function($sub) {
     $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
 });
 
+Router::scope('/address', ['controller' => 'Addresses'], function($sub) {
+    $sub->connect('/', ['action' => 'index']);
+    $sub->connect('/add', ['action' => 'add']);
+    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+});
+
 /**
  * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.

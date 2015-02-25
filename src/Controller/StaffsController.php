@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
-
+use Cake\Log\Log;
 /**
  * Staffs Controller
  *
@@ -10,6 +10,11 @@ use App\Controller\AppController;
  */
 class StaffsController extends AppController
 {
+    
+    public function initialize() {
+        parent::initialize();
+        $this->loadModel('Addresses');
+    }
 
     /**
      * Index method
@@ -37,6 +42,7 @@ class StaffsController extends AppController
         $staff = $this->Staffs->get($id, [
             'contain' => ['Addresses']
         ]);
+        Log::write('debug', $staff);
         $this->set('staff', $staff);
         $this->set('_serialize', ['staff']);
     }
@@ -50,7 +56,17 @@ class StaffsController extends AppController
     {
         $staff = $this->Staffs->newEntity();
         if ($this->request->is('post')) {
-            $staff = $this->Staffs->patchEntity($staff, $this->request->data);
+            $staff = $this->Staffs->patchEntity($staff, $this->request->data, [
+                'associated' => [
+                    'Addresses'
+                ]
+            ]);
+            // Log::write('debug', gettype($staff->address));
+            $address = $this->Addresses->newEntity(json_decode(json_encode($staff->address), true));
+            if ($this->Addresses->save($address)) {
+                $staff->address_id = $address->id;
+            }
+            // Log::write('debug', $staff);
             if ($this->Staffs->save($staff)) {
                 $this->Flash->success('The staff has been saved.');
                 return $this->redirect(['action' => 'index']);
@@ -58,8 +74,7 @@ class StaffsController extends AppController
                 $this->Flash->error('The staff could not be saved. Please, try again.');
             }
         }
-        $addresses = $this->Staffs->Addresses->find('list', ['limit' => 200]);
-        $this->set(compact('staff', 'addresses'));
+        $this->set(compact('staff'));
         $this->set('_serialize', ['staff']);
     }
 
@@ -100,8 +115,13 @@ class StaffsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $staff = $this->Staffs->get($id);
+        $address = $staff->address;
         if ($this->Staffs->delete($staff)) {
-            $this->Flash->success('The staff has been deleted.');
+            if ($this->Addresses->delete($address)) {
+                $this->Flash->success('The staff has been deleted.');
+            } else {
+                $this->Flash->error('The staff could not be deleted due to implications with the address. Please, try again.');
+            }
         } else {
             $this->Flash->error('The staff could not be deleted. Please, try again.');
         }

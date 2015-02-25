@@ -10,25 +10,37 @@
     </ul>
 </div>
 <div class="staffs view large-10 medium-9 columns">
-    <h2><?= h($staff->id) ?></h2>
+    <h2><?= h($staff->first_name . ' ' . $staff->last_name) ?></h2>
     <div class="row">
         <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('First Name') ?></h6>
-            <p><?= h($staff->first_name) ?></p>
-            <h6 class="subheader"><?= __('Last Name') ?></h6>
-            <p><?= h($staff->last_name) ?></p>
             <h6 class="subheader"><?= __('Email') ?></h6>
             <p><?= h($staff->email) ?></p>
-            <h6 class="subheader"><?= __('Address') ?></h6>
-            <p><?= $staff->has('address') ? $this->Html->link($staff->address->id, ['controller' => 'Addresses', 'action' => 'view', $staff->address->id]) : '' ?></p>
-        </div>
-        <div class="large-2 columns numbers end">
-            <h6 class="subheader"><?= __('Id') ?></h6>
-            <p><?= $this->Number->format($staff->id) ?></p>
-        </div>
-        <div class="large-2 columns booleans end">
             <h6 class="subheader"><?= __('Active') ?></h6>
             <p><?= $staff->active ? __('Yes') : __('No'); ?></p>
         </div>
+        <?php if ($staff->address): ?>
+            <?php $address = $staff->address; ?>
+            <div class="large-5 columns strings">
+                <legend><?= $this->Html->link(__('Address'), ['controller' => 'Addresses', 'action' => 'view', $staff->address->id]) ?></legend>
+                <h6 class="subheader"><?= __('Street Address') ?></h6>
+                <p><?= h($address->street_address) ?></p>
+                <h6 class="subheader"><?= __('City') ?></h6>
+                <p><?= h($address->city) ?></p>
+                <h6 class="subheader"><?= __('Zip Code') ?></h6>
+                <p><?= h($address->zip_code) ?></p>
+                <h6 class="subheader"><?= __('State') ?></h6>
+                <p><?= h($address->state) ?></p>
+                <h6 class="subheader"><?= __('Country') ?></h6>
+                <p><?= h($address->country) ?></p>
+                <?php if ($address->m_phone): ?>
+                    <h6 class="subheader"><?= __('Mobile Phone') ?></h6>
+                    <p><?= h($address->m_phone) ?></p>
+                <?php endif; ?>
+                <?php if ($address->f_phone): ?>
+                    <h6 class="subheader"><?= __('Fax') ?></h6>
+                    <p><?= h($address->f_phone) ?></p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
     </div>
 </div>

@@ -8,7 +8,6 @@
     <table cellpadding="0" cellspacing="0">
     <thead>
         <tr>
-            <th><?= $this->Paginator->sort('id') ?></th>
             <th><?= $this->Paginator->sort('manufacturer_name') ?></th>
             <th><?= $this->Paginator->sort('active') ?></th>
             <th class="actions"><?= __('Actions') ?></th>
@@ -17,7 +16,6 @@
     <tbody>
     <?php foreach ($manufacturers as $manufacturer): ?>
         <tr>
-            <td><?= $this->Number->format($manufacturer->id) ?></td>
             <td><?= h($manufacturer->manufacturer_name) ?></td>
             <td><?= h($manufacturer->active) ?></td>
             <td class="actions">
