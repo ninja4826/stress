@@ -4,6 +4,9 @@
 ## General Cleanup
 - [x] fix tables and headers
 - [x] add links where necessary
-- [x] Create global link bar
+- [ ] Create global link bar
 
 ## User authorization
+- [ ] Create Permissions Table
+- [ ] Create Permissions Controller
+- [ ] Show Table of permitted workorders

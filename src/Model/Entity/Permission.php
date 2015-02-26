@@ -17,6 +17,7 @@ class Permission extends Entity
     protected $_accessible = [
         'user_id' => true,
         'workorder_id' => true,
+        'can_edit' => true,
         'user' => true,
         'workorder' => true,
     ];

@@ -12,6 +12,7 @@ class Users extends AbstractMigration
         $permissions
             ->addColumn('user_id', 'integer', ['null' => true])
             ->addColumn('workorder_id', 'integer', ['null' => true])
+            ->addColumn('can_edit', 'boolean', ['default' => false])
             ->save();
         
         if ($this->hasTable('staffs') && $this->hasTable('permissions')) {

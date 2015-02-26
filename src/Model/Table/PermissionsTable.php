@@ -46,7 +46,10 @@ class PermissionsTable extends Table
             ->add('user_id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('user_id')
             ->add('workorder_id', 'valid', ['rule' => 'numeric'])
-            ->allowEmpty('workorder_id');
+            ->allowEmpty('workorder_id')
+            ->add('can_edit', 'valid', ['rule' => 'boolean'])
+            ->requirePresence('can_edit', 'create')
+            ->notEmpty('can_edit');
 
         return $validator;
     }

@@ -19,6 +19,8 @@ class PermissionsTableTest extends TestCase
     public $fixtures = [
         'Permissions' => 'app.permissions',
         'Users' => 'app.users',
+        'Staffs' => 'app.staffs',
+        'Addresses' => 'app.addresses',
         'Workorders' => 'app.workorders'
     ];
 
