@@ -13,7 +13,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-$cakeDescription = 'CakePHP: the rapid development php framework';
+$cakeDescription = 'Stress Engineering';
 ?>
 <!DOCTYPE html>
 <html>
@@ -32,8 +32,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
-    <?= $this->Html->script('jquery-1.11.2.min') ?>
-    <?= $this->Html->script('jquery-ui') ?>
+    <?php $content = $this->fetch('content') ?>
+    
+    <?php
+        use Cake\Log\Log;
+        if (strpos($content, '<script>') !== false) {
+            echo $this->Html->script('jquery-1.11.2.min');
+            echo $this->Html->script('jquery-ui.min');
+        }
+    ?>
     <?= $this->Html->css('jquery-ui') ?>
 </head>
 <body>
@@ -49,12 +56,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </div>
     </header>
     <div id="container">
-
         <div id="content">
             <?= $this->Flash->render() ?>
 
             <div class="row">
-                <?= $this->fetch('content') ?>
+                <?= $content ?>
             </div>
         </div>
         <footer>

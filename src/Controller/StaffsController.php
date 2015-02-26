@@ -40,9 +40,8 @@ class StaffsController extends AppController
     public function view($id = null)
     {
         $staff = $this->Staffs->get($id, [
-            'contain' => ['Addresses']
+            'contain' => ['Addresses', 'Users']
         ]);
-        Log::write('debug', $staff);
         $this->set('staff', $staff);
         $this->set('_serialize', ['staff']);
     }

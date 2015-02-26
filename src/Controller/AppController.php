@@ -15,6 +15,7 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Log\Log;
 
 /**
  * Application Controller
@@ -37,5 +38,13 @@ class AppController extends Controller
     public function initialize()
     {
         $this->loadComponent('Flash');
+    }
+    
+    public function redirect($url, $status = 302) {
+        /*
+        $this->request->session()->write('Redirect.last_page', json_encode($this->request->params));
+        parent::redirect($url, $status);
+        */
+        
     }
 }

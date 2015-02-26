@@ -17,6 +17,9 @@ class RecordGeneratorTask extends Shell {
         $this->loadModel('PartVendors');
         $this->loadModel('PartTransactions');
         $this->loadModel('PartPriceHistories');
+        $this->loadModel('Staffs');
+        $this->loadModel('Addresses');
+        $this->loadModel('Users');
     }
     
     public function main()
@@ -97,6 +100,54 @@ class RecordGeneratorTask extends Shell {
                 }
             }
         }
+        $address = $this->Addresses->save($this->Addresses->newEntity([
+            'street_address' => '18218 Hampton Oak ct.',
+            'city' => 'Spring',
+            'zip_code' => 77379,
+            'country' => 'United States',
+            'state' => 'Texas',
+            'm_phone' => 2816152465
+        ]));
+        $address_ = $this->Addresses->save($this->Addresses->newEntity([
+            'street_address' => '18218 Hampton Oak ct.',
+            'city' => 'Spring',
+            'zip_code' => 77379,
+            'country' => 'United States',
+            'state' => 'Texas',
+            'm_phone' => 2816152465
+        ]));
         
+        $this->out($address);
+        if ($address) {
+            $staff = $this->Staffs->save($this->Staffs->newEntity([
+                'first_name' => 'Russell',
+                'last_name' => 'Hueske',
+                'email' => 'hueske.russ690@gmail.com',
+                'active' => true,
+                'address_id' => 1
+            ]));
+            $this->out($staff);
+            if ($staff) {
+                $user = $this->Users->save($this->Users->newEntity([
+                    'username' => 'admin',
+                    'password' => 'admin',
+                    'staff_id' => 1,
+                ]));
+                $this->out($user);
+                $staff_ = $this->Staffs->get(1, [
+                    'contain' => ['Users']
+                ]);
+                $this->out($staff_);
+            }
+        }
+        if ($address_) {    
+            $staff_ = $this->Staffs->save($this->Staffs->newEntity([
+                'first_name' => 'McKenzie',
+                'last_name' => 'Moore',
+                'email' => 'kenzie_316@hotmail.com',
+                'active' => true,
+                'address_id' => 2
+            ]));
+        }
     }
 }

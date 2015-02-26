@@ -18,9 +18,11 @@ class Staff extends Entity
     protected $_accessible = [
         'first_name' => true,
         'last_name' => true,
+        'full_name' => true,
         'email' => true,
         'active' => true,
         'address_id' => true,
         'address' => true,
+        'user' => true
     ];
 }

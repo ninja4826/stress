@@ -1,6 +1,7 @@
 <div class="actions columns large-2 medium-3">
     <h3><?= __('Actions') ?></h3>
     <ul class="side-nav">
+        <li><?= debug($this->request->session()->read('Redirect.last_page')) ?></li>
         <li><?= $this->Html->link(__('Edit Staff'), ['action' => 'edit', $staff->id]) ?> </li>
         <li><?= $this->Form->postLink(__('Delete Staff'), ['action' => 'delete', $staff->id], ['confirm' => __('Are you sure you want to delete # {0}?', $staff->id)]) ?> </li>
         <li><?= $this->Html->link(__('List Staffs'), ['action' => 'index']) ?> </li>
@@ -17,6 +18,23 @@
             <p><?= h($staff->email) ?></p>
             <h6 class="subheader"><?= __('Active') ?></h6>
             <p><?= $staff->active ? __('Yes') : __('No'); ?></p>
+            <?php if (!$staff->user): ?>
+                <h6 class="subheader">
+                    <?= $this->Html->link(__('Create a user for this staff member.'), [
+                        'controller' => 'Users',
+                        'action' => 'add',
+                        '?' => ['staff' => $staff->id]
+                    ]) ?>
+                </h6>
+            <?php else: ?>
+                <h6 class="subheader">
+                    <?= $this->Html->link(__('User account of staff member.'), [
+                        'controller' => 'Users',
+                        'action' => 'view',
+                        $staff->user->id
+                    ]) ?>
+                </h6>
+            <?php endif; ?>
         </div>
         <?php if ($staff->address): ?>
             <?php $address = $staff->address; ?>

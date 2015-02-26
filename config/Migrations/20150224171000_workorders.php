@@ -37,7 +37,7 @@ class Workorders extends AbstractMigration
             ->addColumn('wo_req', 'string')
             ->addForeignKey('wo_status_id', 'wo_statuses', 'id')
             ->addForeignKey('wo_type_id', 'wo_types', 'id')
-            ->addForeignKey('pm_id', 'stress.staff', 'id')
+            ->addForeignKey('pm_id', 'staffs', 'id')
             ->addForeignKey('req_id', 'requestors', 'id')
             ->save();
         $wo_update_histories = $this->table('wo_update_histories');
@@ -46,7 +46,7 @@ class Workorders extends AbstractMigration
             ->addColumn('staff_id', 'integer')
             ->addColumn('date_modified', 'datetime')
             ->addForeignKey('workorder_id', 'workorders', 'id')
-            ->addForeignKey('staff_id', 'stress.staff', 'id')
+            ->addForeignKey('staff_id', 'staffs', 'id')
             ->save();
         $task_statuses = $this->table('task_statuses');
         $task_statuses
@@ -71,7 +71,7 @@ class Workorders extends AbstractMigration
             ->addColumn('task_status_id', 'integer')
             ->addColumn('task_id', 'integer')
             ->addForeignKey('workorder_id', 'workorders', 'id')
-            ->addForeignKey('staff_id', 'stress.staff', 'id')
+            ->addForeignKey('staff_id', 'staffs', 'id')
             ->addForeignKey('task_status_id', 'task_statuses', 'id')
             ->addForeignKey('task_id', 'tasks', 'id')
             ->save();
@@ -82,7 +82,7 @@ class Workorders extends AbstractMigration
             ->addColumn('update_type', 'string')
             ->addColumn('date_modified', 'datetime')
             ->addForeignKey('wo_task_id', 'wo_tasks', 'id')
-            ->addForeignKey('staff_id', 'stress.staff', 'id')
+            ->addForeignKey('staff_id', 'staffs', 'id')
             ->save();
         $part_tasks = $this->table('part_tasks');
         $part_tasks

@@ -1,6 +1,9 @@
 ## Tend to tables
-- Addresses
-- Staffs
+- [x] Addresses
+- [x] Staffs
 ## General Cleanup
-- fix tables and headers
-- add links where necessary
+- [x] fix tables and headers
+- [x] add links where necessary
+- [x] Create global link bar
+
+## User authorization

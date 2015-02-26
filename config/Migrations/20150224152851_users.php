@@ -7,22 +7,22 @@ class Users extends AbstractMigration
     
     public function change()
     {
-        $roles = $this->table('roles');
-        $roles
-            ->addColumn('role_name', 'string')
+        
+        $permissions = $this->table('permissions');
+        $permissions
+            ->addColumn('user_id', 'integer', ['null' => true])
+            ->addColumn('workorder_id', 'integer', ['null' => true])
             ->save();
         
-        if ($this->hasTable('staff') && $this->hasTable('roles')) {
+        if ($this->hasTable('staffs') && $this->hasTable('permissions')) {
             $users = $this->table('users');
             $users
                 ->addColumn('username', 'string')
                 ->addColumn('password', 'string')
                 ->addColumn('staff_id', 'integer')
-                ->addColumn('role_id', 'integer')
                 ->addColumn('created', 'datetime')
                 ->addColumn('modified', 'datetime')
                 ->addForeignKey('staff_id', 'staffs', 'id')
-                ->addForeignKey('role_id', 'roles', 'id')
                 ->save();
         }
     }

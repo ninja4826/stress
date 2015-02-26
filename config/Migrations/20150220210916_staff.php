@@ -19,6 +19,7 @@ class Staff extends AbstractMigration
         $staff
             ->addColumn('first_name', 'string')
             ->addColumn('last_name', 'string')
+            ->addColumn('full_name', 'string')
             ->addColumn('email', 'string')
             ->addColumn('active', 'boolean', ['default' => true])
             ->addColumn('address_id', 'integer')

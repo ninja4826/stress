@@ -22,10 +22,13 @@ class StaffsTable extends Table
     public function initialize(array $config)
     {
         $this->table('staffs');
-        $this->displayField('id');
+        $this->displayField('full_name');
         $this->primaryKey('id');
         $this->belongsTo('Addresses', [
             'foreignKey' => 'address_id'
+        ]);
+        $this->hasOne('Users', [
+            'foreignKey' => 'staff_id'
         ]);
     }
 
@@ -52,7 +55,9 @@ class StaffsTable extends Table
             ->notEmpty('active')
             ->add('address_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('address_id', 'create')
-            ->notEmpty('address_id');
+            ->notEmpty('address_id')
+            ->requirePresence('full_name', 'create')
+            ->notEmpty('full_name');
 
         return $validator;
     }
@@ -69,5 +74,13 @@ class StaffsTable extends Table
         $rules->add($rules->isUnique(['email']));
         $rules->add($rules->existsIn(['address_id'], 'Addresses'));
         return $rules;
+    }
+    
+    public function beforeMarshal($event, $data, $options) {
+        if (array_key_exists('first_name', $data) && array_key_exists('last_name', $data)) {
+            $data['full_name'] = $data['first_name'] . ' ' . $data['last_name'];
+            return true;
+        }
+        return false;
     }
 }
