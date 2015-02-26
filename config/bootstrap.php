@@ -201,6 +201,5 @@ Configure::write('Session', [
     'defaults' => 'php'
 ]);
 
-// Plugin::load('Workorder', ['bootstrap' => false, 'routes' => true]);
 
 Plugin::load('Workorders', ['bootstrap' => false, 'routes' => true]);
