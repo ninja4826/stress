@@ -15,6 +15,7 @@
 namespace App\Controller;
 
 use Cake\Controller\Controller;
+use Cake\Event\Event;
 use Cake\Log\Log;
 
 /**
@@ -38,13 +39,16 @@ class AppController extends Controller
     public function initialize()
     {
         $this->loadComponent('Flash');
+        $this->loadComponent('Auth', [
+            'loginRedirect' => $this->referer(),
+            'logoutRedirect' => [
+                'controller' => 'Parts',
+                'action' => 'index'
+            ]
+        ]);
     }
     
-    public function redirect($url, $status = 302) {
-        /*
-        $this->request->session()->write('Redirect.last_page', json_encode($this->request->params));
-        parent::redirect($url, $status);
-        */
-        
+    public function beforeFilter(Event $event) {
+        $this->Auth->allow(['index']);
     }
 }
