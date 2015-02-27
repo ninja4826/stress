@@ -88,6 +88,8 @@ class Workorders extends AbstractMigration
         $part_tasks
             ->addColumn('quantity', 'integer')
             ->addColumn('task_date', 'datetime')
+            ->addColumn('part_id', 'integer')
+            ->addForeignKey('part_id', 'parts', 'id')
             ->save();
     }
     
