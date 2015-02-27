@@ -49,7 +49,8 @@ $cakeDescription = 'Stress Engineering';
             <span><?= $this->fetch('title'); ?></span>
         </div>
         <div class="header-help">
-            <?php $controllers = ['Parts', 'Locations', 'Manufacturers', 'Vendors', 'Categories', 'CostCenters', 'Staffs']; ?>
+            <span id="logout">asdf</span>
+            <?php $controllers = ['Parts', 'Workorders', 'Locations', 'Manufacturers', 'Vendors', 'Categories', 'CostCenters', 'Staffs']; ?>
             <?php foreach ($controllers as $controller): ?>
                 <span><?= $this->Html->link(__($controller), ['controller' => $controller, 'action' => 'index']); ?></span>
             <?php endforeach; ?>
