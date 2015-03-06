@@ -28,7 +28,7 @@
     <tbody>
     <?php foreach ($parts as $part): ?>
         <tr>
-            <td><?= h($part->part_num) ?></td>
+            <td><?= $this->Html->link($part->part_num, ['action' => 'view', $part->id]) ?></td>
             <td>
                 <?= $part->has('manufacturer') ? $this->Html->link($part->manufacturer->manufacturer_name, ['controller' => 'Manufacturers', 'action' => 'view', $part->manufacturer->id]) : '' ?>
             </td>
@@ -41,7 +41,6 @@
                 <?= $part->has('location') ? $this->Html->link($part->location->location_name, ['controller' => 'Locations', 'action' => 'view', $part->location->id]) : '' ?>
             </td>
             <td class="actions">
-                <?= $this->Html->link(__('View'), ['action' => 'view', $part->id]) ?>
                 <?= $this->Html->link(__('Edit'), ['action' => 'edit', $part->id]) ?>
                 <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $part->id], ['confirm' => __('Are you sure you want to delete # {0}?', $part->id)]) ?>
             </td>

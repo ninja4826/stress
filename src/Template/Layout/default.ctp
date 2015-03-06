@@ -49,7 +49,19 @@ $cakeDescription = 'Stress Engineering';
             <span><?= $this->fetch('title'); ?></span>
         </div>
         <div class="header-help">
-            <span id="logout">asdf</span>
+            
+            <?php if (!empty($user)): ?>
+            
+                <span><?= $this->Html->link(__('Hello ' . $user['first_name'] . '!'), ['controller' => 'Staffs', 'action' => 'view', $user['staff_id']]) ?></span>
+                <span style="margin-right:25px"><?= $this->Html->link(__('Logout'), ['controller' => 'Users', 'action' => 'logout']) ?></span>
+                
+            <?php else: ?>
+            
+                <span style="margin-right:25px"><?= $this->Html->link(__('Log in'), ['controller' => 'Users', 'action' => 'login']) ?></span>
+                
+            <?php endif; ?>
+            
+            
             <?php $controllers = ['Parts', 'Workorders', 'Locations', 'Manufacturers', 'Vendors', 'Categories', 'CostCenters', 'Staffs']; ?>
             <?php foreach ($controllers as $controller): ?>
                 <span><?= $this->Html->link(__($controller), ['controller' => $controller, 'action' => 'index']); ?></span>

@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Log\Log;
+use Cake\Controller\Component\AuthComponent;
 
 /**
  * Application Controller
@@ -44,11 +45,26 @@ class AppController extends Controller
             'logoutRedirect' => [
                 'controller' => 'Parts',
                 'action' => 'index'
+            ],
+            'authenticate' => [
+                'Form' => [
+                    'contain' => [
+                        'Staffs'
+                    ]
+                ]
             ]
         ]);
+        $this->loadModel('Users');
     }
     
     public function beforeFilter(Event $event) {
         $this->Auth->allow(['index']);
+        $temp = $this->request->session()->read('Auth.User');
+        $user = [];
+        if ($temp) {
+            $user['staff_id'] = $temp['staff_id'];
+            $user['first_name'] = $temp['staff']['first_name'];
+        }
+        $this->set(compact('user'));
     }
 }
