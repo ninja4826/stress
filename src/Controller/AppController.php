@@ -29,7 +29,7 @@ use Cake\Controller\Component\AuthComponent;
  */
 class AppController extends Controller
 {
-
+    
     /**
      * Initialization hook method.
      *
@@ -39,32 +39,12 @@ class AppController extends Controller
      */
     public function initialize()
     {
-        $this->loadComponent('Flash');
-        $this->loadComponent('Auth', [
-            'loginRedirect' => $this->referer(),
-            'logoutRedirect' => [
-                'controller' => 'Parts',
-                'action' => 'index'
-            ],
-            'authenticate' => [
-                'Form' => [
-                    'contain' => [
-                        'Staffs'
-                    ]
-                ]
-            ]
-        ]);
-        $this->loadModel('Users');
+        $this->loadComponent('Bootstrap.Flash');
+        $this->helpers[] = 'Less.Less';
+        $this->helpers[] = 'Bootstrap.Form';
     }
     
     public function beforeFilter(Event $event) {
-        $this->Auth->allow(['index']);
-        $temp = $this->request->session()->read('Auth.User');
-        $user = [];
-        if ($temp) {
-            $user['staff_id'] = $temp['staff_id'];
-            $user['first_name'] = $temp['staff']['first_name'];
-        }
-        $this->set(compact('user'));
+        // $this->theme = 'Bootstrap';
     }
 }

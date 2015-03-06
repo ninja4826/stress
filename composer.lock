@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2d15b954dfb7ff7395cda16c44bbc80f",
+    "hash": "a31af912424f0242ceabc7cc02b83f75",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -446,16 +446,16 @@
         },
         {
             "name": "elboletaire/twbs-cake-plugin",
-            "version": "dev-master",
+            "version": "v3.0.0-rc2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/elboletaire/twbs-cake-plugin.git",
-                "reference": "df40ce0587564373563239ba3bf6cec7831877b5"
+                "reference": "50ac490960b9809ae78e85c9fe219b4ce4824c9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/elboletaire/twbs-cake-plugin/zipball/df40ce0587564373563239ba3bf6cec7831877b5",
-                "reference": "df40ce0587564373563239ba3bf6cec7831877b5",
+                "url": "https://api.github.com/repos/elboletaire/twbs-cake-plugin/zipball/50ac490960b9809ae78e85c9fe219b4ce4824c9f",
+                "reference": "50ac490960b9809ae78e85c9fe219b4ce4824c9f",
                 "shasum": ""
             },
             "require": {
@@ -490,7 +490,7 @@
                 "cakephp",
                 "plugin"
             ],
-            "time": "2015-02-21 12:38:54"
+            "time": "2015-02-21 11:53:32"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1932,7 +1932,6 @@
         "cakephp/cakephp": 20,
         "cakephp/migrations": 20,
         "cakephp/debug_kit": 20,
-        "elboletaire/twbs-cake-plugin": 20,
         "cakephp/bake": 20
     },
     "prefer-stable": true,
