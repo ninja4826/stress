@@ -11,7 +11,8 @@
         "cakephp/migrations": "dev-master",
         "cakephp/plugin-installer": "*",
         "cakephp/debug_kit": "3.0.*-dev",
-        "phpunit/phpunit": "*"
+        "phpunit/phpunit": "*",
+        "elboletaire/twbs-cake-plugin": "dev-master"
     },
     "require-dev": {
         "d11wtq/boris": "1.0.*",

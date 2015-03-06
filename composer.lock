@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4b433ca4205ffcde37bc15650b662f00",
+    "hash": "2d15b954dfb7ff7395cda16c44bbc80f",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -395,6 +395,104 @@
             "time": "2014-10-13 12:58:55"
         },
         {
+            "name": "elboletaire/less-cake-plugin",
+            "version": "v1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elboletaire/less-cake-plugin.git",
+                "reference": "68a2c532d0784b04dbfb7fd5b5f8a2fca03b2a8b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elboletaire/less-cake-plugin/zipball/68a2c532d0784b04dbfb7fd5b5f8a2fca03b2a8b",
+                "reference": "68a2c532d0784b04dbfb7fd5b5f8a2fca03b2a8b",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "3.0.x-dev",
+                "oyejorge/less.php": "1.7.0.2",
+                "php": ">=5.4.19"
+            },
+            "type": "cakephp-plugin",
+            "extra": {
+                "installer-name": "Less"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Less\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Òscar Casajuana",
+                    "email": "elboletaire@underave.net",
+                    "homepage": "http://racotecnic.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Less parser plugin for CakePHP",
+            "keywords": [
+                "cakephp",
+                "css",
+                "less",
+                "parser",
+                "plugin"
+            ],
+            "time": "2015-03-01 22:43:16"
+        },
+        {
+            "name": "elboletaire/twbs-cake-plugin",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/elboletaire/twbs-cake-plugin.git",
+                "reference": "df40ce0587564373563239ba3bf6cec7831877b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/elboletaire/twbs-cake-plugin/zipball/df40ce0587564373563239ba3bf6cec7831877b5",
+                "reference": "df40ce0587564373563239ba3bf6cec7831877b5",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/plugin-installer": "*",
+                "elboletaire/less-cake-plugin": "*",
+                "php": ">=5.4.19"
+            },
+            "type": "cakephp-plugin",
+            "extra": {
+                "installer-name": "Bootstrap"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Bootstrap\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Òscar Casajuana",
+                    "email": "elboletaire@underave.net",
+                    "homepage": "http://racotecnic.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Twitter Bootstrap Plugin for CakePHP 3 with bundled less.php parser, helper and bake templates",
+            "keywords": [
+                "bootstrap",
+                "cakephp",
+                "plugin"
+            ],
+            "time": "2015-02-21 12:38:54"
+        },
+        {
             "name": "ircmaxell/password-compat",
             "version": "v1.0.4",
             "source": {
@@ -534,6 +632,65 @@
                 "time"
             ],
             "time": "2014-09-26 02:52:02"
+        },
+        {
+            "name": "oyejorge/less.php",
+            "version": "v1.7.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/oyejorge/less.php.git",
+                "reference": "82372b389386ae1edab55495eae4b400cca3c86c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/oyejorge/less.php/zipball/82372b389386ae1edab55495eae4b400cca3c86c",
+                "reference": "82372b389386ae1edab55495eae4b400cca3c86c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "bin": [
+                "bin/lessc"
+            ],
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Less": "lib/"
+                },
+                "classmap": [
+                    "lessc.inc.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Matt Agar",
+                    "homepage": "https://github.com/agar"
+                },
+                {
+                    "name": "Martin Jantošovič",
+                    "homepage": "https://github.com/Mordred"
+                },
+                {
+                    "name": "Josh Schmidt",
+                    "homepage": "https://github.com/oyejorge"
+                }
+            ],
+            "description": "PHP port of the Javascript version of LESS http://lesscss.org",
+            "homepage": "http://lessphp.gpeasy.com",
+            "keywords": [
+                "css",
+                "less",
+                "less.js",
+                "lesscss",
+                "php",
+                "stylesheet"
+            ],
+            "time": "2014-06-05 16:09:50"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -1775,6 +1932,7 @@
         "cakephp/cakephp": 20,
         "cakephp/migrations": 20,
         "cakephp/debug_kit": 20,
+        "elboletaire/twbs-cake-plugin": 20,
         "cakephp/bake": 20
     },
     "prefer-stable": true,
