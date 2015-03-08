@@ -57,6 +57,7 @@ $this->prepend('script', $this->Html->script([
 
         // Sometimes we'll want to send scripts to the top (rarely..)
         echo $this->fetch('script.top');
+        echo $this->Html->script('jquery-1.11.2.min');
     ?>
 </head>
 <body>

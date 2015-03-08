@@ -5,3 +5,4 @@
 /plugins/Bake/*
 /plugins/DebugKit/*
 /plugins/Migrations/*
+/webroot/css/*less*
