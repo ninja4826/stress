@@ -17,7 +17,7 @@
 </div>
 <div class="parts index col-lg-10 col-md-9 columns">
     <div class="table-responsive">
-        <table class="table table-striped">
+        <table class="table">
         <thead>
             <tr>
                 <th><?= __('Part Number') ?></th>

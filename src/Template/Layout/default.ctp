@@ -73,14 +73,16 @@ $this->prepend('script', $this->Html->script([
             </div>
             <nav role="navigation" class="collapse navbar-collapse" id="navbar-top">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="#">Link asdf</a></li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Dropdown <span class="caret"></span></a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">ADD MORE ACTIONS AND STUFF</a></li>
-                        </ul>
-                    </li>
+                    <?php $controllers_arr = ['Parts', 'Categories', 'Manufacturers', 'CostCenters']; ?>
+                    <?php foreach($controllers_arr as $controller): ?>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?= $controller ?> <span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li><?= $this->Html->link(__('List ' . $controller), ['controller' => $controller, 'action' => 'index']) ?></li>
+                                <li><?= $this->Html->link(__('Add ' . $controller), ['controller' => $controller, 'action' => 'add']) ?></li>
+                            </ul>
+                        </li>
+                    <?php endforeach; ?>
                 </ul>
             </nav>
         </div>

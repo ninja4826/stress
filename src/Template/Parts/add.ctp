@@ -24,12 +24,24 @@
             echo $this->Form->input('description');
             echo $this->Form->input('amt_on_hand');
             echo $this->Form->input('active');
+            echo $this->Form->input('location_name', ['type' => 'text', 'required' => true]);
             echo $this->Form->input('manufacturer_id', ['options' => $manufacturers]);
             echo $this->Form->input('category_id', ['options' => $categories]);
             echo $this->Form->input('cc_id', ['options' => $costCenters]);
-            echo $this->Form->input('location_id', ['options' => $locations]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'btn-success']) ?>
     <?= $this->Form->end() ?>
 </div>
+<script>
+    var json = JSON.parse('<?= json_encode($allParts); ?>');
+    $('form.part-form').submit(function(event) {
+        if ($.inArray($('#part-num').val(), json) >= 0)
+        {
+            if (confirm("Part already exists. Would you like to add this quantity to the existing part? Note: The existing part's location will be used."))
+            { return true; }
+        } else {
+            return true;
+        }
+    });
+</script>
