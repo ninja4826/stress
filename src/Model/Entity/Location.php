@@ -1,14 +1,18 @@
 <?php
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use App\Model\Entity\AppEntity as Entity;
 
 /**
  * Location Entity.
  */
 class Location extends Entity
 {
-
+    
+    protected function _getDisplayName() {
+        return $this->location_name;
+    }
+    
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

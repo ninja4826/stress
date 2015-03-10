@@ -18,13 +18,13 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-2 columns numbers end">
-            <div class="panel panel-default">
-                <div class="panel-body">
-                    <h6 class="subheader"><?= __('Id') ?></h6>
-                    <p><?= $this->Number->format($category->id) ?></p>
-                </div>
-            </div>
-        </div>
+    </div>
+</div>
+<div class="related row">
+    <div class="column col-lg-12">
+        <h4 class="subheader"><?= __('Related Parts') ?></h4>
+        <?php if(!empty($category->parts)): ?>
+            <?= $this->element('table', ['items' => $category->parts, 'excluded_headers' => ['category']]) ?>
+        <?php endif; ?>
     </div>
 </div>

@@ -10,7 +10,6 @@
         <table class="table table-striped">
         <thead>
             <tr>
-                <th><?= $this->Paginator->sort('id') ?></th>
                 <th><?= $this->Paginator->sort('category_name') ?></th>
                 <th class="actions"><?= __('Actions') ?></th>
             </tr>
@@ -18,8 +17,7 @@
         <tbody>
         <?php foreach ($categories as $category): ?>
             <tr>
-                <td><?= $this->Number->format($category->id) ?></td>
-                <td><?= h($category->category_name) ?></td>
+                <td><?= $this->Html->link($category->category_name, ['controller' => 'Categories', 'action' => 'view', $category->id]) ?></td>
                     <td class="actions">
                     <?= $this->Html->link('<span class="glyphicon glyphicon-zoom-in"></span><span class="sr-only">' . __('View') . '</span>', ['action' => 'view', $category->id], ['escape' => false, 'class' => 'btn btn-xs btn-default', 'title' => __('View')]) ?>
                     <?= $this->Html->link('<span class="glyphicon glyphicon-pencil"></span><span class="sr-only">' . __('Edit') . '</span>', ['action' => 'edit', $category->id], ['escape' => false, 'class' => 'btn btn-xs btn-default', 'title' => __('Edit')]) ?>

@@ -12,7 +12,9 @@
         "cakephp/plugin-installer": "*",
         "cakephp/debug_kit": "3.0.*-dev",
         "phpunit/phpunit": "*",
-        "elboletaire/twbs-cake-plugin": "3.0.0-rc2"
+        "elboletaire/twbs-cake-plugin": "3.0.0-rc2",
+        "phpoffice/phpexcel": "1.8.0",
+        "dereuromark/cakephp-ajax": "dev-master"
     },
     "require-dev": {
         "d11wtq/boris": "1.0.*",

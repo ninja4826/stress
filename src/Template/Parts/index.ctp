@@ -16,46 +16,7 @@
     </ul>
 </div>
 <div class="parts index col-lg-10 col-md-9 columns">
-    <div class="table-responsive">
-        <table class="table">
-        <thead>
-            <tr>
-                <th><?= __('Part Number') ?></th>
-                <th><?= $this->Paginator->sort('location_id') ?></th>
-                <th><?= $this->Paginator->sort('manufacturer_id') ?></th>
-                <th><?= $this->Paginator->sort('category_id') ?></th>
-                <th><?= $this->Paginator->sort('description') ?></th>
-                <th><?= __('Amount on Hand') ?></th>
-                <th><?= $this->Paginator->sort('active') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-        </thead>
-        <tbody>
-        <?php foreach ($parts as $part): ?>
-            <tr>
-                <td><?= $this->Html->link($part->part_num, ['action' => 'view', $part->id]) ?></td>
-                <td>
-                    <?= $part->has('location') ? $this->Html->link($part->location->location_name, ['controller' => 'Locations', 'action' => 'view', $part->location_id]) : '' ?>
-                </td>
-                <td>
-                    <?= $part->has('manufacturer') ? $this->Html->link($part->manufacturer->manufacturer_name, ['controller' => 'Manufacturers', 'action' => 'view', $part->manufacturer->id]) : '' ?>
-                </td>
-                <td>
-                    <?= $part->has('category') ? $this->Html->link($part->category->category_name, ['controller' => 'Categories', 'action' => 'view', $part->category->id]) : '' ?>
-                </td>
-                <td><?= h($part->description) ?></td>
-                <td><?= $this->Number->format($part->amt_on_hand) ?></td>
-                <td><?= $part->active ? __('Yes') : __('No') ?></td>
-                <td class="actions">
-                    <?= $this->Html->link('<span class="glyphicon glyphicon-pencil"></span><span class="sr-only">' . __('Edit') . '</span>', ['action' => 'edit', $part->id], ['escape' => false, 'class' => 'btn btn-xs btn-default', 'title' => __('Edit')]) ?>
-                    <?= $this->Form->postLink('<span class="glyphicon glyphicon-trash"></span><span class="sr-only">' . __('Delete') . '</span>', ['action' => 'delete', $part->id], ['confirm' => __('Are you sure you want to delete # {0}?', $part->id), 'escape' => false, 'class' => 'btn btn-xs btn-danger', 'title' => __('Delete')]) ?>
-                </td>
-            </tr>
-
-        <?php endforeach; ?>
-        </tbody>
-        </table>
-    </div>
+    <?= $this->element('table', ['items' => $parts->toArray()]) ?>
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->prev('< ' . __('previous')) ?>

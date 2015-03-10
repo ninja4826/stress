@@ -24,7 +24,7 @@ class PartsController extends AppController
         $this->paginate = [
             'contain' => ['Manufacturers', 'Categories', 'Locations', 'CostCenters']
         ];
-        Log::write('debug', $this->referer());
+        // Log::write('debug', $this->referer());
         $this->set('parts', $this->paginate($this->Parts));
         $this->set('_serialize', ['parts']);
     }

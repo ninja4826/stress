@@ -56,8 +56,8 @@ $this->prepend('script', $this->Html->script([
         echo $this->fetch('css');
 
         // Sometimes we'll want to send scripts to the top (rarely..)
-        echo $this->fetch('script.top');
-        echo $this->Html->script('jquery-1.11.2.min');
+        echo $this->fetch('script');
+        // echo $this->Html->script('jquery-1.11.2.min');
     ?>
 </head>
 <body>
@@ -85,6 +85,20 @@ $this->prepend('script', $this->Html->script([
                         </li>
                     <?php endforeach; ?>
                 </ul>
+                <form class="navbar-form pull-right" role="search" method="post" action="/api/keyword_search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="keyword">
+                        <div class="input-group-btn">
+                            <input class="btn btn-default" type="submit" value="Submit" />
+                            <button class="btn btn-default dropdown-toggle" type="button" id="search_adv_button" data-toggle="dropdown" aria-expanded="true">
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu" aria-labelledby="search_adv_button">
+                                <li><?= $this->Html->link(__('Advanced Search'), '/api/keyword_search') ?></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
             </nav>
         </div>
     </header>
@@ -94,6 +108,5 @@ $this->prepend('script', $this->Html->script([
             <?= $this->fetch('content'); ?>
         </div>
     </div>
-    <?= $this->fetch('script'); ?>
 </body>
 </html>

@@ -16,7 +16,7 @@
     </ul>
 </div>
 <div class="parts form col-lg-10 col-md-9 columns">
-    <?= $this->Form->create($part); ?>
+    <?= $this->Form->create($part, ['class' => 'part-form']); ?>
     <fieldset>
         <legend><?= __('Add Part') ?></legend>
         <?php
@@ -30,18 +30,23 @@
             echo $this->Form->input('cc_id', ['options' => $costCenters]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit'), ['class' => 'btn-success']) ?>
+    <?= $this->Form->button(__('Submit'), ['class' => 'btn-success form-submit-btn']) ?>
     <?= $this->Form->end() ?>
 </div>
 <script>
     var json = JSON.parse('<?= json_encode($allParts); ?>');
-    $('form.part-form').submit(function(event) {
+    $(".form-submit-btn").click(function( event ) {
+        event.preventDefault();
         if ($.inArray($('#part-num').val(), json) >= 0)
         {
             if (confirm("Part already exists. Would you like to add this quantity to the existing part? Note: The existing part's location will be used."))
-            { return true; }
+            {
+                $(".part-form").submit();
+            } else {
+                window.location = "/";
+            }
         } else {
-            return true;
+            $(".part-form").submit();
         }
     });
 </script>

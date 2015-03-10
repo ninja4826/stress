@@ -1,13 +1,17 @@
 <?php
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use App\Model\Entity\AppEntity as Entity;
 
 /**
  * Part Entity.
  */
 class Part extends Entity
 {
+    
+    protected function _getDisplayName() {
+        return $this->part_num;
+    }
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

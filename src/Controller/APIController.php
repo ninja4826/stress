@@ -13,8 +13,6 @@ use Cake\ORM\TableRegistry;
 class APIController extends AppController
 {
     
-    public $layout = 'ajax';
-    
     private $tables = [
         'Parts',
         'Categories',
@@ -26,10 +24,11 @@ class APIController extends AppController
     public function initialize() {
         parent::initialize();
         $this->loadComponent('RequestHandler');
-        $this->RequestHandler->renderAs($this, 'json');
     }
 
     public function search($model = null) {
+        $this->layout = 'ajax';
+        $this->RequestHandler->renderAs($this, 'json');
         if (!in_array($model, $this->tables)) {
             $this->set('items', ['error' => 'Model does not exist.', 'model' => $model, 'tables' => $this->tables]);
             $this->set('_serialize', ['items']);
@@ -56,5 +55,25 @@ class APIController extends AppController
         }
         $this->set('items', $items->toArray());
         $this->set('_serialize', ['items']);
+    }
+    
+    public function keyword_search() {
+        if (!$this->request->is('post') || empty($this->request->data['keyword'])) {
+            $this->redirect($this->referer());
+        }
+        $this->set('key', [$this->request->data['keyword']]);
+    }
+    
+    public function advanced_search() {
+        $this->set('test', 'testasdf');
+    }
+    
+    public function test() {
+        // $this->request->onlyAllow('ajax');
+        // $this->loadComponent('Ajax');
+        $this->viewClass = 'Ajax.Ajax';
+        $blah = ['sdoib' => 'asdf'];
+        $this->set('blah', $blah);
+        $this->set('_serialize', 'blah');
     }
 }

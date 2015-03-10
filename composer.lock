@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a31af912424f0242ceabc7cc02b83f75",
+    "hash": "33e8671472bc06d6c0a03e2caf50d477",
     "packages": [
         {
             "name": "aura/installer-default",
@@ -131,12 +131,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/cakephp.git",
-                "reference": "786917e195efba2459a8d101caa470fd58581fc2"
+                "reference": "9f20b5ed9e12d5459ec5bfe5147d6aa14303c353"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/786917e195efba2459a8d101caa470fd58581fc2",
-                "reference": "786917e195efba2459a8d101caa470fd58581fc2",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/9f20b5ed9e12d5459ec5bfe5147d6aa14303c353",
+                "reference": "9f20b5ed9e12d5459ec5bfe5147d6aa14303c353",
                 "shasum": ""
             },
             "require": {
@@ -191,7 +191,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2015-03-06 06:48:01"
+            "time": "2015-03-09 17:52:36"
         },
         {
             "name": "cakephp/debug_kit",
@@ -339,6 +339,58 @@
             ],
             "description": "A composer installer for CakePHP 3.0+ plugins.",
             "time": "2015-02-06 02:06:07"
+        },
+        {
+            "name": "dereuromark/cakephp-ajax",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dereuromark/cakephp-ajax.git",
+                "reference": "cc7dfbab8c3bcc8204d4584fc5295dd6b0dffc4d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dereuromark/cakephp-ajax/zipball/cc7dfbab8c3bcc8204d4584fc5295dd6b0dffc4d",
+                "reference": "cc7dfbab8c3bcc8204d4584fc5295dd6b0dffc4d",
+                "shasum": ""
+            },
+            "require": {
+                "cakephp/cakephp": "3.0.*-dev",
+                "php": ">=5.4"
+            },
+            "require-dev": {
+                "dereuromark/cakephp-tools": "dev-cake3"
+            },
+            "type": "cakephp-plugin",
+            "extra": {
+                "installer-name": "Ajax"
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ajax\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Scherer",
+                    "homepage": "http://www.dereuromark.de",
+                    "role": "Author"
+                }
+            ],
+            "description": "A CakePHP plugin that makes working with AJAX a piece of cake.",
+            "homepage": "https://github.com/dereuromark/cakephp-ajax",
+            "keywords": [
+                "ajax",
+                "asynchronous",
+                "cakephp",
+                "plugin",
+                "view"
+            ],
+            "time": "2015-02-24 09:50:29"
         },
         {
             "name": "doctrine/instantiator",
@@ -740,6 +792,63 @@
                 }
             ],
             "time": "2015-02-03 12:10:50"
+        },
+        {
+            "name": "phpoffice/phpexcel",
+            "version": "1.8.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/PHPOffice/PHPExcel.git",
+                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/PHPOffice/PHPExcel/zipball/e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "reference": "e69a5e4d0ffa7fb6f171859e0a04346e580df30b",
+                "shasum": ""
+            },
+            "require": {
+                "ext-xml": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "PHPExcel": "Classes/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL"
+            ],
+            "authors": [
+                {
+                    "name": "Maarten Balliauw",
+                    "homepage": "http://blog.maartenballiauw.be"
+                },
+                {
+                    "name": "Mark Baker"
+                },
+                {
+                    "name": "Franck Lefevre",
+                    "homepage": "http://blog.rootslabs.net"
+                },
+                {
+                    "name": "Erik Tilt"
+                }
+            ],
+            "description": "PHPExcel - OpenXML - Read, Create and Write Spreadsheet documents in PHP - Spreadsheet engine",
+            "homepage": "http://phpexcel.codeplex.com",
+            "keywords": [
+                "OpenXML",
+                "excel",
+                "php",
+                "spreadsheet",
+                "xls",
+                "xlsx"
+            ],
+            "time": "2014-03-02 15:22:49"
         },
         {
             "name": "phpspec/prophecy",
@@ -1932,6 +2041,7 @@
         "cakephp/cakephp": 20,
         "cakephp/migrations": 20,
         "cakephp/debug_kit": 20,
+        "dereuromark/cakephp-ajax": 20,
         "cakephp/bake": 20
     },
     "prefer-stable": true,

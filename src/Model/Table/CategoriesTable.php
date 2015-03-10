@@ -24,6 +24,9 @@ class CategoriesTable extends Table
         $this->table('categories');
         $this->displayField('category_name');
         $this->primaryKey('id');
+        $this->hasMany('Parts', [
+            'foreignKey' => 'category_id'
+        ]);
     }
 
     /**
