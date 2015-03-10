@@ -87,11 +87,13 @@ class PartsController extends AppController
                 Log::write('debug', $part);
             }
         }
-        $allParts = $this->Parts->getPartNums();
         $manufacturers = $this->Parts->Manufacturers->find('list', ['limit' => 200]);
         $categories = $this->Parts->Categories->find('list', ['limit' => 200]);
         $costCenters = $this->Parts->CostCenters->find('list', ['limit' => 200]);
-        $this->set(compact('part', 'manufacturers', 'categories', 'locations', 'costCenters', 'allParts'));
+        
+        $referer = $this->referer();
+        
+        $this->set(compact('part', 'manufacturers', 'categories', 'locations', 'costCenters', 'referer'));
         $this->set('_serialize', ['part']);
     }
 

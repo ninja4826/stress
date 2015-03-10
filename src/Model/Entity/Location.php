@@ -13,6 +13,10 @@ class Location extends Entity
         return $this->location_name;
     }
     
+    protected function _getDisplayField() {
+        return 'location_name';
+    }
+    
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

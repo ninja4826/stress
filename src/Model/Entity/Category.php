@@ -12,6 +12,10 @@ class Category extends Entity
     protected function _getDisplayName() {
         return $this->category_name;
     }
+    
+    protected function _getDisplayField() {
+        return 'category_name';
+    }
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

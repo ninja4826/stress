@@ -142,12 +142,12 @@ class PartsTable extends Table
     
     public function getPartNums() {
         $parts = $this->find('all')->toArray();
-        
+        $parts_ = [];
         foreach ($parts as $k => $v)
         {
-            $parts[$k] = $v->toArray()['part_num'];
+            $parts_[$v->part_num] = $v->amt_on_hand;
         }
         
-        return $parts;
+        return $parts_;
     }
 }

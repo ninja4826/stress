@@ -42,6 +42,7 @@ class AppController extends Controller
         $this->loadComponent('Bootstrap.Flash');
         $this->helpers[] = 'Less.Less';
         $this->helpers[] = 'Bootstrap.Form';
+        $this->layout = 'default';
     }
     
     public function beforeFilter(Event $event) {

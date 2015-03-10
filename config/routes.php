@@ -160,7 +160,8 @@ Router::scope('/api', ['controller' => 'API'], function($sub) {
     $sub->connect('/keyword_search', ['action' => 'keyword_search']);
     $sub->extensions(['json'], false);
     $sub->connect('/search/:model', ['action' => 'search'], ['pass' => ['model']]);
-    $sub->connect('/test', ['action' => 'test']);
+    // $sub->connect('/test', ['action' => 'test']);
+    $sub->connect('/get_all', ['action' => 'get_all']);
 });
 
 /**

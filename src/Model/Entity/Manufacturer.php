@@ -12,6 +12,10 @@ class Manufacturer extends Entity
     protected function _getDisplayName() {
         return $this->manufacturer_name;
     }
+    
+    protected function _getDisplayField() {
+        return 'manufacturer_name';
+    }
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

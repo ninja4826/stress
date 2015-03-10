@@ -57,13 +57,25 @@
           <?php foreach(array_keys($headers) as $prop_name): ?>
             <?php if (!in_array($prop_name, $excluded_headers)): ?>
               <?php $prop = $item->$prop_name; ?>
-              <?php if (is_subclass_of($prop, 'App\\Model\\Entity\\AppEntity')): ?>
+              
+              <?php if ($prop == $item->display_name): ?>
+                
+                <td><?= $this->Html->link($item->display_name, ['controller' => $item->table_name, 'action' => 'view', $item->id]) ?></td>
+              
+              <?php elseif (is_subclass_of($prop, 'App\\Model\\Entity\\AppEntity')): ?>
+              
                 <td><?= $this->Html->link($prop->display_name, ['controller' => $prop->table_name, 'action' => 'view', $prop->id]) ?></td>
+                
               <?php elseif (gettype($prop) == 'boolean'): ?>
+              
                 <td><?= $prop ? __('Yes') : __('No') ?></td>
+                
               <?php else: ?>
+              
                 <td><?= $prop ?></td>
+                
               <?php endif; ?>
+              
             <?php endif; ?>
           <?php endforeach; ?>
           <?php if (!in_array('actions', $excluded_headers)): ?>

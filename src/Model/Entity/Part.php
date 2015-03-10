@@ -9,8 +9,14 @@ use App\Model\Entity\AppEntity as Entity;
 class Part extends Entity
 {
     
+    // protected $_virtual = ['display_name'];
+    
     protected function _getDisplayName() {
         return $this->part_num;
+    }
+    
+    protected function _getDisplayField() {
+        return 'part_num';
     }
 
     /**

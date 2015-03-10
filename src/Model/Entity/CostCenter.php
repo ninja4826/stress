@@ -12,6 +12,10 @@ class CostCenter extends Entity
         return $this->e_code;
     }
     
+    protected function _getDisplayField() {
+        return 'e_code';
+    }
+    
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
      *

@@ -76,4 +76,46 @@ class APIController extends AppController
         $this->set('blah', $blah);
         $this->set('_serialize', 'blah');
     }
+    
+    public function get_all() {
+        $this->loadComponent('RequestHandler');
+        $this->viewClass = 'Json';
+        
+        $q = $this->request->query;
+        
+        if (empty($q) || !array_key_exists('models', $q)) {
+            return;
+        }
+        
+        $models = json_decode($q['models'], true);
+        
+        foreach($models as $model => $fields) {
+            $this->loadModel($model);
+            
+            $display_field = $this->$model->find('all', ['limit' => 1, 'fields' => []])->toArray()[0]->display_field;
+            
+            if (!in_array($display_field, $fields)) {
+                $fields[] = $display_field;
+            }
+            if (!in_array('id', $fields)) {
+                $fields[] = 'id';
+            }
+            
+            $objs_ = $this->$model->find('all', ['fields' => $fields])->toArray();
+            
+            $objs = [];
+            
+            foreach($objs_ as $obj) {
+                $obj = $obj->toArray();
+                
+                $obj_id = $obj['id'];
+                unset($obj['id']);
+                $objs[$obj_id] = $obj;
+            }
+            $response[$model] = $objs;
+        }
+        
+        $this->set('response', $this->Parts->getPartNums());
+        $this->set('_serialize', ['response']);
+    }
 }
