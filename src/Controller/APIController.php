@@ -134,6 +134,7 @@ class APIController extends AppController
                 
                 Log::write('debug', `git -C /var/www/stress pull 2>&1`);
                 
+                
                 Log::write('debug', 'PULLING');
             } else {
             }
