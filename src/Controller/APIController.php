@@ -136,7 +136,7 @@ class APIController extends AppController
                 Log::write('debug', shell_exec('ls -l'));
                 Log::write('debug', get_current_user());
                 Log::write('debug', $_SERVER['LOGNAME']);
-                Log::write('debug', shell_exec("/usr/bin/git -C .. pull"));
+                Log::write('debug', exec('git -C .. pull'));
                 
                 Log::write('debug', 'PULLING');
             } else {
