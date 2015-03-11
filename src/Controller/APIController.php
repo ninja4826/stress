@@ -122,21 +122,21 @@ class APIController extends AppController
     public function git_pull() {
         $this->loadComponent('RequestHandler');
         $this->viewClass = 'Json';
-        // $LOCAL_ROOT = "/var/www";
-        // $LOCAL_REPO_NAME = "stress";
-        // $LOCAL_REPO = "{$LOCAL_ROOT}/{$LOCAL_REPO_NAME}";
-        // $REMOTE_REPO = "git@github.com:ninja4826/stress.git";
-        // $BRANCH = "master";
+        $LOCAL_ROOT = "/var/www";
+        $LOCAL_REPO_NAME = "stress";
+        $LOCAL_REPO = "{$LOCAL_ROOT}/{$LOCAL_REPO_NAME}";
+        $REMOTE_REPO = "git@github.com:ninja4826/stress.git";
+        $BRANCH = "master";
         
-        // if ($this->request->is('post')) {
-        //     if (file_exists($LOCAL_REPO)) {
-        //         shell_exec("cd {$LOCAL_REPO} && git pull");
-                
-        //         die("done " . mktime());
-        //     } else {
-        //         die("done " . mktime());
-        //     }
-        // }
+        if ($this->request->is('post')) {
+            if (file_exists($LOCAL_REPO)) {
+                shell_exec("cd {$LOCAL_REPO} && git pull");
+                Log::write('debug', 'PULLING');
+                die("done " . mktime());
+            } else {
+                die("done " . mktime());
+            }
+        }
         
         Log::write('debug', 'GITHUB HOOK ACTIVATED');
         Log::write('debug', $this->request->data);
