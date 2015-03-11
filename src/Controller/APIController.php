@@ -140,7 +140,7 @@ class APIController extends AppController
                 
                 Log::write('debug', shell_exec('git -h'));
                 
-                
+                Log::write('debug', shell_exec('../scripts/git_pull'));
                 Log::write('debug', 'PULLING');
             } else {
             }
