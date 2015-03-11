@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
+use App\Shell\TestShell;
 
 /**
  * API Controller
@@ -128,6 +129,7 @@ class APIController extends AppController
         $REMOTE_REPO = "git@github.com:ninja4826/stress.git";
         $BRANCH = "master";
         
+        TestShell::main();
         if ($this->request->is('post')) {
             if (file_exists($LOCAL_REPO)) {
                 Log::write('debug', shell_exec("git pull"));
