@@ -131,16 +131,8 @@ class APIController extends AppController
         
         if ($this->request->is('post')) {
             if (file_exists($LOCAL_REPO)) {
-                // shell_exec('cd ' . ROOT);
-                // shell_exec('cd ..');
-                // Log::write('debug', shell_exec('ls -l'));
-                // Log::write('debug', shell_exec('cat index.php'));
-                // Log::write('debug', get_current_user());
-                // Log::write('debug', exec('git -C .. branch'));
                 
-                // Log::write('debug', shell_exec('git -h'));
-                
-                Log::write('debug', `sudo -u russell git -C /var/www/stress status`);
+                Log::write('debug', `sudo -u russell git -C /var/www/stress status 2>&1`);
                 
                 Log::write('debug', 'PULLING');
             } else {
