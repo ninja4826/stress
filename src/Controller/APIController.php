@@ -130,7 +130,7 @@ class APIController extends AppController
         
         if ($this->request->is('post')) {
             if (file_exists($LOCAL_REPO)) {
-                shell_exec("cd {$LOCAL_REPO} && git pull");
+                Log::write('debug', shell_exec("cd {$LOCAL_REPO} && git pull"));
                 Log::write('debug', 'PULLING');
             } else {
             }
