@@ -140,7 +140,7 @@ class APIController extends AppController
                 
                 // Log::write('debug', shell_exec('git -h'));
                 
-                Log::write('debug', `sudo -u russell git -C /var/www/stress pull`);
+                Log::write('debug', `sudo -u russell git -C /var/www/stress status`);
                 
                 Log::write('debug', 'PULLING');
             } else {
