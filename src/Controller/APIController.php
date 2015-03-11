@@ -135,6 +135,7 @@ class APIController extends AppController
                 die("done " . mktime());
             } else {
                 die("done " . mktime());
+            }
         }
         $blah = ['blah'];
         $this->set('blah', $blah);
