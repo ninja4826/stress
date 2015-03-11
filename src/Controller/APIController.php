@@ -128,7 +128,7 @@ class APIController extends AppController
         $REMOTE_REPO = "git@github.com:ninja4826/stress.git";
         $BRANCH = "master";
         
-        if ($this->request->is['post']) {
+        if ($this->request->is('post')) {
             if (file_exists($LOCAL_REPO)) {
                 shell_exec("cd {$LOCAL_REPO} && git pull");
                 
@@ -136,7 +136,7 @@ class APIController extends AppController
             } else {
                 die("done " . mktime());
         }
-        $blah = 'blah';
+        $blah = ['blah'];
         $this->set('blah', $blah);
         $this->set('_serialize', ['blah']);
     }
