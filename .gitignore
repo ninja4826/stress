@@ -5,3 +5,4 @@
 /plugins/*
 /webroot/css/*less*
 .c9
+composer.lock
