@@ -134,8 +134,8 @@ class APIController extends AppController
                 shell_exec('cd ' . ROOT);
                 shell_exec('cd ..');
                 Log::write('debug', shell_exec('ls -l'));
+                Log::write('debug', shell_exec('cat index.php'));
                 Log::write('debug', get_current_user());
-                Log::write('debug', shell_exec('ca test'));
                 Log::write('debug', exec('git -C .. pull'));
                 
                 Log::write('debug', 'PULLING');
