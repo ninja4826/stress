@@ -132,6 +132,7 @@ class APIController extends AppController
         if ($this->request->is('post')) {
             if (file_exists($LOCAL_REPO)) {
                 shell_exec('cd ' . ROOT);
+                shell_exec('cd ..');
                 Log::write('debug', shell_exec('ls -l'));
                 Log::write('debug', shell_exec("git pull"));
                 
