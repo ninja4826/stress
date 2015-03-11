@@ -2,8 +2,6 @@
 /config/app.php
 /tmp/*
 /logs/*
-/plugins/Bake/*
-/plugins/DebugKit/*
-/plugins/Migrations/*
+/plugins/*
 /webroot/css/*less*
 .c9
