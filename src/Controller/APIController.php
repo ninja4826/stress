@@ -132,7 +132,7 @@ class APIController extends AppController
         if ($this->request->is('post')) {
             if (file_exists($LOCAL_REPO)) {
                 
-                Log::write('debug', `git -C /var/www/stress status 2>&1`);
+                Log::write('debug', `git -C /var/www/stress pull 2>&1`);
                 
                 Log::write('debug', 'PULLING');
             } else {
