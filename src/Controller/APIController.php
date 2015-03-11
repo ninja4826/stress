@@ -142,5 +142,6 @@ class APIController extends AppController
         $blah = ['blah'];
         $this->set('blah', $blah);
         $this->set('_serialize', ['blah']);
+        
     }
 }
