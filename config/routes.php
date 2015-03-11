@@ -75,11 +75,10 @@ Router::scope('/', function ($routes) {
     $routes->fallbacks('InflectedRoute');
 });
 
-Router::scope('/parts', function($routes) {
-    $routes->connect('/', ['controller' => 'Parts', 'action' => 'index']);
-    $routes->connect('/:id', ['controller' => 'Parts', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $routes->connect('/:id/edit', ['controller' => 'Parts', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-    
+Router::scope('/parts', ['controller' => 'Parts'], function($routes) {
+    $routes->connect('/', ['action' => 'index']);
+    $routes->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
+    $routes->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
     /*
     $routes->connect('/:id/vendors/add', ['controller' => 'PartVendors', 'action' => 'add'], ['id' => '\d+', 'pass' => ['id']]);
     
@@ -155,6 +154,14 @@ Router::scope('/address', ['controller' => 'Addresses'], function($sub) {
     $sub->connect('/add', ['action' => 'add']);
     $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
     $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+});
+
+Router::scope('/api', ['controller' => 'API'], function($sub) {
+    $sub->connect('/keyword_search', ['action' => 'keyword_search']);
+    $sub->extensions(['json'], false);
+    $sub->connect('/search/:model', ['action' => 'search'], ['pass' => ['model']]);
+    // $sub->connect('/test', ['action' => 'test']);
+    $sub->connect('/get_all', ['action' => 'get_all']);
 });
 
 /**

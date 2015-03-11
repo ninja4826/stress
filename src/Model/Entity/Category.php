@@ -1,13 +1,21 @@
 <?php
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use App\Model\Entity\AppEntity as Entity;
 
 /**
  * Category Entity.
  */
 class Category extends Entity
 {
+    
+    protected function _getDisplayName() {
+        return $this->category_name;
+    }
+    
+    protected function _getDisplayField() {
+        return 'category_name';
+    }
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

@@ -1,31 +1,12 @@
-<div class="actions columns large-2 medium-3">
+<div class="actions columns col-lg-2 col-md-3">
     <h3><?= __('Actions') ?></h3>
-    <ul class="side-nav">
+    <ul class="nav nav-stacked nav-pills">
         <li><?= $this->Html->link(__('New Category'), ['action' => 'add']) ?></li>
+        <li class="active disabled"><?= $this->Html->link(__('List Categories'), ['action' => 'index']) ?></li>
     </ul>
 </div>
-<div class="categories index large-10 medium-9 columns">
-    <table cellpadding="0" cellspacing="0">
-    <thead>
-        <tr>
-            <th><?= $this->Paginator->sort('category_name') ?></th>
-            <th class="actions"><?= __('Actions') ?></th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($categories as $category): ?>
-        <tr>
-            <td><?= h($category->category_name) ?></td>
-            <td class="actions">
-                <?= $this->Html->link(__('View'), ['action' => 'view', $category->id]) ?>
-                <?= $this->Html->link(__('Edit'), ['action' => 'edit', $category->id]) ?>
-                <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $category->id], ['confirm' => __('Are you sure you want to delete # {0}?', $category->id)]) ?>
-            </td>
-        </tr>
-
-    <?php endforeach; ?>
-    </tbody>
-    </table>
+<div class="categories index col-lg-10 col-md-9 columns">
+    <?= $this->element('table', ['items' => $categories->toArray()]) ?>
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->prev('< ' . __('previous')) ?>

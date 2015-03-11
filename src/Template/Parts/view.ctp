@@ -1,8 +1,8 @@
-<div class="actions columns large-2 medium-3">
+<div class="actions columns col-lg-2 col-md-3">
     <h3><?= __('Actions') ?></h3>
-    <ul class="side-nav">
+    <ul class="nav nav-stacked nav-pills">
         <li><?= $this->Html->link(__('Edit Part'), ['action' => 'edit', $part->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Part'), ['action' => 'delete', $part->id], ['confirm' => __('Are you sure you want to delete # {0}?', $part->id)]) ?> </li>
+        <li><?= $this->Form->postLink(__('Delete Part'), ['action' => 'delete', $part->id], ['confirm' => __('Are you sure you want to delete # {0}?', $part->id), 'class' => 'btn-danger']) ?> </li>
         <li><?= $this->Html->link(__('List Parts'), ['action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Part'), ['action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Manufacturers'), ['controller' => 'Manufacturers', 'action' => 'index']) ?> </li>
@@ -13,71 +13,83 @@
         <li><?= $this->Html->link(__('New Location'), ['controller' => 'Locations', 'action' => 'add']) ?> </li>
         <li><?= $this->Html->link(__('List Cost Centers'), ['controller' => 'CostCenters', 'action' => 'index']) ?> </li>
         <li><?= $this->Html->link(__('New Cost Center'), ['controller' => 'CostCenters', 'action' => 'add']) ?> </li>
+        <li><?= $this->Html->link(__('List Part Vendors'), ['controller' => 'PartVendors', 'action' => 'index']) ?> </li>
+        <li><?= $this->Html->link(__('New Part Vendor'), ['controller' => 'PartVendors', 'action' => 'add']) ?> </li>
     </ul>
 </div>
-<div class="parts view large-10 medium-9 columns">
+<div class="parts view col-lg-10 col-md-9 columns">
     <h2><?= h($part->part_num) ?></h2>
     <div class="row">
-        <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('Description') ?></h6>
-            <p><?= h($part->description) ?></p>
-            <h6 class="subheader"><?= __('Location') ?></h6>
-            <p><?= $part->has('location') ? $this->Html->link($part->location->location_name, ['controller' => 'Locations', 'action' => 'view', $part->location->id]) : '' ?></p>
-            <h6 class="subheader"><?= __('Quantity') ?></h6>
-            <p><?= $this->Number->format($part->amt_on_hand) ?></p>
-            <h6 class="subheader"><?= __('Manufacturer') ?></h6>
-            <p><?= $part->has('manufacturer') ? $this->Html->link($part->manufacturer->manufacturer_name, ['controller' => 'Manufacturers', 'action' => 'view', $part->manufacturer->id]) : '' ?></p>
+        <div class="col-lg-5 columns strings">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h6 class="subheader"><?= __('Part Num') ?></h6>
+                    <p><?= h($part->part_num) ?></p>
+                    <h6 class="subheader"><?= __('Description') ?></h6>
+                    <p><?= h($part->description) ?></p>
+                    <h6 class="subheader"><?= __('Manufacturer') ?></h6>
+                    <p><?= $part->has('manufacturer') ? $this->Html->link($part->manufacturer->manufacturer_name, ['controller' => 'Manufacturers', 'action' => 'view', $part->manufacturer->id]) : '' ?></p>
+                    <h6 class="subheader"><?= __('Category') ?></h6>
+                    <p><?= $part->has('category') ? $this->Html->link($part->category->category_name, ['controller' => 'Categories', 'action' => 'view', $part->category->id]) : '' ?></p>
+                    <h6 class="subheader"><?= __('Cost Center') ?></h6>
+                    <p><?= $part->has('cost_center') ? $this->Html->link($part->cost_center->e_code, ['controller' => 'CostCenters', 'action' => 'view', $part->cost_center->id]) : '' ?></p>
+                    <h6 class="subheader"><?= __('Location') ?></h6>
+                    <p><?= $part->has('location') ? $this->Html->link($part->location->location_name, ['controller' => 'Locations', 'action' => 'view', $part->location->id]) : '' ?></p>
+                </div>
+            </div>
         </div>
-        <div class="large-5 columns strings">
-            <h6 class="subheader"><?= __('Category') ?></h6>
-            <p><?= $part->has('category') ? $this->Html->link($part->category->category_name, ['controller' => 'Categories', 'action' => 'view', $part->category->id]) : '' ?></p>
-            <h6 class="subheader"><?= __('Cost Center') ?></h6>
-            <p><?= $part->has('cost_center') ? $this->Html->link($part->cost_center->e_code, ['controller' => 'CostCenters', 'action' => 'view', $part->cost_center->id]) : '' ?></p>
-            <h6 class="subheader"><?= __('Active') ?></h6>
-            <p><?= $part->active ? __('Yes') : __('No'); ?></p>
+        <div class="col-lg-2 columns numbers end">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h6 class="subheader"><?= __('Id') ?></h6>
+                    <p><?= $this->Number->format($part->id) ?></p>
+                    <h6 class="subheader"><?= __('Amt On Hand') ?></h6>
+                    <p><?= $this->Number->format($part->amt_on_hand) ?></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-2 columns booleans end">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h6 class="subheader"><?= __('Active') ?></h6>
+                    <p><?= $part->active ? __('Yes') : __('No'); ?></p>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <?php if ($part->has('part_vendors')): ?>
-            <div class="large-12 columns strings">
-                <h4>Vendors</h4>
-                <h6 class="subheader"><?= $this->Html->link(__('Add transaction for a vendor not listed here'), ['controller' => 'PartTransactions', 'action' => 'add', $part->id]) ?></h6>
-                <table cellpadding="0" cellspacing="0">
-                    <tr>
-                        <?=
-                            $this->Html->tableHeaders([
-                                'Vendor',
-                                'Website',
-                                'Preferred',
-                                'Price',
-                                'Date',
-                                ['Actions' => ['class' => 'actions']]
-                            ]);
-                        ?>
-                    </tr>
-                    <?php foreach($part->part_vendors as $part_vendor): ?>
-                    <tr>
-                        <?php $vendor = $part_vendor->vendor; ?>
-                        <td><?= $this->Html->link($vendor->vendor_name, ['controller' => 'PartVendors', 'action' => 'view', $part_vendor->id]); ?></td>
-                        <td><?= $this->Html->link(__('Click Here'), $vendor->website, ['target' => '_blank']); ?></td>
-                        <td><?= $part_vendor->preferred ? 'Yes' : 'No' ?></td>
-                        <?php if ($part_vendor->has('part_price_histories') && !empty($part_vendor->part_price_histories)): ?>
-                            <?php $history = $part_vendor->part_price_histories[0]; ?>
-                            <td>$<?= $history->price ?></td>
-                            <td><?= h($history->date_changed) ?></td>
-                        <?php else: ?>
-                            <td></td>
-                            <td></td>
-                        <?php endif; ?>
-                        <td>
-                            <?= $this->Html->link(__('Add Transaction'), ['controller' => 'PartTransactions', 'action' => 'add', $part->id, '?' => ['part_vendor' => $part_vendor->id]]); ?>
-                            <br>
-                            <?= $this->Html->link(__('View Vendor'), ['controller' => 'Vendors', 'action' => 'view', $vendor->id]) ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                </table>
-            </div>
-        <?php endif; ?>
+</div>
+<div class="related row">
+    <div class="column col-lg-12">
+    <h4 class="subheader"><?= __('Related PartVendors') ?></h4>
+    <?php if (!empty($part->part_vendors)): ?>
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th><?= __('Id') ?></th>
+                <th><?= __('Part Id') ?></th>
+                <th><?= __('Vendor Id') ?></th>
+                <th><?= __('Markup') ?></th>
+                <th><?= __('Discount') ?></th>
+                <th><?= __('Preferred') ?></th>
+                <th class="actions"><?= __('Actions') ?></th>
+            </tr>
+            <?php foreach ($part->part_vendors as $partVendors): ?>
+            <tr>
+                <td><?= h($partVendors->id) ?></td>
+                <td><?= h($partVendors->part_id) ?></td>
+                <td><?= h($partVendors->vendor_id) ?></td>
+                <td><?= h($partVendors->markup) ?></td>
+                <td><?= h($partVendors->discount) ?></td>
+                <td><?= h($partVendors->preferred) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link('<span class="glyphicon glyphicon-zoom-in"></span><span class="sr-only">' . __('View') . '</span>', ['controller' => 'PartVendors', 'action' => 'view', $partVendors->id], ['escape' => false, 'class' => 'btn btn-xs btn-default', 'title' => __('View')]) ?>
+                    <?= $this->Html->link('<span class="glyphicon glyphicon-pencil"></span><span class="sr-only">' . __('Edit') . '</span>', ['controller' => 'PartVendors', 'action' => 'edit', $partVendors->id], ['escape' => false, 'class' => 'btn btn-xs btn-default', 'title' => __('Edit')]) ?>
+                    <?= $this->Form->postLink('<span class="glyphicon glyphicon-trash"></span><span class="sr-only">' . __('Delete') . '</span>', ['controller' => 'PartVendors', 'action' => 'delete', $partVendors->id], ['confirm' => __('Are you sure you want to delete # {0}?', $partVendors->id), 'escape' => false, 'class' => 'btn btn-xs btn-danger', 'title' => __('Delete')]) ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+    <?php endif; ?>
     </div>
 </div>

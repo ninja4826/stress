@@ -1,13 +1,23 @@
 <?php
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+use App\Model\Entity\AppEntity as Entity;
 
 /**
  * Part Entity.
  */
 class Part extends Entity
 {
+    
+    // protected $_virtual = ['display_name'];
+    
+    protected function _getDisplayName() {
+        return $this->part_num;
+    }
+    
+    protected function _getDisplayField() {
+        return 'part_num';
+    }
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

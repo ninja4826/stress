@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Log\Log;
+use Cake\Controller\Component\AuthComponent;
 
 /**
  * Application Controller
@@ -28,7 +29,7 @@ use Cake\Log\Log;
  */
 class AppController extends Controller
 {
-
+    
     /**
      * Initialization hook method.
      *
@@ -38,17 +39,13 @@ class AppController extends Controller
      */
     public function initialize()
     {
-        $this->loadComponent('Flash');
-        $this->loadComponent('Auth', [
-            'loginRedirect' => $this->referer(),
-            'logoutRedirect' => [
-                'controller' => 'Parts',
-                'action' => 'index'
-            ]
-        ]);
+        $this->loadComponent('Bootstrap.Flash');
+        $this->helpers[] = 'Less.Less';
+        $this->helpers[] = 'Bootstrap.Form';
+        $this->layout = 'default';
     }
     
     public function beforeFilter(Event $event) {
-        $this->Auth->allow(['index']);
+        // $this->theme = 'Bootstrap';
     }
 }

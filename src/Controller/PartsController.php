@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
 
 /**
  * Parts Controller
@@ -23,7 +24,7 @@ class PartsController extends AppController
         $this->paginate = [
             'contain' => ['Manufacturers', 'Categories', 'Locations', 'CostCenters']
         ];
-        Log::write('debug', $this->referer());
+        // Log::write('debug', $this->referer());
         $this->set('parts', $this->paginate($this->Parts));
         $this->set('_serialize', ['parts']);
     }
@@ -86,11 +87,13 @@ class PartsController extends AppController
                 Log::write('debug', $part);
             }
         }
-        $allParts = $this->Parts->getPartNums();
         $manufacturers = $this->Parts->Manufacturers->find('list', ['limit' => 200]);
         $categories = $this->Parts->Categories->find('list', ['limit' => 200]);
         $costCenters = $this->Parts->CostCenters->find('list', ['limit' => 200]);
-        $this->set(compact('part', 'manufacturers', 'categories', 'locations', 'costCenters', 'allParts'));
+        
+        $referer = $this->referer();
+        
+        $this->set(compact('part', 'manufacturers', 'categories', 'locations', 'costCenters', 'referer'));
         $this->set('_serialize', ['part']);
     }
 
