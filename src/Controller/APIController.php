@@ -129,9 +129,10 @@ class APIController extends AppController
         $REMOTE_REPO = "git@github.com:ninja4826/stress.git";
         $BRANCH = "master";
         
-        TestShell::main();
         if ($this->request->is('post')) {
             if (file_exists($LOCAL_REPO)) {
+                shell_exec('cd ' . ROOT);
+                Log::write('debug', shell_exec('ls -l'));
                 Log::write('debug', shell_exec("git pull"));
                 
                 Log::write('debug', 'PULLING');
