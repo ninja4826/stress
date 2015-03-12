@@ -58,24 +58,12 @@ class APIController extends AppController
         $this->set('_serialize', ['items']);
     }
     
-    public function keyword_search() {
-        if (!$this->request->is('post') || empty($this->request->data['keyword'])) {
-            $this->redirect($this->referer());
-        }
-        $this->set('key', [$this->request->data['keyword']]);
-    }
-    
-    public function advanced_search() {
-        $this->set('test', 'testasdf');
-    }
-    
-    public function test() {
-        // $this->request->onlyAllow('ajax');
-        // $this->loadComponent('Ajax');
-        $this->viewClass = 'Ajax.Ajax';
-        $blah = ['sdoib' => 'asdf'];
-        $this->set('blah', $blah);
-        $this->set('_serialize', 'blah');
+    public function results() {
+        $results = [];
+        
+        
+        $this->set('response', $results);
+        $this->set('_serialize', ['results']);
     }
     
     public function get_all() {
