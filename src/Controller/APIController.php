@@ -4,7 +4,6 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
-use App\Shell\TestShell;
 
 /**
  * API Controller
@@ -27,36 +26,36 @@ class APIController extends AppController
         $this->loadComponent('RequestHandler');
     }
 
-    public function search($model = null) {
-        $this->layout = 'ajax';
-        $this->RequestHandler->renderAs($this, 'json');
-        if (!in_array($model, $this->tables)) {
-            $this->set('items', ['error' => 'Model does not exist.', 'model' => $model, 'tables' => $this->tables]);
-            $this->set('_serialize', ['items']);
-            return;
-        }
-        $this->loadModel($model);
-        $q = $this->request->query;
+    // public function search($model = null) {
+    //     $this->layout = 'ajax';
+    //     $this->RequestHandler->renderAs($this, 'json');
+    //     if (!in_array($model, $this->tables)) {
+    //         $this->set('items', ['error' => 'Model does not exist.', 'model' => $model, 'tables' => $this->tables]);
+    //         $this->set('_serialize', ['items']);
+    //         return;
+    //     }
+    //     $this->loadModel($model);
+    //     $q = $this->request->query;
         
-        $items = $this->$model->find('all');
+    //     $items = $this->$model->find('all');
         
-        if (array_key_exists('conditions', $q)) {
-            $conditions = json_decode($q['conditions'], true);
-            foreach ($conditions as $k => $v) {
-                $items->where([$k => $v]);
-            }
-        }
+    //     if (array_key_exists('conditions', $q)) {
+    //         $conditions = json_decode($q['conditions'], true);
+    //         foreach ($conditions as $k => $v) {
+    //             $items->where([$k => $v]);
+    //         }
+    //     }
         
-        if (array_key_exists('fields', $q)) {
-            $items->select(json_decode($q['fields'], true));
-        }
+    //     if (array_key_exists('fields', $q)) {
+    //         $items->select(json_decode($q['fields'], true));
+    //     }
         
-        if (array_key_exists('limit', $q)) {
-            $items->limit($q['limit']);
-        }
-        $this->set('items', $items->toArray());
-        $this->set('_serialize', ['items']);
-    }
+    //     if (array_key_exists('limit', $q)) {
+    //         $items->limit($q['limit']);
+    //     }
+    //     $this->set('items', $items->toArray());
+    //     $this->set('_serialize', ['items']);
+    // }
     
     public function results() {
         $results = [];
@@ -135,5 +134,40 @@ class APIController extends AppController
         $this->set('blah', $blah);
         $this->set('_serialize', ['blah']);
         
+    }
+    
+    public function test_search() {
+        $this->loadComponent('RequestHandler');
+        $this->viewClass = 'Json';
+        if (!array_key_exists('q', $this->request->query)) {
+            return;
+        }
+        $response = [];
+        $q = json_decode($this->request->query['q'], true);
+        foreach ($q as $model => $options) {
+            $this->loadModel($model);
+            
+            // $item = $this->$model->find('all', ['limit' => 1])->toArray()[0];
+            $query = null;
+            
+            if (array_key_exists('fields', $options)) {
+                foreach(['id', $this->$model->displayField(), 'display_name'] as $field) {
+                    if (!in_array($field, $options['fields'])) {
+                        $options['fields'][] = $field;
+                    }
+                }
+            }
+            if (array_key_exists('id', $options)) {
+                $id = $options['id'];
+                unset($options['id']);
+                $query = $this->$model->get($id, $options);
+            } else {
+                $query = $this->$model->find('all', $options);
+            }
+            $response[$model] = $query;
+        }
+        
+        $this->set('response', $response);
+        $this->set('_serialize', ['response']);
     }
 }
