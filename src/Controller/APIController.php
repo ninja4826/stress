@@ -136,14 +136,16 @@ class APIController extends AppController
         
     }
     
-    public function test_search() {
+    public function search() {
         $this->loadComponent('RequestHandler');
         $this->viewClass = 'Json';
+        Log::write('debug', $this->request->query);
         if (!array_key_exists('q', $this->request->query)) {
             return;
         }
         $response = [];
         $q = json_decode($this->request->query['q'], true);
+        Log::write('debug', $q);
         foreach ($q as $model => $options) {
             $this->loadModel($model);
             
@@ -151,7 +153,7 @@ class APIController extends AppController
             $query = null;
             
             if (array_key_exists('fields', $options)) {
-                foreach(['id', $this->$model->displayField(), 'display_name'] as $field) {
+                foreach(['id', $this->$model->displayField()] as $field) {
                     if (!in_array($field, $options['fields'])) {
                         $options['fields'][] = $field;
                     }
@@ -162,9 +164,11 @@ class APIController extends AppController
                 unset($options['id']);
                 $query = $this->$model->get($id, $options);
             } else {
-                $query = $this->$model->find('all', $options);
+                $query = $this->$model->find('all', $options)->toArray();
             }
             $response[$model] = $query;
+            Log::write('debug', $response);
+            
         }
         
         $this->set('response', $response);
