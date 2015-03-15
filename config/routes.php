@@ -167,6 +167,8 @@ Router::scope('/api', ['controller' => 'API'], function($sub) {
     $sub->connect('/search', ['action' => 'search']);
     // $sub->connect('/test_search', ['action' => 'test_search']);
     $sub->connect('/git_pull', ['action' => 'git_pull']);
+    $sub->connect('/test_element', ['action' => 'test_element']);
+    $sub->connect('/add_modal', ['action' => 'add_modal']);
 });
 
 /**

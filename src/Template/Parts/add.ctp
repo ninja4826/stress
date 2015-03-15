@@ -50,7 +50,7 @@
             echo $this->Form->input('cc_id', ['type' => 'text', 'required' => true, 'label' => 'Cost Center']);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit'), ['class' => 'btn-success form-submit-btn']) ?>
+    <?= $this->Form->button(__('Submit'), ['class' => 'btn-success form-submit-btn', 'id' => 'parts-form-submit']) ?>
     <?= $this->Form->end() ?>
 </div>
 <!-- Confirmation Modal -->
@@ -73,12 +73,17 @@
         </div>
     </div>
 </div>
+<!-- Manufacturer creation modal -->
+<div class="modal fade" id="manufacturerModal" tabindex="-1" role="dialog" aria-labelledby="manufacturerModalLabel" aria-hidden="true"></div>
+<!-- Category creation modal -->
+<div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true"></div>
+<!-- CostCenter creation modal -->
+<div class="modal fade" id="cost_centerModal" tabindex="-1" role="dialog" aria-labelledby="cost_centerModalLabel" aria-hidden="true"></div>
+<div id="test-div"></div>
 
 <!-- Script for functionality -->
 <script>
     $(document).ready(function() {
-        var json = {};
-        
         $(".form-group.required > input").attr('rel', 'popover');
         $(".form-group.required > input").attr('data-content', 'This field cannot be left blank.');
         $(".form-group.required > input").attr('data-placement', 'bottom');
@@ -102,20 +107,33 @@
         var json_str = '../api/search.json?q=' + JSON.stringify(model_hash);
         
         console.log(json_str);
+        
         var results = {};
+        var keys = {};
+        var parts = {};
+        
         $.getJSON(json_str, function( response ) {
             console.log('Full response object');
             console.log(response);
             results = response['response'];
             console.log('Filtered response object');
             console.log(results);
+            for (var part_i in results['Parts']) {
+                var part = results['Parts'][part_i];
+                
+                parts[part['part_num']] = part['amt_on_hand'];
+            }
+            console.log('Parts');
+            console.log(parts);
             var types = {};
             for (var model_str in results) {
                 var model = results[model_str];
                 types[model_str] = [];
+                keys[model_str] = {};
                 for (var item_i in model) {
                     var item = model[item_i];
                     types[model_str].push(item['display_name']);
+                    keys[model_str][item['display_name']] = item['id'];
                 }
             }
             console.log('Response filtered into their designated types and what-have you.');
@@ -123,8 +141,9 @@
             console.log('types JSON');
             console.log(JSON.stringify(types));
             
-            var categories = types['Categories'];
-            console.log(categories);
+            console.log('Keys');
+            console.log(keys);
+            
             
             var substringMatcher = function(strs) {
               return function findMatches(q, cb) {
@@ -167,6 +186,16 @@
                 {name: 'cost_centers', source: substringMatcher(types['CostCenters'])}
             );
         });
+        
+        $('#parts-form-submit').click(function( event ) {
+            event.preventDefault();
+            $('#test-div').load('http://dev.ninja4826.me/api/test_element');
+            replace_IDs_and_submit();
+        });
+        
+        
+        
+        
         // $(".form-submit-btn").click(function( event ) {
             
         //     $("#part-num").popover('hide');
@@ -191,13 +220,13 @@
         //     }
             
         //     // if ($.inArray($('#part-num').val(), json) >= 0)
-        //     if (part_num_val in json)
+        //     if (part_num_val in parts)
         //     {
                 
-        //         $("#current-quantity-placeholder").text(String(json[part_num_val]));
+        //         $("#current-quantity-placeholder").text(String(parts[part_num_val]));
         //         $("#new-quantity-placeholder").text(new_quantity_val)
         //         $("#part-num-placeholder").text(part_num_val)
-        //         $("#total-quantity-placeholder").text(String(Number(new_quantity_val) + json[part_num_val]));
+        //         $("#total-quantity-placeholder").text(String(Number(new_quantity_val) + parts[part_num_val]));
                 
         //         $("#confirmModal").modal('show');
                 
@@ -219,5 +248,16 @@
         //         $(".part-form").submit();
         //     }
         // });
+        
+        function replace_IDs_and_submit() {
+            var manufacturer_name = $('#manufacturer-id').val();
+            var category_name = $('#category-id').val();
+            var cost_center_name = $('#cc-id').val();
+            
+            $('#manufacturer-id').val(keys['Manufacturers'][$('#manufacturer-id').val()]);
+            $('#category-id').val(keys['Categories'][$('#category-id').val()]);
+            $('#cc-id').val(keys['CostCenters'][$('#cc-id').val()]);
+            
+        }
     });
 </script>

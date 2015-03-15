@@ -174,4 +174,26 @@ class APIController extends AppController
         $this->set('response', $response);
         $this->set('_serialize', ['response']);
     }
+    
+    public function test_element() {
+        $this->viewClass = 'Json';
+        $this->render('/Element/test_element');
+    }
+    
+    public function add_modal() {
+        $this->viewClass = 'Json';
+        $model = $this->request->query['model'];
+        if ($this->request->is('post')) {
+            $this->loadModel($model);
+            $manufacturer = $this->$model->newEntity($this->request->data);
+            if ($this->$model->save($manufacturer)) {
+                $this->set('response', ['status' => 'ok', 'data' => $this->request->data]);
+            } else {
+                $this->set('response', ['status' => 'error', 'data' => $this->request->data]);
+            }
+            $this->set('_serialize', ['response']);
+            return;
+        }
+        $this->render('/Element/modals/' . $model . '/add');
+    }
 }
