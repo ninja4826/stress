@@ -12,7 +12,7 @@ use Cake\ORM\TableRegistry;
  */
 class APIController extends AppController
 {
-    
+
     private $tables = [
         'Parts',
         'Categories',
@@ -20,7 +20,7 @@ class APIController extends AppController
         'Locations',
         'Manufacturers',
     ];
-    
+
     public function initialize() {
         parent::initialize();
         $this->loadComponent('RequestHandler');
@@ -36,77 +36,77 @@ class APIController extends AppController
     //     }
     //     $this->loadModel($model);
     //     $q = $this->request->query;
-        
+
     //     $items = $this->$model->find('all');
-        
+
     //     if (array_key_exists('conditions', $q)) {
     //         $conditions = json_decode($q['conditions'], true);
     //         foreach ($conditions as $k => $v) {
     //             $items->where([$k => $v]);
     //         }
     //     }
-        
+
     //     if (array_key_exists('fields', $q)) {
     //         $items->select(json_decode($q['fields'], true));
     //     }
-        
+
     //     if (array_key_exists('limit', $q)) {
     //         $items->limit($q['limit']);
     //     }
     //     $this->set('items', $items->toArray());
     //     $this->set('_serialize', ['items']);
     // }
-    
+
     public function results() {
         $results = [];
-        
-        
+
+
         $this->set('response', $results);
         $this->set('_serialize', ['results']);
     }
-    
+
     public function get_all() {
         $this->loadComponent('RequestHandler');
         $this->viewClass = 'Json';
-        
+
         $q = $this->request->query;
-        
+
         if (empty($q) || !array_key_exists('models', $q)) {
             return;
         }
-        
+
         $models = json_decode($q['models'], true);
-        
+
         foreach($models as $model => $fields) {
             $this->loadModel($model);
-            
+
             $display_field = $this->$model->find('all', ['limit' => 1, 'fields' => []])->toArray()[0]->display_field;
-            
+
             if (!in_array($display_field, $fields)) {
                 $fields[] = $display_field;
             }
             if (!in_array('id', $fields)) {
                 $fields[] = 'id';
             }
-            
+
             $objs_ = $this->$model->find('all', ['fields' => $fields])->toArray();
-            
+
             $objs = [];
-            
+
             foreach($objs_ as $obj) {
                 $obj = $obj->toArray();
-                
+
                 $obj_id = $obj['id'];
                 unset($obj['id']);
                 $objs[$obj_id] = $obj;
             }
             $response[$model] = $objs;
         }
-        
+
         $this->set('response', $this->Parts->getPartNums());
         $this->set('_serialize', ['response']);
     }
-    
+
     public function git_pull() {
         $this->loadComponent('RequestHandler');
         $this->viewClass = 'Json';
@@ -115,27 +115,27 @@ class APIController extends AppController
         $LOCAL_REPO = "{$LOCAL_ROOT}/{$LOCAL_REPO_NAME}";
         $REMOTE_REPO = "git@github.com:ninja4826/stress.git";
         $BRANCH = "master";
-        
+
         if ($this->request->is('post')) {
             if (file_exists($LOCAL_REPO)) {
-                
+
                 Log::write('debug', `git -C /var/www/stress pull 2>&1`);
-                
-                
+
+
                 Log::write('debug', 'PULLING');
             } else {
             }
         }
-        
-        
-        
+
+
+
         Log::write('debug', 'GITHUB HOOK ACTIVATED');
         $blah = ['blah'];
         $this->set('blah', $blah);
         $this->set('_serialize', ['blah']);
-        
+
     }
-    
+
     public function search() {
         $this->loadComponent('RequestHandler');
         $this->viewClass = 'Json';
@@ -148,10 +148,10 @@ class APIController extends AppController
         Log::write('debug', $q);
         foreach ($q as $model => $options) {
             $this->loadModel($model);
-            
+
             // $item = $this->$model->find('all', ['limit' => 1])->toArray()[0];
             $query = null;
-            
+
             if (array_key_exists('fields', $options)) {
                 foreach(['id', $this->$model->displayField()] as $field) {
                     if (!in_array($field, $options['fields'])) {
@@ -168,26 +168,26 @@ class APIController extends AppController
             }
             $response[$model] = $query;
             Log::write('debug', $response);
-            
+
         }
-        
+
         $this->set('response', $response);
         $this->set('_serialize', ['response']);
     }
-    
+
     public function test_element() {
         $this->viewClass = 'Json';
         $this->render('/Element/test_element');
     }
-    
+
     public function add_modal() {
         $this->viewClass = 'Json';
         $model = $this->request->query['model'];
         if ($this->request->is('post')) {
             $this->loadModel($model);
-            $manufacturer = $this->$model->newEntity($this->request->data);
-            if ($this->$model->save($manufacturer)) {
-                $this->set('response', ['status' => 'ok', 'data' => $this->request->data]);
+            $item = $this->$model->newEntity($this->request->data);
+            if ($this->$model->save($item)) {
+                $this->set('response', ['status' => 'ok', 'data' => $this->request->data, 'item' => $item]);
             } else {
                 $this->set('response', ['status' => 'error', 'data' => $this->request->data]);
             }
