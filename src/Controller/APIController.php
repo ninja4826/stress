@@ -126,14 +126,9 @@ class APIController extends AppController
             } else {
             }
         }
-<<<<<<< HEAD
-        
-        
-=======
 
 
 
->>>>>>> dev
         Log::write('debug', 'GITHUB HOOK ACTIVATED');
         $blah = ['blah'];
         $this->set('blah', $blah);
