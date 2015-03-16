@@ -37,17 +37,17 @@
     <fieldset>
         <legend><?= __('Add Part') ?></legend>
         <?php
-            echo $this->Form->input('part_num');
-            echo $this->Form->input('description');
-            echo $this->Form->input('amt_on_hand');
+            echo $this->Form->input('part_num', ['default' => 'SN74S74N2']);
+            echo $this->Form->input('description', ['default' => 'test']);
+            echo $this->Form->input('amt_on_hand', ['default' => 2]);
             echo $this->Form->input('active');
-            echo $this->Form->input('location_name', ['type' => 'text', 'required' => true]);
+            echo $this->Form->input('location_name', ['type' => 'text', 'required' => true, 'default' => 'G1C2']);
             // echo $this->Form->input('manufacturer_id', ['options' => $manufacturers]);
             // echo $this->Form->input('category_id', ['options' => $categories]);
             // echo $this->Form->input('cc_id', ['options' => $costCenters, 'label' => 'Cost Center']);
-            echo $this->Form->input('manufacturer_id', ['type' => 'text', 'required' => true]);
-            echo $this->Form->input('category_id', ['type' => 'text', 'required' => true]);
-            echo $this->Form->input('cc_id', ['type' => 'text', 'required' => true, 'label' => 'Cost Center']);
+            echo $this->Form->input('manufacturer_id', ['type' => 'text', 'required' => true, 'default' => 'blah']);
+            echo $this->Form->input('category_id', ['type' => 'text', 'required' => true, 'default' => 'flip']);
+            echo $this->Form->input('cc_id', ['type' => 'text', 'required' => true, 'label' => 'Cost Center', 'default' => 'test center']);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'), ['class' => 'btn-success form-submit-btn', 'id' => 'parts-form-submit']) ?>
@@ -73,6 +73,9 @@
         </div>
     </div>
 </div>
+<script>
+    var keys = {};
+</script>
 <!-- Manufacturer creation modal -->
 <div class="modal fade" id="manufacturerModal" tabindex="-1" role="dialog" aria-labelledby="manufacturerModalLabel" aria-hidden="true"></div>
 <!-- Category creation modal -->
@@ -84,16 +87,11 @@
 <!-- Script for functionality -->
 <script>
     $(document).ready(function() {
-        $(".form-group.required > input").attr('rel', 'popover');
-        $(".form-group.required > input").attr('data-content', 'This field cannot be left blank.');
-        $(".form-group.required > input").attr('data-placement', 'bottom');
+        $("input[required='required'").attr('rel', 'popover');
+        $("input[required='required'").attr('data-content', 'This field cannot be left blank.');
+        $("input[required='required'").attr('data-placement', 'bottom');
         
-        var model_hash = {
-            Parts: ['amt_on_hand'],
-            Categories: [],
-            Manufacturers: [],
-            CostCenters: []
-        };
+        $("input[required='required'")
         
         var model_hash = {
             Parts: {
@@ -102,14 +100,14 @@
             Categories: {},
             Manufacturers: {},
             CostCenters: {},
-        }
+        };
         
         var json_str = '../api/search.json?q=' + JSON.stringify(model_hash);
         
         console.log(json_str);
         
         var results = {};
-        var keys = {};
+        keys = {};
         var parts = {};
         
         $.getJSON(json_str, function( response ) {
@@ -188,76 +186,104 @@
         });
         
         $('#parts-form-submit').click(function( event ) {
+            $('#part-num').popover('hide');
+            $('#amt-on-hand').popover('hide');
+            $('#description').popover('hide');
+            $('#location-name').popover('hide');
+            
             event.preventDefault();
-            $('#test-div').load('http://dev.ninja4826.me/api/test_element');
-            replace_IDs_and_submit();
+            
+            var part_num_val = $('#part-num').val();
+            var new_quantity_val = $('#amt-on-hand').val();
+            var description_val = $('#description').val();
+            var location_val = $('#location-name').val();
+            
+            var manufacturer_val = $('#manufacturer-id').val();
+            var category_val = $('#category-id').val();
+            var cost_center_val = $('#cc-id').val();
+            
+            if (!part_num_val) {
+                $('#part-num').popover('show');
+            }
+            if (!new_quantity_val) {
+                $('#amt-on-hand').popover('show');
+            }
+            
+            if (!part_num_val || !new_quantity_val) {
+                return;
+            }
+            
+            if (part_num_val in parts) {
+                $("#current-quantity-placeholder").text(String(parts[part_num_val]));
+                $("#new-quantity-placeholder").text(new_quantity_val)
+                $("#part-num-placeholder").text(part_num_val)
+                $("#total-quantity-placeholder").text(String(Number(new_quantity_val) + parts[part_num_val]));
+                
+                $("#confirmModal").modal('show');
+                
+                $("#confirmModal-submit").click(function (event) {
+                    $(".part-form").submit();
+                });
+                
+                $("#confirmModal-cancel").click(function (event) {
+                    window.location = "<?= $referer ?>"
+                });
+            } else {
+                if (!description_val) {
+                    $('#description').popover('show');
+                }
+                if (!location_val) {
+                    $('#location-name').popover('show');
+                }
+                if (!manufacturer_val) {
+                    $('#manufacturer-id').popover('show');
+                }
+                if (!category_val) {
+                    $('#category-id').popover('show');
+                }
+                if (!cost_center_val) {
+                    $('#cc-id').popover('show');
+                }
+                if (!description_val || !location_val || !manufacturer_val || !category_val || !cost_center_val) {
+                    return;
+                }
+                console.log('blah');
+                if (!(manufacturer_val in keys['Manufacturers'])) {
+                    $('#manufacturerModal').load('/api/add_modal?model=Manufacturers');
+                    // $('#specified_manufacturer').text(manufacturer_val);
+                    $('#manufacturerModal').modal('show');
+                    return;
+                }
+                if (!(category_val in keys['Categories'])) {
+                    $('#categoryModal').load('/api/add_modal?model=Categories');
+                    // $('#specified_category').text(category_val);
+                    $('#categoryModal').modal('show');
+                    return;
+                }
+                if (!(cost_center_val in keys['CostCenters'])) {
+                    $('#cost_centerModal').load('/api/add_modal?model=CostCenters');
+                    // $('#specified_cost_center').text(cost_center_val);
+                    $('#cost_centerModal').modal('show');
+                    return;
+                }
+                
+                var manufacturer_id = keys['Manufacturers'][manufacturer_val];
+                var category_id = keys['Categories'][category_val];
+                var cost_center_id = keys['CostCenters'][cost_center_val];
+                console.log(keys);
+                $.post('/parts/add', {
+                    'part_num': part_num_val,
+                    'description': description_val,
+                    'amt_on_hand': new_quantity_val,
+                    'active': (($('#active').is(':checked')) ? 1 : 0),
+                    'location_name': location_val,
+                    'manufacturer_id': manufacturer_id,
+                    'category_id': category_id,
+                    'cc_id': cost_center_id
+                }).done(function( data ) {
+                    window.location = '/';
+                });
+            }
         });
-        
-        
-        
-        
-        // $(".form-submit-btn").click(function( event ) {
-            
-        //     $("#part-num").popover('hide');
-        //     $("#amt-on-hand").popover('hide');
-        //     $("#description").popover('hide');
-        //     $("#location-name").popover('hide');
-            
-        //     event.preventDefault();
-            
-        //     var part_num_val = $("#part-num").val();
-        //     var new_quantity_val = $("#amt-on-hand").val();
-        //     var description_val = $("#description").val();
-        //     var location_val = $("#location-name").val();
-            
-        //     if (!part_num_val) {
-        //         $("#part-num").popover('show');
-        //     }
-            
-        //     if (!new_quantity_val) {
-        //         $("#amt-on-hand").popover('show');
-        //         return;
-        //     }
-            
-        //     // if ($.inArray($('#part-num').val(), json) >= 0)
-        //     if (part_num_val in parts)
-        //     {
-                
-        //         $("#current-quantity-placeholder").text(String(parts[part_num_val]));
-        //         $("#new-quantity-placeholder").text(new_quantity_val)
-        //         $("#part-num-placeholder").text(part_num_val)
-        //         $("#total-quantity-placeholder").text(String(Number(new_quantity_val) + parts[part_num_val]));
-                
-        //         $("#confirmModal").modal('show');
-                
-        //         $("#confirmModal-submit").click(function (event) {
-        //             $(".part-form").submit();
-        //         });
-                
-        //         $("#confirmModal-cancel").click(function (event) {
-        //             window.location = "<?= $referer ?>"
-        //         });
-        //     } else {
-        //         if (!description_val) {
-        //             $("#description").popover('show');
-        //         }
-        //         if (!location_val) {
-        //             $("#location-name").popover('show');
-        //             return;
-        //         }
-        //         $(".part-form").submit();
-        //     }
-        // });
-        
-        function replace_IDs_and_submit() {
-            var manufacturer_name = $('#manufacturer-id').val();
-            var category_name = $('#category-id').val();
-            var cost_center_name = $('#cc-id').val();
-            
-            $('#manufacturer-id').val(keys['Manufacturers'][$('#manufacturer-id').val()]);
-            $('#category-id').val(keys['Categories'][$('#category-id').val()]);
-            $('#cc-id').val(keys['CostCenters'][$('#cc-id').val()]);
-            
-        }
     });
 </script>

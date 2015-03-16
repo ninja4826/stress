@@ -6,7 +6,7 @@
         </div>
         <div class="modal-body">
             <div id="cost_center-alert"></div>
-            <p>The cost center, "<strong id="specified_cost_center"></strong>" could not be found.</p>
+            <p>The cost center you specified could not be found.</p>
             <p>If this was a mistake, please correct the mistake and try again. Otherwise, please create a new Cost Center.</p>
             <?= $this->Form->create(null, ['class' => 'cost_center-form']); ?>
             <fieldset>
@@ -47,6 +47,7 @@
             } else {
                 $('#cc-id').val(e_code);
                 $('#cost_centerModal').modal('hide');
+                keys['CostCenters'][e_code] = Number(data['response']['item']['id']);
             }
         });
     });

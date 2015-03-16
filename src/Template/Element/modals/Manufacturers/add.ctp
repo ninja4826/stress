@@ -6,7 +6,7 @@
         </div>
         <div class="modal-body">
             <div id="manufacturer-alert"></div>
-            <p>The manufacturer, "<strong id="specified_manufacturer"></strong>" could not be found.</p>
+            <p>The manufacturer you specified could not be found.</p>
             <p>If this was a mistake, please correct the mistake and try again. Otherwise, please create a new Manufacturer.</p>
             <?= $this->Form->create(null, ['class' => 'manufacturer-form']); ?>
             <fieldset>
@@ -38,6 +38,7 @@
             } else {
                 $('#manufacturer-id').val(manufacturer_name);
                 $('#manufacturerModal').modal('hide');
+                keys['Manufacturers'][manufacturer_name] = Number(data['response']['item']['id']);
             }
         });
     });

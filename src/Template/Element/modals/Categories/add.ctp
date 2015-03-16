@@ -6,7 +6,7 @@
         </div>
         <div class="modal-body">
             <div id="category-alert"></div>
-            <p>The category, "<strong id="specified_category"></strong>" could not be found.</p>
+            <p>The category you specified could not be found.</p>
             <p>If this was a mistake, please correct the mistake and try again. Otherwise, please create a new Category.</p>
             <?= $this->Form->create(null, ['class' => 'category-form']); ?>
             <fieldset>
@@ -25,7 +25,6 @@
         event.preventDefault();
         
         var category_name = $('#category-name').val();
-        
         $.post('/api/add_modal?model=Categories', {
             'category_name': category_name
         }).done(function( data ) {
@@ -35,6 +34,7 @@
             } else {
                 $('#category-id').val(category_name);
                 $('#categoryModal').modal('hide');
+                keys['Categories'][category_name] = Number(data['response']['item']['id']);
             }
         });
     });
