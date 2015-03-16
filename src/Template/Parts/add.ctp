@@ -10,8 +10,17 @@
     .tt-hint {
         width: 100%;
     }
-    .tt-dropdown-menu{
+    .tt-dropdown-menu {
         display: none !important;
+    }
+    .input-group-addon.glyphicon {
+        color: white;
+    }
+    .input-group-addon.glyphicon-remove {
+        background: red;
+    }
+    .input-group-addon.glyphicon-ok {
+        background: green;
     }
 </style>
 
@@ -33,25 +42,59 @@
     </ul>
 </div>
 <div class="parts form col-lg-10 col-md-9 columns">
-    <?= $this->Form->create($part, ['class' => 'part-form']); ?>
-    <fieldset>
-        <legend><?= __('Add Part') ?></legend>
-        <?php
-            echo $this->Form->input('part_num', ['default' => 'SN74S74N2']);
-            echo $this->Form->input('description', ['default' => 'test']);
-            echo $this->Form->input('amt_on_hand', ['default' => 2]);
-            echo $this->Form->input('active');
-            echo $this->Form->input('location_name', ['type' => 'text', 'required' => true, 'default' => 'G1C2']);
-            // echo $this->Form->input('manufacturer_id', ['options' => $manufacturers]);
-            // echo $this->Form->input('category_id', ['options' => $categories]);
-            // echo $this->Form->input('cc_id', ['options' => $costCenters, 'label' => 'Cost Center']);
-            echo $this->Form->input('manufacturer_id', ['type' => 'text', 'required' => true, 'default' => 'blah']);
-            echo $this->Form->input('category_id', ['type' => 'text', 'required' => true, 'default' => 'flip']);
-            echo $this->Form->input('cc_id', ['type' => 'text', 'required' => true, 'label' => 'Cost Center', 'default' => 'test center']);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit'), ['class' => 'btn-success form-submit-btn', 'id' => 'parts-form-submit']) ?>
-    <?= $this->Form->end() ?>
+    <form method="post" accept-charset="utf-8" class="part-form" action="/parts/add">
+        <div style="display:none;">
+            <input type="hidden" name="_method" value="POST">
+        </div>
+        <fieldset>
+            <legend>Add Part</legend>
+            <div class="form-group text required">
+                <label for="part-num">Part Number</label>
+                <input type="text" name="part_num" required="required" maxlength="255" id="part-num" class="form-control" aria-describedby="part-num-check">
+            </div>
+            <div class="form-group number required">
+                <label for="amt-on-hand">Amount on Hand</label>
+                <input type="number" name="amt_on_hand" required="required" id="amt-on-hand" class="form-control" aria-describedby="amt-on-hand-check">
+            </div>
+            <div class="form-group text required">
+                <label for="description">Description</label>
+                <input type="text" name="description" required="required" id="description" class="form-control" aria-describedby="description-check">
+            </div>
+            <div class="form-group checkbox">
+                <input type="hidden" name="active" value="0">
+                <label for="active">
+                    <input type="checkbox" name="active" value="1" id="active">
+                    Active
+                </label>
+            </div>
+            <div class="form-group text required">
+                <label for="location-name">Location Name</label>
+                <input type="text" name="location_name" required="required" id="location-name" class="form-control" aria-describedby="location-name-check">
+            </div>
+            <div class="form-group text required">
+                <label for="manufacturer-id">Manufacturer</label>
+                <div class="input-group">
+                    <input type="text" name="manufacturer_id" required="required" id="manufacturer-id" class="form-control" aria-describedby="manufacturer-id-check">
+                    <span class="input-group-addon glyphicon glyphicon-remove" id="manufacturer-id-check"></span>
+                </div>
+            </div>
+            <div class="form-group text required">
+                <label for="category-id">Category</label>
+                <div class="input-group">
+                    <input type="text" name="category_id" required="required" id="category-id" class="form-control" aria-describedby="category-id-check">
+                    <span class="input-group-addon glyphicon glyphicon-remove" id="category-id-check"></span>
+                </div>
+            </div>
+            <div class="form-group text required">
+                <label for="cc-id">Cost Center</label>
+                <div class="input-group">
+                    <input type="text" name="category_id" required="required" id="cc-id" class="form-control" aria-describedby="cc-id-check">
+                    <span class="input-group-addon glyphicon glyphicon-remove" id="cc-id-check"></span>
+                </div>
+            </div>
+        </fieldset>
+        <button class="btn-success form-submit-btn btn" id="parts-form-submit" type="submit">Submit</button>
+    </form>
 </div>
 <!-- Confirmation Modal -->
 <div class="modal fade" id="confirmModal" tabindex="-1" role="dialog" aria-labelledby="confirmModalLabel" aria-hidden="true">
@@ -90,12 +133,11 @@
         $("input[required='required'").attr('data-content', 'This field cannot be left blank.');
         $("input[required='required'").attr('data-placement', 'bottom');
         
-        $("input[required='required'")
-        
         var model_hash = {
-            Parts: {
-                'fields': ['amt_on_hand']
-            },
+            // Parts: {
+            //     'fields': ['amt_on_hand']
+            // },
+            Parts: {},
             Categories: {},
             Manufacturers: {},
             CostCenters: {},
@@ -117,7 +159,6 @@
             console.log(results);
             for (var part_i in results['Parts']) {
                 var part = results['Parts'][part_i];
-                
                 parts[part['part_num']] = part['amt_on_hand'];
             }
             console.log('Parts');
@@ -182,12 +223,44 @@
                 {highlight: true, minLength: 1},
                 {name: 'cost_centers', source: substringMatcher(types['CostCenters'])}
             );
-            
-            $('#part-num').focusout(function() {
-                
-            });
         });
         
+        var id_fields = {
+            'manufacturer-id': 'Manufacturers',
+            'category-id': 'Categories',
+            'cc-id': 'CostCenters'
+        }
+        
+        $('#manufacturer-id, #category-id, #cc-id').focusout(function() {
+            var field_id = $(this).attr('id');
+            var check = '#' + field_id + '-check';
+            
+            var val = $(this).val();
+            var remove;
+            var add;
+            var title;
+            
+            if (!val || !(val in keys[id_fields[field_id]])) {
+                add = 'remove';
+                remove = 'ok';
+                title = 'You will be prompted to create this item.'
+            } else {
+                add = 'ok';
+                remove = 'remove';
+                title = 'This item exists!'
+            }
+            
+            $(check).addClass('glyphicon-' + add).removeClass('glyphicon-' + remove).attr('data-original-title', title);
+            
+        });
+        
+        $('#manufacturer-id-check, #category-id-check, #cc-id-check')
+            .attr('data-toggle', 'tooltip')
+            .attr('data-placement', 'left')
+            .attr('data-original-title', 'You will be prompted to create this item.')
+            .attr('data-container', 'body');
+        $('[data-toggle="tooltip"]').tooltip();
+            
         $('#parts-form-submit').click(function( event ) {
             $('#part-num').popover('hide');
             $('#amt-on-hand').popover('hide');
@@ -254,6 +327,9 @@
                 $('#manufacturerModal').on('hidden.bs.modal', function() {
                     if (!(category_val in keys['Categories'])) {
                         $('#categoryModal').load('/api/add_modal?model=Categories', function() {
+                            var close_button = $('#categoryModalLabel').siblings('button');
+                            close_button.remove();
+                            $('#category-name').val(category_val);
                             $('#categoryModal').modal('show');
                         });
                     } else {
@@ -264,6 +340,9 @@
                 $('#categoryModal').on('hidden.bs.modal', function() {
                     if (!(cost_center_val in keys['CostCenters'])) {
                         $('#cost_centerModal').load('/api/add_modal?model=CostCenters', function() {
+                            var close_button = $('#cost_centerModalLabel').siblings('button');
+                            close_button.remove();
+                            $('#cost_center-e_code').val(cost_center_val);
                             $('#cost_centerModal').modal('show');
                         });
                     } else {
@@ -286,12 +365,17 @@
                         'category_id': category_id,
                         'cc_id': cost_center_id
                     }).done(function( data ) {
-                        window.location = '/';
+                        if (data['status'] === 'ok') {
+                            window.location = '/';
+                        }
                     });
                 });
                 
                 if (!(manufacturer_val in keys['Manufacturers'])) {
                     $('#manufacturerModal').load('/api/add_modal?model=Manufacturers', function() {
+                        var close_button = $('#manufacturerModalLabel').siblings('button');
+                        close_button.remove();
+                        $('#manufacturer-name').val(manufacturer_val);
                         $('#manufacturerModal').modal('show');
                     });
                 } else {

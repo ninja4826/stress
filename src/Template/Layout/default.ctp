@@ -18,7 +18,7 @@ elseif ($this->fetch('title') && Configure::read('App.title')) {
 }
 
 // Prepend some meta tags
-$this->prepend('meta', $this->Html->meta('icon'));
+$this->prepend('meta', $this->Html->meta('icon', 'favicon.ico?v=2'));
 $this->prepend('meta', $this->Html->meta('viewport', 'width=device-width, initial-scale=1'));
 if (Configure::read('App.author')) {
     $this->prepend('meta', $this->Html->meta('author', null, [
