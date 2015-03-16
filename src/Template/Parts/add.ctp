@@ -82,7 +82,6 @@
 <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true"></div>
 <!-- CostCenter creation modal -->
 <div class="modal fade" id="cost_centerModal" tabindex="-1" role="dialog" aria-labelledby="cost_centerModalLabel" aria-hidden="true"></div>
-<div id="test-div"></div>
 
 <!-- Script for functionality -->
 <script>
@@ -183,6 +182,10 @@
                 {highlight: true, minLength: 1},
                 {name: 'cost_centers', source: substringMatcher(types['CostCenters'])}
             );
+            
+            $('#part-num').focusout(function() {
+                
+            });
         });
         
         $('#parts-form-submit').click(function( event ) {
@@ -247,42 +250,55 @@
                 if (!description_val || !location_val || !manufacturer_val || !category_val || !cost_center_val) {
                     return;
                 }
-                console.log('blah');
+                
+                $('#manufacturerModal').on('hidden.bs.modal', function() {
+                    if (!(category_val in keys['Categories'])) {
+                        $('#categoryModal').load('/api/add_modal?model=Categories', function() {
+                            $('#categoryModal').modal('show');
+                        });
+                    } else {
+                        $('#categoryModal').trigger('hidden.bs.modal');
+                    }
+                });
+                
+                $('#categoryModal').on('hidden.bs.modal', function() {
+                    if (!(cost_center_val in keys['CostCenters'])) {
+                        $('#cost_centerModal').load('/api/add_modal?model=CostCenters', function() {
+                            $('#cost_centerModal').modal('show');
+                        });
+                    } else {
+                        $('#cost_centerModal').trigger('hidden.bs.modal');
+                    }
+                });
+                
+                $('#cost_centerModal').on('hidden.bs.modal', function() {
+                    var manufacturer_id = keys['Manufacturers'][manufacturer_val];
+                    var category_id = keys['Categories'][category_val];
+                    var cost_center_id = keys['CostCenters'][cost_center_val];
+                    console.log(keys);
+                    $.post('/parts/add', {
+                        'part_num': part_num_val,
+                        'description': description_val,
+                        'amt_on_hand': new_quantity_val,
+                        'active': (($('#active').is(':checked')) ? 1 : 0),
+                        'location_name': location_val,
+                        'manufacturer_id': manufacturer_id,
+                        'category_id': category_id,
+                        'cc_id': cost_center_id
+                    }).done(function( data ) {
+                        window.location = '/';
+                    });
+                });
+                
                 if (!(manufacturer_val in keys['Manufacturers'])) {
-                    $('#manufacturerModal').load('/api/add_modal?model=Manufacturers');
-                    // $('#specified_manufacturer').text(manufacturer_val);
-                    $('#manufacturerModal').modal('show');
-                    return;
-                }
-                if (!(category_val in keys['Categories'])) {
-                    $('#categoryModal').load('/api/add_modal?model=Categories');
-                    // $('#specified_category').text(category_val);
-                    $('#categoryModal').modal('show');
-                    return;
-                }
-                if (!(cost_center_val in keys['CostCenters'])) {
-                    $('#cost_centerModal').load('/api/add_modal?model=CostCenters');
-                    // $('#specified_cost_center').text(cost_center_val);
-                    $('#cost_centerModal').modal('show');
-                    return;
+                    $('#manufacturerModal').load('/api/add_modal?model=Manufacturers', function() {
+                        $('#manufacturerModal').modal('show');
+                    });
+                } else {
+                    $('#manufacturerModal').trigger('hidden.bs.modal');
                 }
                 
-                var manufacturer_id = keys['Manufacturers'][manufacturer_val];
-                var category_id = keys['Categories'][category_val];
-                var cost_center_id = keys['CostCenters'][cost_center_val];
-                console.log(keys);
-                $.post('/parts/add', {
-                    'part_num': part_num_val,
-                    'description': description_val,
-                    'amt_on_hand': new_quantity_val,
-                    'active': (($('#active').is(':checked')) ? 1 : 0),
-                    'location_name': location_val,
-                    'manufacturer_id': manufacturer_id,
-                    'category_id': category_id,
-                    'cc_id': cost_center_id
-                }).done(function( data ) {
-                    window.location = '/';
-                });
+                
             }
         });
     });

@@ -58,7 +58,7 @@
             <?php if (!in_array($prop_name, $excluded_headers)): ?>
               <?php $prop = $item->$prop_name; ?>
               
-              <?php if ($prop == $item->display_name): ?>
+              <?php if ($prop === $item->display_name): ?>
                 
                 <td><?= $this->Html->link($item->display_name, ['controller' => $item->table_name, 'action' => 'view', $item->id]) ?></td>
               
