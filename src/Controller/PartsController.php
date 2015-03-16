@@ -71,7 +71,7 @@ class PartsController extends AppController
     {
         $part = $this->Parts->newEntity();
         if ($this->request->is('post')) {
-            
+            $this->viewClass = 'Json';
             if (!is_null($foundPart = $this->Parts->findByPartNum($this->request->data['part_num'])->first()))
             {
                 $part = $foundPart;
@@ -80,20 +80,17 @@ class PartsController extends AppController
                 $part = $this->Parts->patchEntity($part, $this->request->data);
             }
             if ($this->Parts->save($part)) {
-                $this->Flash->success('The part has been saved.');
-                return $this->redirect(['action' => 'index']);
+                $this->set('status', 'ok');
             } else {
-                $this->Flash->error('The part could not be saved. Please, try again.');
-                Log::write('debug', $part);
+                $this->set('status', 'error');
             }
+            $this->set('_serialize', ['status']);
+            return;
         }
-        $manufacturers = $this->Parts->Manufacturers->find('list', ['limit' => 200]);
-        $categories = $this->Parts->Categories->find('list', ['limit' => 200]);
-        $costCenters = $this->Parts->CostCenters->find('list', ['limit' => 200]);
         
         $referer = $this->referer();
         
-        $this->set(compact('part', 'manufacturers', 'categories', 'locations', 'costCenters', 'referer'));
+        $this->set(compact('part', 'referer'));
         $this->set('_serialize', ['part']);
     }
 

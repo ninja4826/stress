@@ -11,4 +11,8 @@ class AppEntity extends Entity
   protected function _getTableName() {
     return $this->_registryAlias;
   }
+  
+  protected function _getFields() {
+    return array_keys($this->_accessible);
+  }
 }
