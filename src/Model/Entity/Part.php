@@ -33,9 +33,5 @@ class Part extends Entity
         'location_id' => true,
         'active' => true,
         'cc_id' => true,
-        'manufacturer' => true,
-        'category' => true,
-        'location' => true,
-        'cc' => true,
     ];
 }

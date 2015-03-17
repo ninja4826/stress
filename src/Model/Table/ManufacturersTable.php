@@ -24,6 +24,13 @@ class ManufacturersTable extends Table
         $this->table('manufacturers');
         $this->displayField('manufacturer_name');
         $this->primaryKey('id');
+        
+        $this->addBehavior('Search', [
+            'fields' => [
+                'manufacturer_name' => 'string',
+                'active' => true
+            ]
+        ]);
     }
 
     /**

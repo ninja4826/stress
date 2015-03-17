@@ -41,6 +41,15 @@ class PartsTable extends Table
         $this->hasMany('PartVendors', [
             'foreignKey' => 'part_id'
         ]);
+        
+        $this->addBehavior('Search', [
+            'fields' => [
+                'part_num' => 'string',
+                'description' => 'string',
+                'amt_on_hand' => 1,
+                'active' => true,
+            ]
+        ]);
     }
 
     /**

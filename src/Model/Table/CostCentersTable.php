@@ -24,6 +24,16 @@ class CostCentersTable extends Table
         $this->table('cost_centers');
         $this->displayField('e_code');
         $this->primaryKey('id');
+        
+        $this->addBehavior('Search', [
+            'fields' => [
+                'e_code' => 'string',
+                'description' => 'string',
+                'active' => true,
+                'default_value' => 'string',
+                'project_number' => 1
+            ]
+        ]);
     }
 
     /**
