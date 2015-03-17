@@ -178,6 +178,9 @@ class APIController extends AppController
         $this->render('/Element/test_element');
     }
 
+    /**
+     * Might rename this function to use it as a search system.
+     */
     public function add_modal() {
         $this->viewClass = 'Json';
         $model = $this->request->query['model'];
