@@ -57,13 +57,13 @@ class APIController extends AppController {
     public function search() {
         $this->loadComponent('RequestHandler');
         $this->viewClass = 'Json';
-        Log::write('debug', $this->request->query);
+        // Log::write('debug', $this->request->query);
         if (!array_key_exists('q', $this->request->query)) {
             return;
         }
         $response = [];
         $q = json_decode($this->request->query['q'], true);
-        Log::write('debug', $q);
+        // Log::write('debug', $q);
         foreach ($q as $model => $options) {
             $this->loadModel($model);
 
