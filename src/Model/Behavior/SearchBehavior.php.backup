@@ -20,20 +20,20 @@ class SearchBehavior extends Behavior {
         $this->table_fields = $config['fields'];
     }
     
-    public function findSearch(Query $query, array $options) {
-        // Add differentiation of 'all' type or specific inputs
-        if (!array_key_exists('fields', $options)) {
-            return $query;
-        } else {
-            $fields = $options['fields'];
-            foreach ($fields as $field => $value) {
-                if ($field === 'all') {
-                    Log::write('debug', $value);
-                }
-            }
-        }
-        return $query;
-    }
+    // public function findSearch(Query $query, array $options) {
+    //     // Add differentiation of 'all' type or specific inputs
+    //     if (!array_key_exists('fields', $options)) {
+    //         return $query;
+    //     } else {
+    //         $fields = $options['fields'];
+    //         foreach ($fields as $field => $value) {
+    //             if ($field === 'all') {
+    //                 Log::write('debug', $value);
+    //             }
+    //         }
+    //     }
+    //     return $query;
+    // }
     
     public function findSearch(Query $query, array $options) {
         foreach ($options as $field => $value) {

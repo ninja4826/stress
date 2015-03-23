@@ -24,6 +24,7 @@ class RecordGeneratorTask extends Shell {
     
     public function main()
     {
+        
         $category = $this->Categories->save($this->Categories->newEntity([
             'category_name' => 'Relays'
         ]));
@@ -48,6 +49,24 @@ class RecordGeneratorTask extends Shell {
             'active' => true
         ]));
         $this->out($manufacturer);
+        
+        if ($category && $cost_center && $location && $manufacturer)
+        {
+            $part = $this->Parts->save($this->Parts->newEntity([
+                'part_num' => 'SN74S74N',
+                'description' => 'Dual flip flop relay and stuff',
+                'amt_on_hand' => 5,
+                'active' => true,
+                'manufacturer_id' => 1,
+                'category_id' => 1,
+                'cc_id' => 1,
+                'location_id' => 1
+            ]));
+            $this->out($part);
+        }
+        
+        /*
+        
         $vendor = $this->Vendors->save($this->Vendors->newEntity([
             'vendor_name' => 'Mouser',
             'comment' => 'blank comment',
@@ -66,39 +85,27 @@ class RecordGeneratorTask extends Shell {
         ]));
         $this->out($other_vendor);
         
-        if ($category && $cost_center && $location && $manufacturer && $vendor)
-        {
-            $part = $this->Parts->save($this->Parts->newEntity([
-                'part_num' => 'SN74S74N',
-                'description' => 'Dual flip flop relay and stuff',
-                'amt_on_hand' => 5,
-                'active' => true,
-                'manufacturer_id' => 1,
-                'category_id' => 1,
-                'cc_id' => 1,
-                'location_id' => 1
+        if ($part && $vendor) {
+            $part_vendor = $this->PartVendors->save($this->PartVendors->newEntity([
+                'part_id' => 1,
+                'vendor_id' => 1,
+                'markup' => 'not sure what markup is...',
+                'discount' => '60',
+                'preferred' => true
             ]));
-            $this->out($part);
-            if ($part) {
-                $part_vendor = $this->PartVendors->save($this->PartVendors->newEntity([
-                    'part_id' => 1,
-                    'vendor_id' => 1,
-                    'markup' => 'not sure what markup is...',
-                    'discount' => '60',
-                    'preferred' => true
+            $this->out($part_vendor);
+            if ($part_vendor) {
+                $partTransaction = $this->PartTransactions->save($this->PartTransactions->newEntity([
+                    'part_vendor_id' => 1,
+                    'order_num' => 123456,
+                    'date' => Time::now(),
+                    'change_qty' => 20,
+                    'price' => 1.5
                 ]));
-                $this->out($part_vendor);
-                if ($part_vendor) {
-                    $partTransaction = $this->PartTransactions->save($this->PartTransactions->newEntity([
-                        'part_vendor_id' => 1,
-                        'order_num' => 123456,
-                        'date' => Time::now(),
-                        'change_qty' => 20,
-                        'price' => 1.5
-                    ]));
-                    $this->out($partTransaction);
-                }
+                $this->out($partTransaction);
             }
         }
+        
+        */
     }
 }

@@ -156,20 +156,19 @@ Router::scope('/address', ['controller' => 'Addresses'], function($sub) {
     $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
 });
 
-Router::scope('/api', ['controller' => 'API'], function($sub) {
-    $sub->connect('/keyword_search', ['action' => 'keyword_search']);
+// Router::scope('/api', ['controller' => 'API'], function($sub) {
+//     $sub->connect('/keyword_search', ['action' => 'keyword_search']);
+//     $sub->connect('/prox', ['action' => 'prox']);
     
-    $sub->extensions(['json'], false);
-    // $sub->connect('/search/:model', ['action' => 'search'], ['pass' => ['model']]);
-    // $sub->connect('/search', ['action' => 'search']);
-    // $sub->connect('/test', ['action' => 'test']);
-    $sub->connect('/get_all', ['action' => 'get_all']);
-    $sub->connect('/search', ['action' => 'search']);
-    // $sub->connect('/test_search', ['action' => 'test_search']);
-    $sub->connect('/git_pull', ['action' => 'git_pull']);
-    $sub->connect('/test_element', ['action' => 'test_element']);
-    $sub->connect('/add_modal', ['action' => 'add_modal']);
-});
+//     $sub->extensions(['json'], false);
+//     $sub->connect('/get_all', ['action' => 'get_all']);
+//     $sub->connect('/search', ['action' => 'search']);
+//     $sub->connect('/git_pull', ['action' => 'git_pull']);
+//     $sub->connect('/test_element', ['action' => 'test_element']);
+//     $sub->connect('/add_modal', ['action' => 'add_modal']);
+// });
+
+Router::connect('/api/:func', ['controller' => 'API', 'action' => 'main_func'], ['pass' => ['func']]);
 
 /**
  * Load all plugin routes.  See the Plugin documentation on

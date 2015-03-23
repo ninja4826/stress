@@ -55,9 +55,9 @@ class PartsFixture extends TestFixture
             'id' => 1,
             'manufacturer_id' => 1,
             'category_id' => 1,
-            'part_num' => 'Lorem ipsum dolor sit amet',
+            'part_num' => 'SN74S74N-T',
             'description' => 'Lorem ipsum dolor sit amet',
-            'amt_on_hand' => 1,
+            'amt_on_hand' => 10,
             'location_id' => 1,
             'active' => 1,
             'cc_id' => 1

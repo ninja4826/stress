@@ -6,6 +6,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Search\Manager;
 
 /**
  * Manufacturers Model
@@ -25,13 +26,14 @@ class ManufacturersTable extends Table
         $this->displayField('manufacturer_name');
         $this->primaryKey('id');
         
-        $this->addBehavior('Search', [
-            'fields' => [
-                'manufacturer_name' => 'string',
-                'active' => true
-            ]
-        ]);
+        // $this->addBehavior('Search', [
+        //     'fields' => [
+        //         'manufacturer_name' => 'string',
+        //         'active' => true
+        //     ]
+        // ]);
     }
+    
 
     /**
      * Default validation rules.

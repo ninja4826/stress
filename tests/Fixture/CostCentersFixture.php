@@ -40,7 +40,7 @@ class CostCentersFixture extends TestFixture
     public $records = [
         [
             'id' => 1,
-            'e_code' => 'Lorem ipsum dolor sit amet',
+            'e_code' => 'E9000',
             'description' => 'Lorem ipsum dolor sit amet',
             'active' => 1,
             'default_value' => 'Lorem ipsum dolor sit amet',

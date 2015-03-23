@@ -26,7 +26,8 @@ class CategoriesControllerTest extends IntegrationTestCase
      */
     public function testIndex()
     {
-        $this->markTestIncomplete('Not implemented yet.');
+        // $this->markTestIncomplete('Not implemented yet.');
+        $this->assertContains('blah', 'blah');
     }
 
     /**

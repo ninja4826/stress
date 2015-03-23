@@ -21,13 +21,7 @@ class LocationsTableTest extends TestCase
         'Parts' => 'app.parts',
         'Manufacturers' => 'app.manufacturers',
         'Categories' => 'app.categories',
-        'CostCenters' => 'app.cost_centers',
-        'PartVendors' => 'app.part_vendors',
-        'Vendors' => 'app.vendors',
-        'PVRateHistories' => 'app.p_v_rate_histories',
-        'PVRates' => 'app.p_v_rates',
-        'PartPriceHistories' => 'app.part_price_histories',
-        'PartTransactions' => 'app.part_transactions'
+        'CostCenters' => 'app.cost_centers'
     ];
 
     /**

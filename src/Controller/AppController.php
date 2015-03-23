@@ -29,7 +29,6 @@ use Cake\Controller\Component\AuthComponent;
  */
 class AppController extends Controller
 {
-    
     /**
      * Initialization hook method.
      *
@@ -43,9 +42,5 @@ class AppController extends Controller
         $this->helpers[] = 'Less.Less';
         $this->helpers[] = 'Bootstrap.Form';
         $this->layout = 'default';
-    }
-    
-    public function beforeFilter(Event $event) {
-        // $this->theme = 'Bootstrap';
     }
 }

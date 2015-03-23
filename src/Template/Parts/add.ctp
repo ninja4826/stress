@@ -143,7 +143,8 @@
             CostCenters: {},
         };
         
-        var json_str = '../api/search.json?q=' + JSON.stringify(model_hash);
+        // var json_str = '../api/search.json?q=' + JSON.stringify(model_hash);
+        var json_str = '../api/search?q=' + JSON.stringify(model_hash);
         
         console.log(json_str);
         

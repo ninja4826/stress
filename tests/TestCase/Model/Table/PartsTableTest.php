@@ -21,7 +21,7 @@ class PartsTableTest extends TestCase
         'Manufacturers' => 'app.manufacturers',
         'Categories' => 'app.categories',
         'Locations' => 'app.locations',
-        'Ccs' => 'app.ccs'
+        'CostCenters' => 'app.cost_centers'
     ];
 
     /**

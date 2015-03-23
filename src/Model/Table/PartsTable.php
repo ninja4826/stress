@@ -8,6 +8,7 @@ use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
+use Search\Manager;
 
 /**
  * Parts Model
@@ -42,14 +43,16 @@ class PartsTable extends Table
             'foreignKey' => 'part_id'
         ]);
         
-        $this->addBehavior('Search', [
-            'fields' => [
-                'part_num' => 'string',
-                'description' => 'string',
-                'amt_on_hand' => 1,
-                'active' => true,
-            ]
-        ]);
+        // $this->addBehavior('Search', [
+        //     'fields' => [
+        //         'part_num' => 'string',
+        //         'description' => 'string',
+        //         'amt_on_hand' => 1,
+        //         'active' => true,
+        //     ]
+        // ]);
+        
+        // $this->addBehavior('Search.Search');
     }
 
     /**
@@ -158,5 +161,16 @@ class PartsTable extends Table
         }
         
         return $parts_;
+    }
+    
+    public function searchConfiguration() {
+        $search = new Manager($this);
+        $search
+            ->like('part_num', [
+                'before' => true,
+                'after' => true,
+                'field' => [$this->alias().'.part_num']
+            ]);
+        return $search;
     }
 }

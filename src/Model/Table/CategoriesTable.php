@@ -27,11 +27,11 @@ class CategoriesTable extends Table
         $this->hasMany('Parts', [
             'foreignKey' => 'category_id'
         ]);
-        $this->addBehavior('Search', [
-            'fields' => [
-                'category_name' => 'string'
-            ]
-        ]);
+        // $this->addBehavior('Search', [
+        //     'fields' => [
+        //         'category_name' => 'string'
+        //     ]
+        // ]);
     }
 
     /**
@@ -50,4 +50,5 @@ class CategoriesTable extends Table
 
         return $validator;
     }
+    
 }

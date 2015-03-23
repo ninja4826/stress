@@ -59,6 +59,8 @@ class ConsoleShell extends Shell
         restore_exception_handler();
 
         $boris = new Boris('app > ');
+        $boris->onStart('$t = Cake\ORM\TableRegistry::get("parts");');
+        $boris->onStart('$client = new Elasticsearch\Client();');
         $boris->start();
     }
 

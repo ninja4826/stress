@@ -39,12 +39,7 @@ class LocationsFixture extends TestFixture
      */
     public $records = [
         [
-            'id' => 1,
-            'isle' => 'Lorem ipsum dolor sit amet',
-            'seg' => 1,
-            'shelf' => 'Lorem ipsum dolor sit amet',
-            'box' => 1,
-            'location_name' => 'Lorem ipsum dolor sit amet'
+            'location_name' => 'G3C5'
         ],
     ];
 }

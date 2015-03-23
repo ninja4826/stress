@@ -7,6 +7,7 @@ class Parts extends AbstractMigration
     
     public function change()
     {
+        
         $table = $this->table('categories');
         $table
             ->addColumn('category_name', 'string')
@@ -47,6 +48,31 @@ class Parts extends AbstractMigration
             ->addColumn('location_id', 'integer')
             ->addForeignKey('location_id', 'locations', 'id')
             ->save();
+        
+        $tables = [
+            'parts' => [
+                'part_num',
+                'description'
+            ],
+            'categories' => [
+                'category_name'
+            ],
+            'cost_centers' => [
+                'description'
+            ],
+            'locations' => [
+                'location_name'
+            ],
+            'manufacturers' => [
+                'manufacturer_name'
+            ]
+        ];
+        
+        foreach($tables as $table => $fields) {
+            $str = "CREATE FULLTEXT INDEX {$table}_index ON {$table}(".implode(',', $fields).")";
+            echo "\n\n\n\n\n\n\n\n{$str}\n\n\n\n\n\n\n\n";
+            $this->execute($str);
+        }
     }
     
     /**
