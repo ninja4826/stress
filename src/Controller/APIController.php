@@ -19,6 +19,10 @@ class APIController extends AppController {
     
     public function initialize() {
         parent::initialize();
+        // $this->loadComponent('Bootstrap.Flash');
+        // $this->helpers[] = 'Less.Less';
+        // $this->helpers[] = 'Bootstrap.Form';
+        // $this->layout = 'default';
         $this->loadComponent('RequestHandler');
     }
     

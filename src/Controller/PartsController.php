@@ -73,6 +73,7 @@ class PartsController extends AppController
         $part = $this->Parts->newEntity();
         if ($this->request->is('post')) {
             $this->viewClass = 'Json';
+            Log::write('debug', $this->request->data);
             if (!is_null($foundPart = $this->Parts->findByPartNum($this->request->data['part_num'])->first()))
             {
                 $part = $foundPart;
