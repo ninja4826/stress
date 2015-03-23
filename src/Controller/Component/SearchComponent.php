@@ -30,21 +30,15 @@ class SearchComponent extends Component
         $response = [];
         foreach ($arr as $model => $filters) {
             $this->$model = TableRegistry::get($model);
-            Log::write('debug', $model);
+            $query = $this->$model->find();
             foreach($filters as $filter) {
-                $query = $this->$model->find();
                 $query_;
                 if (array_key_exists('or', $filter) || array_key_exists('and', $filter)) {
                     $query_ = $this->group_search($query, $filter);
                 } else {
                     $query_ = $this->_search($query, $filter);
                 }
-                Log::write('debug', $query_->sql());
-                $query->where(function ($exp) use ($query_) {
-                    return $exp->add($query_);
-                });
             }
-            Log::write('debug', $query->sql());
             $response[$model] = $query;
         }
         return $response;
@@ -52,8 +46,11 @@ class SearchComponent extends Component
     
     private function group_search($query, $arr) {
         $group = (array_key_exists('or', $arr) ? 'or' : 'and');
+        // Log::write('debug', 'START');
+        // Log::write('debug', $arr);
         $arr = $arr[$group];
-        
+        // Log::write('debug', 'CHANGED SCOPE');
+        // Log::write('debug', $arr);
         if ($group == 'or') {
             $group = 'or_';
         } elseif ($group == 'and') {
@@ -61,16 +58,19 @@ class SearchComponent extends Component
         } else {
             return $query;
         }
-        $this_ = $this;
         
-        foreach ($arr as $arr_) {
-            $arr_['opt'] = $this->get_opt($arr_['op']);
+        foreach ($arr as $key => $arr_) {
+            $arr[$key]['opt'] = $this->get_opt($arr_['op']);
         }
-        return $query->where(function ($exp) use ($arr) {
+        // Log::write('debug', 'CHANGED OPTS');
+        // Log::write('debug', $arr);
+        return $query->where(function ($exp) use ($arr, $group) {
             return $exp->$group(function ($exp_) use ($arr) {
-                foreach ($arr as $filter) {
-                    $exp_->$filter['opt']($filter['name'], $filter['val']);
+                foreach ($arr as $filter_) {
+                    $exp_->$filter_['opt']($filter_['name'], $filter_['val']);
+                    
                 }
+                return $exp_;
             });
         });
     }
@@ -105,6 +105,9 @@ class SearchComponent extends Component
                 break;
             case 'k':
                 $opt = 'like';
+                break;
+            default:
+                $opt = '';
                 break;
         }
         return $opt;

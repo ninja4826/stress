@@ -116,4 +116,30 @@ class APIController extends AppController {
         }
         $this->render('/Element/modals/' . $model . '/add');
     }
+    
+    public function test_search() {
+        $this->layout = 'ajax';
+        $arr = [
+            'Parts' => [
+                [
+                    'or' => [
+                        [
+                            'name' => 'amt_on_hand',
+                            'op' => '<',
+                            'val' => 30
+                        ],
+                        [
+                            'name' => 'part_num',
+                            'op' => 'k',
+                            'val' => 'SN'
+                        ]
+                    ]
+                ]
+            ]
+        ];
+        $this->loadComponent('Search');
+        $resp = $this->Search->search($arr);
+        Log::write('debug', $resp['Parts']->toArray());
+        $this->response_var = [$resp];
+    }
 }
