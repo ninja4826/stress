@@ -12,6 +12,7 @@ use Cake\Validation\Validator;
  */
 class CategoriesTable extends Table
 {
+    public $indexes = ['category_name'];
     
     /**
      * Initialize method

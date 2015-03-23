@@ -60,7 +60,8 @@ class ConsoleShell extends Shell
 
         $boris = new Boris('app > ');
         $boris->onStart('$t = Cake\ORM\TableRegistry::get("parts");');
-        $boris->onStart('$client = new Elasticsearch\Client();');
+        $boris->onStart('$controller = new App\Controller\Component\SearchComponent(new Cake\Controller\ComponentRegistry());');
+        $boris->onStart('$arr = ["Parts" => [["name" => "part_num","op" => "k","val" => "SN"]]];');
         $boris->start();
     }
 

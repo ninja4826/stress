@@ -13,6 +13,8 @@ use Search\Manager;
  */
 class ManufacturersTable extends Table
 {
+    
+    public $indexes = ['manufacturer_name'];
 
     /**
      * Initialize method

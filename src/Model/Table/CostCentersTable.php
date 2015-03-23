@@ -12,6 +12,8 @@ use Cake\Validation\Validator;
  */
 class CostCentersTable extends Table
 {
+    
+    public $indexes = ['description'];
 
     /**
      * Initialize method

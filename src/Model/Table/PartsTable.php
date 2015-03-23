@@ -15,6 +15,11 @@ use Search\Manager;
  */
 class PartsTable extends Table
 {
+    
+    public $indexes = [
+        'part_num',
+        'description'
+    ];
 
     /**
      * Initialize method
