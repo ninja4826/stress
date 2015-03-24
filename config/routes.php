@@ -170,6 +170,8 @@ Router::scope('/address', ['controller' => 'Addresses'], function($sub) {
 
 Router::connect('/api/:func', ['controller' => 'API', 'action' => 'main_func'], ['pass' => ['func']]);
 
+Router::connect('/search', ['controller' => 'Search', 'action' => 'search']);
+
 /**
  * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.
