@@ -149,10 +149,10 @@ $options = [
                                                                 <!--    <span class="glyphicon glyphicon-plus"></span>-->
                                                                 <!--</button>-->
                                                                 
-                                                                <button type="button" class="btn btn-success btn-add">
+                                                                <button type="button" class="btn btn-success btn-add" id="entry-button">
                                                                     <span class="glyphicon glyphicon-plus"></span>
                                                                 </button>
-                                                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                                <button type="button" class="btn btn-success dropdown-toggle" id="cond-dropdown" data-toggle="dropdown" aria-expanded="false">
                                                                     <span class="caret"></span>
                                                                     <span class="sr-only">Toggle Dropdown</span>
                                                                 </button>
@@ -178,7 +178,14 @@ $options = [
         </div>
     </div>
 </div>
+<!-- HIDDEN CONDITION TEMPLATES -->
+<p class="text-center" style="display:none;" id="or-clone"><em>OR</em></p>
+<p class="text-center" style="display:none;" id="and-clone"><em>AND</em></p>
 
+<!-- HIDDEN WELL TEMPLATES -->
+<div class="well well-sm" style="display:none;" id="well-clone">
+    <button type="button" class="close" id="well-close-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+</div>
 <script>
     $(document).ready(function() {
         var field_options = {
@@ -232,14 +239,25 @@ $options = [
         // });
         
         $(document).on('click', '.btn-add', function() {
-            var original = $(this);
-            var parent = original.parents('.clone-home');
-            createInputGroup( original, parent );
+            var original = $(this).parents('.entry');
+            var parent = original.parent();
+            // var and_clone = $('#and-clone').clone().removeAttr('id');
+            // and_clone.attr('under', original.attr('id')).appendTo(parent);
+            
+            var newEntry = createInputGroup( original, parent );
+            // and_clone.show();
+            // and_clone.attr('id', 'asdf');
         });
         
         $(document).on('click', '.btn-remove', function() {
-            var entry = $(this).parents('.entry:first');
+            var entry = $(this).parents('.entry');
+            var entry_id = entry.attr('id').toString();
+            console.log(entry_id);
+            var clone = $('[under="' + entry_id + '"]');
+            console.log(clone);
+            clone.remove();
             entry.remove();
+            
             return false;
         });
         
@@ -261,40 +279,121 @@ $options = [
             var filters = {};
             
             $('.entry').each(function() {
-                // FINISH ITERATION THROUGH SINGULAR AND CONDITIONAL ENTRIES, ADDING TO REQUEST AS OUTLINED IN query_format.json
+                
             });
         });
         
         $(document).on('click', '.condition', function() {
-            var well = '<div class="well well-sm" style="display:none;" id="move-here"></div>';
+            var well = $('#well-clone').clone();
             var entry = $(this).parents('.entry');
             var entry_id = entry.attr('id');
             entry.before(well);
-            var well_dom = $('#move-here');
-            entry.appendTo(well_dom);
-            entry.after('<p class="text-center"><em>OR</em></p>');
-            // CREATE SECOND ITEM HERE
-            well_dom.attr('id', '');
-            well_dom.show();
+            entry.appendTo(well);
+            
+            var newEntry = createInputGroup(
+                entry,
+                ($(this).attr('cond') === "or")
+            );
+            entry.find('#entry-button, #cond-dropdown, .dropdown-menu').hide();
+            well.removeAttr('id');
+            well.show();
         });
+        
+        $(document).on('click', '#well-close-button', function() {
+            var parent = $(this).parent();
+            var grandparent = parent.parent();
+            
+            console.log('Parent');
+            console.log(parent);
+            console.log('Grandparent');
+            console.log(grandparent);
+            
+            var template_entry = parent.find('.entry:first');
+            var template_id = parseInt(template_entry.attr('id').split('-')[2]);
+            console.log('Template');
+            console.log(template_entry);
+            console.log('Template ID');
+            console.log(template_id);
+            
+            var first_entry = grandparent.find('> .entry:first');
+            var first_id = undefined;
+            
+            if (first_entry.length > 0) {
+                first_id = parseInt(first_entry.attr('id').split('-')[2]);
+            }
+            console.log('First');
+            console.log(first_entry);
+            console.log('First ID');
+            console.log(first_id);
+            if (typeof first_id === 'undefined' || first_id >= template_id) {
+                template_entry.prependTo(grandparent);
+            } else {
+                var child = grandparent.children('.entry').each(function() {
+                    var child_id = parseInt($(this).attr('id').split('-')[2]);
+                    console.log(child_id);
+                    if (template_id < child_id) {
+                        return {
+                            entry: $(this),
+                            id: child_id
+                        }
+                    }
+                });
+                if (template_id < child['id']) {
+                    child['entry'].before(template_entry);
+                    // DO SOMETHING TO CREATE AN ITALIC CONDITION STRING BETWEEN THE TEMPLATE AND THE FIRST
+                } else {
+                    template_entry.appendTo(grandparent);
+                }
+            }
+            parent.remove();
+        })
     });
     
-    function createInputGroup( original, parent ) {
-        var table = original.parents('.entry').attr('table');
-        var old_id_num = original.parents('.entry:first').attr('id').split('-')[2];
+    // function createInputGroup( original, parent ) {
+    //     var table = original.parents('.entry').attr('table');
+    //     var old_id_num = original.parents('.entry:first').attr('id').split('-')[2];
+    //     var new_id = table + '-input-' + (parseInt(old_id_num, 10) + 1).toString();
+    //     var controlForm = $('#search-form'),
+    //         currentEntry = original.parents('.entry:first'),
+    //         cloneEntry = $(currentEntry.clone().prop({ id: new_id })),
+    //         newEntry = cloneEntry.appendTo(parent);
+    //     newEntry.find('input').val('');
+    //     original.removeClass('btn-add').addClass('btn-remove')
+    //         .removeClass('btn-success').addClass('btn-danger')
+    //         .html('<span class="glyphicon glyphicon-minus"></span>');
+    //     return newEntry;
+    // }
+    
+    function createInputGroup( entry, or_condition) {
+        or_condition = typeof or_condition !== 'undefined' ? or_condition : false;
+        var condition;
+        if (or_condition) {
+            condition = 'or';
+        } else {
+            condition = 'and';
+        }
+        
+        var parent = entry.parent();
+        
+        var and_clone = $('#' + condition + '-clone').clone().removeAttr('id');
+        and_clone.attr('under', entry.attr('id')).appendTo(parent);
+        
+        var table = entry.attr('table');
+        var old_id_num = entry.attr('id').split('-')[2];
         var new_id = table + '-input-' + (parseInt(old_id_num, 10) + 1).toString();
-        
-        var controlForm = $('#search-form'),
-            currentEntry = original.parents('.entry:first'),
-            cloneEntry = $(currentEntry.clone().prop({ id: new_id })),
-            newEntry = cloneEntry.appendTo(parent);
-        
+        var controlForm = $('#search-form');
+        var clone = entry.clone().prop({ id: new_id });
+        var newEntry = clone.appendTo(parent);
         newEntry.find('input').val('');
-        
-        original.removeClass('btn-add').addclass('btn-remove')
-            .removeClass('btn-success').addclass('btn-danger')
+        entry.find('#entry-button').removeClass('btn-add').addClass('btn-remove')
+            .removeClass('btn-success').addClass('btn-danger')
             .html('<span class="glyphicon glyphicon-minus"></span>');
+        and_clone.show();
         return newEntry;
+    }
+    
+    function filterConditionals( filters ) {
+        
     }
     
     function toTitlecase(str) {
