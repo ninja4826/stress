@@ -19,7 +19,7 @@ $form_fields = [
                 'type' => 'boolean'
             ],
         ],
-        'name' => 'part'
+        'name' => 'part',
     ],
     'categories' => [
         'fields' => [
@@ -88,7 +88,6 @@ $options = [
     ]
 ];
 ?>
-
 <div class="panel-group" id="accordion">
     <div class="panel panel-default" id="search-panel">
         <div class="panel-heading">
@@ -100,7 +99,7 @@ $options = [
         </div>
         <div id="collapse-search" class="panel-collapse collapse">
             <div class="panel-body">
-                <form method="post" accept-charset="utf-8" class="search-form" action="#">
+                <form method="post" accept-charset="utf-8" id="search-form" action="#">
                     <div style="display:none;">
                         <input type="hidden" name="_method" value="POST">
                     </div>
@@ -120,10 +119,16 @@ $options = [
                                             <fieldset>
                                                 <div class="row">
                                                     <div class="col-lg-9 clone-home">
-                                                        <div class="input-group entry" id="<?=$name?>-input" table="<?=$name?>">
+                                                        <div class="input-group entry" id="<?=$name?>-input-0" table="<?=$name?>">
                                                             <span class="input-group-btn">
                                                                 <select class="btn field-input">
+                                                                    <?php $first_field = null; ?>
                                                                     <?php foreach($form['fields'] as $field => $props): ?>
+                                                                        <?php
+                                                                            if (is_null($first_field)) {
+                                                                                $first_field = $props['type'];
+                                                                            }
+                                                                        ?>
                                                                         <option value="<?=$field?>"><?=$props['label']?></option>
                                                                     <?php endforeach; ?>
                                                                 </select>
@@ -133,14 +138,29 @@ $options = [
                                                             </span>
                                                             <span class="input-group-btn" id="operation-input-span">
                                                                 <select class="btn operation-input">
-                                                                    <option></option>
+                                                                    <?php foreach($options[$first_field] as $op): ?>
+                                                                        <option value="<?=$op?>"><?=$op?></option>
+                                                                    <?php endforeach; ?>
                                                                 </select>
                                                             </span>
                                                             <input type="text" class="form-control query-input">
                                                             <span class="input-group-btn">
-                                                                <button class="btn btn-success btn-add" type="button">
+                                                                <!--<button class="btn btn-success btn-add" type="button">-->
+                                                                <!--    <span class="glyphicon glyphicon-plus"></span>-->
+                                                                <!--</button>-->
+                                                                
+                                                                <button type="button" class="btn btn-success btn-add">
                                                                     <span class="glyphicon glyphicon-plus"></span>
                                                                 </button>
+                                                                <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                                    <span class="caret"></span>
+                                                                    <span class="sr-only">Toggle Dropdown</span>
+                                                                </button>
+                                                                <ul class="dropdown-menu" role="menu">
+                                                                    <li><a href="#" class="condition" cond="or">Convert to an OR condition</a></li>
+                                                                    <li class="divider"></li>
+                                                                    <li><a href="#" class="condition" cond="and">Convert to an AND condition</a></li>
+                                                                </ul>
                                                             </span>
                                                         </div>
                                                     </div>
@@ -160,8 +180,6 @@ $options = [
 </div>
 
 <script>
-        
-    
     $(document).ready(function() {
         var field_options = {
             'string': [
@@ -182,24 +200,46 @@ $options = [
         };
         
         var form_fields = $.parseJSON('<?= json_encode($form_fields) ?>');
-        console.log("Form Fields:");
-        console.log(form_fields);
-        console.log("Field Options");
-        console.log(field_options);
-        $(document).on('click', '.btn-add', function() {
-            
-            var controlForm = $(".search-form"),
-                currentEntry = $(this).parents('.entry:first'),
-                newEntry = $(currentEntry.clone()).appendTo($(this).parents(".clone-home"));
+        
+        var field_inputs = {
+            'parts': {},
+            'categories': {},
+            'cost_centers': {},
+            'manufacturers': {}
+        }
+        
+        $('.entry').each(function( index ) {
+            var table = $(this).attr('table');
+            var id = $(this).attr('id');
+            field_inputs[table][id] = this;
+        });
+        console.log(field_inputs);
+        // $(document).on('click', '.btn-add', function() {
+        //     var table = $(this).parents('.entry').attr('table');
+        //     var old_id_num = $(this).parents('.entry:first').attr('id').split('-')[2];
+        //     var new_id = table + '-input-' + (parseInt(old_id_num, 10) + 1).toString();
+        //     var controlForm = $("#search-form"),
+        //         currentEntry = $(this).parents('.entry:first'),
+        //         cloneEntry = $(currentEntry.clone().prop({ id: new_id })),
+        //         newEntry = cloneEntry.appendTo($(this).parents(".clone-home"));
                 
-            newEntry.find('input').val('');
-            $(this).removeClass('btn-add').addClass('btn-remove')
-                .removeClass('btn-success').addClass('btn-danger')
-                .html('<span class="glyphicon glyphicon-minus"></span>');
+        //     newEntry.find('input').val('');
+        //     $(this).removeClass('btn-add').addClass('btn-remove')
+        //         .removeClass('btn-success').addClass('btn-danger')
+        //         .html('<span class="glyphicon glyphicon-minus"></span>');
+        //     field_inputs[table][new_id] = newEntry[0];
+        //     console.log(field_inputs);
+        // });
+        
+        $(document).on('click', '.btn-add', function() {
+            var original = $(this);
+            var parent = original.parents('.clone-home');
+            createInputGroup( original, parent );
         });
         
         $(document).on('click', '.btn-remove', function() {
-            $(this).parents('.entry:first').remove();
+            var entry = $(this).parents('.entry:first');
+            entry.remove();
             return false;
         });
         
@@ -215,5 +255,49 @@ $options = [
                 opt.append('<option value="' + operation + '">' + operation + '</option>');
             });
         });
+        
+        $('#search-form').submit(function( event ) {
+            event.preventDefault();
+            var filters = {};
+            
+            $('.entry').each(function() {
+                // FINISH ITERATION THROUGH SINGULAR AND CONDITIONAL ENTRIES, ADDING TO REQUEST AS OUTLINED IN query_format.json
+            });
+        });
+        
+        $(document).on('click', '.condition', function() {
+            var well = '<div class="well well-sm" style="display:none;" id="move-here"></div>';
+            var entry = $(this).parents('.entry');
+            var entry_id = entry.attr('id');
+            entry.before(well);
+            var well_dom = $('#move-here');
+            entry.appendTo(well_dom);
+            entry.after('<p class="text-center"><em>OR</em></p>');
+            // CREATE SECOND ITEM HERE
+            well_dom.attr('id', '');
+            well_dom.show();
+        });
     });
+    
+    function createInputGroup( original, parent ) {
+        var table = original.parents('.entry').attr('table');
+        var old_id_num = original.parents('.entry:first').attr('id').split('-')[2];
+        var new_id = table + '-input-' + (parseInt(old_id_num, 10) + 1).toString();
+        
+        var controlForm = $('#search-form'),
+            currentEntry = original.parents('.entry:first'),
+            cloneEntry = $(currentEntry.clone().prop({ id: new_id })),
+            newEntry = cloneEntry.appendTo(parent);
+        
+        newEntry.find('input').val('');
+        
+        original.removeClass('btn-add').addclass('btn-remove')
+            .removeClass('btn-success').addclass('btn-danger')
+            .html('<span class="glyphicon glyphicon-minus"></span>');
+        return newEntry;
+    }
+    
+    function toTitlecase(str) {
+        return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    }
 </script>

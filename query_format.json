@@ -1,22 +1,3 @@
-"filters": [
-    {
-        "table": "Parts",
-        "name": "amt_on_hand",
-        "op": "ge",
-        "val": 10
-    },
-    {
-        "table": "Parts",
-        "or": [
-            {
-                "name": "part_num",
-                "op": "eq",
-                "val": "blah"
-            }
-        ]
-    }
-]
-
 {
     "filters": {
         "Parts": [
