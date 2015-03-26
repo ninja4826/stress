@@ -170,6 +170,7 @@ Router::scope('/address', ['controller' => 'Addresses'], function($sub) {
 
 Router::connect('/api/:func', ['controller' => 'API', 'action' => 'main_func'], ['pass' => ['func']]);
 
+Router::connect('/search/results', ['controller' => 'Search', 'action' => 'format_results']);
 Router::connect('/search', ['controller' => 'Search', 'action' => 'search']);
 
 /**

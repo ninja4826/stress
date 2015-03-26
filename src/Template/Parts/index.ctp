@@ -16,7 +16,9 @@
     </ul>
 </div>
 <div class="parts index col-lg-10 col-md-9 columns">
-    <?= $this->element('table', ['items' => $parts->toArray()]) ?>
+    <div class="table-responsive">
+        <?= $this->element('table', ['items' => $parts->toArray()]) ?>
+    </div>
     <div class="paginator">
         <ul class="pagination">
             <?= $this->Paginator->prev('< ' . __('previous')) ?>

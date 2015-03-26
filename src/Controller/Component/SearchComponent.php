@@ -4,6 +4,7 @@ namespace App\Controller\Component;
 use Cake\Controller\Component;
 use Cake\Controller\ComponentRegistry;
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 use Cake\Log\Log;
 
 /**
@@ -23,11 +24,13 @@ class SearchComponent extends Component
     
     public function startup(Event $event) {
         $this->controller = $event->subject();
-        var_dump($this->controller);
     }
     
     public function search($arr) {
         $response = [];
+        if (array_key_exists('filters', $arr) && count(array_keys($arr)) == 1) {
+            $arr = $arr['filters'];
+        }
         foreach ($arr as $model => $filters) {
             $this->$model = TableRegistry::get($model);
             $query = $this->$model->find();

@@ -108,7 +108,7 @@ $options = [
                             <div class="panel panel-default" id="<?=$name?>-panel">
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-target="#collapse-<?=$name?>" href="#collapse-<?$name?>">
+                                        <a data-toggle="collapse" data-target="#collapse-<?=$name?>" href="#collapse-<?=$name?>">
                                             <?= ucwords(str_replace("_", " ", $name)) ?>
                                         </a>
                                     </h4>
@@ -118,8 +118,8 @@ $options = [
                                         <div class="<?=$name?> form col-lg-10 col-md-9 columns">
                                             <fieldset>
                                                 <div class="row">
-                                                    <div class="col-lg-9 clone-home">
-                                                        <div class="input-group entry" id="<?=$name?>-input-0" table="<?=$name?>">
+                                                    <div class="col-lg-9 clone-home" table="<?=$name?>">
+                                                        <div class="input-group entry" id="<?=$name?>-input-0">
                                                             <span class="input-group-btn">
                                                                 <select class="btn field-input">
                                                                     <?php $first_field = null; ?>
@@ -144,7 +144,7 @@ $options = [
                                                                 </select>
                                                             </span>
                                                             <input type="text" class="form-control query-input">
-                                                            <span class="input-group-btn">
+                                                            <span class="input-group-btn" id="add-btn-group">
                                                                 <!--<button class="btn btn-success btn-add" type="button">-->
                                                                 <!--    <span class="glyphicon glyphicon-plus"></span>-->
                                                                 <!--</button>-->
@@ -157,9 +157,9 @@ $options = [
                                                                     <span class="sr-only">Toggle Dropdown</span>
                                                                 </button>
                                                                 <ul class="dropdown-menu" role="menu">
-                                                                    <li><a href="#" class="condition" cond="or">Convert to an OR condition</a></li>
+                                                                    <li><a href="#" class="condition or-cond" cond="or">Convert to an OR condition</a></li>
                                                                     <li class="divider"></li>
-                                                                    <li><a href="#" class="condition" cond="and">Convert to an AND condition</a></li>
+                                                                    <li><a href="#" class="condition and-cond" cond="and">Convert to an AND condition</a></li>
                                                                 </ul>
                                                             </span>
                                                         </div>
@@ -178,16 +178,33 @@ $options = [
         </div>
     </div>
 </div>
+<div id="results">
+</div>
 <!-- HIDDEN CONDITION TEMPLATES -->
-<p class="text-center" style="display:none;" id="or-clone"><em>OR</em></p>
-<p class="text-center" style="display:none;" id="and-clone"><em>AND</em></p>
+<p class="text-center cond-sep" style="display:none;" id="or-clone"><em>OR</em></p>
+<p class="text-center cond-sep" style="display:none;" id="and-clone"><em>AND</em></p>
 
 <!-- HIDDEN WELL TEMPLATES -->
 <div class="well well-sm" style="display:none;" id="well-clone">
     <button type="button" class="close" id="well-close-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 </div>
+
+<!-- HIDDEN CONDITIONAL LINK LIST -->
+
 <script>
     $(document).ready(function() {
+        $('.clone-home').prop('cond', 'and');
+        $('.condition').each(function() {
+            var cond = $(this);
+            cond.prop('cond', cond.attr('cond')).removeAttr('cond');
+        });
+        
+        $('.clone-home').each(function() {
+            var table = $(this).attr('table');
+            $(this).prop('table', table);
+            $(this).removeAttr('table');
+        });
+        
         var field_options = {
             'string': [
                 'like',
@@ -216,7 +233,7 @@ $options = [
         }
         
         $('.entry').each(function( index ) {
-            var table = $(this).attr('table');
+            var table = $(this).parents('.clone-home').prop('table');
             var id = $(this).attr('id');
             field_inputs[table][id] = this;
         });
@@ -241,20 +258,28 @@ $options = [
         $(document).on('click', '.btn-add', function() {
             var original = $(this).parents('.entry');
             var parent = original.parent();
-            // var and_clone = $('#and-clone').clone().removeAttr('id');
-            // and_clone.attr('under', original.attr('id')).appendTo(parent);
             
-            var newEntry = createInputGroup( original, parent );
-            // and_clone.show();
-            // and_clone.attr('id', 'asdf');
+            // var input = createInput( original, parent );
+            var input = createInput({
+                entry: original,
+                parent: parent
+            });
+            var newEntry = input['entry'];
+            var cond = input['cond'];
+            var or = newEntry.find('.or-cond').prop('cond', 'or');
+            var and = newEntry.find('.and-cond').prop('cond', 'and');
+            console.log(original.find('.and-cond').prop('cond'));
+            console.log(newEntry.find('.and-cond').prop('cond'));
+            cond.show();
         });
         
         $(document).on('click', '.btn-remove', function() {
             var entry = $(this).parents('.entry');
             var entry_id = entry.attr('id').toString();
             console.log(entry_id);
-            var clone = $('[under="' + entry_id + '"]');
+            var clone = entry.next('.cond-sep');
             console.log(clone);
+            console.log(clone.prop('under'));
             clone.remove();
             entry.remove();
             
@@ -266,7 +291,7 @@ $options = [
             opt.empty();
             var val = $(this).val();
             
-            var name = $(this).parents('.entry').attr('table');
+            var name = $(this).parents('.clone-home').prop('table');
             var field_type = form_fields[name]['fields'][val]['type'];
             $.each(field_options[field_type], function(operation) {
                 operation = field_options[field_type][operation];
@@ -276,26 +301,56 @@ $options = [
         
         $('#search-form').submit(function( event ) {
             event.preventDefault();
-            var filters = {};
-            
-            $('.entry').each(function() {
-                
+            var arr = {
+                filters: filterConditionals()
+            };
+            console.log('ARR');
+            console.log(arr);
+            console.log(JSON.stringify(arr));
+            $.post('/search', arr, function( data ) {
+                console.log(data);
+                var res_str ='/search/results?tables=' + JSON.stringify(data['response']);
+                console.log(res_str);
+                $('#results').load(res_str, function() {
+                    console.log('wut');
+                });
+                console.log($('#results'));
             });
+            
         });
         
         $(document).on('click', '.condition', function() {
-            var well = $('#well-clone').clone();
+            var condition = $(this).prop('cond');
+            
+            var well = $('#well-clone').clone().prop('cond', condition);
             var entry = $(this).parents('.entry');
+            var cloner = entry.parent().children().last();
+            console.log(cloner);
             var entry_id = entry.attr('id');
             entry.before(well);
             entry.appendTo(well);
+            // var newEntry = createInput(
+            //     cloner,
+            //     ($(this).attr('cond') === "or")
+            // );
             
-            var newEntry = createInputGroup(
-                entry,
-                ($(this).attr('cond') === "or")
-            );
-            entry.find('#entry-button, #cond-dropdown, .dropdown-menu').hide();
+            var newEntry = createInput({
+                entry: cloner,
+                parent: well
+            });
+            
+            entry.find('#add-btn-group').hide();
             well.removeAttr('id');
+            var cond = newEntry['cond'];
+            // console.log(cond);
+            
+            if (cloner.is(':last-child')) {
+                cloner.find('#entry-button').removeClass('btn-remove').addClass('btn-add')
+                    .removeClass('btn-danger').addClass('btn-success')
+                    .html('<span class="glyphicon glyphicon-plus"></span>');
+            }
+            
+            cond.prop('under', entry.attr('id')).show();
             well.show();
         });
         
@@ -308,7 +363,7 @@ $options = [
             console.log('Grandparent');
             console.log(grandparent);
             
-            var template_entry = parent.find('.entry:first');
+            var template_entry = parent.find('.entry:last').attr('id', parent.find('.entry:first').attr('id'));
             var template_id = parseInt(template_entry.attr('id').split('-')[2]);
             console.log('Template');
             console.log(template_entry);
@@ -328,57 +383,53 @@ $options = [
             if (typeof first_id === 'undefined' || first_id >= template_id) {
                 template_entry.prependTo(grandparent);
             } else {
-                var child = grandparent.children('.entry').each(function() {
-                    var child_id = parseInt($(this).attr('id').split('-')[2]);
-                    console.log(child_id);
-                    if (template_id < child_id) {
-                        return {
-                            entry: $(this),
-                            id: child_id
-                        }
+                var under;
+                grandparent.find('.cond-sep').each(function() {
+                    if ($(this).prop('under') == template_entry.attr('id')) {
+                        under = $(this);
                     }
                 });
-                if (template_id < child['id']) {
-                    child['entry'].before(template_entry);
-                    // DO SOMETHING TO CREATE AN ITALIC CONDITION STRING BETWEEN THE TEMPLATE AND THE FIRST
-                } else {
-                    template_entry.appendTo(grandparent);
-                }
+                console.log('UNDER');
+                console.log(under);
+                under.before(template_entry);
             }
+            template_entry.find('#add-btn-group').show();
             parent.remove();
+            if (!(template_entry.is(':last-child'))) {
+                template_entry.find('#entry-button').removeClass('btn-add').addClass('btn-remove')
+                    .removeClass('btn-success').addClass('btn-danger')
+                    .html('<span class="glyphicon glyphicon-minus"></span>');
+            }
         })
     });
-    
-    // function createInputGroup( original, parent ) {
-    //     var table = original.parents('.entry').attr('table');
-    //     var old_id_num = original.parents('.entry:first').attr('id').split('-')[2];
-    //     var new_id = table + '-input-' + (parseInt(old_id_num, 10) + 1).toString();
-    //     var controlForm = $('#search-form'),
-    //         currentEntry = original.parents('.entry:first'),
-    //         cloneEntry = $(currentEntry.clone().prop({ id: new_id })),
-    //         newEntry = cloneEntry.appendTo(parent);
-    //     newEntry.find('input').val('');
-    //     original.removeClass('btn-add').addClass('btn-remove')
-    //         .removeClass('btn-success').addClass('btn-danger')
-    //         .html('<span class="glyphicon glyphicon-minus"></span>');
-    //     return newEntry;
-    // }
-    
-    function createInputGroup( entry, or_condition) {
-        or_condition = typeof or_condition !== 'undefined' ? or_condition : false;
-        var condition;
-        if (or_condition) {
-            condition = 'or';
+    /**
+     *  options = {
+            entry:  entry,  (required)
+            parent: parent, (optional | defaults to entry.parent())
+            cond:   cond,   (optional | defaults to 'and')
+     }
+    */
+    // function createInput( entry, parent, or_condition) {
+    function createInput( options ) {
+        var entry;
+        if ('entry' in options) {
+            entry = options['entry'];
         } else {
-            condition = 'and';
+            return {
+                entry: null,
+                cond: null
+            };
         }
         
-        var parent = entry.parent();
+        var parent = ('parent' in options ? options['parent'] : entry.parent());
         
-        var and_clone = $('#' + condition + '-clone').clone().removeAttr('id');
-        and_clone.attr('under', entry.attr('id')).appendTo(parent);
+        var condition = parent.prop('cond');
         
-        var table = entry.attr('table');
+        var cond_clone = $('#' + condition + '-clone').clone().removeAttr('id');
+        
+        cond_clone.prop('under', entry.prop('id')).appendTo(parent);
+        
+        var table = entry.parents('.clone-home').prop('table');
         var old_id_num = entry.attr('id').split('-')[2];
         var new_id = table + '-input-' + (parseInt(old_id_num, 10) + 1).toString();
         var controlForm = $('#search-form');
@@ -388,12 +439,79 @@ $options = [
         entry.find('#entry-button').removeClass('btn-add').addClass('btn-remove')
             .removeClass('btn-success').addClass('btn-danger')
             .html('<span class="glyphicon glyphicon-minus"></span>');
-        and_clone.show();
-        return newEntry;
+        return {
+            entry: newEntry,
+            cond: cond_clone
+        }
     }
     
-    function filterConditionals( filters ) {
+    function filterConditionals() {
+        var filters = {};
+        $('.clone-home').each(function() {
+            var table;
+            switch ($(this).prop('table')) {
+                case 'cost_centers':
+                    table = 'CostCenters';
+                    break;
+                case 'categories':
+                    table = 'Categories';
+                    break;
+                case 'manufacturers':
+                    table = 'Manufacturers';
+                    break;
+                case 'parts':
+                    table = 'Parts';
+                    break;
+                default:
+                    console.log('TABLE NOT RECOGNIZED');
+                    return;
+            }
+            var table_arr = [];
+            var clone_home = $(this);
+            table_arr = filterContainers($(this));
+            if (table_arr.length >= 1 && table_arr[0]) {
+                filters[table] = table_arr;
+            }
+        });
+        return filters;
+    }
+    
+    function filterContainers( container ) {
+        var filters = [];
+        container.find('> .entry, > .well').each(function() {
+            var info;
+            if ($(this).hasClass('entry')) {
+                info = getInfo($(this));
+            } else if ($(this).hasClass('well')) {
+                var condition = $(this).prop('cond');
+                info = {};
+                info[condition] = filterContainers($(this));
+            }
+            filters.push(info);
+        });
+        return filters;
+    }
+    
+    function getInfo( entry ) {
+        var field = entry.find('.field-input').val();
         
+        var query = entry.find('.query-input').val();
+        
+        var operation = entry.find('.operation-input').val();
+        if (operation == 'like' && query) {
+            operation = 'k';
+            var query_ = '%' + query + '%';
+            query = query_;
+        }
+        
+        if (field && operation && query) {
+            return {
+                name: field,
+                op: operation,
+                val: query
+            };
+        }
+        return false;
     }
     
     function toTitlecase(str) {

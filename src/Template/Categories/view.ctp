@@ -24,7 +24,9 @@
     <div class="column col-lg-12">
         <h4 class="subheader"><?= __('Related Parts') ?></h4>
         <?php if(!empty($category->parts)): ?>
-            <?= $this->element('table', ['items' => $category->parts, 'excluded_headers' => ['category']]) ?>
+            <div class="table-responsive">
+                <?= $this->element('table', ['items' => $category->parts, 'excluded_headers' => ['category']]) ?>
+            </div>
         <?php endif; ?>
     </div>
 </div>

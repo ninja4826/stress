@@ -1,4 +1,4 @@
-{
+asdf = {
     "filters": {
         "Parts": [
             {
@@ -23,6 +23,7 @@
         ],
         "Categories": []
     }
-}
-
-{"filters": {"Parts": [{"name": "amt_on_hand","op": "ge","val": 10},{"or": [{"name": "part_num","op": "eq","val": "blah"},{"name": "part_num","op": "eq","val": "asdf"}]}],"Categories": []}}
+};
+.field-input
+.operation-input
+.query-input
