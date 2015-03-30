@@ -86,16 +86,16 @@ $this->prepend('script', $this->Html->script([
                         </li>
                     <?php endforeach; ?>
                 </ul>
-                <form class="navbar-form pull-right" role="search" method="post" action="/api/keyword_search">
+                <form class="navbar-form pull-right" role="search" method="post" action="/search" id="keyword-search-form">
                     <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="keyword">
+                        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword-search-input">
                         <div class="input-group-btn">
-                            <input class="btn btn-default" type="submit" value="Submit" />
+                            <input class="btn btn-default" type="submit" value="Submit" id="keyword-search-submit" />
                             <button class="btn btn-default dropdown-toggle" type="button" id="search_adv_button" data-toggle="dropdown" aria-expanded="true">
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" role="menu" aria-labelledby="search_adv_button">
-                                <li><?= $this->Html->link(__('Advanced Search'), '/api/keyword_search') ?></li>
+                                <li><?= $this->Html->link(__('Advanced Search'), '/search') ?></li>
                             </ul>
                         </div>
                     </div>

@@ -88,97 +88,119 @@ $options = [
     ]
 ];
 ?>
-<div class="panel-group" id="accordion">
-    <div class="panel panel-default" id="search-panel">
-        <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" data-target="#collapse-search" href="#collapse-search">
-                    Search
-                </a>
-            </h4>
-        </div>
-        <div id="collapse-search" class="panel-collapse collapse">
-            <div class="panel-body">
-                <form method="post" accept-charset="utf-8" id="search-form" action="#">
-                    <div style="display:none;">
-                        <input type="hidden" name="_method" value="POST">
-                    </div>
-                    <?php foreach($form_fields as $name => $form): ?>
-                        <div class="panel-group" id="accordion">
-                            <div class="panel panel-default" id="<?=$name?>-panel">
-                                <div class="panel-heading">
-                                    <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-target="#collapse-<?=$name?>" href="#collapse-<?=$name?>">
-                                            <?= ucwords(str_replace("_", " ", $name)) ?>
-                                        </a>
-                                    </h4>
-                                </div>
-                                <div id="collapse-<?=$name?>" class="panel-collapse collapse">
-                                    <div class="panel-body">
-                                        <div class="<?=$name?> form col-lg-10 col-md-9 columns">
-                                            <fieldset>
-                                                <div class="row">
-                                                    <div class="col-lg-9 clone-home" table="<?=$name?>">
-                                                        <div class="input-group entry" id="<?=$name?>-input-0">
-                                                            <span class="input-group-btn">
-                                                                <select class="btn field-input">
-                                                                    <?php $first_field = null; ?>
-                                                                    <?php foreach($form['fields'] as $field => $props): ?>
-                                                                        <?php
-                                                                            if (is_null($first_field)) {
-                                                                                $first_field = $props['type'];
-                                                                            }
-                                                                        ?>
-                                                                        <option value="<?=$field?>"><?=$props['label']?></option>
-                                                                    <?php endforeach; ?>
-                                                                </select>
-                                                            </span>
-                                                            <span class="input-group-btn">
-                                                                <span class="btn">is</span>
-                                                            </span>
-                                                            <span class="input-group-btn" id="operation-input-span">
-                                                                <select class="btn operation-input">
-                                                                    <?php foreach($options[$first_field] as $op): ?>
-                                                                        <option value="<?=$op?>"><?=$op?></option>
-                                                                    <?php endforeach; ?>
-                                                                </select>
-                                                            </span>
-                                                            <input type="text" class="form-control query-input">
-                                                            <span class="input-group-btn" id="add-btn-group">
-                                                                <!--<button class="btn btn-success btn-add" type="button">-->
-                                                                <!--    <span class="glyphicon glyphicon-plus"></span>-->
-                                                                <!--</button>-->
-                                                                
-                                                                <button type="button" class="btn btn-success btn-add" id="entry-button">
-                                                                    <span class="glyphicon glyphicon-plus"></span>
-                                                                </button>
-                                                                <button type="button" class="btn btn-success dropdown-toggle" id="cond-dropdown" data-toggle="dropdown" aria-expanded="false">
-                                                                    <span class="caret"></span>
-                                                                    <span class="sr-only">Toggle Dropdown</span>
-                                                                </button>
-                                                                <ul class="dropdown-menu" role="menu">
-                                                                    <li><a href="#" class="condition or-cond" cond="or">Convert to an OR condition</a></li>
-                                                                    <li class="divider"></li>
-                                                                    <li><a href="#" class="condition and-cond" cond="and">Convert to an AND condition</a></li>
-                                                                </ul>
-                                                            </span>
+
+<style>
+    .results-panel .panel-body {
+        padding: 0;
+    }
+    .table .actions {
+        text-align: right;
+    }
+    .panel-heading {
+        cursor: pointer;
+    }
+</style>
+<div class="actions columns col-lg-2 col-md-3">
+    <h3><?= __('Actions') ?></h3>
+    <ul class="nav nav-stacked nav-pills">
+        <li><?= $this->Html->link(__('List Parts'), ['controller' => 'Parts', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Categories'), ['controller' => 'Categories', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Cost Centers'), ['controller' => 'CostCenters', 'action' => 'index']) ?></li>
+        <li><?= $this->Html->link(__('List Manufacturers'), ['controller' => 'Manufacturers', 'action' => 'index']) ?></li>
+    </ul>
+</div>
+<div class="search view col-lg-10 col-md-9 columns">
+    <div class="row">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default" id="search-panel">
+                <div class="panel-heading" data-toggle="collapse" data-target="#collapse-search" href="#collapse-search">
+                    <h4 class="panel-title">
+                        Search
+                    </h4>
+                </div>
+                <div id="collapse-search" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <form method="post" accept-charset="utf-8" id="search-form" action="#">
+                            <div style="display:none;">
+                                <input type="hidden" name="_method" value="POST">
+                            </div>
+                            <?php foreach($form_fields as $name => $form): ?>
+                                <div class="panel-group" id="accordion">
+                                    <div class="panel panel-default" id="<?=$name?>-panel">
+                                        <div class="panel-heading" data-toggle="collapse" data-target="#collapse-<?=$name?>" href="#collapse-<?=$name?>">
+                                            <h4 class="panel-title">
+                                                <?= ucwords(str_replace("_", " ", $name)) ?>
+                                            </h4>
+                                        </div>
+                                        <div id="collapse-<?=$name?>" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <div class="<?=$name?> form col-lg-10 col-md-9 columns" style="width:100%;">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            <div class="clone-home" table="<?=$name?>" style="width:100%">
+                                                                <div class="input-group entry" id="<?=$name?>-input-0">
+                                                                    <span class="input-group-btn">
+                                                                        <select class="btn field-input">
+                                                                            <?php $first_field = null; ?>
+                                                                            <?php foreach($form['fields'] as $field => $props): ?>
+                                                                                <?php
+                                                                                    if (is_null($first_field)) {
+                                                                                        $first_field = $props['type'];
+                                                                                    }
+                                                                                ?>
+                                                                                <option value="<?=$field?>"><?=$props['label']?></option>
+                                                                            <?php endforeach; ?>
+                                                                        </select>
+                                                                    </span>
+                                                                    <span class="input-group-btn">
+                                                                        <span class="btn">is</span>
+                                                                    </span>
+                                                                    <span class="input-group-btn" id="operation-input-span">
+                                                                        <select class="btn operation-input">
+                                                                            <?php foreach($options[$first_field] as $op): ?>
+                                                                                <option value="<?=$op?>"><?=$op?></option>
+                                                                            <?php endforeach; ?>
+                                                                        </select>
+                                                                    </span>
+                                                                    <input type="text" class="form-control query-input">
+                                                                    <span class="input-group-btn" id="add-btn-group">
+                                                                        <!--<button class="btn btn-success btn-add" type="button">-->
+                                                                        <!--    <span class="glyphicon glyphicon-plus"></span>-->
+                                                                        <!--</button>-->
+                                                                        
+                                                                        <button type="button" class="btn btn-success btn-add" id="entry-button">
+                                                                            <span class="glyphicon glyphicon-plus"></span>
+                                                                        </button>
+                                                                        <button type="button" class="btn btn-success dropdown-toggle" id="cond-dropdown" data-toggle="dropdown" aria-expanded="false">
+                                                                            <span class="caret"></span>
+                                                                            <span class="sr-only">Toggle Dropdown</span>
+                                                                        </button>
+                                                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
+                                                                            <li><a href="#" class="condition or-cond" cond="or">Convert to an OR condition</a></li>
+                                                                            <li class="divider"></li>
+                                                                            <li><a href="#" class="condition and-cond" cond="and">Convert to an AND condition</a></li>
+                                                                        </ul>
+                                                                    </span>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
+                                                    </fieldset>
                                                 </div>
-                                            </fieldset>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                    <button class="btn-success form-submit-btn btn" id="search-form-submit" type="submit">Search</button>
-                </form>
+                            <?php endforeach; ?>
+                            <button class="btn-success form-submit-btn btn" id="search-form-submit" type="button" data-loading-text="Searching..." autocomplete="off" rel="popover" data-content="Your search query is empty." data-placement="right">Search</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div id="results">
+    <div class="row">
+        <div id="results"></div>
+    </div>
 </div>
 <!-- HIDDEN CONDITION TEMPLATES -->
 <p class="text-center cond-sep" style="display:none;" id="or-clone"><em>OR</em></p>
@@ -188,8 +210,6 @@ $options = [
 <div class="well well-sm" style="display:none;" id="well-clone">
     <button type="button" class="close" id="well-close-button" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 </div>
-
-<!-- HIDDEN CONDITIONAL LINK LIST -->
 
 <script>
     $(document).ready(function() {
@@ -238,22 +258,6 @@ $options = [
             field_inputs[table][id] = this;
         });
         console.log(field_inputs);
-        // $(document).on('click', '.btn-add', function() {
-        //     var table = $(this).parents('.entry').attr('table');
-        //     var old_id_num = $(this).parents('.entry:first').attr('id').split('-')[2];
-        //     var new_id = table + '-input-' + (parseInt(old_id_num, 10) + 1).toString();
-        //     var controlForm = $("#search-form"),
-        //         currentEntry = $(this).parents('.entry:first'),
-        //         cloneEntry = $(currentEntry.clone().prop({ id: new_id })),
-        //         newEntry = cloneEntry.appendTo($(this).parents(".clone-home"));
-                
-        //     newEntry.find('input').val('');
-        //     $(this).removeClass('btn-add').addClass('btn-remove')
-        //         .removeClass('btn-success').addClass('btn-danger')
-        //         .html('<span class="glyphicon glyphicon-minus"></span>');
-        //     field_inputs[table][new_id] = newEntry[0];
-        //     console.log(field_inputs);
-        // });
         
         $(document).on('click', '.btn-add', function() {
             var original = $(this).parents('.entry');
@@ -299,25 +303,8 @@ $options = [
             });
         });
         
-        $('#search-form').submit(function( event ) {
-            event.preventDefault();
-            var arr = {
-                filters: filterConditionals()
-            };
-            console.log('ARR');
-            console.log(arr);
-            console.log(JSON.stringify(arr));
-            $.post('/search', arr, function( data ) {
-                console.log(data);
-                var res_str ='/search/results?tables=' + JSON.stringify(data['response']);
-                console.log(res_str);
-                $('#results').load(res_str, function() {
-                    console.log('wut');
-                });
-                console.log($('#results'));
-            });
-            
-        });
+        // $('#search-form').submit(function( event ) {
+        //     event.preventDefault();
         
         $(document).on('click', '.condition', function() {
             var condition = $(this).prop('cond');
@@ -400,8 +387,52 @@ $options = [
                     .removeClass('btn-success').addClass('btn-danger')
                     .html('<span class="glyphicon glyphicon-minus"></span>');
             }
-        })
+        });
+        
+        $('.panel-heading').hover(function() {
+            $(this).parents('.panel:first').removeClass('panel-default').addClass('panel-success');
+        }, function() {
+            $(this).parents('.panel:first').removeClass('panel-success').addClass('panel-default');
+        });
+        
+        $(document).on('click', '#search-form-submit', function() {
+            var arr = {
+                filters: filterConditionals()
+            };
+            $('#search-form-submit').button('loading');
+            if ($.isEmptyObject(arr['filters']) > 0) {
+                $(this).popover('show');
+                var button = $(this);
+                setTimeout(function() {
+                    button.popover('hide');
+                }, 2000);
+            }
+            getResults(arr);
+            
+            $('#search-form-submit').button('reset');
+            $('#search-panel > .panel-heading').trigger('click');
+        });
+        
+        var search_bar = JSON.parse('<?= json_encode($search_bar) ?>');
+        if (search_bar['bar']) {
+            console.log(search_bar['k']);
+            getResults( search_bar['k'] );
+        }
     });
+    
+    function getResults( data ) {
+        $('#results').load('/search', data, function() {
+            $('.results-panel').find('.panel-heading').trigger('click');
+            $('#results-panel').find('.panel-heading').trigger('click');
+            $('html, body').animate({ scrollTop: $('#results').offset().top }, 1000);
+            $('.panel-heading').hover(function() {
+                $(this).parents('.panel:first').removeClass('panel-default').addClass('panel-success');
+            }, function() {
+                $(this).parents('.panel:first').removeClass('panel-success').addClass('panel-default');
+            });
+        });
+    }
+    
     /**
      *  options = {
             entry:  entry,  (required)

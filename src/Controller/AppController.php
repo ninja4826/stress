@@ -42,6 +42,5 @@ class AppController extends Controller
         $this->helpers[] = 'Less.Less';
         $this->helpers[] = 'Bootstrap.Form';
         $this->layout = 'default';
-        Log::write('debug', 'INITIALIZED');
     }
 }

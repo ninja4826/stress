@@ -33,7 +33,7 @@ class SearchComponent extends Component
         }
         foreach ($arr as $model => $filters) {
             $this->$model = TableRegistry::get($model);
-            $query = $this->$model->find();
+            $query = $this->$model->find('all', ['']);
             foreach($filters as $filter) {
                 $query_;
                 if (array_key_exists('or', $filter) || array_key_exists('and', $filter)) {
@@ -42,6 +42,7 @@ class SearchComponent extends Component
                     $query_ = $this->_search($query, $filter);
                 }
             }
+            $query->select(['id']);
             $response[$model] = $query;
         }
         return $response;
