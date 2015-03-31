@@ -14,8 +14,6 @@ class Vendors extends AbstractMigration
      *
      */
      
-    /**
-     * Commenting out until the normal parts system is designed and done.
     public function change()
     {
         if (!$this->hasTable('parts'))
@@ -75,7 +73,6 @@ class Vendors extends AbstractMigration
             ->save();
 
     }
-    */
 
     /**
      * Migrate Up.

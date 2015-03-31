@@ -73,7 +73,8 @@ $form_fields = [
 $options = [
     'string' => [
         'like',
-        '=='
+        '==',
+        'regexp'
     ],
     'integer' => [
         '==',
@@ -152,9 +153,6 @@ $options = [
                                                                             <?php endforeach; ?>
                                                                         </select>
                                                                     </span>
-                                                                    <span class="input-group-btn">
-                                                                        <span class="btn">is</span>
-                                                                    </span>
                                                                     <span class="input-group-btn" id="operation-input-span">
                                                                         <select class="btn operation-input">
                                                                             <?php foreach($options[$first_field] as $op): ?>
@@ -228,7 +226,8 @@ $options = [
         var field_options = {
             'string': [
                 'like',
-                '=='
+                '==',
+                'regexp'
             ],
             'integer': [
                 '==',
@@ -433,14 +432,6 @@ $options = [
         });
     }
     
-    /**
-     *  options = {
-            entry:  entry,  (required)
-            parent: parent, (optional | defaults to entry.parent())
-            cond:   cond,   (optional | defaults to 'and')
-     }
-    */
-    // function createInput( entry, parent, or_condition) {
     function createInput( options ) {
         var entry;
         if ('entry' in options) {

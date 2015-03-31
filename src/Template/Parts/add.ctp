@@ -23,7 +23,6 @@
         background: green;
     }
 </style>
-
 <div class="actions columns col-lg-2 col-md-3">
     <h3><?= __('Actions') ?></h3>
     <ul class="nav nav-stacked nav-pills">
@@ -125,7 +124,6 @@
 <div class="modal fade" id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalLabel" aria-hidden="true"></div>
 <!-- CostCenter creation modal -->
 <div class="modal fade" id="cost_centerModal" tabindex="-1" role="dialog" aria-labelledby="cost_centerModalLabel" aria-hidden="true"></div>
-
 <!-- Script for functionality -->
 <script>
     $(document).ready(function() {

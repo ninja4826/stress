@@ -6,6 +6,7 @@ use Cake\Controller\ComponentRegistry;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
 use Cake\Log\Log;
+use Cake\Database\Expression\Comparison;
 
 /**
  * Search component
@@ -68,15 +69,15 @@ class SearchComponent extends Component
         }
         // Log::write('debug', 'CHANGED OPTS');
         // Log::write('debug', $arr);
-        return $query->where(function ($exp) use ($arr, $group) {
-            return $exp->$group(function ($exp_) use ($arr) {
+        $q = $query->where(function ($exp) use ($arr, $group, $blah) {
+            return $exp->$group(function ($exp_) use ($arr, $blah) {
                 foreach ($arr as $filter_) {
                     $exp_->$filter_['opt']($filter_['name'], $filter_['val']);
-                    
                 }
                 return $exp_;
             });
         });
+        return $q;
     }
     
     private function _search($query, $arr) {
@@ -109,6 +110,9 @@ class SearchComponent extends Component
                 break;
             case 'k':
                 $opt = 'like';
+                break;
+            case 'regexp':
+                $opt = 'regexp';
                 break;
             default:
                 $opt = '';

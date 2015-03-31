@@ -65,8 +65,6 @@ class RecordGeneratorTask extends Shell {
             $this->out($part);
         }
         
-        /*
-        
         $vendor = $this->Vendors->save($this->Vendors->newEntity([
             'vendor_name' => 'Mouser',
             'comment' => 'blank comment',
@@ -105,7 +103,5 @@ class RecordGeneratorTask extends Shell {
                 $this->out($partTransaction);
             }
         }
-        
-        */
     }
 }

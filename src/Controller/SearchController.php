@@ -20,11 +20,9 @@ class SearchController extends AppController
     public function search() {
         if ($this->request->is('post')) {
             $data = $this->request->data;
-            Log::write('debug', $data);
             // if (array_key_exists('search-bar', $data) && $data['search-bar'] == 'true') {
             if (array_key_exists('keyword', $data)) {
                 $search_bar;
-                Log::write('debug', 'DOING STUFF WITH SEARCH_BAR');
                 $k = '%'.$data['keyword'].'%';
                 $temp_ = [
                     'Parts' => [
@@ -63,7 +61,6 @@ class SearchController extends AppController
                 $this->set('search_bar', ['bar' => false]);
             }
             $items = $this->Search->search($data);
-            Log::write('debug', 'GOING TO FORMAT');
             
             $this->layout = 'empty';
             $tables = json_decode(json_encode($items), true);
@@ -86,7 +83,6 @@ class SearchController extends AppController
                     $table_arr[] = $this->$table->get($item['id'], ['contain' => $assoc[$table]]);
                 }
                 $newTable[$table] = $table_arr;
-                Log::write('debug', $table_arr);
             }
             $this->set('tables', $newTable);
             $this->set('_serialize', ['tables', 'search_bar']);
@@ -94,7 +90,6 @@ class SearchController extends AppController
         } else {
             $this->set('search_bar', ['bar' => false]);
             $this->set('_serialize', ['search_bar']);
-            Log::write('debug', 'GET');
         }
     }
     
