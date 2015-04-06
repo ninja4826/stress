@@ -86,11 +86,13 @@ class APIController extends AppController {
                 unset($options['id']);
                 $query = $this->$model->get($id, $options);
             } else {
-                $query = $this->$model->find('all', $options)->toArray();
+                // $query = $this->$model->find('all', $options)->toArray();
+                $query = $this->$model->getCached();
             }
             $response[$model] = $query;
 
         }
+        $this->status = true;
         $this->response_var = $response;
     }
     

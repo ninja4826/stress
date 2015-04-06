@@ -4,15 +4,16 @@ namespace App\Model\Table;
 use App\Model\Entity\Category;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
+// use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
  * Categories Model
  */
-class CategoriesTable extends Table
+class CategoriesTable extends AppTable
 {
     public $indexes = ['category_name'];
+    public $assocs = ['Parts'];
     
     /**
      * Initialize method
@@ -28,11 +29,6 @@ class CategoriesTable extends Table
         $this->hasMany('Parts', [
             'foreignKey' => 'category_id'
         ]);
-        // $this->addBehavior('Search', [
-        //     'fields' => [
-        //         'category_name' => 'string'
-        //     ]
-        // ]);
     }
 
     /**

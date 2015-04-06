@@ -4,17 +4,18 @@ namespace App\Model\Table;
 use App\Model\Entity\Manufacturer;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
+// use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Search\Manager;
 
 /**
  * Manufacturers Model
  */
-class ManufacturersTable extends Table
+class ManufacturersTable extends AppTable
 {
     
     public $indexes = ['manufacturer_name'];
+    public $assocs = ['Parts'];
 
     /**
      * Initialize method
@@ -27,6 +28,9 @@ class ManufacturersTable extends Table
         $this->table('manufacturers');
         $this->displayField('manufacturer_name');
         $this->primaryKey('id');
+        $this->hasMany('Parts', [
+            'foreignKey' => 'manufacturer_id'
+        ]);
         
         // $this->addBehavior('Search', [
         //     'fields' => [

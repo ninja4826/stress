@@ -4,7 +4,7 @@ namespace App\Model\Table;
 use App\Model\Entity\Part;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
+// use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\ORM\TableRegistry;
 use Cake\Log\Log;
@@ -13,12 +13,19 @@ use Search\Manager;
 /**
  * Parts Model
  */
-class PartsTable extends Table
+class PartsTable extends AppTable
 {
     
     public $indexes = [
         'part_num',
         'description'
+    ];
+    public $assocs = [
+        'Locations',
+        'Categories',
+        'CostCenters',
+        'Manufacturers',
+        'PartVendors'
     ];
 
     /**

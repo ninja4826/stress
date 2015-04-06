@@ -28,3 +28,41 @@
         <p><?= $this->Paginator->counter() ?></p>
     </div>
 </div>
+<?=
+    $this->element('modal', [
+        'model' => 'Parts',
+        'fields' => [
+            'part_num' => [
+                'type' => 'text',
+                'label' => 'Part Number',
+                'required' => true
+            ],
+            'amt_on_hand' => [
+                'type' => 'number',
+                'label' => 'Amount on Hand',
+                'required' => true
+            ],
+            'description' => [
+                'type' => 'text',
+                'label' => 'Description',
+                'required' => true
+            ],
+            'active' => [
+                'type' => 'checkbox',
+                'label' => 'Active',
+                'required' => false
+            ],
+            'location_name' => [
+                'type' => 'text',
+                'label' => 'Location',
+                'required' => true
+            ],
+            'manufacturer_id' => [
+                'type' => 'text',
+                'label' => 'Manufacturer',
+                'required' => true,
+                'check' => true
+            ]
+        ]
+    ])
+?>

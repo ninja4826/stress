@@ -1,28 +1,4 @@
 <?php $this->prepend('script', $this->Html->script('typeahead.bundle')); ?>
-
-<style>
-    .twitter-typeahead {
-        width: 100%;
-    }
-    .tt-dropdown-menu {
-        width: 100%;
-    }
-    .tt-hint {
-        width: 100%;
-    }
-    .tt-dropdown-menu {
-        display: none !important;
-    }
-    .input-group-addon.glyphicon {
-        color: white;
-    }
-    .input-group-addon.glyphicon-remove {
-        background: red;
-    }
-    .input-group-addon.glyphicon-ok {
-        background: green;
-    }
-</style>
 <div class="actions columns col-lg-2 col-md-3">
     <h3><?= __('Actions') ?></h3>
     <ul class="nav nav-stacked nav-pills">

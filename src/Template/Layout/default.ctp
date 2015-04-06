@@ -31,10 +31,10 @@ if (Configure::read('App.author')) {
 $this->prepend('script', $this->Html->script([
     'jquery-2.1.1.min.js',
     'bootstrap.min',
-    // '/bootstrap/js/transition',
-    // '/bootstrap/js/collapse',
-    // '/bootstrap/js/dropdown',
-    // '/bootstrap/js/alert'
+    'global_utils',
+]));
+$this->prepend('css', $this->Html->css([
+    'global_utils',
 ]));
 
 ?>

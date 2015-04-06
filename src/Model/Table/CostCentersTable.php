@@ -4,16 +4,17 @@ namespace App\Model\Table;
 use App\Model\Entity\CostCenter;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
+// use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
  * CostCenters Model
  */
-class CostCentersTable extends Table
+class CostCentersTable extends AppTable
 {
     
     public $indexes = ['description'];
+    public $assocs = ['Parts'];
 
     /**
      * Initialize method
@@ -26,6 +27,9 @@ class CostCentersTable extends Table
         $this->table('cost_centers');
         $this->displayField('e_code');
         $this->primaryKey('id');
+        $this->hasMany('Parts', [
+            'foreignKey' => 'cc_id'
+        ]);
         
         // $this->addBehavior('Search', [
         //     'fields' => [
