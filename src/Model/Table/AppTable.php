@@ -34,4 +34,8 @@ class AppTable extends Table {
         $query->toArray();
         return true;
     }
+    
+    public function findAssoc(Query $query, array $options) {
+        return $query->contain($this->assocs);
+    }
 }

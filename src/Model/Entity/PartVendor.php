@@ -11,8 +11,17 @@ use Cake\ORM\TableRegistry;
 class PartVendor extends Entity
 {
     
+    public function __construct(array $properties = [], array $options = []) {
+        parent::__construct($properties, $options);
+        $this->_virtual[] = 'latest_price';
+    }
+    
     protected function _getLatestPrice() {
-        return $this->part_price_histories[0];
+        if (!empty($this->part_price_histories)) {
+            return $this->part_price_histories[0];
+        } else {
+            return null;
+        }
     }
 
     /**

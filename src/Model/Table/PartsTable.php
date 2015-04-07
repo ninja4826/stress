@@ -53,6 +53,9 @@ class PartsTable extends AppTable
         $this->hasMany('PartVendors', [
             'foreignKey' => 'part_id'
         ]);
+        $this->belongsToMany('PurchaseOrders', [
+            'joinTable' => 'parts_purchases'
+        ]);
         
         // $this->addBehavior('Search', [
         //     'fields' => [
