@@ -14,7 +14,7 @@ class CostCentersTable extends AppTable
 {
     
     public $indexes = ['description'];
-    public $assocs = ['Parts'];
+    public $assocs = [];
 
     /**
      * Initialize method

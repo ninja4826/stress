@@ -15,9 +15,9 @@ class DbCleanShell extends Shell {
     }
     
     public function main() {
-        
-        $this->conn->query("DROP DATABASE IF EXISTS stress");
-        $this->conn->query("CREATE DATABASE stress");
+        $db = ConnectionManager::get('default')->config()['database'];
+        $this->conn->query("DROP DATABASE IF EXISTS ".$db);
+        $this->conn->query("CREATE DATABASE ".$db);
         
         $mig = ROOT . '/bin/cake migrations ';
         $this->out(shell_exec($mig . 'migrate'));

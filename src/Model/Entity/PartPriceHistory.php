@@ -1,13 +1,22 @@
 <?php
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+// use Cake\ORM\Entity;
+use App\Model\Entity\AppEntity as Entity;
 
 /**
  * PartPriceHistory Entity.
  */
 class PartPriceHistory extends Entity
 {
+    
+    protected function _getDisplayName() {
+        return $this->price;
+    }
+    
+    protected function _getDisplayField() {
+        return 'price';
+    }
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().

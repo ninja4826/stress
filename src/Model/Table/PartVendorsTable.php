@@ -34,7 +34,8 @@ class PartVendorsTable extends Table
             'foreignKey' => 'part_vendor_id'
         ]);
         $this->hasMany('PartPriceHistories', [
-            'foreignKey' => 'part_vendor_id'
+            'foreignKey' => 'part_vendor_id',
+            'sort' => ['date_changed' => 'DESC']
         ]);
         $this->hasMany('PartTransactions', [
             'foreignKey' => 'part_vendor_id'

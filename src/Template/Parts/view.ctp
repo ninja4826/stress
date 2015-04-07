@@ -57,39 +57,33 @@
             </div>
         </div>
     </div>
-</div>
-<div class="related row">
-    <div class="column col-lg-12">
-    <h4 class="subheader"><?= __('Related PartVendors') ?></h4>
-    <?php if (!empty($part->part_vendors)): ?>
-    <div class="table-responsive">
-        <table class="table">
-            <tr>
-                <th><?= __('Id') ?></th>
-                <th><?= __('Part Id') ?></th>
-                <th><?= __('Vendor Id') ?></th>
-                <th><?= __('Markup') ?></th>
-                <th><?= __('Discount') ?></th>
-                <th><?= __('Preferred') ?></th>
-                <th class="actions"><?= __('Actions') ?></th>
-            </tr>
-            <?php foreach ($part->part_vendors as $partVendors): ?>
-            <tr>
-                <td><?= h($partVendors->id) ?></td>
-                <td><?= h($partVendors->part_id) ?></td>
-                <td><?= h($partVendors->vendor_id) ?></td>
-                <td><?= h($partVendors->markup) ?></td>
-                <td><?= h($partVendors->discount) ?></td>
-                <td><?= h($partVendors->preferred) ?></td>
-                <td class="actions">
-                    <?= $this->Html->link('<span class="glyphicon glyphicon-zoom-in"></span><span class="sr-only">' . __('View') . '</span>', ['controller' => 'PartVendors', 'action' => 'view', $partVendors->id], ['escape' => false, 'class' => 'btn btn-xs btn-default', 'title' => __('View')]) ?>
-                    <?= $this->Html->link('<span class="glyphicon glyphicon-pencil"></span><span class="sr-only">' . __('Edit') . '</span>', ['controller' => 'PartVendors', 'action' => 'edit', $partVendors->id], ['escape' => false, 'class' => 'btn btn-xs btn-default', 'title' => __('Edit')]) ?>
-                    <?= $this->Form->postLink('<span class="glyphicon glyphicon-trash"></span><span class="sr-only">' . __('Delete') . '</span>', ['controller' => 'PartVendors', 'action' => 'delete', $partVendors->id], ['confirm' => __('Are you sure you want to delete # {0}?', $partVendors->id), 'escape' => false, 'class' => 'btn btn-xs btn-danger', 'title' => __('Delete')]) ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </table>
-    </div>
-    <?php endif; ?>
+    <div class="row">
+        <div role="tabpanel" id="related-panel">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active">
+                    <a href="#partVendor-related" aria-controls="partVendor-related" role="tab" data-toggle="tab">Part Vendors</a>
+                </li>
+                <li role="presentation">
+                    <a href="#transaction-form" aria-controls="transaction-form" role="tab" data-toggle="tab">Add Transaction</a>
+                </li>
+            </ul>
+            <div class="tab-content clearfix">
+                    <div role="tabpanel" class="tab-pane active" id="partVendor-related">
+                        <div class="well well-sm">
+                            <div class="table-responsive">
+                                <?= $this->element('table', ['items' => $part->part_vendors]) ?>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="transaction-form">
+                        <div class="well well-sm">
+                            <span>
+                                <p>second</p>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

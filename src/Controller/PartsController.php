@@ -25,7 +25,6 @@ class PartsController extends AppController
             'contain' => ['Manufacturers', 'Categories', 'Locations', 'CostCenters']
         ];
         
-        // Log::write('debug', $this->referer());
         $this->set('parts', $this->paginate($this->Parts));
         $this->set('_serialize', ['parts']);
     }
@@ -53,7 +52,6 @@ class PartsController extends AppController
                 }
             ]
         ]);
-        Log::write('debug', $part);
         /*
         $vendor_histories = TableRegistry::get('VendorHistories')->getByPartId($part->id, [
             'contain' => ['Vendors']
@@ -73,7 +71,6 @@ class PartsController extends AppController
         $part = $this->Parts->newEntity();
         if ($this->request->is('post')) {
             $this->viewClass = 'Json';
-            Log::write('debug', $this->request->data);
             if (!is_null($foundPart = $this->Parts->findByPartNum($this->request->data['part_num'])->first()))
             {
                 $part = $foundPart;

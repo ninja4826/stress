@@ -15,7 +15,7 @@ class ManufacturersTable extends AppTable
 {
     
     public $indexes = ['manufacturer_name'];
-    public $assocs = ['Parts'];
+    public $assocs = [];
 
     /**
      * Initialize method

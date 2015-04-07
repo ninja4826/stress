@@ -1,7 +1,8 @@
 <?php
 namespace App\Model\Entity;
 
-use Cake\ORM\Entity;
+// use Cake\ORM\Entity;
+use App\Model\Entity\AppEntity as Entity;
 
 /**
  * PVRateHistory Entity.

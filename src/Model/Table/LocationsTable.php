@@ -13,7 +13,7 @@ use Cake\Log\Log;
  */
 class LocationsTable extends AppTable
 {
-    public $assocs = ['Parts'];
+    public $assocs = [];
 
     /**
      * Initialize method

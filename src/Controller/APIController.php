@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\Log\Log;
+use Cake\ORM\TableRegistry;
 
 class APIController extends AppController {
     public $response_var = [];
@@ -116,6 +117,9 @@ class APIController extends AppController {
             // $this->set('_serialize', ['response']);
             return;
         }
+        $table = TableRegistry::get($model)->table();
+        Log::write('debug', '/Element/modals/'.$table);
+        TableRegistry::clear();
         $this->render('/Element/modals/' . $model . '/add');
     }
     

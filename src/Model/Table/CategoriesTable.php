@@ -13,7 +13,7 @@ use Cake\Validation\Validator;
 class CategoriesTable extends AppTable
 {
     public $indexes = ['category_name'];
-    public $assocs = ['Parts'];
+    public $assocs = [];
     
     /**
      * Initialize method

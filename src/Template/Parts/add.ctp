@@ -127,6 +127,7 @@
         var parts = {};
         
         $.getJSON(json_str, function( response ) {
+            
             console.log('Full response object');
             console.log(response);
             results = response['response'];
@@ -347,7 +348,10 @@
                 });
                 
                 if (!(manufacturer_val in keys['Manufacturers'])) {
+                    console.log(manufacturer_val);
                     $('#manufacturerModal').load('/api/add_modal?model=Manufacturers', function() {
+                        console.log('MODAL LOADED');
+                        console.log($('#manufacturerModal'));
                         var close_button = $('#manufacturerModalLabel').siblings('button');
                         close_button.remove();
                         $('#manufacturer-name').val(manufacturer_val);

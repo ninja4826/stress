@@ -1,4 +1,4 @@
-<?php if (!empty($items)): ?>  
+<?php if (!empty($items)): ?>
   <?php
     $all_headers = [
       'Categories' => [
@@ -26,6 +26,12 @@
         'description' => 'Description',
         'amt_on_hand' => 'Amount on Hand',
         'active' => 'Active',
+      ],
+      'PartVendors' => [
+        'vendor' => 'Vendor',
+        'markup' => 'Markup',
+        'discount' => 'Discount',
+        'preferred' => 'Preferred',
       ],
     ];
     

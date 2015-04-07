@@ -3,6 +3,7 @@ namespace App\Shell\Task;
 
 use Cake\Console\Shell;
 use Cake\I18n\Time;
+use Cake\Cache\Cache;
 
 class RecordGeneratorTask extends Shell {
     
@@ -24,7 +25,7 @@ class RecordGeneratorTask extends Shell {
     
     public function main()
     {
-        
+        Cache::clear(false);
         $category = $this->Categories->save($this->Categories->newEntity([
             'category_name' => 'Relays'
         ]));

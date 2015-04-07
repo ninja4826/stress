@@ -25,7 +25,6 @@ class PartsTable extends AppTable
         'Categories',
         'CostCenters',
         'Manufacturers',
-        'PartVendors'
     ];
 
     /**
