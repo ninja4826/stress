@@ -70,15 +70,10 @@ function assocFocusOut( assocs ) {
         console.log(assoc_id);
         
         $(assoc_id).focusout(function() {
-            console.log('FOCUS LOST');
             
             assoc_id = $(this).attr('id');
             assoc_name = scoreReplace(assoc_id);
             assoc = assocs[assoc_name];
-            console.log('ID: ' + assoc_id);
-            console.log('NAME: ' + assoc_name);
-            console.log('ASSOC:');
-            console.log(assoc);
             
             var check = '#' + assoc_id + '-check';
             
@@ -88,18 +83,20 @@ function assocFocusOut( assocs ) {
             var add;
             var title;
             if (!val || !(val in assoc)) {
-                console.log('not found');
                 add = 'remove';
                 remove = 'ok';
                 title = 'You will be prompted to create this item.';
             } else {
-                console.log('FOUND');
                 add = 'ok';
                 remove = 'remove';
                 title = 'This item exists!';
             }
-            $(check).addClass('glyphicon-' + add).removeClass('glyphicon-' + remove).attr('data-original-title', title);
-            $(check).parent().css('background-color', ((add == 'remove') ? 'red' : 'green'));
+            $(check)
+                .addClass('glyphicon-' + add)
+                .removeClass('glyphicon-' + remove)
+                .attr('data-original-title', title)
+                .parent().css('background-color', ((add == 'remove') ? 'red' : 'green'));
         });
     }
 }
+// TODO : Maybe create a class to handle things like this, the submission, and maybe the checks?
