@@ -1,4 +1,3 @@
-<?php $this->prepend('script', $this->Html->script('typeahead.bundle')); ?>
 <div class="actions columns col-lg-2 col-md-3">
     <h3><?= __('Actions') ?></h3>
     <ul class="nav nav-stacked nav-pills">
@@ -157,31 +156,6 @@
             
             console.log('Keys');
             console.log(keys);
-            
-            
-            var substringMatcher = function(strs) {
-              return function findMatches(q, cb) {
-                var matches, substrRegex;
-             
-                // an array that will be populated with substring matches
-                matches = [];
-             
-                // regex used to determine if a string contains the substring `q`
-                substrRegex = new RegExp(q, 'i');
-             
-                // iterate through the pool of strings and for any string that
-                // contains the substring `q`, add it to the `matches` array
-                $.each(strs, function(i, str) {
-                  if (substrRegex.test(str)) {
-                    // the typeahead jQuery plugin expects suggestions to a
-                    // JavaScript object, refer to typeahead docs for more info
-                    matches.push({ value: str });
-                  }
-                });
-             
-                cb(matches);
-              };
-            };
             
             $('#part-num').typeahead(
                 {highlight: true, minLength: 1},

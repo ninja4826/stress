@@ -26,6 +26,64 @@ class PartsTable extends AppTable
         'CostCenters',
         'Manufacturers',
     ];
+    
+    public $fields = [
+        'part_num' => [
+            'type' => 'text',
+            'label' => 'Part Number',
+            'required' => true,
+            'check' => true
+        ],
+        'description' => [
+            'type' => 'text',
+            'label' => 'Description',
+            'required' => true
+        ],
+        'amt_on_hand' => [
+            'type' => 'number',
+            'label' => 'Amount on Hand',
+            'required' => true
+        ],
+        'active' => [
+            'type' => 'checkbox',
+            'label' => 'Active'
+        ],
+        'location_name' => [
+            'type' => 'text',
+            'label' => 'Location',
+            'required' => true
+        ],
+        'manufacturer' => [
+            'type' => 'text',
+            'label' => 'Manufacturer',
+            'required' => true,
+            'check' => true,
+            'assoc' => [
+                'model' => 'Manufacturers',
+                'type' => 'belongsTo'
+            ]
+        ],
+        'category' => [
+            'type' => 'text',
+            'label' => 'Category',
+            'required' => true,
+            'check' => true,
+            'assoc' => [
+                'model' => 'Categories',
+                'type' => 'belongsTo'
+            ]
+        ],
+        'cost_center' => [
+            'type' => 'text',
+            'label' => 'Cost Center',
+            'required' => true,
+            'check' => true,
+            'assoc' => [
+                'model' => 'CostCenters',
+                'type' => 'belongsTo'
+            ]
+        ]
+    ];
 
     /**
      * Initialize method

@@ -15,6 +15,14 @@ class CategoriesTable extends AppTable
     public $indexes = ['category_name'];
     public $assocs = [];
     
+    public $fields = [
+        'category_name' => [
+            'type' => 'text',
+            'label' => 'Category Name',
+            'required' => true
+        ]
+    ];
+    
     /**
      * Initialize method
      *

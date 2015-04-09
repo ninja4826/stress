@@ -29,7 +29,8 @@
         "psr-4": {
             "App\\": "src",
             "Workorders\\": "./plugins/Workorders/src",
-            "Search\\": "./plugins/Search/src"
+            "Search\\": "./plugins/Search/src",
+            "Modal\\": "./plugins/Modal/src"
         }
     },
     "autoload-dev": {
@@ -37,7 +38,8 @@
             "App\\Test\\": "tests",
             "Cake\\Test\\": "./vendor/cakephp/cakephp/tests",
             "Workorders\\Test\\": "./plugins/Workorders/tests",
-            "Search\\Test\\": "./plugins/Search/tests"
+            "Search\\Test\\": "./plugins/Search/tests",
+            "Modal\\Test\\": "./plugins/Modal/tests"
         }
     },
     "scripts": {

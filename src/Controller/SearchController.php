@@ -61,26 +61,14 @@ class SearchController extends AppController
                 $this->set('search_bar', ['bar' => false]);
             }
             $items = $this->Search->search($data);
-            
             $this->layout = 'empty';
             $tables = json_decode(json_encode($items), true);
             $newTable = [];
-            $assoc = [
-                'Parts' => [
-                    'Categories',
-                    'CostCenters',
-                    'Manufacturers',
-                    'Locations'
-                ],
-                'Categories' => ['Parts'],
-                'CostCenters' => ['Parts'],
-                'Manufacturers' => ['Parts']
-            ];
             foreach($tables as $table => $items) {
                 $table_arr = [];
                 $this->loadModel($table);
                 foreach($items as $item) {
-                    $table_arr[] = $this->$table->get($item['id'], ['contain' => $assoc[$table]]);
+                    $table_arr[] = $this->$table->get($item['id'], ['contain' => $this->$table->assocs]);
                 }
                 $newTable[$table] = $table_arr;
             }

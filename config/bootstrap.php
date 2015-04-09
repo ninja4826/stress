@@ -206,3 +206,4 @@ Configure::write('Session', [
 Plugin::load('Bootstrap', ['autoload' => true, 'bootstrap' => true]);
 Plugin::load('Ajax', ['bootstrap' => true]);
 // Plugin::load('Search');
+// Plugin::load('Modal', ['bootstrap' => false, 'routes' => true]);

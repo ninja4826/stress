@@ -87,8 +87,9 @@ class APIController extends AppController {
                 unset($options['id']);
                 $query = $this->$model->get($id, $options);
             } else {
-                // $query = $this->$model->find('all', $options)->toArray();
-                $query = $this->$model->getCached();
+                $query = $this->$model->find('all', $options)->toArray();
+                // $query = $this->$model->getCached($options['fields']);
+                Log::write('debug', $options);
             }
             $response[$model] = $query;
 

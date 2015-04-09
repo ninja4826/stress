@@ -31,6 +31,7 @@ if (Configure::read('App.author')) {
 $this->prepend('script', $this->Html->script([
     'jquery-2.1.1.min.js',
     'bootstrap.min',
+    'typeahead.min',
     'global_utils',
 ]));
 $this->prepend('css', $this->Html->css([
@@ -106,6 +107,9 @@ $this->prepend('css', $this->Html->css([
     <div class="container">
         <div id="content" class="row">
             <?= $this->Flash->render(); ?>
+            <script>
+                var current_objects = {};
+            </script>
             <?= $this->fetch('content'); ?>
         </div>
     </div>
