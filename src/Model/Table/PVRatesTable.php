@@ -4,14 +4,15 @@ namespace App\Model\Table;
 use App\Model\Entity\PVRate;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
+// use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
  * PVRates Model
  */
-class PVRatesTable extends Table
+class PVRatesTable extends AppTable
 {
+    
 
     /**
      * Initialize method

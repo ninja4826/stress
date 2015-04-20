@@ -406,6 +406,10 @@ $options = [
                     button.popover('hide');
                 }, 2000);
             }
+            console.log('SENT DATA');
+            console.log(arr);
+            console.log('JSON REP');
+            console.log(JSON.stringify(arr));
             getResults(arr);
             
             $('#search-form-submit').button('reset');
@@ -420,7 +424,8 @@ $options = [
     });
     
     function getResults( data ) {
-        $('#results').load('/search', data, function() {
+        // $('#results').load('/search', data, function() {
+        $('#results').load('/search?q=' + JSON.stringify(data), function() {
             $('.results-panel').find('.panel-heading').trigger('click');
             $('#results-panel').find('.panel-heading').trigger('click');
             $('html, body').animate({ scrollTop: $('#results').offset().top }, 1000);

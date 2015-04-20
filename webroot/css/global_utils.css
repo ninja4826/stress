@@ -16,9 +16,13 @@
 .input-group-addon > .glyphicon {
     color: white;
 }
-.input-group-addon > .glyphicon-remove {
+.glyph-remove {
     background: red;
 }
-.input-group-addon > .glyphicon-ok {
+.glyph-ok {
     background: green;
+}
+.alert-wrapper {
+    height: 92px;
+    width: content;
 }

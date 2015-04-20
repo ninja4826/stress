@@ -76,6 +76,9 @@ class PartsController extends AppController
                 $part = $foundPart;
                 $part->amt_on_hand += $this->request->data['amt_on_hand'];
             } else {
+                $this->request->data['location_name'] = $this->request->data['location'];
+                unset($this->request->data['location']);
+                Log::write('debug', $this->request->data);
                 $part = $this->Parts->patchEntity($part, $this->request->data);
             }
             if ($this->Parts->save($part)) {

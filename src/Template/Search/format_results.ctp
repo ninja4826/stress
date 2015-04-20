@@ -1,3 +1,5 @@
+<?= debug(json_decode(json_encode($tables), true)) ?>
+
 <div class="panel-group" id="accordion">
     <div class="panel panel-default" id="results-panel">
         <div class="panel-heading" data-toggle="collapse" data-target="#collapse-results" href="#collapse-results">

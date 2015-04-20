@@ -29,58 +29,38 @@ class PartsTable extends AppTable
     
     public $fields = [
         'part_num' => [
-            'type' => 'text',
             'label' => 'Part Number',
-            'required' => true,
-            'check' => true
+            'default' => 'test'
         ],
         'description' => [
-            'type' => 'text',
-            'label' => 'Description',
-            'required' => true
+            'default' => 'blah'
         ],
         'amt_on_hand' => [
-            'type' => 'number',
             'label' => 'Amount on Hand',
-            'required' => true
+            'default' => 5
         ],
         'active' => [
-            'type' => 'checkbox',
-            'label' => 'Active'
+            'default' => 1
         ],
-        'location_name' => [
+        'location' => [
             'type' => 'text',
-            'label' => 'Location',
-            'required' => true
+            'label' => 'Location Name',
+            'required' => true,
+            'check' => false,
+            'assoc' => false,
+            'field_name' => 'location_name',
+            'default' => 'G1C2'
         ],
         'manufacturer' => [
-            'type' => 'text',
-            'label' => 'Manufacturer',
-            'required' => true,
-            'check' => true,
-            'assoc' => [
-                'model' => 'Manufacturers',
-                'type' => 'belongsTo'
-            ]
+            'default' => 'Phoenix Contact'
         ],
         'category' => [
-            'type' => 'text',
-            'label' => 'Category',
-            'required' => true,
-            'check' => true,
-            'assoc' => [
-                'model' => 'Categories',
-                'type' => 'belongsTo'
-            ]
+            'default' => 'Relays'
         ],
         'cost_center' => [
-            'type' => 'text',
-            'label' => 'Cost Center',
-            'required' => true,
-            'check' => true,
+            'default' => 'E9000',
             'assoc' => [
-                'model' => 'CostCenters',
-                'type' => 'belongsTo'
+                'key' => 'cc_id'
             ]
         ]
     ];
@@ -144,6 +124,12 @@ class PartsTable extends AppTable
             ->add('category_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('category_id', 'create')
             ->notEmpty('category_id')
+            ->add('part_num', [
+                'unique' => [
+                    'rule' => 'validateUnique',
+                    'provider' => 'table'
+                ]
+            ])
             ->requirePresence('part_num', 'create')
             ->notEmpty('part_num')
             ->requirePresence('description', 'create')
@@ -188,7 +174,6 @@ class PartsTable extends AppTable
         } elseif (array_key_exists('location_id', $data)) {
             return true;
         }
-        
         $loc_table = TableRegistry::get('Locations');
         
         $location = $loc_table->findByLocationName($data['location_name'])->first();
@@ -233,16 +218,5 @@ class PartsTable extends AppTable
         }
         
         return $parts_;
-    }
-    
-    public function searchConfiguration() {
-        $search = new Manager($this);
-        $search
-            ->like('part_num', [
-                'before' => true,
-                'after' => true,
-                'field' => [$this->alias().'.part_num']
-            ]);
-        return $search;
     }
 }

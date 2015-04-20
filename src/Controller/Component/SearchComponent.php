@@ -27,7 +27,7 @@ class SearchComponent extends Component
         $this->controller = $event->subject();
     }
     
-    public function search($arr) {
+    public function search($arr, $select = ['id']) {
         $response = [];
         if (array_key_exists('filters', $arr) && count(array_keys($arr)) == 1) {
             $arr = $arr['filters'];
@@ -43,7 +43,7 @@ class SearchComponent extends Component
                     $query_ = $this->_search($query, $filter);
                 }
             }
-            $query->select(['id']);
+            $query->select($select);
             $response[$model] = $query;
         }
         return $response;

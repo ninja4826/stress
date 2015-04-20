@@ -4,7 +4,7 @@ namespace App\Model\Table;
 use App\Model\Entity\PartTransaction;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
+// use Cake\ORM\Table;
 use Cake\Validation\Validator;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
@@ -13,7 +13,7 @@ use Cake\I18n\Time;
 /**
  * PartTransactions Model
  */
-class PartTransactionsTable extends Table
+class PartTransactionsTable extends AppTable
 {
 
     /**

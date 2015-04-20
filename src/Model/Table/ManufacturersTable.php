@@ -15,7 +15,11 @@ class ManufacturersTable extends AppTable
 {
     
     public $indexes = ['manufacturer_name'];
-    public $assocs = [];
+    
+    public $fields = [
+        'manufacturer_name' => [],
+        'active' => [],
+    ];
 
     /**
      * Initialize method
@@ -52,6 +56,12 @@ class ManufacturersTable extends AppTable
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
+            ->add('manufacturer_name', [
+                'unique' => [
+                    'rule' => 'validateUnique',
+                    'provider' => 'table'
+                ]
+            ])
             ->requirePresence('manufacturer_name', 'create')
             ->notEmpty('manufacturer_name')
             ->add('active', 'valid', ['rule' => 'boolean'])

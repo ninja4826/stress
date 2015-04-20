@@ -4,13 +4,13 @@ namespace App\Model\Table;
 use App\Model\Entity\PartPriceHistory;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
+// use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
  * PartPriceHistories Model
  */
-class PartPriceHistoriesTable extends Table
+class PartPriceHistoriesTable extends AppTable
 {
 
     /**

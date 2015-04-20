@@ -14,7 +14,14 @@ class CostCentersTable extends AppTable
 {
     
     public $indexes = ['description'];
-    public $assocs = [];
+    
+    public $fields = [
+        'e_code' => [],
+        'description' => [],
+        'active' => [],
+        'default_value' => [],
+        'project_number' => []
+    ];
 
     /**
      * Initialize method

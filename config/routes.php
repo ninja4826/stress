@@ -49,7 +49,6 @@ Router::scope('/', function ($routes) {
      */
     //$routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
     $routes->connect('/', ['controller' => 'Parts', 'action' => 'index']);
-    $routes->connect('/info', ['controller' => 'Parts', 'action' => 'info']);
 
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
@@ -79,20 +78,6 @@ Router::scope('/parts', ['controller' => 'Parts'], function($routes) {
     $routes->connect('/', ['action' => 'index']);
     $routes->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
     $routes->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-    /*
-    $routes->connect('/:id/vendors/add', ['controller' => 'PartVendors', 'action' => 'add'], ['id' => '\d+', 'pass' => ['id']]);
-    
-    $routes->scope('/vendors', function($sub) {
-        $sub->connect('/:id', ['controller' => 'PartVendors', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-        $sub->connect('/:id/edit', ['controller' => 'PartVendors', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-        $sub->connect('/:partVendor/trans/add', ['controller' => 'PartTransactions', 'action' => 'add'], ['partVendor' => '\d+', 'pass' => ['partVendor']]);
-        $sub->connect('/:partVendor/trans/', ['controller' => 'PartTransactions', 'action' => 'index'], ['partVendor' => '\d+', 'pass' => ['partVendor']]);
-        $sub->scope('/trans', function($trans) {
-            $trans->connect('/:id', ['controller' => 'PartTransactions', 'action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-            $trans->connect('/:id/edit', ['controller' => 'PartTransactions', 'action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-        });
-    });
-    */
 });
 
 Router::scope('/part_vendors', ['controller' => 'PartVendors'], function($sub) {
@@ -142,28 +127,20 @@ Router::scope('/vendors', ['controller' => 'Vendors'], function($sub) {
     $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
 });
 
-Router::scope('/staff', ['controller' => 'Staffs'], function($sub) {
-    $sub->connect('/', ['action' => 'index']);
-    $sub->connect('/add', ['action' => 'add']);
-    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
+Router::scope('/api', ['controller' => 'API'], function($sub) {
+    $sub->connect('/info/:model', ['action' => 'get_info'], ['pass' => ['model']]);
+    $sub->connect('/save/:model', ['action' => 'save_entity'], ['pass' => ['model']]);
+    $sub->connect('/type_search', ['action' => 'type_search']);
+    $sub->connect('/:func', ['action' => 'main_func'], ['pass' => ['func']]);
 });
-
-Router::scope('/address', ['controller' => 'Addresses'], function($sub) {
-    $sub->connect('/', ['action' => 'index']);
-    $sub->connect('/add', ['action' => 'add']);
-    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-});
-
-Router::connect('/api/:func', ['controller' => 'API', 'action' => 'main_func'], ['pass' => ['func']]);
 
 Router::scope('/search', ['controller' => 'Search'], function($sub) {
     $sub->extensions(['json']);
     $sub->connect('/search/results', ['controller' => 'Search', 'action' => 'format_results']);
     $sub->connect('/', ['controller' => 'Search', 'action' => 'search']);
 });
-Router::connect('/modal/form', ['controller' => 'Modal', 'action' => 'form']);
+// Router::connect('/modal/form', ['controller' => 'Modal', 'action' => 'form']);
+Router::connect('/form/:model', ['controller' => 'Form', 'action' => 'form'], ['pass' => ['model']]);
 /**
  * Load all plugin routes.  See the Plugin documentation on
  * how to customize the loading of plugin routes.

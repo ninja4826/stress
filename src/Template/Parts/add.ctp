@@ -42,28 +42,28 @@
                 </label>
             </div>
             <div class="form-group text required">
-                <label for="location-name">Location Name</label>
-                <input type="text" name="location_name" required="required" id="location-name" class="form-control" aria-describedby="location-name-check">
+                <label for="location">Location Name</label>
+                <input type="text" name="location" required="required" id="location" class="form-control" aria-describedby="location-check">
             </div>
             <div class="form-group text required">
                 <label for="manufacturer-id">Manufacturer</label>
                 <div class="input-group">
-                    <input type="text" name="manufacturer_id" required="required" id="manufacturer-id" class="form-control" aria-describedby="manufacturer-id-check">
-                    <span class="input-group-addon glyphicon glyphicon-remove" id="manufacturer-id-check"></span>
+                    <input type="text" name="manufacturer_id" required="required" id="manufacturer-id" class="form-control" aria-describedby="manufacturer-id-check" style="float:none;">
+                    <span class="input-group-addon glyph-remove"><span class="glyphicon glyphicon-remove glyph-remove" id="manufacturer-id-check"></span></span>
                 </div>
             </div>
             <div class="form-group text required">
                 <label for="category-id">Category</label>
                 <div class="input-group">
-                    <input type="text" name="category_id" required="required" id="category-id" class="form-control" aria-describedby="category-id-check">
-                    <span class="input-group-addon glyphicon glyphicon-remove" id="category-id-check"></span>
+                    <input type="text" name="category_id" required="required" id="category-id" class="form-control" aria-describedby="category-id-check" style="float:none;">
+                    <span class="input-group-addon glyph-remove"><span class="glyphicon glyphicon-remove glyph-remove" id="category-id-check"></span></span>
                 </div>
             </div>
             <div class="form-group text required">
                 <label for="cc-id">Cost Center</label>
                 <div class="input-group">
-                    <input type="text" name="category_id" required="required" id="cc-id" class="form-control" aria-describedby="cc-id-check">
-                    <span class="input-group-addon glyphicon glyphicon-remove" id="cc-id-check"></span>
+                    <input type="text" name="category_id" required="required" id="cc-id" class="form-control" aria-describedby="cc-id-check" style="float:none;">
+                    <span class="input-group-addon glyph-remove"><span class="glyphicon glyphicon-remove glyph-remove" id="cc-id-check"></span></span>
                 </div>
             </div>
         </fieldset>
@@ -200,7 +200,15 @@
                 title = 'This item exists!'
             }
             
-            $(check).addClass('glyphicon-' + add).removeClass('glyphicon-' + remove).attr('data-original-title', title);
+            $(check)
+                .addClass('glyphicon-' + add)
+                .addClass('glyph-' + add)
+                .removeClass('glyphicon-' + remove)
+                .removeClass('glyph-' + remove)
+                .attr('data-original-title', title)
+                .parent()
+                .addClass('glyph-' + add)
+                .removeClass('glyph-' + remove);
             
         });
         
@@ -215,14 +223,14 @@
             $('#part-num').popover('hide');
             $('#amt-on-hand').popover('hide');
             $('#description').popover('hide');
-            $('#location-name').popover('hide');
+            $('#location').popover('hide');
             
             event.preventDefault();
             
             var part_num_val = $('#part-num').val();
             var new_quantity_val = $('#amt-on-hand').val();
             var description_val = $('#description').val();
-            var location_val = $('#location-name').val();
+            var location_val = $('#location').val();
             
             var manufacturer_val = $('#manufacturer-id').val();
             var category_val = $('#category-id').val();
@@ -259,7 +267,7 @@
                     $('#description').popover('show');
                 }
                 if (!location_val) {
-                    $('#location-name').popover('show');
+                    $('#location').popover('show');
                 }
                 if (!manufacturer_val) {
                     $('#manufacturer-id').popover('show');
@@ -305,20 +313,26 @@
                     var category_id = keys['Categories'][category_val];
                     var cost_center_id = keys['CostCenters'][cost_center_val];
                     console.log(keys);
-                    $.post('/parts/add', {
+                    
+                    var data = {
                         'part_num': part_num_val,
                         'description': description_val,
                         'amt_on_hand': new_quantity_val,
                         'active': (($('#active').is(':checked')) ? 1 : 0),
-                        'location_name': location_val,
+                        'location': location_val,
                         'manufacturer_id': manufacturer_id,
                         'category_id': category_id,
                         'cc_id': cost_center_id
-                    }).done(function( data ) {
-                        if (data['status'] === 'ok') {
-                            window.location = '/';
-                        }
-                    });
+                    };
+                    
+                    console.log('DATA');
+                    console.log(data);
+                    
+                    // $.post('/parts/add', data).done(function( data ) {
+                    //     if (data['status'] === 'ok') {
+                    //         window.location = '/';
+                    //     }
+                    // });
                 });
                 
                 if (!(manufacturer_val in keys['Manufacturers'])) {

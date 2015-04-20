@@ -1,6 +1,22 @@
+
+
 <?php
 use Cake\Core\Configure;
+?>
 
+<?php if (Configure::read('debug')): ?>
+    <?php $this->start('no-cache'); ?>
+        <meta http-equiv="cache-control" content="max-age=0" />
+        <meta http-equiv="cache-control" content="no-cache" />
+        <meta http-equiv="expires" content="0" />
+        <meta http-equiv="expires" content="Tue, 01 Jan 1980 1:00:00 GMT" />
+        <meta http-equiv="pragma" content="no-cache" />
+    <?php $this->end(); ?>
+<?php else: ?>
+    <?php $this->assign('no-cache', ''); ?>
+<?php endif; ?>
+
+<?php
 if (!$this->fetch('html')) {
     $this->start('html');
     printf('<html lang="%s">', Configure::read('App.language'));
@@ -20,6 +36,7 @@ elseif ($this->fetch('title') && Configure::read('App.title')) {
 // Prepend some meta tags
 $this->prepend('meta', $this->Html->meta('icon', 'favicon.ico?v=2'));
 $this->prepend('meta', $this->Html->meta('viewport', 'width=device-width, initial-scale=1'));
+$this->prepend('meta', $this->fetch('no-cache'));
 if (Configure::read('App.author')) {
     $this->prepend('meta', $this->Html->meta('author', null, [
         'name'    => 'author',
@@ -30,9 +47,9 @@ if (Configure::read('App.author')) {
 // Prepend scripts required by the navbar
 $this->prepend('script', $this->Html->script([
     'jquery-2.1.1.min.js',
+    'jquery-ui.min',
     'bootstrap.min',
-    'typeahead.min',
-    'global_utils',
+    'typeahead.bundle.min'
 ]));
 $this->prepend('css', $this->Html->css([
     'global_utils',
@@ -107,10 +124,8 @@ $this->prepend('css', $this->Html->css([
     <div class="container">
         <div id="content" class="row">
             <?= $this->Flash->render(); ?>
-            <script>
-                var current_objects = {};
-            </script>
             <?= $this->fetch('content'); ?>
+            <div id="modal-container"></div>
         </div>
     </div>
 </body>

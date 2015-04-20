@@ -18,9 +18,13 @@ class SearchController extends AppController
     }
     
     public function search() {
-        if ($this->request->is('post')) {
-            $data = $this->request->data;
-            // if (array_key_exists('search-bar', $data) && $data['search-bar'] == 'true') {
+        
+        if (array_key_exists('q', $this->request->query)) {
+        // if ($this->request->is('post')) {
+            // $data = $this->request->data;
+            
+            $data = json_decode($this->request->query['q'], true);
+            
             if (array_key_exists('keyword', $data)) {
                 $search_bar;
                 $k = '%'.$data['keyword'].'%';

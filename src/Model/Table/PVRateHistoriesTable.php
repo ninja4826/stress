@@ -4,14 +4,18 @@ namespace App\Model\Table;
 use App\Model\Entity\PVRateHistory;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
+// use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
  * PVRateHistories Model
  */
-class PVRateHistoriesTable extends Table
+class PVRateHistoriesTable extends AppTable
 {
+    
+    public $assocs = [
+        'PartVendors'
+    ];
 
     /**
      * Initialize method

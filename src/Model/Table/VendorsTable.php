@@ -4,14 +4,15 @@ namespace App\Model\Table;
 use App\Model\Entity\Vendor;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
-use Cake\ORM\Table;
+// use Cake\ORM\Table;
 use Cake\Validation\Validator;
 
 /**
  * Vendors Model
  */
-class VendorsTable extends Table
+class VendorsTable extends AppTable
 {
+    
 
     /**
      * Initialize method

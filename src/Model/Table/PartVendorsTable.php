@@ -5,20 +5,16 @@ use App\Model\Entity\PartVendor;
 use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 // use Cake\ORM\Table;
-use App\Model\Table\AppTable as Table;
 use Cake\Validation\Validator;
 
 /**
  * PartVendors Model
  */
-class PartVendorsTable extends Table
+class PartVendorsTable extends AppTable
 {
     
     public $assocs = [
-        'Vendors',
-        'PVRateHistories',
-        'PartPriceHistories',
-        'PartTransactions'
+        'Vendors'
     ];
 
     /**
