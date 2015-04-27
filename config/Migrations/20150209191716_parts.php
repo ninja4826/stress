@@ -39,14 +39,21 @@ class Parts extends AbstractMigration
             ->addColumn('description', 'string')
             ->addColumn('amt_on_hand', 'integer')
             ->addColumn('active', 'boolean')
-            ->addColumn('manufacturer_id', 'integer')
-            ->addForeignKey('manufacturer_id', 'manufacturers', 'id')
+            // ->addColumn('manufacturer_id', 'integer')
+            // ->addForeignKey('manufacturer_id', 'manufacturers', 'id')
             ->addColumn('category_id', 'integer')
             ->addForeignKey('category_id', 'categories', 'id')
             ->addColumn('cc_id', 'integer')
             ->addForeignKey('cc_id', 'cost_centers', 'id')
             ->addColumn('location_id', 'integer')
             ->addForeignKey('location_id', 'locations', 'id')
+            ->save();
+        $table = $this->table('parts_manufacturers');
+        $table
+            ->addColumn('part_id', 'integer')
+            ->addForeignKey('part_id', 'parts', 'id')
+            ->addColumn('manufacturer_id', 'integer')
+            ->addForeignKey('manufacturer_id', 'manufacturers', 'id')
             ->save();
     }
     

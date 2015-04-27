@@ -15,6 +15,21 @@ use Cake\I18n\Time;
  */
 class PartTransactionsTable extends AppTable
 {
+    public $assocs = [
+        'PartVendors'
+    ];
+    public $fields = [
+        'order_num' => [
+            'label' => 'Order Number',
+            'check' => true
+        ],
+        'date' => [],
+        'change_qty' => [
+            'label' => 'Change Quantity'
+        ],
+        'price' => [],
+        'part_vendor' => []
+    ];
 
     /**
      * Initialize method
@@ -25,7 +40,7 @@ class PartTransactionsTable extends AppTable
     public function initialize(array $config)
     {
         $this->table('part_transactions');
-        $this->displayField('id');
+        $this->displayField('order_num');
         $this->primaryKey('id');
         $this->belongsTo('PartVendors', [
             'foreignKey' => 'part_vendor_id'

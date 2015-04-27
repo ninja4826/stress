@@ -17,17 +17,20 @@ class PartVendorsTableTest extends TestCase
      * @var array
      */
     public $fixtures = [
-        'PartVendors' => 'app.part_vendors',
-        'Parts' => 'app.parts',
-        'Manufacturers' => 'app.manufacturers',
-        'Categories' => 'app.categories',
-        'Locations' => 'app.locations',
-        'CostCenters' => 'app.cost_centers',
-        'Vendors' => 'app.vendors',
-        'PVRateHistories' => 'app.p_v_rate_histories',
-        'PVRates' => 'app.p_v_rates',
-        'PartPriceHistories' => 'app.part_price_histories',
-        'PartTransactions' => 'app.part_transactions'
+        'app.part_vendors',
+        'app.parts',
+        'app.manufacturers',
+        'app.parts_manufacturers',
+        'app.categories',
+        'app.locations',
+        'app.cost_centers',
+        'app.purchase_orders',
+        'app.parts_purchases',
+        'app.vendors',
+        'app.p_v_rate_histories',
+        'app.p_v_rates',
+        'app.part_price_histories',
+        'app.part_transactions'
     ];
 
     /**

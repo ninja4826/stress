@@ -36,6 +36,7 @@ class Vendors extends AbstractMigration
         $table
             ->addColumn('part_id', 'integer')
             ->addColumn('vendor_id', 'integer')
+            ->addColumn('vendor_name', 'string')
             ->addColumn('markup', 'string')
             ->addColumn('discount', 'decimal', ['precision' => 12, 'scale' => 2])
             ->addColumn('preferred', 'boolean')

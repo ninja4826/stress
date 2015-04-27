@@ -19,7 +19,7 @@ class APIComponent extends Component {
             return ['status' => 'error'];
         }
         foreach ($q as $model => $options) {
-            $this->loadModel($model);
+            $this->$model = TableRegistry::get($model);
             
             $query = null;
             
@@ -53,7 +53,7 @@ class APIComponent extends Component {
     }
     
     public function get_info($model, array $alterations = []) {
-        $this->loadModel($model);
+        $this->$model = TableRegistry::get($model);
         if (is_null($this->$model)) {
             return [];
         }
@@ -96,6 +96,10 @@ class APIComponent extends Component {
             'fields' => $fields,
             'search_results' => $this->search($search_arr)
         ];
+        Log::write('debug', 'IN API');
+        Log::write('debug', $info);
+        
+        
         return $info;
     }
     

@@ -52,7 +52,8 @@ $this->prepend('script', $this->Html->script([
     'typeahead.bundle.min'
 ]));
 $this->prepend('css', $this->Html->css([
-    'global_utils',
+    'styles',
+    // 'global_utils',
 ]));
 
 ?>
@@ -67,11 +68,11 @@ $this->prepend('css', $this->Html->css([
         // Meta
         echo $this->fetch('meta');
 
-        // Styles
-        echo $this->Less->less([
-            'Bootstrap.less/bootstrap.less'
-            // 'Bootstrap.less/cakephp/styles.less'
-        ]);
+        // // Styles
+        // echo $this->Less->less([
+        //     'Bootstrap.less/bootstrap.less'
+        //     // 'Bootstrap.less/cakephp/styles.less'
+        // ]);
         echo $this->fetch('css');
 
         // Sometimes we'll want to send scripts to the top (rarely..)

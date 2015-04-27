@@ -39,18 +39,18 @@ class AppController extends Controller
      */
     public function initialize()
     {
-        $this->loadComponent('Bootstrap.Flash');
-        $this->helpers[] = 'Less.Less';
-        $this->helpers[] = 'Bootstrap.Form';
+        // $this->loadComponent('Bootstrap.Flash');
+        // $this->helpers[] = 'Less.Less';
+        // $this->helpers[] = 'Bootstrap.Form';
         $this->layout = 'default';
     }
     
-    public function loadModel($modelClass = null, $type = 'Table') {
-        $table = TableRegistry::get($modelClass);
-        if (explode('\\', get_class($table))[-1] = 'Table') {
-            $this->$modelClass = null;
-        } else {
-            $this->$modelClass = $table;
-        }
-    }
+    // public function loadModel($modelClass = null, $type = 'Table') {
+    //     $table = TableRegistry::get($modelClass);
+    //     if (explode('\\', get_class($table))[-1] = 'Table') {
+    //         $this->$modelClass = null;
+    //     } else {
+    //         $this->$modelClass = $table;
+    //     }
+    // }
 }

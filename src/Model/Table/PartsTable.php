@@ -51,9 +51,6 @@ class PartsTable extends AppTable
             'field_name' => 'location_name',
             'default' => 'G1C2'
         ],
-        'manufacturer' => [
-            'default' => 'Phoenix Contact'
-        ],
         'category' => [
             'default' => 'Relays'
         ],
@@ -62,6 +59,9 @@ class PartsTable extends AppTable
             'assoc' => [
                 'key' => 'cc_id'
             ]
+        ],
+        'manufacturers' => [
+            'default' => 'blah',
         ]
     ];
 
@@ -76,8 +76,12 @@ class PartsTable extends AppTable
         $this->table('parts');
         $this->displayField('part_num');
         $this->primaryKey('id');
-        $this->belongsTo('Manufacturers', [
-            'foreignKey' => 'manufacturer_id'
+        // $this->belongsTo('Manufacturers', [
+        //     'foreignKey' => 'manufacturer_id'
+        // ]);
+        $this->belongsToMany('Manufacturers', [
+            'joinTable' => 'parts_manufacturers',
+            'saveStrategy' => 'append'
         ]);
         $this->belongsTo('Categories', [
             'foreignKey' => 'category_id'
@@ -118,8 +122,8 @@ class PartsTable extends AppTable
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
-            ->add('manufacturer_id', 'valid', ['rule' => 'numeric'])
-            ->requirePresence('manufacturer_id', 'create')
+            // ->add('manufacturer_id', 'valid', ['rule' => 'numeric'])
+            // ->requirePresence('manufacturer_id', 'create')
             ->notEmpty('manufacturer_id')
             ->add('category_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('category_id', 'create')

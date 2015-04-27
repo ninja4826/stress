@@ -20,6 +20,7 @@ class FormController extends AppController {
     }
     
     public function form($model) {
+        Log::write('debug', 'MODEL: '.$model);
         $this->loadModel($model);
         if (is_null($this->$model)) {
             return;
@@ -33,7 +34,8 @@ class FormController extends AppController {
             $modal = true;
             $this->layout = 'empty';
         }
-        $cell = $this->cell('Form', ['model' => $model, 'alter' => $alter, 'modal' => $modal]);
+        // $cell = $this->cell('Form', ['model' => $model, 'alter' => $alter, 'modal' => $modal]);
+        $cell = ['model' => $model, 'alter' => $alter, 'modal' => $modal];
         $this->set('cell', $cell);
         $this->render('/Element/form');
     }

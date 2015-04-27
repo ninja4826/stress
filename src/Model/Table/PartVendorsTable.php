@@ -6,17 +6,30 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 // use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
 
 /**
  * PartVendors Model
  */
 class PartVendorsTable extends AppTable
 {
-    
+
     public $assocs = [
+        'Parts',
         'Vendors'
     ];
-
+    
+    public $fields = [
+        'vendor' => [],
+        'part' => [],
+        'markup' => [],
+        'discount' => [
+            'type' => 'number'
+        ],
+        'preferred' => [],
+    ];
+    
     /**
      * Initialize method
      *
@@ -26,20 +39,21 @@ class PartVendorsTable extends AppTable
     public function initialize(array $config)
     {
         $this->table('part_vendors');
-        $this->displayField('id');
+        $this->displayField('vendor_name');
         $this->primaryKey('id');
         $this->belongsTo('Parts', [
-            'foreignKey' => 'part_id'
+            'foreignKey' => 'part_id',
+            'joinType' => 'INNER'
         ]);
         $this->belongsTo('Vendors', [
-            'foreignKey' => 'vendor_id'
+            'foreignKey' => 'vendor_id',
+            'joinType' => 'INNER'
         ]);
         $this->hasMany('PVRateHistories', [
             'foreignKey' => 'part_vendor_id'
         ]);
         $this->hasMany('PartPriceHistories', [
-            'foreignKey' => 'part_vendor_id',
-            'sort' => ['date_changed' => 'DESC']
+            'foreignKey' => 'part_vendor_id'
         ]);
         $this->hasMany('PartTransactions', [
             'foreignKey' => 'part_vendor_id'
@@ -57,6 +71,8 @@ class PartVendorsTable extends AppTable
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
+            ->requirePresence('vendor_name', 'create')
+            ->notEmpty('vendor_name')
             ->requirePresence('markup', 'create')
             ->notEmpty('markup')
             ->add('discount', 'valid', ['rule' => 'decimal'])
@@ -81,5 +97,17 @@ class PartVendorsTable extends AppTable
         $rules->add($rules->existsIn(['part_id'], 'Parts'));
         $rules->add($rules->existsIn(['vendor_id'], 'Vendors'));
         return $rules;
+    }
+    
+    public function beforeMarshal($event, $data, $options) {
+        if (!array_key_exists('vendor_id', $data)) {
+            return false;
+        }
+        Log::write('debug', 'PARTVENDOR STUFF');
+        Log::write('debug', $data);
+        $vendors = TableRegistry::get('Vendors');
+        $data['vendor_name'] = $this->Vendors->get($data['vendor_id'])->vendor_name;
+        Log::write('debug', $data);
+        return true;
     }
 }

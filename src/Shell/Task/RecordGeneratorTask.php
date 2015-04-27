@@ -26,6 +26,7 @@ class RecordGeneratorTask extends Shell {
     public function main()
     {
         Cache::clear(false);
+        
         $category = $this->Categories->save($this->Categories->newEntity([
             'category_name' => 'Relays'
         ]));
@@ -40,31 +41,55 @@ class RecordGeneratorTask extends Shell {
         ]));
         $this->out($cost_center);
         
-        $location = $this->Locations->save($this->Locations->processName([
-            'location_name' => 'G1C2'
-        ]));
-        $this->out($location);
-        
-        $manufacturer = $this->Manufacturers->save($this->Manufacturers->newEntity([
+        $manufacturer = $this->Manufacturers->newEntity([
             'manufacturer_name' => 'Phoenix Contact',
             'active' => true
-        ]));
+        ]);
+        $this->Manufacturers->save($manufacturer);
         $this->out($manufacturer);
         
-        if ($category && $cost_center && $location && $manufacturer)
-        {
-            $part = $this->Parts->save($this->Parts->newEntity([
-                'part_num' => 'SN74S74N',
-                'description' => 'Dual flip flop relay and stuff',
-                'amt_on_hand' => 5,
-                'active' => true,
-                'manufacturer_id' => 1,
-                'category_id' => 1,
-                'cc_id' => 1,
-                'location_id' => 1
-            ]));
-            $this->out($part);
-        }
+        $part = [
+            'part_num' => 'SN74S74N',
+            'description' => 'Dual flip flop relay and stuff',
+            'amt_on_hand' => 5,
+            'active' => true,
+            'category_id' => 1,
+            'cc_id' => 1,
+            'location_name' => 'G1C2'
+        ];
+        $part_ = $this->Parts->newEntity($part);
+        $this->out($this->Parts->save($part_));
+        
+        $this->Parts->Manufacturers->link($part_, [$manufacturer]);
+        $this->out('NEW PART');
+        $this->out($part_);
+        
+        
+        // $location = $this->Locations->save($this->Locations->processName([
+        //     'location_name' => 'G1C2'
+        // ]));
+        // $this->out($location);
+        
+        
+        
+        // if ($category && $cost_center && $location && $manufacturer)
+        // {
+        //     $part = [
+        //         'part_num' => 'SN74S74N',
+        //         'description' => 'Dual flip flop relay and stuff',
+        //         'amt_on_hand' => 5,
+        //         'active' => true,
+        //         'category_id' => 1,
+        //         'cc_id' => 1,
+        //         'location_id' => 1,
+        //         'manufacturers' => [$this->Manufacturers->find('all', ['limit' => 1])->first()->toArray()]
+        //     ];
+        //     $part_ = $this->Parts->save($this->Parts->newEntity($part, [
+        //         // 'associated' => ['Manufacturers']
+        //     ]));
+        //     $part = $part_;
+        //     $this->out($part);
+        // }
         
         $vendor = $this->Vendors->save($this->Vendors->newEntity([
             'vendor_name' => 'Mouser',

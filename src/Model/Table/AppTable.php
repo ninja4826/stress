@@ -44,48 +44,6 @@ class AppTable extends Table {
         return $query->contain($this->assocs);
     }
     
-    /*
-    public function getFields() {
-        $entity = $this->find('assoc', ['limit' => 1])->first();
-        
-        $virtual = $entity->_virtual;
-        $fields = [];
-        
-        foreach($entity->toArray() as $name => $val) {
-            if (!in_array($name, $virtual) && substr($name, -3) != '_id') {
-                $field = [];
-                $type = gettype($val);
-                
-                switch($type) {
-                    case 'string':
-                        $type = 'text';
-                        break;
-                    case 'boolean':
-                        $type = 'checkbox';
-                        break;
-                    case 'integer':
-                        $type = 'number';
-                        break;
-                    case 'array':
-                        $plural = Inflector::pluralize($name);
-                        if ($plural == $name) {
-                            $type = 'hasMany';
-                        } else {
-                            $type = 'belongsTo';
-                        }
-                        break;
-                    default:
-                        $type = 'null';
-                }
-                $field['type'] = $type;
-                
-                $fields[$name] = $field;
-            }
-        }
-        return $fields;
-    }
-    */
-    
     public function getFields() {
         $entity = $this->find('assoc', ['limit' => 1])->first();
         $error = $this->newEntity([])->errors();
@@ -118,19 +76,32 @@ class AppTable extends Table {
                             }
                             break;
                         default:
-                            $field['type'] = 'null';
+                            Log::write('debug', 'Is Time? '.is_a($val, 'Cake\I18n\Time'));
+                            if (is_a($val, 'Cake\I18n\Time')) {
+                                $field['type'] = 'date';
+                            } else {
+                                $field['type'] = 'null';
+                            }
                     }
                     $field['required'] = array_key_exists($name, $error);
                     $field['field_name'] = $name;
                 } else {
                     $field['type'] = 'text';
-                    $field['required'] = array_key_exists($name.'_id', $error);
-                    // $field['check'] = true;
-                    $field['assoc'] = [
-                        'model' => Inflector::camelize($entity->$name->table_name),
-                        'type' => (Inflector::pluralize($name) == $name ? 'hasMany' : 'belongsTo'),
-                        'key' => $name.'_id'
-                    ];
+                    $field['required'] = true;
+                    if (gettype($entity->$name) == 'array') {
+                        $assoc_f = $entity->$name;
+                        $field['assoc'] = [
+                            'model' => Inflector::camelize($assoc_f[0]->table_name),
+                            'type' => 'belongsToMany'
+                        ];
+                    } else {
+                        $field['assoc'] = [
+                            'model' => Inflector::camelize($entity->$name->table_name),
+                            'type' => (Inflector::pluralize($name) == $name ? 'hasMany' : 'belongsTo'),
+                            'key' => $name.'_id'
+                        ];
+                    }
+                    $field['type'] = 'text';
                     $foreign_display = TableRegistry::get($field['assoc']['model'])->find('all', ['limit' => 1])->first()->display_field;
                     $field['assoc']['display_field'] = $foreign_display;
                     $field['default'] = '';

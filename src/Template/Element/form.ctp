@@ -1,8 +1,15 @@
 <?php
     if (isset($cell)) {
-        echo debug($cell);
-        $this->Html->script(['typeahead.bundle.min', 'form'], ['block' => true]);
-        echo $cell;
+        $this->Html->css([
+            'bootstrap-datetimepicker.min'
+        ], ['block' => true]);
+        $this->Html->script([
+            'typeahead.bundle.min',
+            'form',
+            'moment',
+            'bootstrap-datetimepicker.min'
+        ], ['block' => true]);
+        echo $this->cell('Form', $cell);
     } else {
         echo '';
     }

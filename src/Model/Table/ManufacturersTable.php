@@ -32,8 +32,11 @@ class ManufacturersTable extends AppTable
         $this->table('manufacturers');
         $this->displayField('manufacturer_name');
         $this->primaryKey('id');
-        $this->hasMany('Parts', [
-            'foreignKey' => 'manufacturer_id'
+        // $this->hasMany('Parts', [
+        //     'foreignKey' => 'manufacturer_id'
+        // ]);
+        $this->belongsToMany('Parts', [
+            'joinTable' => 'parts_manufacturers'
         ]);
         
         // $this->addBehavior('Search', [

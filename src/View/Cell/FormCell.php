@@ -4,6 +4,7 @@ namespace App\View\Cell;
 use Cake\View\Cell;
 use Cake\Utility\Inflector;
 use Cake\Controller\ComponentRegistry;
+use Cake\Log\Log;
 
 /**
  * Form cell
@@ -42,6 +43,16 @@ class FormCell extends Cell
     {
         $this->loadComponent('API');
         $info = $this->API->get_info($model, $alter);
+        Log::write('debug', 'IN CELL');
+        Log::write('debug', 'MODEL');
+        Log::write('debug', $model);
+        Log::write('debug', 'ALTER');
+        Log::write('debug', $alter);
+        Log::write('debug', 'MODAL');
+        Log::write('debug', $modal);
+        Log::write('debug', 'INFO');
+        Log::write('debug', $info);
+        
         $this->set(compact('info', 'modal'));
     }
 }

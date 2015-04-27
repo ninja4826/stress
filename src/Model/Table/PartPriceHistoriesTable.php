@@ -12,6 +12,15 @@ use Cake\Validation\Validator;
  */
 class PartPriceHistoriesTable extends AppTable
 {
+    public $fields = [
+        'date_changed' => [
+            
+        ],
+        'price' => [
+            'display_field' => false,
+            'check' => false
+        ]
+    ];
 
     /**
      * Initialize method

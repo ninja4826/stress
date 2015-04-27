@@ -1,28 +1,30 @@
+/* line 1, ../sass/src/global_utils.scss */
 .twitter-typeahead {
-    width: 100%;
+  width: 100%;
 }
+
+/* line 4, ../sass/src/global_utils.scss */
 .tt-dropdown-menu {
-    width: 100%;
+  width: 100%;
 }
+
+/* line 7, ../sass/src/global_utils.scss */
 .tt-hint {
-    width: 100%;
+  width: 100%;
 }
+
+/* line 10, ../sass/src/global_utils.scss */
 .tt-dropdown-menu {
-    display: none !important;
+  display: none !important;
 }
-.input-group-addon {
-    height: 34px;
-}
-.input-group-addon > .glyphicon {
-    color: white;
-}
-.glyph-remove {
-    background: red;
-}
-.glyph-ok {
-    background: green;
-}
+
+/* line 25, ../sass/src/global_utils.scss */
 .alert-wrapper {
-    height: 92px;
-    width: content;
+  height: 92px;
+  width: content;
+}
+
+/* line 35, ../sass/src/global_utils.scss */
+.glyphicon-calendar.glyphicon {
+  color: #555555;
 }

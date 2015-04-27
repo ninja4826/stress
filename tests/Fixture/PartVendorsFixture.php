@@ -17,23 +17,17 @@ class PartVendorsFixture extends TestFixture
      */
     // @codingStandardsIgnoreStart
     public $fields = [
-        'id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'autoIncrement' => true, 'precision' => null],
-        'part_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'vendor_id' => ['type' => 'integer', 'length' => 11, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'autoIncrement' => null],
-        'markup' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null, 'fixed' => null],
-        'discount' => ['type' => 'decimal', 'length' => 12, 'precision' => 2, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => ''],
-        'preferred' => ['type' => 'boolean', 'length' => null, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
-        '_indexes' => [
-            'part_id' => ['type' => 'index', 'columns' => ['part_id'], 'length' => []],
-            'vendor_id' => ['type' => 'index', 'columns' => ['vendor_id'], 'length' => []],
-        ],
+        'id' => ['type' => 'integer', 'length' => 10, 'autoIncrement' => true, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'unsigned' => null],
+        'part_id' => ['type' => 'integer', 'length' => 10, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'unsigned' => null, 'autoIncrement' => null],
+        'vendor_id' => ['type' => 'integer', 'length' => 10, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'unsigned' => null, 'autoIncrement' => null],
+        'vendor_name' => ['type' => 'string', 'length' => 255, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'fixed' => null],
+        'markup' => ['type' => 'string', 'length' => 255, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'fixed' => null],
+        'discount' => ['type' => 'decimal', 'length' => null, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null, 'unsigned' => null],
+        'preferred' => ['type' => 'boolean', 'length' => null, 'default' => null, 'null' => false, 'comment' => null, 'precision' => null],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'part_vendors_ibfk_1' => ['type' => 'foreign', 'columns' => ['part_id'], 'references' => ['parts', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-            'part_vendors_ibfk_2' => ['type' => 'foreign', 'columns' => ['vendor_id'], 'references' => ['vendors', 'id'], 'update' => 'restrict', 'delete' => 'restrict', 'length' => []],
-        ],
-        '_options' => [
-'engine' => 'InnoDB', 'collation' => 'utf8_general_ci'
+            'part_vendors_part_id' => ['type' => 'foreign', 'columns' => ['part_id'], 'references' => ['parts', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
+            'part_vendors_vendor_id' => ['type' => 'foreign', 'columns' => ['vendor_id'], 'references' => ['vendors', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
     ];
     // @codingStandardsIgnoreEnd
@@ -48,6 +42,7 @@ class PartVendorsFixture extends TestFixture
             'id' => 1,
             'part_id' => 1,
             'vendor_id' => 1,
+            'vendor_name' => 'Lorem ipsum dolor sit amet',
             'markup' => 'Lorem ipsum dolor sit amet',
             'discount' => '',
             'preferred' => 1
