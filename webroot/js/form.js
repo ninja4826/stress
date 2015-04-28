@@ -108,15 +108,16 @@ Form.prototype = {
             }
         }
         
-        if (!this.modal) {
+        // if (!this.modal) {
             this.render();
             console.log(this);
-        }
+        // }
     },
     render: function() {
         this.selector = $(this.get_selector(this.info['name']['singular']['table']) + 'Form');
         this.assoc_listen();
-        this.submit_listen();this.refresh_items(this.info['search_results']);
+        this.submit_listen();
+        this.refresh_items(this.info['search_results']);
         this.assign_typeahead();
         this.display_listen();
         this.many_to_many_listen();
@@ -371,14 +372,22 @@ Form.prototype = {
             if ('assoc' in field) {
                 var vals;
                 if (field['assoc']['type'] == 'belongsToMany') {
-                    vals = field['assoc']['val'];
+                    vals = field['val'];
+                    console.log('BELONGS TO MANY');
                 } else {
                     
                     vals = {1: val};
+                    console.log('DOES NOT BELONG TO MANY');
                 }
                 var temp_vals = [];
+                console.log('VALS');
+                console.log(vals);
                 for(var val_i in vals) {
+                    console.log('VAL_I');
+                    console.log(val_i);
                     val = vals[val_i];
+                    console.log('VAL');
+                    console.log(val);
                     if (val in this.assocs[field_name]) {
                         val = this.assocs[field_name][val];
                         temp_vals.push(val);
@@ -407,6 +416,7 @@ Form.prototype = {
         var data = this.get_inputs();
         console.log('DATA');
         console.log(data);
+        return;
         if (data) {
             // $.post(this.url + this.model_name, data, function( response ) {
             //     that.after_submit( response );

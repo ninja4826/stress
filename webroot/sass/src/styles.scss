@@ -1,0 +1,72 @@
+// Import Bootstrap Compass integration
+@import "bootstrap-compass";
+
+// Import custom Bootstrap variables
+@import "bootstrap-variables";
+
+// Import Bootstrap for Sass
+@import "bootstrap";
+
+// Import normal CSS library
+@import "global_utils";
+$green: rgb(92, 184, 92);
+$red: rgb(217, 83, 79);
+$glyph-colors: (
+    "ok": $green,
+    "remove": $red,
+    "plus": $green,
+    "minus": $red
+);
+$dupe-colors: ("plus": "success", "minus": "danger");
+@mixin glypher($type) {
+    @extend .glyphicon;
+    @extend .glyphicon-#{$type};
+    color: map_get($glyph-colors, $type);
+}
+@each $type, $color in $glyph-colors {
+    .glyph-#{$type} {
+        &:hover {
+            // color: $color;
+        }
+        cursor: default;
+        & > span {
+            @include glypher($type);
+        }
+    }
+}
+@each $type, $btn_type in $dupe-colors {
+    .btn.dupe-#{$type} {
+        // @extend .btn-#{$btn_type};
+        $color: map_get($glyph-colors, if($type == "plus", "ok", "remove"));
+        @extend .btn-default;
+        & > span {
+            @include glypher($type);
+        }
+    }
+}
+
+#nowhere {
+    display: none;
+}
+
+.well.well-sm > .input-group {
+    
+    &:not(:only-child):not(:last-child) {
+        & .dupe-control {
+            @extend .dupe-minus;
+        }
+    }
+    margin-bottom: 15px;
+    // &:last-child:not(:only-child) {
+    //     & .dupe-control {
+    //         @extend .dupe-plus;
+    //     }
+    // }
+    &:last-child {
+        margin-bottom: 0;
+        & .dupe-control {
+            @extend .dupe-plus;
+            color: orange;
+        }
+    }
+}

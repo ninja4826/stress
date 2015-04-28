@@ -53,7 +53,7 @@
                                     }
                                     
                                 ?>
-                                <div class="<?=$div_class?>">
+                                <div class="<?=$div_class?>" id="<?=$field_html?>-form-group">
                                     <?php if ($type == 'checkbox'): ?>
                                         <input type="hidden" name="<?=$field_html?>" value="<?=$options['default']?>">
                                         <label for="<?=$field_html?>">
