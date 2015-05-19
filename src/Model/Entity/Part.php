@@ -25,13 +25,17 @@ class Part extends Entity
      * @var array
      */
     protected $_accessible = [
-        'manufacturer_id' => true,
         'category_id' => true,
         'part_num' => true,
         'description' => true,
         'amt_on_hand' => true,
+        'location_name' => true,
         'location_id' => true,
         'active' => true,
         'cc_id' => true,
+        // 'manufacturers' => true,
+        'manufacturer_id' => true,
+        'category' => true,
+        'cost_center' => true
     ];
 }

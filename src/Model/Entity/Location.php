@@ -30,4 +30,8 @@ class Location extends Entity
         'location_name' => true,
         'parts' => true,
     ];
+    
+    public function __toString() {
+        return $this->location_name;
+    }
 }

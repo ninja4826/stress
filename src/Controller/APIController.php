@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Log\Log;
 use Cake\ORM\TableRegistry;
+use Cake\Routing\Router;
 
 class APIController extends AppController {
     public $response_var = [];
@@ -66,37 +67,11 @@ class APIController extends AppController {
     public function search() {
         $this->loadComponent('RequestHandler');
         $this->viewClass = 'Json';
-        Log::write('debug', $this->request->query);
         if (!array_key_exists('q', $this->request->query)) {
             return;
         }
         $response = [];
         $q = json_decode($this->request->query['q'], true);
-        // Log::write('debug', $q);
-        // foreach ($q as $model => $options) {
-        //     $this->loadModel($model);
-
-        //     // $item = $this->$model->find('all', ['limit' => 1])->toArray()[0];
-        //     $query = null;
-
-        //     if (array_key_exists('fields', $options)) {
-        //         foreach(['id', $this->$model->displayField()] as $field) {
-        //             if (!in_array($field, $options['fields'])) {
-        //                 $options['fields'][] = $field;
-        //             }
-        //         }
-        //     }
-        //     if (array_key_exists('id', $options)) {
-        //         $id = $options['id'];
-        //         unset($options['id']);
-        //         $query = $this->$model->get($id, $options);
-        //     } else {
-        //         $query = $this->$model->find('all', $options)->toArray();
-        //         // $query = $this->$model->getCached($options['fields']);
-        //     }
-        //     $response[$model] = $query;
-
-        // }
         $response = $this->API->search($q);
         $this->status = true;
         $this->response_var = $response;
@@ -162,6 +137,8 @@ class APIController extends AppController {
             $status;
             $this->RequestHandler->renderAs($this, 'json');
             $data = $this->request->data;
+            Log::write('debug', 'DATA');
+            Log::write('debug', json_decode(json_encode($data), true));
             $response = [
                 'data' => $data,
                 'status' => 'error'
@@ -184,6 +161,8 @@ class APIController extends AppController {
                 $response['errors'] = $errors;
             }
             $this->set('response', $response);
+            Log::write('debug', 'RESPONSE');
+            Log::write('debug', $response);
             return;
         }
     }
@@ -191,11 +170,15 @@ class APIController extends AppController {
     public function get_info($model) {
         $this->layout = 'ajax';
         $alter = [];
+        $search = true;
+        if (array_key_exists('search', $this->request->query)) {
+            $search = json_decode($this->request->query['search'], true);
+        }
         if (array_key_exists('alter', $this->request->query)) {
             $alter = json_decode($this->request->query['alter']);
         }
         $this->RequestHandler->renderAs($this, 'json');
-        $this->set('info', $this->API->get_info($model, $alter));
+        $this->set('info', $this->API->get_info($model, $alter, $search));
         $this->set('_serialize', ['info']);
     }
     
@@ -221,12 +204,6 @@ class APIController extends AppController {
             ]
         ];
         $results = $this->Search->search($s, [$field]);
-        Log::write('debug', 'MODEL');
-        Log::write('debug', $model);
-        Log::write('debug', 'FIELD');
-        Log::write('debug', $field);
-        Log::write('debug', 'QUERY');
-        Log::write('debug', $q);
         // $this->set('ugh', $results);
         $arr = [];
         foreach($results[$model] as $obj) {
@@ -237,6 +214,25 @@ class APIController extends AppController {
         }
         
         $this->set('_serialize', array_keys($arr));
+    }
+    
+    public function get_url($model, $id) {
+        $query = [];
+        if (array_key_exists('query', $this->request->query)) {
+            $query = [];
+            unset($this->request->query['query']);
+        }
+        
+        $url = Router::url([
+            'controller' => $model,
+            'action' => 'view',
+            $id
+            ]);
+        $this->layout = 'ajax';
+        $this->RequestHandler->renderAs($this, 'json');
+        $this->set('url', $url);
+        $this->set('query', $this->request->query);
+        $this->set('_serialize', ['url', 'query']);
     }
 }
 

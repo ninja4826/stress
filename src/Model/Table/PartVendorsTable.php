@@ -103,11 +103,8 @@ class PartVendorsTable extends AppTable
         if (!array_key_exists('vendor_id', $data)) {
             return false;
         }
-        Log::write('debug', 'PARTVENDOR STUFF');
-        Log::write('debug', $data);
         $vendors = TableRegistry::get('Vendors');
         $data['vendor_name'] = $this->Vendors->get($data['vendor_id'])->vendor_name;
-        Log::write('debug', $data);
         return true;
     }
 }

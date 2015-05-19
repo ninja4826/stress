@@ -33,40 +33,26 @@ class LoadTestTask extends Shell {
             foreach($this->fields as $field => $data) {
                 if ((array_key_exists('check', $data) && $data['check']) || $field == $this->display_field) {
                     $entity_[$data['field_name']] = $this->strings[$r];
-                    $this->out('CHECK FOUND');
-                    $this->out($field);
                 } elseif (array_key_exists('assoc', $data) && ($data['assoc'] != false)) {
-                    $entity_[$data['assoc']['key']] = 1;
-                    $this->out('ASSOC FOUND');
-                    $this->out($field);
+                    if (array_key_exists('type', $data['assoc']) && ($data['assoc']['type'] == 'belongsToMany')) {
+                        $entity[$field] = ['_ids' => [1]];
+                    } else {
+                        $entity_[$data['assoc']['key']] = 1;
+                    }
                 } elseif ($data['type'] == 'text') {
                     $entity_[$data['field_name']] = 'blah';
-                    $this->out('TEXT FOUND');
-                    $this->out($field);
                 } elseif ($data['type'] == 'checkbox') {
                     $entity_[$data['field_name']] = 1;
-                    $this->out('CHECKBOX FOUND');
-                    $this->out($field);
                 } elseif ($data['type'] == 'number') {
                     $entity_[$data['field_name']] = 5;
-                    $this->out('NUMBER FOUND');
-                    $this->out($field);
                 }
             }
-            $this->out('ENTITY');
-            $this->out(print_r($entity_));
             // return;
             $entity = $this->$model->newEntity($entity_);
             if ($this->$model->save($entity)) {
-                $this->out('saved');
-                $this->out('Made '.$model.' #: '.$entity->id);
 		        $percent = ($r / $this->stop) * 100;
-		        $this->out('#'.$r.' out of '.$this->stop);
-                $this->out('Done: '.$percent.'%');
-                $this->out('');
                 
             } else {
-                $this->out('Something went wrong...');
                 break;
             }
         }
@@ -83,11 +69,7 @@ class LoadTestTask extends Shell {
                 }
                 if (!in_array($str, $str_arr)) {
                     $str_arr[] = $str;
-                    $this->out('Iteration: '.$i);
-                    $this->out('String: '.$str);
                     $existing = false;
-                } else {
-                    $this->out('Shit.');
                 }
             }
         }

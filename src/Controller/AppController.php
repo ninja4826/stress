@@ -19,6 +19,7 @@ use Cake\Event\Event;
 use Cake\Log\Log;
 use Cake\Controller\Component\AuthComponent;
 use Cake\ORM\TableRegistry;
+use Cake\Utility\Security;
 
 /**
  * Application Controller
@@ -42,15 +43,11 @@ class AppController extends Controller
         // $this->loadComponent('Bootstrap.Flash');
         // $this->helpers[] = 'Less.Less';
         // $this->helpers[] = 'Bootstrap.Form';
+        $this->loadComponent('Cookie');
+        $this->Cookie->configKey('encrypted', [
+            'expires' => '+1 minutes',
+            'httpOnly' => true
+        ]);
         $this->layout = 'default';
     }
-    
-    // public function loadModel($modelClass = null, $type = 'Table') {
-    //     $table = TableRegistry::get($modelClass);
-    //     if (explode('\\', get_class($table))[-1] = 'Table') {
-    //         $this->$modelClass = null;
-    //     } else {
-    //         $this->$modelClass = $table;
-    //     }
-    // }
 }

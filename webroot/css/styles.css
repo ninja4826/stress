@@ -51,13 +51,14 @@ template {
 }
 
 /* line 89, ../sass/src/bootstrap/_normalize.scss */
-a {
+a, #paginator-next button {
   background-color: transparent;
 }
 
 /* line 97, ../sass/src/bootstrap/_normalize.scss */
-a:active,
-a:hover {
+a:active, #paginator-next button:active,
+a:hover,
+#paginator-next button:hover {
   outline: 0;
 }
 
@@ -273,13 +274,14 @@ th {
   }
 
   /* line 18, ../sass/src/bootstrap/_print.scss */
-  a,
-  a:visited {
+  a, #paginator-next button,
+  a:visited,
+  #paginator-next button:visited {
     text-decoration: underline;
   }
 
   /* line 23, ../sass/src/bootstrap/_print.scss */
-  a[href]:after {
+  a[href]:after, #paginator-next button[href]:after {
     content: " (" attr(href) ")";
   }
 
@@ -289,8 +291,9 @@ th {
   }
 
   /* line 33, ../sass/src/bootstrap/_print.scss */
-  a[href^="#"]:after,
-  a[href^="javascript:"]:after {
+  a[href^="#"]:after, #paginator-next button[href^="#"]:after,
+  a[href^="javascript:"]:after,
+  #paginator-next button[href^="javascript:"]:after {
     content: "";
   }
 
@@ -1738,17 +1741,17 @@ textarea {
 }
 
 /* line 48, ../sass/src/bootstrap/_scaffolding.scss */
-a {
+a, #paginator-next button {
   color: #337ab7;
   text-decoration: none;
 }
 /* line 52, ../sass/src/bootstrap/_scaffolding.scss */
-a:hover, a:focus {
+a:hover, #paginator-next button:hover, a:focus, #paginator-next button:focus {
   color: #23527c;
   text-decoration: underline;
 }
 /* line 58, ../sass/src/bootstrap/_scaffolding.scss */
-a:focus {
+a:focus, #paginator-next button:focus {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
@@ -2012,7 +2015,7 @@ mark,
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_text-emphasis.scss */
-a.text-primary:hover {
+a.text-primary:hover, #paginator-next button.text-primary:hover {
   color: #286090;
 }
 
@@ -2022,7 +2025,7 @@ a.text-primary:hover {
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_text-emphasis.scss */
-a.text-success:hover {
+a.text-success:hover, #paginator-next button.text-success:hover {
   color: #2b542c;
 }
 
@@ -2032,7 +2035,7 @@ a.text-success:hover {
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_text-emphasis.scss */
-a.text-info:hover {
+a.text-info:hover, #paginator-next button.text-info:hover {
   color: #245269;
 }
 
@@ -2042,7 +2045,7 @@ a.text-info:hover {
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_text-emphasis.scss */
-a.text-warning:hover {
+a.text-warning:hover, #paginator-next button.text-warning:hover {
   color: #66512c;
 }
 
@@ -2052,7 +2055,7 @@ a.text-warning:hover {
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_text-emphasis.scss */
-a.text-danger:hover {
+a.text-danger:hover, #paginator-next button.text-danger:hover {
   color: #843534;
 }
 
@@ -2067,7 +2070,7 @@ a.text-danger:hover {
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_background-variant.scss */
-a.bg-primary:hover {
+a.bg-primary:hover, #paginator-next button.bg-primary:hover {
   background-color: #286090;
 }
 
@@ -2077,7 +2080,7 @@ a.bg-primary:hover {
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_background-variant.scss */
-a.bg-success:hover {
+a.bg-success:hover, #paginator-next button.bg-success:hover {
   background-color: #c1e2b3;
 }
 
@@ -2087,7 +2090,7 @@ a.bg-success:hover {
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_background-variant.scss */
-a.bg-info:hover {
+a.bg-info:hover, #paginator-next button.bg-info:hover {
   background-color: #afd9ee;
 }
 
@@ -2097,7 +2100,7 @@ a.bg-info:hover {
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_background-variant.scss */
-a.bg-warning:hover {
+a.bg-warning:hover, #paginator-next button.bg-warning:hover {
   background-color: #f7ecb5;
 }
 
@@ -2107,7 +2110,7 @@ a.bg-warning:hover {
 }
 
 /* line 8, ../sass/src/bootstrap/mixins/_background-variant.scss */
-a.bg-danger:hover {
+a.bg-danger:hover, #paginator-next button.bg-danger:hover {
   background-color: #e4b9b9;
 }
 
@@ -4780,7 +4783,7 @@ tbody.collapse.in {
   background-color: #e5e5e5;
 }
 /* line 64, ../sass/src/bootstrap/_dropdowns.scss */
-.dropdown-menu > li > a {
+.dropdown-menu > li > a, #paginator-next .dropdown-menu > li > button {
   display: block;
   padding: 3px 20px;
   clear: both;
@@ -4791,14 +4794,14 @@ tbody.collapse.in {
 }
 
 /* line 77, ../sass/src/bootstrap/_dropdowns.scss */
-.dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+.dropdown-menu > li > a:hover, #paginator-next .dropdown-menu > li > button:hover, .dropdown-menu > li > a:focus, #paginator-next .dropdown-menu > li > button:focus {
   text-decoration: none;
   color: #262626;
   background-color: #f5f5f5;
 }
 
 /* line 87, ../sass/src/bootstrap/_dropdowns.scss */
-.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+.dropdown-menu > .active > a, #paginator-next .dropdown-menu > .active > button, .dropdown-menu > .active > a:hover, #paginator-next .dropdown-menu > .active > button:hover, .dropdown-menu > .active > a:focus, #paginator-next .dropdown-menu > .active > button:focus {
   color: #fff;
   text-decoration: none;
   outline: 0;
@@ -4806,11 +4809,11 @@ tbody.collapse.in {
 }
 
 /* line 102, ../sass/src/bootstrap/_dropdowns.scss */
-.dropdown-menu > .disabled > a, .dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
+.dropdown-menu > .disabled > a, #paginator-next .dropdown-menu > .disabled > button, .dropdown-menu > .disabled > a:hover, #paginator-next .dropdown-menu > .disabled > button:hover, .dropdown-menu > .disabled > a:focus, #paginator-next .dropdown-menu > .disabled > button:focus {
   color: #777777;
 }
 /* line 109, ../sass/src/bootstrap/_dropdowns.scss */
-.dropdown-menu > .disabled > a:hover, .dropdown-menu > .disabled > a:focus {
+.dropdown-menu > .disabled > a:hover, #paginator-next .dropdown-menu > .disabled > button:hover, .dropdown-menu > .disabled > a:focus, #paginator-next .dropdown-menu > .disabled > button:focus {
   text-decoration: none;
   background-color: transparent;
   background-image: none;
@@ -4823,7 +4826,7 @@ tbody.collapse.in {
   display: block;
 }
 /* line 127, ../sass/src/bootstrap/_dropdowns.scss */
-.open > a {
+.open > a, #paginator-next .open > button {
   outline: 0;
 }
 
@@ -5296,29 +5299,29 @@ tbody.collapse.in {
   display: block;
 }
 /* line 19, ../sass/src/bootstrap/_navs.scss */
-.nav > li > a {
+.nav > li > a, #paginator-next .nav > li > button {
   position: relative;
   display: block;
   padding: 10px 15px;
 }
 /* line 23, ../sass/src/bootstrap/_navs.scss */
-.nav > li > a:hover, .nav > li > a:focus {
+.nav > li > a:hover, #paginator-next .nav > li > button:hover, .nav > li > a:focus, #paginator-next .nav > li > button:focus {
   text-decoration: none;
   background-color: #eeeeee;
 }
 /* line 31, ../sass/src/bootstrap/_navs.scss */
-.nav > li.disabled > a {
+.nav > li.disabled > a, #paginator-next .nav > li.disabled > button {
   color: #777777;
 }
 /* line 34, ../sass/src/bootstrap/_navs.scss */
-.nav > li.disabled > a:hover, .nav > li.disabled > a:focus {
+.nav > li.disabled > a:hover, #paginator-next .nav > li.disabled > button:hover, .nav > li.disabled > a:focus, #paginator-next .nav > li.disabled > button:focus {
   color: #777777;
   text-decoration: none;
   background-color: transparent;
   cursor: not-allowed;
 }
 /* line 46, ../sass/src/bootstrap/_navs.scss */
-.nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+.nav .open > a, .nav #paginator-next .open > button, #paginator-next .nav .open > button, .nav .open > a:hover, .nav #paginator-next .open > button:hover, #paginator-next .nav .open > button:hover, .nav .open > a:focus, .nav #paginator-next .open > button:focus, #paginator-next .nav .open > button:focus {
   background-color: #eeeeee;
   border-color: #337ab7;
 }
@@ -5330,7 +5333,7 @@ tbody.collapse.in {
   background-color: #e5e5e5;
 }
 /* line 66, ../sass/src/bootstrap/_navs.scss */
-.nav > li > a > img {
+.nav > li > a > img, #paginator-next .nav > li > button > img {
   max-width: none;
 }
 
@@ -5344,18 +5347,18 @@ tbody.collapse.in {
   margin-bottom: -1px;
 }
 /* line 84, ../sass/src/bootstrap/_navs.scss */
-.nav-tabs > li > a {
+.nav-tabs > li > a, #paginator-next .nav-tabs > li > button {
   margin-right: 2px;
   line-height: 1.42857143;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
 }
 /* line 89, ../sass/src/bootstrap/_navs.scss */
-.nav-tabs > li > a:hover {
+.nav-tabs > li > a:hover, #paginator-next .nav-tabs > li > button:hover {
   border-color: #eeeeee #eeeeee #ddd;
 }
 /* line 96, ../sass/src/bootstrap/_navs.scss */
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
+.nav-tabs > li.active > a, #paginator-next .nav-tabs > li.active > button, .nav-tabs > li.active > a:hover, #paginator-next .nav-tabs > li.active > button:hover, .nav-tabs > li.active > a:focus, #paginator-next .nav-tabs > li.active > button:focus {
   color: #555555;
   background-color: #fff;
   border: 1px solid #ddd;
@@ -5368,7 +5371,7 @@ tbody.collapse.in {
   float: left;
 }
 /* line 122, ../sass/src/bootstrap/_navs.scss */
-.nav-pills > li > a {
+.nav-pills > li > a, #paginator-next .nav-pills > li > button {
   border-radius: 4px;
 }
 /* line 125, ../sass/src/bootstrap/_navs.scss */
@@ -5376,7 +5379,7 @@ tbody.collapse.in {
   margin-left: 2px;
 }
 /* line 131, ../sass/src/bootstrap/_navs.scss */
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+.nav-pills > li.active > a, #paginator-next .nav-pills > li.active > button, .nav-pills > li.active > a:hover, #paginator-next .nav-pills > li.active > button:hover, .nav-pills > li.active > a:focus, #paginator-next .nav-pills > li.active > button:focus {
   color: #fff;
   background-color: #337ab7;
 }
@@ -5400,7 +5403,7 @@ tbody.collapse.in {
   float: none;
 }
 /* line 165, ../sass/src/bootstrap/_navs.scss */
-.nav-justified > li > a, .nav-tabs.nav-justified > li > a {
+.nav-justified > li > a, .nav-tabs.nav-justified > li > a, #paginator-next .nav-justified > li > button {
   text-align: center;
   margin-bottom: 5px;
 }
@@ -5416,7 +5419,7 @@ tbody.collapse.in {
     width: 1%;
   }
   /* line 180, ../sass/src/bootstrap/_navs.scss */
-  .nav-justified > li > a, .nav-tabs.nav-justified > li > a {
+  .nav-justified > li > a, .nav-tabs.nav-justified > li > a, #paginator-next .nav-justified > li > button {
     margin-bottom: 0;
   }
 }
@@ -5426,30 +5429,38 @@ tbody.collapse.in {
   border-bottom: 0;
 }
 /* line 193, ../sass/src/bootstrap/_navs.scss */
-.nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
+.nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a, #paginator-next .nav-tabs-justified > li > button, #paginator-next .nav-tabs.nav-justified > li > button {
   margin-right: 0;
   border-radius: 4px;
 }
 /* line 199, ../sass/src/bootstrap/_navs.scss */
-.nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
+.nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a, #paginator-next .nav-tabs-justified > .active > button, #paginator-next .nav-tabs.nav-justified > .active > button,
 .nav-tabs-justified > .active > a:hover,
 .nav-tabs.nav-justified > .active > a:hover,
+#paginator-next .nav-tabs-justified > .active > button:hover,
+#paginator-next .nav-tabs.nav-justified > .active > button:hover,
 .nav-tabs-justified > .active > a:focus,
-.nav-tabs.nav-justified > .active > a:focus {
+.nav-tabs.nav-justified > .active > a:focus,
+#paginator-next .nav-tabs-justified > .active > button:focus,
+#paginator-next .nav-tabs.nav-justified > .active > button:focus {
   border: 1px solid #ddd;
 }
 @media (min-width: 768px) {
   /* line 206, ../sass/src/bootstrap/_navs.scss */
-  .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a {
+  .nav-tabs-justified > li > a, .nav-tabs.nav-justified > li > a, #paginator-next .nav-tabs-justified > li > button, #paginator-next .nav-tabs.nav-justified > li > button {
     border-bottom: 1px solid #ddd;
     border-radius: 4px 4px 0 0;
   }
   /* line 210, ../sass/src/bootstrap/_navs.scss */
-  .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a,
+  .nav-tabs-justified > .active > a, .nav-tabs.nav-justified > .active > a, #paginator-next .nav-tabs-justified > .active > button, #paginator-next .nav-tabs.nav-justified > .active > button,
   .nav-tabs-justified > .active > a:hover,
   .nav-tabs.nav-justified > .active > a:hover,
+  #paginator-next .nav-tabs-justified > .active > button:hover,
+  #paginator-next .nav-tabs.nav-justified > .active > button:hover,
   .nav-tabs-justified > .active > a:focus,
-  .nav-tabs.nav-justified > .active > a:focus {
+  .nav-tabs.nav-justified > .active > a:focus,
+  #paginator-next .nav-tabs-justified > .active > button:focus,
+  #paginator-next .nav-tabs.nav-justified > .active > button:focus {
     border-bottom-color: #fff;
   }
 }
@@ -5692,7 +5703,7 @@ tbody.collapse.in {
   margin: 7.5px -15px;
 }
 /* line 235, ../sass/src/bootstrap/_navbar.scss */
-.navbar-nav > li > a {
+.navbar-nav > li > a, #paginator-next .navbar-nav > li > button {
   padding-top: 10px;
   padding-bottom: 10px;
   line-height: 20px;
@@ -5709,16 +5720,16 @@ tbody.collapse.in {
     box-shadow: none;
   }
   /* line 251, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-nav .open .dropdown-menu > li > a,
+  .navbar-nav .open .dropdown-menu > li > a, .navbar-nav .open #paginator-next .dropdown-menu > li > button, #paginator-next .navbar-nav .open .dropdown-menu > li > button,
   .navbar-nav .open .dropdown-menu .dropdown-header {
     padding: 5px 15px 5px 25px;
   }
   /* line 255, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-nav .open .dropdown-menu > li > a {
+  .navbar-nav .open .dropdown-menu > li > a, .navbar-nav .open #paginator-next .dropdown-menu > li > button, #paginator-next .navbar-nav .open .dropdown-menu > li > button {
     line-height: 20px;
   }
   /* line 257, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-nav .open .dropdown-menu > li > a:focus {
+  .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-nav .open #paginator-next .dropdown-menu > li > button:hover, #paginator-next .navbar-nav .open .dropdown-menu > li > button:hover, .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-nav .open #paginator-next .dropdown-menu > li > button:focus, #paginator-next .navbar-nav .open .dropdown-menu > li > button:focus {
     background-image: none;
   }
 }
@@ -5733,7 +5744,7 @@ tbody.collapse.in {
     float: left;
   }
   /* line 272, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-nav > li > a {
+  .navbar-nav > li > a, #paginator-next .navbar-nav > li > button {
     padding-top: 15px;
     padding-bottom: 15px;
   }
@@ -5917,21 +5928,21 @@ tbody.collapse.in {
   color: #777;
 }
 /* line 415, ../sass/src/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > li > a {
+.navbar-default .navbar-nav > li > a, .navbar-default #paginator-next .navbar-nav > li > button, #paginator-next .navbar-default .navbar-nav > li > button {
   color: #777;
 }
 /* line 418, ../sass/src/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+.navbar-default .navbar-nav > li > a:hover, .navbar-default #paginator-next .navbar-nav > li > button:hover, #paginator-next .navbar-default .navbar-nav > li > button:hover, .navbar-default .navbar-nav > li > a:focus, .navbar-default #paginator-next .navbar-nav > li > button:focus, #paginator-next .navbar-default .navbar-nav > li > button:focus {
   color: #333;
   background-color: transparent;
 }
 /* line 425, ../sass/src/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+.navbar-default .navbar-nav > .active > a, .navbar-default #paginator-next .navbar-nav > .active > button, #paginator-next .navbar-default .navbar-nav > .active > button, .navbar-default .navbar-nav > .active > a:hover, .navbar-default #paginator-next .navbar-nav > .active > button:hover, #paginator-next .navbar-default .navbar-nav > .active > button:hover, .navbar-default .navbar-nav > .active > a:focus, .navbar-default #paginator-next .navbar-nav > .active > button:focus, #paginator-next .navbar-default .navbar-nav > .active > button:focus {
   color: #555;
   background-color: #e7e7e7;
 }
 /* line 433, ../sass/src/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > .disabled > a, .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default .navbar-nav > .disabled > a:focus {
+.navbar-default .navbar-nav > .disabled > a, .navbar-default #paginator-next .navbar-nav > .disabled > button, #paginator-next .navbar-default .navbar-nav > .disabled > button, .navbar-default .navbar-nav > .disabled > a:hover, .navbar-default #paginator-next .navbar-nav > .disabled > button:hover, #paginator-next .navbar-default .navbar-nav > .disabled > button:hover, .navbar-default .navbar-nav > .disabled > a:focus, .navbar-default #paginator-next .navbar-nav > .disabled > button:focus, #paginator-next .navbar-default .navbar-nav > .disabled > button:focus {
   color: #ccc;
   background-color: transparent;
 }
@@ -5953,27 +5964,27 @@ tbody.collapse.in {
   border-color: #e7e7e7;
 }
 /* line 462, ../sass/src/bootstrap/_navbar.scss */
-.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+.navbar-default .navbar-nav > .open > a, .navbar-default #paginator-next .navbar-nav > .open > button, #paginator-next .navbar-default .navbar-nav > .open > button, .navbar-default .navbar-nav > .open > a:hover, .navbar-default #paginator-next .navbar-nav > .open > button:hover, #paginator-next .navbar-default .navbar-nav > .open > button:hover, .navbar-default .navbar-nav > .open > a:focus, .navbar-default #paginator-next .navbar-nav > .open > button:focus, #paginator-next .navbar-default .navbar-nav > .open > button:focus {
   background-color: #e7e7e7;
   color: #555;
 }
 @media (max-width: 767px) {
   /* line 473, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a, .navbar-default .navbar-nav .open #paginator-next .dropdown-menu > li > button, #paginator-next .navbar-default .navbar-nav .open .dropdown-menu > li > button {
     color: #777;
   }
   /* line 475, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-default .navbar-nav .open #paginator-next .dropdown-menu > li > button:hover, #paginator-next .navbar-default .navbar-nav .open .dropdown-menu > li > button:hover, .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-default .navbar-nav .open #paginator-next .dropdown-menu > li > button:focus, #paginator-next .navbar-default .navbar-nav .open .dropdown-menu > li > button:focus {
     color: #333;
     background-color: transparent;
   }
   /* line 482, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .navbar-default .navbar-nav .open #paginator-next .dropdown-menu > .active > button, #paginator-next .navbar-default .navbar-nav .open .dropdown-menu > .active > button, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-default .navbar-nav .open #paginator-next .dropdown-menu > .active > button:hover, #paginator-next .navbar-default .navbar-nav .open .dropdown-menu > .active > button:hover, .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus, .navbar-default .navbar-nav .open #paginator-next .dropdown-menu > .active > button:focus, #paginator-next .navbar-default .navbar-nav .open .dropdown-menu > .active > button:focus {
     color: #555;
     background-color: #e7e7e7;
   }
   /* line 490, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+  .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-default .navbar-nav .open #paginator-next .dropdown-menu > .disabled > button, #paginator-next .navbar-default .navbar-nav .open .dropdown-menu > .disabled > button, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-default .navbar-nav .open #paginator-next .dropdown-menu > .disabled > button:hover, #paginator-next .navbar-default .navbar-nav .open .dropdown-menu > .disabled > button:hover, .navbar-default .navbar-nav .open .dropdown-menu > .disabled > a:focus, .navbar-default .navbar-nav .open #paginator-next .dropdown-menu > .disabled > button:focus, #paginator-next .navbar-default .navbar-nav .open .dropdown-menu > .disabled > button:focus {
     color: #ccc;
     background-color: transparent;
   }
@@ -6018,21 +6029,21 @@ tbody.collapse.in {
   color: #9d9d9d;
 }
 /* line 549, ../sass/src/bootstrap/_navbar.scss */
-.navbar-inverse .navbar-nav > li > a {
+.navbar-inverse .navbar-nav > li > a, .navbar-inverse #paginator-next .navbar-nav > li > button, #paginator-next .navbar-inverse .navbar-nav > li > button {
   color: #9d9d9d;
 }
 /* line 552, ../sass/src/bootstrap/_navbar.scss */
-.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse #paginator-next .navbar-nav > li > button:hover, #paginator-next .navbar-inverse .navbar-nav > li > button:hover, .navbar-inverse .navbar-nav > li > a:focus, .navbar-inverse #paginator-next .navbar-nav > li > button:focus, #paginator-next .navbar-inverse .navbar-nav > li > button:focus {
   color: #fff;
   background-color: transparent;
 }
 /* line 559, ../sass/src/bootstrap/_navbar.scss */
-.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse #paginator-next .navbar-nav > .active > button, #paginator-next .navbar-inverse .navbar-nav > .active > button, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse #paginator-next .navbar-nav > .active > button:hover, #paginator-next .navbar-inverse .navbar-nav > .active > button:hover, .navbar-inverse .navbar-nav > .active > a:focus, .navbar-inverse #paginator-next .navbar-nav > .active > button:focus, #paginator-next .navbar-inverse .navbar-nav > .active > button:focus {
   color: #fff;
   background-color: #090909;
 }
 /* line 567, ../sass/src/bootstrap/_navbar.scss */
-.navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse .navbar-nav > .disabled > a:focus {
+.navbar-inverse .navbar-nav > .disabled > a, .navbar-inverse #paginator-next .navbar-nav > .disabled > button, #paginator-next .navbar-inverse .navbar-nav > .disabled > button, .navbar-inverse .navbar-nav > .disabled > a:hover, .navbar-inverse #paginator-next .navbar-nav > .disabled > button:hover, #paginator-next .navbar-inverse .navbar-nav > .disabled > button:hover, .navbar-inverse .navbar-nav > .disabled > a:focus, .navbar-inverse #paginator-next .navbar-nav > .disabled > button:focus, #paginator-next .navbar-inverse .navbar-nav > .disabled > button:focus {
   color: #444;
   background-color: transparent;
 }
@@ -6054,7 +6065,7 @@ tbody.collapse.in {
   border-color: #101010;
 }
 /* line 596, ../sass/src/bootstrap/_navbar.scss */
-.navbar-inverse .navbar-nav > .open > a, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse .navbar-nav > .open > a:focus {
+.navbar-inverse .navbar-nav > .open > a, .navbar-inverse #paginator-next .navbar-nav > .open > button, #paginator-next .navbar-inverse .navbar-nav > .open > button, .navbar-inverse .navbar-nav > .open > a:hover, .navbar-inverse #paginator-next .navbar-nav > .open > button:hover, #paginator-next .navbar-inverse .navbar-nav > .open > button:hover, .navbar-inverse .navbar-nav > .open > a:focus, .navbar-inverse #paginator-next .navbar-nav > .open > button:focus, #paginator-next .navbar-inverse .navbar-nav > .open > button:focus {
   background-color: #090909;
   color: #fff;
 }
@@ -6068,21 +6079,21 @@ tbody.collapse.in {
     background-color: #090909;
   }
   /* line 613, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a, .navbar-inverse .navbar-nav .open #paginator-next .dropdown-menu > li > button, #paginator-next .navbar-inverse .navbar-nav .open .dropdown-menu > li > button {
     color: #9d9d9d;
   }
   /* line 615, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-inverse .navbar-nav .open #paginator-next .dropdown-menu > li > button:hover, #paginator-next .navbar-inverse .navbar-nav .open .dropdown-menu > li > button:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > li > a:focus, .navbar-inverse .navbar-nav .open #paginator-next .dropdown-menu > li > button:focus, #paginator-next .navbar-inverse .navbar-nav .open .dropdown-menu > li > button:focus {
     color: #fff;
     background-color: transparent;
   }
   /* line 622, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a, .navbar-inverse .navbar-nav .open #paginator-next .dropdown-menu > .active > button, #paginator-next .navbar-inverse .navbar-nav .open .dropdown-menu > .active > button, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-inverse .navbar-nav .open #paginator-next .dropdown-menu > .active > button:hover, #paginator-next .navbar-inverse .navbar-nav .open .dropdown-menu > .active > button:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus, .navbar-inverse .navbar-nav .open #paginator-next .dropdown-menu > .active > button:focus, #paginator-next .navbar-inverse .navbar-nav .open .dropdown-menu > .active > button:focus {
     color: #fff;
     background-color: #090909;
   }
   /* line 630, ../sass/src/bootstrap/_navbar.scss */
-  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus {
+  .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a, .navbar-inverse .navbar-nav .open #paginator-next .dropdown-menu > .disabled > button, #paginator-next .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > button, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:hover, .navbar-inverse .navbar-nav .open #paginator-next .dropdown-menu > .disabled > button:hover, #paginator-next .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > button:hover, .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > a:focus, .navbar-inverse .navbar-nav .open #paginator-next .dropdown-menu > .disabled > button:focus, #paginator-next .navbar-inverse .navbar-nav .open .dropdown-menu > .disabled > button:focus {
     color: #444;
     background-color: transparent;
   }
@@ -6143,7 +6154,7 @@ tbody.collapse.in {
   display: inline;
 }
 /* line 12, ../sass/src/bootstrap/_pagination.scss */
-.pagination > li > a,
+.pagination > li > a, #paginator-next .pagination > li > button,
 .pagination > li > span {
   position: relative;
   float: left;
@@ -6156,20 +6167,20 @@ tbody.collapse.in {
   margin-left: -1px;
 }
 /* line 25, ../sass/src/bootstrap/_pagination.scss */
-.pagination > li:first-child > a,
+.pagination > li:first-child > a, #paginator-next .pagination > li:first-child > button,
 .pagination > li:first-child > span {
   margin-left: 0;
   border-bottom-left-radius: 4px;
   border-top-left-radius: 4px;
 }
 /* line 32, ../sass/src/bootstrap/_pagination.scss */
-.pagination > li:last-child > a,
+.pagination > li:last-child > a, #paginator-next .pagination > li:last-child > button,
 .pagination > li:last-child > span {
   border-bottom-right-radius: 4px;
   border-top-right-radius: 4px;
 }
 /* line 41, ../sass/src/bootstrap/_pagination.scss */
-.pagination > li > a:hover, .pagination > li > a:focus,
+.pagination > li > a:hover, #paginator-next .pagination > li > button:hover, .pagination > li > a:focus, #paginator-next .pagination > li > button:focus,
 .pagination > li > span:hover,
 .pagination > li > span:focus {
   color: #23527c;
@@ -6177,7 +6188,7 @@ tbody.collapse.in {
   border-color: #ddd;
 }
 /* line 51, ../sass/src/bootstrap/_pagination.scss */
-.pagination > .active > a, .pagination > .active > a:hover, .pagination > .active > a:focus,
+.pagination > .active > a, #paginator-next .pagination > .active > button, .pagination > .active > a:hover, #paginator-next .pagination > .active > button:hover, .pagination > .active > a:focus, #paginator-next .pagination > .active > button:focus,
 .pagination > .active > span,
 .pagination > .active > span:hover,
 .pagination > .active > span:focus {
@@ -6192,8 +6203,11 @@ tbody.collapse.in {
 .pagination > .disabled > span:hover,
 .pagination > .disabled > span:focus,
 .pagination > .disabled > a,
+#paginator-next .pagination > .disabled > button,
 .pagination > .disabled > a:hover,
-.pagination > .disabled > a:focus {
+#paginator-next .pagination > .disabled > button:hover,
+.pagination > .disabled > a:focus,
+#paginator-next .pagination > .disabled > button:focus {
   color: #777777;
   background-color: #fff;
   border-color: #ddd;
@@ -6201,38 +6215,38 @@ tbody.collapse.in {
 }
 
 /* line 5, ../sass/src/bootstrap/mixins/_pagination.scss */
-.pagination-lg > li > a,
+.pagination-lg > li > a, #paginator-next .pagination-lg > li > button,
 .pagination-lg > li > span {
   padding: 10px 16px;
   font-size: 18px;
 }
 /* line 11, ../sass/src/bootstrap/mixins/_pagination.scss */
-.pagination-lg > li:first-child > a,
+.pagination-lg > li:first-child > a, #paginator-next .pagination-lg > li:first-child > button,
 .pagination-lg > li:first-child > span {
   border-bottom-left-radius: 6px;
   border-top-left-radius: 6px;
 }
 /* line 17, ../sass/src/bootstrap/mixins/_pagination.scss */
-.pagination-lg > li:last-child > a,
+.pagination-lg > li:last-child > a, #paginator-next .pagination-lg > li:last-child > button,
 .pagination-lg > li:last-child > span {
   border-bottom-right-radius: 6px;
   border-top-right-radius: 6px;
 }
 
 /* line 5, ../sass/src/bootstrap/mixins/_pagination.scss */
-.pagination-sm > li > a,
+.pagination-sm > li > a, #paginator-next .pagination-sm > li > button,
 .pagination-sm > li > span {
   padding: 5px 10px;
   font-size: 12px;
 }
 /* line 11, ../sass/src/bootstrap/mixins/_pagination.scss */
-.pagination-sm > li:first-child > a,
+.pagination-sm > li:first-child > a, #paginator-next .pagination-sm > li:first-child > button,
 .pagination-sm > li:first-child > span {
   border-bottom-left-radius: 3px;
   border-top-left-radius: 3px;
 }
 /* line 17, ../sass/src/bootstrap/mixins/_pagination.scss */
-.pagination-sm > li:last-child > a,
+.pagination-sm > li:last-child > a, #paginator-next .pagination-sm > li:last-child > button,
 .pagination-sm > li:last-child > span {
   border-bottom-right-radius: 3px;
   border-top-right-radius: 3px;
@@ -6259,7 +6273,7 @@ tbody.collapse.in {
   display: inline;
 }
 /* line 14, ../sass/src/bootstrap/_pager.scss */
-.pager li > a,
+.pager li > a, .pager #paginator-next li > button, #paginator-next .pager li > button,
 .pager li > span {
   display: inline-block;
   padding: 5px 14px;
@@ -6268,25 +6282,31 @@ tbody.collapse.in {
   border-radius: 15px;
 }
 /* line 23, ../sass/src/bootstrap/_pager.scss */
-.pager li > a:hover,
-.pager li > a:focus {
+.pager li > a:hover, .pager #paginator-next li > button:hover, #paginator-next .pager li > button:hover,
+.pager li > a:focus,
+.pager #paginator-next li > button:focus,
+#paginator-next .pager li > button:focus {
   text-decoration: none;
   background-color: #eeeeee;
 }
 /* line 31, ../sass/src/bootstrap/_pager.scss */
-.pager .next > a,
+.pager .next > a, .pager #paginator-next .next > button, #paginator-next .pager .next > button,
 .pager .next > span {
   float: right;
 }
 /* line 38, ../sass/src/bootstrap/_pager.scss */
-.pager .previous > a,
+.pager .previous > a, .pager #paginator-next .previous > button, #paginator-next .pager .previous > button,
 .pager .previous > span {
   float: left;
 }
 /* line 45, ../sass/src/bootstrap/_pager.scss */
-.pager .disabled > a,
+.pager .disabled > a, .pager #paginator-next .disabled > button, #paginator-next .pager .disabled > button,
 .pager .disabled > a:hover,
+.pager #paginator-next .disabled > button:hover,
+#paginator-next .pager .disabled > button:hover,
 .pager .disabled > a:focus,
+.pager #paginator-next .disabled > button:focus,
+#paginator-next .pager .disabled > button:focus,
 .pager .disabled > span {
   color: #777777;
   background-color: #fff;
@@ -6317,7 +6337,7 @@ tbody.collapse.in {
 }
 
 /* line 33, ../sass/src/bootstrap/_labels.scss */
-a.label:hover, a.label:focus {
+a.label:hover, #paginator-next button.label:hover, a.label:focus, #paginator-next button.label:focus {
   color: #fff;
   text-decoration: none;
   cursor: pointer;
@@ -6407,7 +6427,7 @@ a.label:hover, a.label:focus {
   padding: 1px 5px;
 }
 /* line 41, ../sass/src/bootstrap/_badges.scss */
-.list-group-item.active > .badge, .nav-pills > .active > a > .badge {
+.list-group-item.active > .badge, .nav-pills > .active > a > .badge, #paginator-next .nav-pills > .active > button > .badge {
   color: #337ab7;
   background-color: #fff;
 }
@@ -6420,12 +6440,12 @@ a.label:hover, a.label:focus {
   margin-right: 5px;
 }
 /* line 55, ../sass/src/bootstrap/_badges.scss */
-.nav-pills > li > a > .badge {
+.nav-pills > li > a > .badge, #paginator-next .nav-pills > li > button > .badge {
   margin-left: 3px;
 }
 
 /* line 62, ../sass/src/bootstrap/_badges.scss */
-a.badge:hover, a.badge:focus {
+a.badge:hover, #paginator-next button.badge:hover, a.badge:focus, #paginator-next button.badge:focus {
   color: #fff;
   text-decoration: none;
   cursor: pointer;
@@ -6493,7 +6513,9 @@ a.badge:hover, a.badge:focus {
 }
 /* line 17, ../sass/src/bootstrap/_thumbnails.scss */
 .thumbnail > img,
-.thumbnail a > img {
+.thumbnail a > img,
+.thumbnail #paginator-next button > img,
+#paginator-next .thumbnail button > img {
   display: block;
   max-width: 100%;
   height: auto;
@@ -6507,9 +6529,11 @@ a.badge:hover, a.badge:focus {
 }
 
 /* line 34, ../sass/src/bootstrap/_thumbnails.scss */
-a.thumbnail:hover,
+a.thumbnail:hover, #paginator-next button.thumbnail:hover,
 a.thumbnail:focus,
-a.thumbnail.active {
+#paginator-next button.thumbnail:focus,
+a.thumbnail.active,
+#paginator-next button.thumbnail.active {
   border-color: #337ab7;
 }
 
@@ -6814,15 +6838,15 @@ a.thumbnail.active {
 }
 
 /* line 46, ../sass/src/bootstrap/_list-group.scss */
-a.list-group-item {
+a.list-group-item, #paginator-next button.list-group-item {
   color: #555;
 }
 /* line 49, ../sass/src/bootstrap/_list-group.scss */
-a.list-group-item .list-group-item-heading {
+a.list-group-item .list-group-item-heading, #paginator-next button.list-group-item .list-group-item-heading {
   color: #333;
 }
 /* line 54, ../sass/src/bootstrap/_list-group.scss */
-a.list-group-item:hover, a.list-group-item:focus {
+a.list-group-item:hover, #paginator-next button.list-group-item:hover, a.list-group-item:focus, #paginator-next button.list-group-item:focus {
   text-decoration: none;
   color: #555;
   background-color: #f5f5f5;
@@ -6871,20 +6895,20 @@ a.list-group-item:hover, a.list-group-item:focus {
 }
 
 /* line 11, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-success {
+a.list-group-item-success, #paginator-next button.list-group-item-success {
   color: #3c763d;
 }
 /* line 14, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-success .list-group-item-heading {
+a.list-group-item-success .list-group-item-heading, #paginator-next button.list-group-item-success .list-group-item-heading {
   color: inherit;
 }
 /* line 18, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-success:hover, a.list-group-item-success:focus {
+a.list-group-item-success:hover, #paginator-next button.list-group-item-success:hover, a.list-group-item-success:focus, #paginator-next button.list-group-item-success:focus {
   color: #3c763d;
   background-color: #d0e9c6;
 }
 /* line 23, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-success.active, a.list-group-item-success.active:hover, a.list-group-item-success.active:focus {
+a.list-group-item-success.active, #paginator-next button.list-group-item-success.active, a.list-group-item-success.active:hover, #paginator-next button.list-group-item-success.active:hover, a.list-group-item-success.active:focus, #paginator-next button.list-group-item-success.active:focus {
   color: #fff;
   background-color: #3c763d;
   border-color: #3c763d;
@@ -6897,20 +6921,20 @@ a.list-group-item-success.active, a.list-group-item-success.active:hover, a.list
 }
 
 /* line 11, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-info {
+a.list-group-item-info, #paginator-next button.list-group-item-info {
   color: #31708f;
 }
 /* line 14, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-info .list-group-item-heading {
+a.list-group-item-info .list-group-item-heading, #paginator-next button.list-group-item-info .list-group-item-heading {
   color: inherit;
 }
 /* line 18, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-info:hover, a.list-group-item-info:focus {
+a.list-group-item-info:hover, #paginator-next button.list-group-item-info:hover, a.list-group-item-info:focus, #paginator-next button.list-group-item-info:focus {
   color: #31708f;
   background-color: #c4e3f3;
 }
 /* line 23, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-info.active, a.list-group-item-info.active:hover, a.list-group-item-info.active:focus {
+a.list-group-item-info.active, #paginator-next button.list-group-item-info.active, a.list-group-item-info.active:hover, #paginator-next button.list-group-item-info.active:hover, a.list-group-item-info.active:focus, #paginator-next button.list-group-item-info.active:focus {
   color: #fff;
   background-color: #31708f;
   border-color: #31708f;
@@ -6923,20 +6947,20 @@ a.list-group-item-info.active, a.list-group-item-info.active:hover, a.list-group
 }
 
 /* line 11, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-warning {
+a.list-group-item-warning, #paginator-next button.list-group-item-warning {
   color: #8a6d3b;
 }
 /* line 14, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-warning .list-group-item-heading {
+a.list-group-item-warning .list-group-item-heading, #paginator-next button.list-group-item-warning .list-group-item-heading {
   color: inherit;
 }
 /* line 18, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-warning:hover, a.list-group-item-warning:focus {
+a.list-group-item-warning:hover, #paginator-next button.list-group-item-warning:hover, a.list-group-item-warning:focus, #paginator-next button.list-group-item-warning:focus {
   color: #8a6d3b;
   background-color: #faf2cc;
 }
 /* line 23, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-warning.active, a.list-group-item-warning.active:hover, a.list-group-item-warning.active:focus {
+a.list-group-item-warning.active, #paginator-next button.list-group-item-warning.active, a.list-group-item-warning.active:hover, #paginator-next button.list-group-item-warning.active:hover, a.list-group-item-warning.active:focus, #paginator-next button.list-group-item-warning.active:focus {
   color: #fff;
   background-color: #8a6d3b;
   border-color: #8a6d3b;
@@ -6949,20 +6973,20 @@ a.list-group-item-warning.active, a.list-group-item-warning.active:hover, a.list
 }
 
 /* line 11, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-danger {
+a.list-group-item-danger, #paginator-next button.list-group-item-danger {
   color: #a94442;
 }
 /* line 14, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-danger .list-group-item-heading {
+a.list-group-item-danger .list-group-item-heading, #paginator-next button.list-group-item-danger .list-group-item-heading {
   color: inherit;
 }
 /* line 18, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-danger:hover, a.list-group-item-danger:focus {
+a.list-group-item-danger:hover, #paginator-next button.list-group-item-danger:hover, a.list-group-item-danger:focus, #paginator-next button.list-group-item-danger:focus {
   color: #a94442;
   background-color: #ebcccc;
 }
 /* line 23, ../sass/src/bootstrap/mixins/_list-group.scss */
-a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus {
+a.list-group-item-danger.active, #paginator-next button.list-group-item-danger.active, a.list-group-item-danger.active:hover, #paginator-next button.list-group-item-danger.active:hover, a.list-group-item-danger.active:focus, #paginator-next button.list-group-item-danger.active:focus {
   color: #fff;
   background-color: #a94442;
   border-color: #a94442;
@@ -7024,11 +7048,13 @@ a.list-group-item-danger.active, a.list-group-item-danger.active:hover, a.list-g
   color: inherit;
 }
 /* line 39, ../sass/src/bootstrap/_panels.scss */
-.panel-title > a,
+.panel-title > a, #paginator-next .panel-title > button,
 .panel-title > small,
 .panel-title > .small,
 .panel-title > small > a,
-.panel-title > .small > a {
+#paginator-next .panel-title > small > button,
+.panel-title > .small > a,
+#paginator-next .panel-title > .small > button {
   color: inherit;
 }
 
@@ -7962,7 +7988,8 @@ button.close {
 }
 /* line 22, ../sass/src/bootstrap/_carousel.scss */
 .carousel-inner > .item > img,
-.carousel-inner > .item > a > img {
+.carousel-inner > .item > a > img,
+#paginator-next .carousel-inner > .item > button > img {
   display: block;
   max-width: 100%;
   height: auto;
@@ -8582,82 +8609,209 @@ button.close {
   width: 100%;
 }
 
-/* line 10, ../sass/src/global_utils.scss */
-.tt-dropdown-menu {
-  display: none !important;
+/* line 28, ../sass/src/global_utils.scss */
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+  margin-bottom: 0;
 }
 
-/* line 25, ../sass/src/global_utils.scss */
+/* line 32, ../sass/src/global_utils.scss */
+.tt-hint {
+  display: block;
+  width: 100%;
+  height: 34px;
+  font-size: 14px;
+  line-height: 1.428571429;
+  color: #999;
+  vertical-align: middle;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+/* line 49, ../sass/src/global_utils.scss */
+.tt-menu {
+  min-width: 160px;
+  margin-top: 2px;
+  padding: 5px 0;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+  width: 325.5px;
+  display: table;
+}
+
+/* line 64, ../sass/src/global_utils.scss */
+.tt-suggestion {
+  display: block;
+  overflow-x: hidden;
+}
+
+/* line 68, ../sass/src/global_utils.scss */
+.tt-suggestion.tt-is-under-cursor {
+  color: #fff;
+  background-color: #428bca;
+}
+
+/* line 72, ../sass/src/global_utils.scss */
+.tt-suggestion.tt-is-under-cursor a, .tt-suggestion.tt-is-under-cursor #paginator-next button, #paginator-next .tt-suggestion.tt-is-under-cursor button {
+  color: #fff;
+}
+
+/* line 75, ../sass/src/global_utils.scss */
+.tt-suggestion p {
+  margin: 0;
+}
+
+/* line 80, ../sass/src/global_utils.scss */
 .alert-wrapper {
   height: 92px;
   width: content;
 }
 
-/* line 35, ../sass/src/global_utils.scss */
+/* line 90, ../sass/src/global_utils.scss */
 .glyphicon-calendar.glyphicon, .glyph-ok > span.glyphicon-calendar, .glyph-remove > span.glyphicon-calendar, .glyph-plus > span.glyphicon-calendar, .glyph-minus > span.glyphicon-calendar, .btn.dupe-plus > span.glyphicon-calendar, .well.well-sm > .input-group:last-child .btn.dupe-control > span.glyphicon-calendar, .btn.dupe-minus > span.glyphicon-calendar, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span.glyphicon-calendar {
   color: #555555;
 }
 
-/* line 27, ../sass/src/styles.scss */
+/* line 93, ../sass/src/global_utils.scss */
+.input-group-btn button.btn {
+  height: 34px;
+}
+
+/* line 30, ../sass/src/styles.scss */
 .glyph-ok {
   cursor: default;
 }
-/* line 32, ../sass/src/styles.scss */
+/* line 35, ../sass/src/styles.scss */
 .glyph-ok > span {
   color: #5cb85c;
 }
 
-/* line 27, ../sass/src/styles.scss */
+/* line 30, ../sass/src/styles.scss */
 .glyph-remove {
   cursor: default;
 }
-/* line 32, ../sass/src/styles.scss */
+/* line 35, ../sass/src/styles.scss */
 .glyph-remove > span {
   color: #d9534f;
 }
 
-/* line 27, ../sass/src/styles.scss */
+/* line 30, ../sass/src/styles.scss */
 .glyph-plus {
   cursor: default;
 }
-/* line 32, ../sass/src/styles.scss */
+/* line 35, ../sass/src/styles.scss */
 .glyph-plus > span {
   color: #5cb85c;
 }
 
-/* line 27, ../sass/src/styles.scss */
+/* line 30, ../sass/src/styles.scss */
 .glyph-minus {
   cursor: default;
 }
-/* line 32, ../sass/src/styles.scss */
+/* line 35, ../sass/src/styles.scss */
 .glyph-minus > span {
   color: #d9534f;
 }
 
-/* line 42, ../sass/src/styles.scss */
+/* line 45, ../sass/src/styles.scss */
 .btn.dupe-plus > span, .well.well-sm > .input-group:last-child .btn.dupe-control > span {
   color: #5cb85c;
 }
 
-/* line 42, ../sass/src/styles.scss */
+/* line 45, ../sass/src/styles.scss */
 .btn.dupe-minus > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span {
   color: #d9534f;
 }
 
-/* line 48, ../sass/src/styles.scss */
-#nowhere {
-  display: none;
-}
-
-/* line 52, ../sass/src/styles.scss */
+/* line 51, ../sass/src/styles.scss */
 .well.well-sm > .input-group {
   margin-bottom: 15px;
 }
-/* line 65, ../sass/src/styles.scss */
+/* line 64, ../sass/src/styles.scss */
 .well.well-sm > .input-group:last-child {
   margin-bottom: 0;
 }
-/* line 67, ../sass/src/styles.scss */
+/* line 66, ../sass/src/styles.scss */
 .well.well-sm > .input-group:last-child .dupe-control {
   color: orange;
+}
+
+/* line 72, ../sass/src/styles.scss */
+.table-responsive {
+  table-layout: fixed;
+  max-width: 100%;
+}
+
+/* line 76, ../sass/src/styles.scss */
+.index {
+  max-width: 100%;
+}
+
+/* line 80, ../sass/src/styles.scss */
+html,
+body {
+  overflow-x: hidden;
+}
+
+/* line 84, ../sass/src/styles.scss */
+.table {
+  margin-bottom: 0px;
+}
+
+/* line 87, ../sass/src/styles.scss */
+.well {
+  margin-bottom: 0px;
+}
+
+@media screen and (max-width: 767px) {
+  /* line 104, ../sass/src/styles.scss */
+  .row-offcanvas {
+    position: relative;
+    -webkit-transition: all .25s ease-out;
+    -o-transition: all .25s ease-out;
+    transition: all .25s ease-out;
+  }
+
+  /* line 111, ../sass/src/styles.scss */
+  .row-offcanvas-right {
+    right: 0;
+  }
+  /* line 94, ../sass/src/styles.scss */
+  .row-offcanvas-right .sidebar-offcanvas {
+    right: -50%;
+  }
+  /* line 98, ../sass/src/styles.scss */
+  .row-offcanvas-right.active {
+    right: 50%;
+  }
+
+  /* line 115, ../sass/src/styles.scss */
+  .row-offcanvas-left {
+    left: 0;
+  }
+  /* line 94, ../sass/src/styles.scss */
+  .row-offcanvas-left .sidebar-offcanvas {
+    left: -50%;
+  }
+  /* line 98, ../sass/src/styles.scss */
+  .row-offcanvas-left.active {
+    left: 50%;
+  }
+
+  /* line 118, ../sass/src/styles.scss */
+  .sidebar-offcanvas {
+    position: absolute;
+    top: 0;
+    width: 50%;
+  }
 }

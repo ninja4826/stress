@@ -18,12 +18,14 @@ class SearchController extends AppController
     }
     
     public function search() {
-        
-        if (array_key_exists('q', $this->request->query)) {
+        Log::write('debug', 'IN SEARCH CONTROLLER');
+        Log::write('debug', $this->request->query);
+        Log::write('debug', $this->request->data);
+        if (array_key_exists('keyword', $this->request->data)) {
         // if ($this->request->is('post')) {
             // $data = $this->request->data;
             
-            $data = json_decode($this->request->query['q'], true);
+            $data = $this->request->data;
             
             if (array_key_exists('keyword', $data)) {
                 $search_bar;

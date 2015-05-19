@@ -5,9 +5,10 @@
         ], ['block' => true]);
         $this->Html->script([
             'typeahead.bundle.min',
-            'form',
             'moment',
-            'bootstrap-datetimepicker.min'
+            'bootstrap-datetimepicker.min',
+            'underscore-min',
+            'form',
         ], ['block' => true]);
         echo $this->cell('Form', $cell);
     } else {

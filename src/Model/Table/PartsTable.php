@@ -30,38 +30,46 @@ class PartsTable extends AppTable
     public $fields = [
         'part_num' => [
             'label' => 'Part Number',
-            'default' => 'test'
+            'default' => 'test',
         ],
         'description' => [
-            'default' => 'blah'
+            'default' => 'blah',
         ],
         'amt_on_hand' => [
             'label' => 'Amount on Hand',
-            'default' => 5
+            'default' => 5,
         ],
         'active' => [
-            'default' => 1
+            'default' => 1,
         ],
-        'location' => [
-            'type' => 'text',
-            'label' => 'Location Name',
-            'required' => true,
-            'check' => false,
-            'assoc' => false,
-            'field_name' => 'location_name',
-            'default' => 'G1C2'
+        'location_name' => [
+            'default' => 'G1C2',
+            'search' => false
         ],
         'category' => [
-            'default' => 'Relays'
+            'default' => 'Relays',
+            'field_name' => 'category'
         ],
         'cost_center' => [
             'default' => 'E9000',
             'assoc' => [
                 'key' => 'cc_id'
-            ]
+            ],
+            'field_name' => 'cost_center'
         ],
-        'manufacturers' => [
-            'default' => 'blah',
+        // 'manufacturers' => [
+        //     'default' => 'blah',
+        //     'assoc' => [
+        //         'key' => 'manufacturers'
+        //     ],
+        //     'field_name' => 'manufacturers'
+        // ]
+        'manufacturer' => [
+            'default' => 'Phoenix Contact',
+            'assoc' => [
+                'key' => 'manufacturer_id'
+            ],
+            'field_name' => 'manufacturer'
         ]
     ];
 
@@ -76,13 +84,13 @@ class PartsTable extends AppTable
         $this->table('parts');
         $this->displayField('part_num');
         $this->primaryKey('id');
-        // $this->belongsTo('Manufacturers', [
-        //     'foreignKey' => 'manufacturer_id'
-        // ]);
-        $this->belongsToMany('Manufacturers', [
-            'joinTable' => 'parts_manufacturers',
-            'saveStrategy' => 'append'
+        $this->belongsTo('Manufacturers', [
+            'foreignKey' => 'manufacturer_id'
         ]);
+        // $this->belongsToMany('Manufacturers', [
+        //     'joinTable' => 'parts_manufacturers',
+        //     'saveStrategy' => 'append'
+        // ]);
         $this->belongsTo('Categories', [
             'foreignKey' => 'category_id'
         ]);
@@ -98,17 +106,6 @@ class PartsTable extends AppTable
         $this->belongsToMany('PurchaseOrders', [
             'joinTable' => 'parts_purchases'
         ]);
-        
-        // $this->addBehavior('Search', [
-        //     'fields' => [
-        //         'part_num' => 'string',
-        //         'description' => 'string',
-        //         'amt_on_hand' => 1,
-        //         'active' => true,
-        //     ]
-        // ]);
-        
-        // $this->addBehavior('Search.Search');
     }
 
     /**
@@ -141,6 +138,8 @@ class PartsTable extends AppTable
             ->add('amt_on_hand', 'valid', ['rule' => 'numeric'])
             ->requirePresence('amt_on_hand', 'create')
             ->notEmpty('amt_on_hand')
+            ->requirePresence('part_num', 'create')
+            ->notEmpty('part_num')
             ->add('location_id', 'valid', ['rule' => 'numeric'])
             ->requirePresence('location_id', 'create')
             ->notEmpty('location_id')
@@ -185,12 +184,8 @@ class PartsTable extends AppTable
         if(is_null($location))
         {
             $location = $loc_table->processName(['location_name' => $data['location_name']]);
-            Log::write('debug', 'Creating new location.');
-            Log::write('debug', gettype($location));
-            Log::write('debug', $location);
             if ($loc_table->save($location))
             {
-                Log::write('debug', 'Location saved...?');
                 $data['location_id'] = $location['id'];
                 if ($data['location_id'] == $location['id'])
                 {
@@ -211,16 +206,5 @@ class PartsTable extends AppTable
             }
         }
         return false;
-    }
-    
-    public function getPartNums() {
-        $parts = $this->find('all')->toArray();
-        $parts_ = [];
-        foreach ($parts as $k => $v)
-        {
-            $parts_[$v->part_num] = $v->amt_on_hand;
-        }
-        
-        return $parts_;
     }
 }

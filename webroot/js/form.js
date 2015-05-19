@@ -11,6 +11,17 @@ function getCookie(cname) {
     }
     return "";
 }
+function arrayUnique(array) {
+    var a = array.concat();
+    for(var i=0; i<a.length; ++i) {
+        for(var j=i+1; j<a.length; ++j) {
+            if(a[i] === a[j])
+                a.splice(j--, 1);
+        }
+    }
+
+    return a;
+}
 
 /*
  * FORM OBJECT DECLARATION
@@ -22,15 +33,15 @@ var Form = function( model, info ) {
         this.modal = false;
         this.src_url = '/form/' + model;
         this.json_url = '/api/info/' + model;
+        this.belongsToMany = [];
         Form.instance = this;
-        this.modals = {};
     } else if (this.modal) {
         this.src_url = '/form/' + model + '?modal=true';
         this.json_url = '/api/info/' + model;
     }
     if (typeof info === 'undefined') {
         var that = this;
-        $.getJSON(this.json_url + model, function( data ) {
+        $.getJSON(this.json_url, function( data ) {
             that.initialize(model, data['info']);
         });
     } else {
@@ -47,6 +58,7 @@ Form.prototype = {
         this.info = info;
         this.name = info['name'];
         this.fields = info['fields'];
+        this.process_alterations = {};
         
         for (var field_name in this.fields) {
             var field = this.fields[field_name];
@@ -81,7 +93,6 @@ Form.prototype = {
                     field['id'] = html_class+'-dupe:not(.original-dupe)';
                     field['val'] = {};
                 }
-                Form.instance.modals[field_name] = new ModalForm(field['assoc']['model'], field_name);
             }
             if ('assoc' in field && !(field['assoc'])) {
                 delete field['assoc'];
@@ -110,7 +121,6 @@ Form.prototype = {
         
         // if (!this.modal) {
             this.render();
-            console.log(this);
         // }
     },
     render: function() {
@@ -131,23 +141,6 @@ Form.prototype = {
     scoreReplace: function( str ) {
         return this.replaceAll('-', '_', str);
     },
-    substringMatcher: function( strs ) {
-        return function findMatches(q, cb) {
-            var matches, substrRegex;
-            
-            matches = [];
-            
-            substrRegex = new RegExp(q, 'i');
-            
-            $.each(strs, function(i, str) {
-                if (substrRegex.test(str)) {
-                    matches.push({ value: str });
-                }
-            });
-            
-            cb(matches);
-        };
-    },
     get_selector: function( field, is_class ) {
         is_class = is_class || false;
         var sel = '#';
@@ -156,9 +149,31 @@ Form.prototype = {
         }
         return sel + this.dashReplace( field );
     },
-    refresh_items: function( data ) {
+    refresh_items: function( data, alterations ) {
         var that = this;
         var process_data = function ( data ) {
+            console.log(data);
+            console.log('PROCESS ALTERATIONS');
+            console.log(that.process_alterations);
+            for (var model_name in that.process_alterations) {
+                var model_arr = that.process_alterations[model_name];
+                for (var obj_i in model_arr) {
+                    var obj = model_arr[obj_i];
+                    var del_obj = false;
+                    for (var res_i in data[model_name]) {
+                        var res_obj = data[model_name][res_i];
+                        if (_.isEqual(res_obj, obj)) {
+                            del_obj = true;
+                        }
+                    }
+                    if (del_obj) {
+                        delete that.process_alterations[model_name][obj_i];
+                    }
+                }
+                data[model_name] = data[model_name].concat(that.process_alterations[model_name]);
+            }
+            console.log('EDITED DATA');
+            console.log(data);
             var response = data;
             var checks = {};
             var assocs = {};
@@ -173,13 +188,12 @@ Form.prototype = {
                     checks[check_name] = check_temp;
                 }
             }
+            console.log('PROCESSING DATA');
             for (var assoc_name in that.assoc_fields) {
                 var assoc = that.assoc_fields[assoc_name];
                 var assoc_temp = {};
                 var check_temp = [];
-                console.log('ASSOC RESPONSE');
                 for (var item in response[assoc['assoc']['model']]) {
-                    console.log('ITEM #' + item);
                     item = response[assoc['assoc']['model']][item];
                     check_temp.push(item['display_name']);
                     assoc_temp[item['display_name']] = item['id'];
@@ -189,14 +203,53 @@ Form.prototype = {
             }
             that.checks = checks;
             that.assocs = assocs;
+            console.log('NEW ASSOCS');
+            console.log(assocs);
             for (var field_name in that.fields) {
                 $(that.fields[field_name]['id']).trigger('keyup');
             }
-        }
+        };
         if (typeof data === 'undefined') {
+            console.log('DATA NOT FOUND');
             var json_str = '/api/search?q=' + JSON.stringify(this.model_hash);
-            $.getJSON(json_str, function( response ) {
-                process_data(response['response']);
+            console.log('MODEL HASH');
+            console.log(this.model_hash);
+            console.log(json_str);
+            $.ajax({
+                dataType: "json",
+                url: json_str,
+                async: false,
+                success: function( response ) {
+                    console.log('FINALLY GOT RESPONSE');
+                    console.log(response);
+                    if (typeof alterations !== 'undefined') {
+                        for (var model_name in alterations) {
+                            var model_arr = alterations[model_name];
+                            var temp_arr = [];
+                            for (var obj_i in model_arr) {
+                                var obj = {};
+                                for (var obj_key in response['response'][model_name][0]) {
+                                    obj[obj_key] = model_arr[obj_i][obj_key];
+                                }
+                                var in_array = false;
+                                for (var res_i in response['response'][model_name]) {
+                                    var res_obj = response['response'][model_name][res_i];
+                                    if (_.isEqual(res_obj, obj)) {
+                                        in_array = true;
+                                    }
+                                }
+                                if (!(in_array)) {
+                                    
+                                    if (!(model_name in that.process_alterations)) {
+                                        that.process_alterations[model_name] = [];
+                                    }
+                                    that.process_alterations[model_name].push(obj);
+                                }
+                            }
+                        }
+                    }
+                    process_data(response['response']);
+                }
             });
         } else {
             process_data(data);
@@ -208,22 +261,25 @@ Form.prototype = {
         for (var field_name in fields) {
             var field = fields[field_name];
             var field_id = field['id'];
-            console.log('FIELD ID');
-            console.log(field_id);
             if (field_name in this.assoc_fields) {
                 $(document).on('keyup', field_id, function() {
                 // $(field_id).keyup(function() {
-                    console.log($(this));
                     field_id = $(this).parents('.form-group').attr('id').split('-').slice(0, -2).join('-');
                     field_name = that.scoreReplace(field_id);
                     field = that.assocs[field_name];
-                    var check = '#' + field_id + '-check';
+                    var check = $(this).closest('.input-group').find('#' + field_id + '-check');
+                    /*
+                    
+                    
+                    DO TYPEAHEAD STUFF FOR BELONGSTOMANY
+                    
+                    
+                    
+                    */
                     var val = $(this).val();
                     if (that.fields[field_name]['assoc']['type'] == 'belongsToMany') {
                         var parent_group = $(this).parents('.input-group');
-                        console.log(parent_group);
                         that.fields[field_name]['val'][parent_group.index()] = val;
-                        console.log('IS BELONGS TO');
                     } else {
                         that.fields[field_name]['val'] = val;
                     }
@@ -243,15 +299,11 @@ Form.prototype = {
                         .addClass('glyph-' + add)
                         .removeClass('glyph-' + remove)
                         .attr('data-original-title', title);
-                    console.log(field_name);
-                    console.log(val);
-                    console.log(that.fields);
                 });
             } else {
                 $(document).on('keyup', field_id, function() {
                     field_id = $(this).attr('id');
                     field_name = that.scoreReplace(field_id);
-                    console.log('DUPLICATED KEYUP FUNCTION');
                     var val = $(this).val();
                     that.fields[field_name]['val'] = val;
                 });
@@ -275,26 +327,24 @@ Form.prototype = {
                     
                 }
             };
+            var belongsToMany = false;
             var check_f = this.check_fields[check_name];
             var check_m = this.model_name;
             var check_n = check_name;
+            var html_name;
             if ('assoc' in check_f) {
                 check_m = check_f['assoc']['model'];
                 check_n = check_f['assoc']['display_field'];
                 
                 if (check_f['assoc']['type'] == 'belongsToMany') {
-                    var html_name = this.dashReplace(check_name)
-                    check_id = '.' + html_name + '-dupe';
+                    belongsToMany = true;
+                    html_name = this.dashReplace(check_name);
                     check_id = $(this.get_selector(check_name) + '-well').find('.' + html_name + '-dupe-group:nth-child(1)').find('.' + html_name + '-dupe');
-                    console.log('CHECK ID');
-                    console.log(check_id);
                 }
             }
-            console.log('CHECKS');
-            console.log(check);
             check_id.typeahead(
                 {highlight: true, minLength: 1},
-                {source: this.substringMatcher(check)}
+                {source: substringMatcher(check)}
             );
         }
     },
@@ -329,12 +379,9 @@ Form.prototype = {
                 // var well = $(this).parents('.well.well-sm');
                 
                 var html_model = $(this).parents('.input-group').prop('model');
-                console.log('HTML_MODEL');
-                console.log(html_model);
                 
                 var well = $('#' + html_model + '-well');
                 
-                console.log(well);
                 
                 var html_name = well.attr('id').split('-').slice(0, -1).join('-');
                 var field_name = that.scoreReplace(html_name);
@@ -351,7 +398,6 @@ Form.prototype = {
                     var check_f = that.fields[field_name];
                     var check_m = check_f['assoc']['model'];
                     var check_n = check_f['assoc']['display_field'];
-                    
                     check_type.typeahead(
                         {highlight: true, minLength: 1},
                         {source: that.substringMatcher(check)}
@@ -373,37 +419,31 @@ Form.prototype = {
                 var vals;
                 if (field['assoc']['type'] == 'belongsToMany') {
                     vals = field['val'];
-                    console.log('BELONGS TO MANY');
                 } else {
-                    
-                    vals = {1: val};
-                    console.log('DOES NOT BELONG TO MANY');
+                    vals = {0: val};
                 }
                 var temp_vals = [];
-                console.log('VALS');
-                console.log(vals);
                 for(var val_i in vals) {
-                    console.log('VAL_I');
-                    console.log(val_i);
                     val = vals[val_i];
-                    console.log('VAL');
-                    console.log(val);
                     if (val in this.assocs[field_name]) {
                         val = this.assocs[field_name][val];
                         temp_vals.push(val);
                     } else {
-                        this.modals[field_name].selector.find(this.get_selector(field['assoc']['display_field'])).val(val);
-                        this.modals[field_name].fields[field['assoc']['display_field']]['val'] = val;
-                        this.modals[field_name].show();
+                        /**
+                         * TODO
+                         * SHOW ERRORS RELATED TO ASSOCIATED FIELDS
+                         */
                         return false;
                     }
                 }
-                if (temp_vals.length == 1) {
-                    val = temp_vals[0];
+                if (field['assoc']['type'] == 'belongsToMany') {
+                    val = {
+                        "_ids": temp_vals
+                    };
                 } else {
-                    val = temp_vals;
+                    val = temp_vals[0];
+                    field_name = field['assoc']['key'];
                 }
-                field_name = field['assoc']['key'];
             } else {
                 field_name = field['field_name'];
             }
@@ -416,7 +456,7 @@ Form.prototype = {
         var data = this.get_inputs();
         console.log('DATA');
         console.log(data);
-        return;
+        console.log(JSON.stringify(data));
         if (data) {
             // $.post(this.url + this.model_name, data, function( response ) {
             //     that.after_submit( response );
@@ -428,7 +468,9 @@ Form.prototype = {
                 },
                 data: data,
                 success: function( response ) {
+                    console.log(response);
                     that.after_submit( response );
+                    
                 },
                 method: 'POST'
             });
@@ -462,30 +504,41 @@ function ModalForm( model, field_name ) {
             that.assoc_listen();
             that.submit_listen();
             that.form = Form.instance;
-            that.selector = $(that.get_selector(that.name['singular']['table']) + 'Modal');
+            var selector_str = that.get_selector(that.name['singular']['table']) + 'Modal';
+            that.selector = $(selector_str);
             that.assign_typeahead();
             that.display_listen();
             that.many_to_many_listen();
+            $(document).on('hidden.bs.modal', selector_str, function() {
+                // that.refresh_items();
+                var my_val;
+                if (typeof(that.display_field) == 'undefined') {
+                    my_val = '';
+                } else {
+                    my_val = $(that.get_selector(that.display_field)).val();
+                }
+                
+                $(that.get_selector(that.field_name)).val(my_val);
+                that.caller.submit();
+            });
         });
     };
     this.show = function() {
-        console.log(this.selector);
-        $(this.selector).modal('show');
-    }
+        this.selector.modal('show');
+    };
     this.after_submit = function( response ) {
-        console.log(response);
+        var that = this;
         if (response['response']['status'] == 'ok') {
-            this.caller.refresh_items();
+            
+            var entity = response['response']['entity'];
+            var temp_dict = {};
+            
+            temp_dict[entity['table_name']] = [entity];
+            
+            that.caller.refresh_items(undefined, temp_dict);
+            
             this.selector.find(this.get_selector(this.name['singular']['table'] + '-alert')).hide();
             this.selector.modal('hide');
-            var my_val;
-            if (typeof(this.display_field) == 'undefined') {
-                my_val = '';
-            } else {
-                my_val = $(this.get_selector(this.display_field)).val();
-            }
-            $(this.get_selector(this.field_name)).val(my_val);
-            this.caller.submit();
         } else {
             this.selector.find(this.get_selector(this.name['singular']['table'] + '-alert')).show();
         }

@@ -131,6 +131,7 @@ Router::scope('/api', ['controller' => 'API'], function($sub) {
     $sub->connect('/info/:model', ['action' => 'get_info'], ['pass' => ['model']]);
     $sub->connect('/save/:model', ['action' => 'save_entity'], ['pass' => ['model']]);
     $sub->connect('/type_search', ['action' => 'type_search']);
+    $sub->connect('/url/:model/:id', ['action' => 'get_url'], ['pass' => ['model', 'id']]);
     $sub->connect('/:func', ['action' => 'main_func'], ['pass' => ['func']]);
 });
 

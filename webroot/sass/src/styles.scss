@@ -2,12 +2,15 @@
 @import "bootstrap-compass";
 
 // Import custom Bootstrap variables
-@import "bootstrap-variables";
+// @import "bootstrap-variables";
 
 // Import Bootstrap for Sass
 @import "bootstrap";
 
 // Import normal CSS library
+
+
+
 @import "global_utils";
 $green: rgb(92, 184, 92);
 $red: rgb(217, 83, 79);
@@ -45,10 +48,6 @@ $dupe-colors: ("plus": "success", "minus": "danger");
     }
 }
 
-#nowhere {
-    display: none;
-}
-
 .well.well-sm > .input-group {
     
     &:not(:only-child):not(:last-child) {
@@ -69,4 +68,60 @@ $dupe-colors: ("plus": "success", "minus": "danger");
             color: orange;
         }
     }
+}
+.table-responsive {
+    table-layout: fixed;
+    max-width: 100%;
+}
+.index {
+    max-width: 100%;
+}
+
+html,
+body {
+    overflow-x: hidden;
+}
+.table {
+    margin-bottom: 0px;
+}
+.well {
+    margin-bottom: 0px;
+}
+
+@mixin offcanvas($side) {
+    #{$side}: 0;
+    
+    & .sidebar-offcanvas {
+        #{$side}: -50%; // 6 Column
+    }
+    
+    &.active {
+        #{$side}: 50%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .row-offcanvas {
+        position: relative;
+        -webkit-transition: all .25s ease-out;
+             -o-transition: all .25s ease-out;
+                transition: all .25s ease-out;
+    }
+    
+    .row-offcanvas-right {
+        @include offcanvas("right");
+    }
+    
+    .row-offcanvas-left {
+        @include offcanvas("left");
+    }
+    .sidebar-offcanvas {
+        position: absolute;
+        top: 0;
+        width: 50%;
+    }
+}
+
+#paginator-next button {
+    @extend a;
 }

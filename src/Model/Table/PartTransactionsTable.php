@@ -110,10 +110,8 @@ class PartTransactionsTable extends AppTable
         
         if (!empty($histories) && $histories[0]->toArray()['price'] == $entity['price'])
         {
-            Log::write('debug', 'HIST FOUND, SKIPPING CREATION');
             return true;
         }
-        Log::write('debug', 'HIST NOT FOUND, CREATING NEW');
         $hist = $partPriceHist->newEntity([
             'part_vendor_id' => $entity['part_vendor_id'],
             // 'date_changed' => new Time($entity['date']),
@@ -121,10 +119,6 @@ class PartTransactionsTable extends AppTable
             'price' => $entity['price']
         ]);
         if ($partPriceHist->save($hist)) {
-            Log::write('debug', 'HIST CREATED.');
-            Log::write('debug', $hist->toArray());
-            Log::write('debug', $partPriceHist->table());
-            Log::write('debug', $partPriceHist->find('all')->toArray()[0]->toArray());
             return true;
         } else {
             return false;

@@ -86,4 +86,5 @@ define('CAKE', CORE_PATH . 'src' . DS);
 /**
  * Custom Paths
  */
-define ('EXCEL_PATH', TMP . 'excel' . DS);
+define('EXCEL_PATH', TMP . 'excel' . DS);
+define('ENC_KEY', 'G6m3o17aM4N6zE5I29Qru9T9prefuXtx');

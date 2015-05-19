@@ -49,7 +49,8 @@ $this->prepend('script', $this->Html->script([
     'jquery-2.1.1.min.js',
     'jquery-ui.min',
     'bootstrap.min',
-    'typeahead.bundle.min'
+    'typeahead.bundle.min',
+    'global'
 ]));
 $this->prepend('css', $this->Html->css([
     'styles',
@@ -57,13 +58,15 @@ $this->prepend('css', $this->Html->css([
 ]));
 
 ?>
-<!DOCTYPE html>
+<!--<!DOCTYPE html>-->
 <?= $this->fetch('html'); ?>
 <head>
     <?= $this->Html->charset(); ?>
     <title>
         <?= $this->fetch('title'); ?>
     </title>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
     <?php
         // Meta
         echo $this->fetch('meta');
@@ -105,20 +108,7 @@ $this->prepend('css', $this->Html->css([
                         </li>
                     <?php endforeach; ?>
                 </ul>
-                <form class="navbar-form pull-right" role="search" method="post" action="/search" id="keyword-search-form">
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Search" name="keyword" id="keyword-search-input">
-                        <div class="input-group-btn">
-                            <input class="btn btn-default" type="submit" value="Submit" id="keyword-search-submit" />
-                            <button class="btn btn-default dropdown-toggle" type="button" id="search_adv_button" data-toggle="dropdown" aria-expanded="true">
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="search_adv_button">
-                                <li><?= $this->Html->link(__('Advanced Search'), '/search') ?></li>
-                            </ul>
-                        </div>
-                    </div>
-                </form>
+                <a class="btn btn-default navbar-btn pull-right" href="/search"><span class="glyphicon glyphicon-search"></span> Search</a>
             </nav>
         </div>
     </header>
@@ -129,5 +119,15 @@ $this->prepend('css', $this->Html->css([
             <div id="modal-container"></div>
         </div>
     </div>
+    <script>
+        // All 'on document ready' functions for opt-in functionality goes below
+        $(function() {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 </body>
+<head>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+</head>
 </html>

@@ -59,13 +59,16 @@ class AppTable extends Table {
                     switch($type) {
                         case 'string':
                             $field['type'] = 'text';
+                            $field['search'] = true;
                             break;
                         case 'boolean':
                             $field['type'] = 'checkbox';
                             $field['default'] = '0';
+                            $field['search'] = false;
                             break;
                         case 'integer':
                             $field['type'] = 'number';
+                            $field['search'] = false;
                             break;
                         case 'array':
                             $plural = Inflector::pluralize($name);
@@ -76,7 +79,6 @@ class AppTable extends Table {
                             }
                             break;
                         default:
-                            Log::write('debug', 'Is Time? '.is_a($val, 'Cake\I18n\Time'));
                             if (is_a($val, 'Cake\I18n\Time')) {
                                 $field['type'] = 'date';
                             } else {
@@ -86,6 +88,7 @@ class AppTable extends Table {
                     $field['required'] = array_key_exists($name, $error);
                     $field['field_name'] = $name;
                 } else {
+                    $field['search'] = false;
                     $field['type'] = 'text';
                     $field['required'] = true;
                     if (gettype($entity->$name) == 'array') {
@@ -116,6 +119,11 @@ class AppTable extends Table {
             $fields[$entity->display_field]['unique'] = true;
         }
         $fields = $this->editFields($fields);
+        foreach($fields as $field_name => $field) {
+            if (array_key_exists('assoc', $field) && !$field['assoc']) {
+                unset($fields[$field_name]['assoc']);
+            }
+        }
         return $fields;
     }
     
@@ -124,8 +132,6 @@ class AppTable extends Table {
         if (isset($this->fields)) {
             $temp_fields = $this->field_merge(array_intersect_key($fields, $this->fields), $this->fields);
             uksort($temp_fields, [$this, 'sort_fields']);
-        } else {
-            Log::write('debug', 'FIELDS NOT SET FOR '.get_class($this));
         }
         return $temp_fields;
     }
