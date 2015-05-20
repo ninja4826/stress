@@ -30,28 +30,23 @@ class PartsTable extends AppTable
     public $fields = [
         'part_num' => [
             'label' => 'Part Number',
-            'default' => 'test',
+            'placeholder' => 'SN74S74N'
         ],
         'description' => [
-            'default' => 'blah',
         ],
         'amt_on_hand' => [
-            'label' => 'Amount on Hand',
-            'default' => 5,
+            'label' => 'Amount on Hand'
         ],
         'active' => [
-            'default' => 1,
         ],
         'location_name' => [
-            'default' => 'G1C2',
+            'placeholder' => 'G1C2',
             'search' => false
         ],
         'category' => [
-            'default' => 'Relays',
             'field_name' => 'category'
         ],
         'cost_center' => [
-            'default' => 'E9000',
             'assoc' => [
                 'key' => 'cc_id'
             ],
@@ -65,7 +60,6 @@ class PartsTable extends AppTable
         //     'field_name' => 'manufacturers'
         // ]
         'manufacturer' => [
-            'default' => 'Phoenix Contact',
             'assoc' => [
                 'key' => 'manufacturer_id'
             ],

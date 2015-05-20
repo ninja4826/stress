@@ -2,6 +2,8 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\Routing\Router;
+use Cake\ORM\TableRegistry;
 
 /**
  * Modular Controller
@@ -16,7 +18,7 @@ class ModularController extends AppController
      *
      * @return void
      */
-    public function index($model = 'parts')
+    public function index($model = 'Parts')
     {
         $this->loadComponent('API');
         $info = $this->API->get_info($model, [], false);
@@ -46,6 +48,7 @@ class ModularController extends AppController
                 ]);
             }
         }
+        $this->set(compact('info'));
     }
 
     /**
@@ -55,13 +58,13 @@ class ModularController extends AppController
      * @return void
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function view($id = null)
+    public function view($model = 'Parts', $id = null)
     {
-        $modular = $this->Modular->get($id, [
-            'contain' => []
+        $table = TableRegistry::get($model);
+        $object = $table->get($id, [
+            'contain' => $table->assocs
         ]);
-        $this->set('modular', $modular);
-        $this->set('_serialize', ['modular']);
+        $this->set('object', $object);
     }
 
     /**
@@ -69,20 +72,11 @@ class ModularController extends AppController
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add()
+    public function add($model = 'Parts')
     {
-        $modular = $this->Modular->newEntity();
-        if ($this->request->is('post')) {
-            $modular = $this->Modular->patchEntity($modular, $this->request->data);
-            if ($this->Modular->save($modular)) {
-                $this->Flash->success('The modular has been saved.');
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error('The modular could not be saved. Please, try again.');
-            }
-        }
-        $this->set(compact('modular'));
-        $this->set('_serialize', ['modular']);
+        $this->loadComponent('API');
+        $info = $this->API->get_info($model);
+        $this->set(compact('info'));
     }
 
     /**
@@ -92,22 +86,15 @@ class ModularController extends AppController
      * @return void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function edit($id = null)
+    public function edit($model = 'Parts', $id = null)
     {
-        $modular = $this->Modular->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $modular = $this->Modular->patchEntity($modular, $this->request->data);
-            if ($this->Modular->save($modular)) {
-                $this->Flash->success('The modular has been saved.');
-                return $this->redirect(['action' => 'index']);
-            } else {
-                $this->Flash->error('The modular could not be saved. Please, try again.');
-            }
+        $object = TableRegistry::get($model)->get($id);
+        $this->loadComponent('API');
+        $info = $this->API->get_info($model);
+        foreach($info['fields'] as $name => $field) {
+            $field['default'] = $object->$name;
         }
-        $this->set(compact('modular'));
-        $this->set('_serialize', ['modular']);
+        $this->set(compact('info'));
     }
 
     /**
@@ -117,11 +104,12 @@ class ModularController extends AppController
      * @return void Redirects to index.
      * @throws \Cake\Network\Exception\NotFoundException When record not found.
      */
-    public function delete($id = null)
+    public function delete($model = 'Parts', $id = null)
     {
         $this->request->allowMethod(['post', 'delete']);
-        $modular = $this->Modular->get($id);
-        if ($this->Modular->delete($modular)) {
+        $table = TableRegistry::get($model);
+        $modular = $table->get($id);
+        if ($table->delete($modular)) {
             $this->Flash->success('The modular has been deleted.');
         } else {
             $this->Flash->error('The modular could not be deleted. Please, try again.');

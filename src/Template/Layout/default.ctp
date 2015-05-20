@@ -102,8 +102,8 @@ $this->prepend('css', $this->Html->css([
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><?= $controller ?> <span class="caret"></span></a>
                             <ul class="dropdown-menu" role="menu">
-                                <li><?= $this->Html->link(__('List ' . $controller), ['controller' => $controller, 'action' => 'index']) ?></li>
-                                <li><?= $this->Html->link(__('Add ' . $controller), ['controller' => $controller, 'action' => 'add']) ?></li>
+                                <li><?= $this->Html->link(__('List ' . $controller), ['controller' => 'Modular', 'action' => 'index', $controller]) ?></li>
+                                <li><?= $this->Html->link(__('Add ' . $controller), ['controller' => 'Modular', 'action' => 'add', $controller]) ?></li>
                             </ul>
                         </li>
                     <?php endforeach; ?>
@@ -116,7 +116,6 @@ $this->prepend('css', $this->Html->css([
         <div id="content" class="row">
             <?= $this->Flash->render(); ?>
             <?= $this->fetch('content'); ?>
-            <div id="modal-container"></div>
         </div>
     </div>
     <script>

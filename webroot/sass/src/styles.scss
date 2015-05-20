@@ -125,3 +125,17 @@ body {
 #paginator-next button {
     @extend a;
 }
+
+.table-condensed {
+    table-layout: fixed;
+    & td {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+.placeholder {
+    position: absolute;
+    visibility: hidden;
+    display: block;
+}

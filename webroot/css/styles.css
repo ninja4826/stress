@@ -373,8 +373,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url(/fonts/bootstrap/glyphicons-halflings-regular.eot?1429827929);
-  src: url(/fonts/bootstrap/glyphicons-halflings-regular.eot?&1429827929#iefix) format("embedded-opentype"), url(/fonts/bootstrap/glyphicons-halflings-regular.woff2?1429827929) format("woff2"), url(/fonts/bootstrap/glyphicons-halflings-regular.woff?1429827929) format("woff"), url(/fonts/bootstrap/glyphicons-halflings-regular.ttf?1429827929) format("truetype"), url(/fonts/bootstrap/glyphicons-halflings-regular.svg?1429827929#glyphicons_halflingsregular) format("svg");
+  src: url(/fonts/bootstrap/glyphicons-halflings-regular.eot?1432050662);
+  src: url(/fonts/bootstrap/glyphicons-halflings-regular.eot?&1432050662#iefix) format("embedded-opentype"), url(/fonts/bootstrap/glyphicons-halflings-regular.woff2?1432050662) format("woff2"), url(/fonts/bootstrap/glyphicons-halflings-regular.woff?1432050662) format("woff"), url(/fonts/bootstrap/glyphicons-halflings-regular.ttf?1432050662) format("truetype"), url(/fonts/bootstrap/glyphicons-halflings-regular.svg?1432050662#glyphicons_halflingsregular) format("svg");
 }
 /* line 22, ../sass/src/bootstrap/_glyphicons.scss */
 .glyphicon, .glyph-ok > span, .glyph-remove > span, .glyph-plus > span, .glyph-minus > span, .btn.dupe-plus > span, .well.well-sm > .input-group:last-child .btn.dupe-control > span, .btn.dupe-minus > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span {
@@ -8814,4 +8814,21 @@ body {
     top: 0;
     width: 50%;
   }
+}
+/* line 129, ../sass/src/styles.scss */
+.table-condensed {
+  table-layout: fixed;
+}
+/* line 131, ../sass/src/styles.scss */
+.table-condensed td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* line 137, ../sass/src/styles.scss */
+.placeholder {
+  position: absolute;
+  visibility: hidden;
+  display: block;
 }

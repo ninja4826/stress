@@ -342,9 +342,14 @@ Form.prototype = {
                     check_id = $(this.get_selector(check_name) + '-well').find('.' + html_name + '-dupe-group:nth-child(1)').find('.' + html_name + '-dupe');
                 }
             }
+            var blood_hound = new Bloodhound({
+                datumTokenizer: Bloodhound.tokenizers.whitespace,
+                queryTokenizer: Bloodhound.tokenizers.whitespace,
+                local: check
+            })
             check_id.typeahead(
                 {highlight: true, minLength: 1},
-                {source: substringMatcher(check)}
+                {source: blood_hound}
             );
         }
     },

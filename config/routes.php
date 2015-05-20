@@ -41,38 +41,24 @@ use Cake\Routing\Router;
  */
 Router::defaultRouteClass('Route');
 
-Router::scope('/', function ($routes) {
-    /**
-     * Here, we are connecting '/' (base path) to a controller called 'Pages',
-     * its action called 'display', and we pass a param to select the view file
-     * to use (in this case, src/Template/Pages/home.ctp)...
-     */
-    //$routes->connect('/', ['controller' => 'Pages', 'action' => 'display', 'home']);
-    $routes->connect('/', ['controller' => 'Parts', 'action' => 'index']);
-
-    /**
-     * ...and connect the rest of 'Pages' controller's URLs.
-     */
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
-
-    /**
-     * Connect catchall routes for all controllers.
-     *
-     * Using the argument `InflectedRoute`, the `fallbacks` method is a shortcut for
-     *    `$routes->connect('/:controller', ['action' => 'index'], ['routeClass' => 'InflectedRoute']);`
-     *    `$routes->connect('/:controller/:action/*', [], ['routeClass' => 'InflectedRoute']);`
-     *
-     * Any route class can be used with this method, such as:
-     * - DashedRoute
-     * - InflectedRoute
-     * - Route
-     * - Or your own route class
-     *
-     * You can remove these routes once you've connected the
-     * routes you want in your application.
-     */
+Router::scope('/', ['controller' => 'Modular'], function ($routes) {
+    
+    // $routes->connect('/', ['controller' => 'Parts', 'action' => 'index']);
+    
+    $routes->connect('/', ['action' => 'index']);
+    $routes->connect('/:model', ['action' => 'index'], ['pass' => ['model']]);
+    $routes->connect('/add/:model', ['action' => 'add'], ['pass' => ['model']]);
+    $routes->connect('/view/:model/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['model', 'id']]);
+    $routes->connect('/edit/:model/:id', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['model', 'id']]);
+    
     $routes->fallbacks('InflectedRoute');
 });
+
+// Router::scope('/tools', ['controller' => 'Tools'], function ($routes) {
+//     $routes->connect('/res_array', ['action' => 'res_array']);
+// });
+
+/*
 
 Router::scope('/parts', ['controller' => 'Parts'], function($routes) {
     $routes->connect('/', ['action' => 'index']);
@@ -126,6 +112,8 @@ Router::scope('/vendors', ['controller' => 'Vendors'], function($sub) {
     $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
     $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
 });
+
+*/
 
 Router::scope('/api', ['controller' => 'API'], function($sub) {
     $sub->connect('/info/:model', ['action' => 'get_info'], ['pass' => ['model']]);
