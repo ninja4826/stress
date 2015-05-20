@@ -54,67 +54,6 @@ Router::scope('/', ['controller' => 'Modular'], function ($routes) {
     $routes->fallbacks('InflectedRoute');
 });
 
-// Router::scope('/tools', ['controller' => 'Tools'], function ($routes) {
-//     $routes->connect('/res_array', ['action' => 'res_array']);
-// });
-
-/*
-
-Router::scope('/parts', ['controller' => 'Parts'], function($routes) {
-    $routes->connect('/', ['action' => 'index']);
-    $routes->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $routes->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-});
-
-Router::scope('/part_vendors', ['controller' => 'PartVendors'], function($sub) {
-    $sub->connect('/add', ['action' => 'add']);
-    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-});
-
-Router::scope('/trans', ['controller' => 'PartTransactions'], function($sub) {
-    $sub->connect('/', ['action' => 'index']);
-    $sub->connect('/add/:part_id', ['action' => 'add'], ['part_id' => '\d+', 'pass' => ['part_id']]);
-    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-});
-
-Router::scope('/manufacturers', ['controller' => 'Manufacturers'], function($sub) {
-    $sub->connect('/', ['action' => 'index']);
-    $sub->connect('/add', ['action' => 'add']);
-    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-});
-
-Router::scope('/categories', ['controller' => 'Categories'], function($sub) {
-    $sub->connect('/', ['action' => 'index']);
-    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-});
-
-Router::scope('/locations', ['controller' => 'Locations'], function($sub) {
-    $sub->connect('/', ['action' => 'index']);
-    $sub->connect('/add', ['action' => 'add']);
-    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-});
-
-Router::scope('/cost_centers', ['controller' => 'CostCenters'], function($sub) {
-    $sub->connect('/', ['action' => 'index']);
-    $sub->connect('/add', ['action' => 'add']);
-    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-});
-
-Router::scope('/vendors', ['controller' => 'Vendors'], function($sub) {
-    $sub->connect('/', ['action' => 'index']);
-    $sub->connect('/add', ['action' => 'add']);
-    $sub->connect('/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['id']]);
-    $sub->connect('/:id/edit', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['id']]);
-});
-
-*/
-
 Router::scope('/api', ['controller' => 'API'], function($sub) {
     $sub->connect('/info/:model', ['action' => 'get_info'], ['pass' => ['model']]);
     $sub->connect('/save/:model', ['action' => 'save_entity'], ['pass' => ['model']]);
@@ -128,10 +67,5 @@ Router::scope('/search', ['controller' => 'Search'], function($sub) {
     $sub->connect('/search/results', ['controller' => 'Search', 'action' => 'format_results']);
     $sub->connect('/', ['controller' => 'Search', 'action' => 'search']);
 });
-// Router::connect('/modal/form', ['controller' => 'Modal', 'action' => 'form']);
-Router::connect('/form/:model', ['controller' => 'Form', 'action' => 'form'], ['pass' => ['model']]);
-/**
- * Load all plugin routes.  See the Plugin documentation on
- * how to customize the loading of plugin routes.
- */
+
 Plugin::routes();
