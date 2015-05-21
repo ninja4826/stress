@@ -14,8 +14,6 @@ use Search\Manager;
 class ManufacturersTable extends AppTable
 {
     
-    public $indexes = ['manufacturer_name'];
-    
     public $fields = [
         'manufacturer_name' => [],
         'active' => [],

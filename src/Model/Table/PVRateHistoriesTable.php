@@ -6,6 +6,8 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 // use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
 
 /**
  * PVRateHistories Model
@@ -13,8 +15,16 @@ use Cake\Validation\Validator;
 class PVRateHistoriesTable extends AppTable
 {
     
+    public $fields = [
+        'part_vendor_id' => [],
+        'rate' => [],
+        'date' => [],
+        'comment' => [],
+    ];
+    
     public $assocs = [
-        'PartVendors'
+        'PartVendors',
+        'PVRates'
     ];
 
     /**
@@ -68,5 +78,22 @@ class PVRateHistoriesTable extends AppTable
         $rules->add($rules->existsIn(['p_v_rate_id'], 'PVRates'));
         $rules->add($rules->existsIn(['part_vendor_id'], 'PartVendors'));
         return $rules;
+    }
+    
+    public function beforeMarshal($event, $data, $options) {
+        if (!array_key_exists('rate', $data)) {
+            return false;
+        }
+        Log::write('debug', 'PVRATEHISTORY DATA');
+        Log::write('debug', $data);
+        $table = TableRegistry::get('PVRates');
+        $p_v_rate = $table->newEntity([
+            'rate' => $data['rate']
+        ]);
+        if ($table->save($p_v_rate)) {
+            $data['p_v_rate_id'] = $p_v_rate['id'];
+            return true;
+        }
+        return false;
     }
 }

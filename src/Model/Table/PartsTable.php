@@ -15,11 +15,6 @@ use Search\Manager;
  */
 class PartsTable extends AppTable
 {
-    
-    public $indexes = [
-        'part_num',
-        'description'
-    ];
     public $assocs = [
         'Locations',
         'Categories',

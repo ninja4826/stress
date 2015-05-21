@@ -22,6 +22,7 @@
     - [x] Finish "GoTo" part
         - Finish code.
     - [ ] ~~Fix window width situation with index table links~~
+    
 # Secondary
     ## Additions
         - [x] Modular Forms

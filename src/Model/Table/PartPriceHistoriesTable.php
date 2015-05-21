@@ -21,6 +21,10 @@ class PartPriceHistoriesTable extends AppTable
             'check' => false
         ]
     ];
+    
+    public $assocs = [
+        'PartVendors'
+    ];
 
     /**
      * Initialize method

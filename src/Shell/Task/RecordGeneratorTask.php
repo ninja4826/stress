@@ -18,6 +18,8 @@ class RecordGeneratorTask extends Shell {
         $this->loadModel('PartVendors');
         $this->loadModel('PartTransactions');
         $this->loadModel('PartPriceHistories');
+        $this->loadModel('PVRateHistories');
+        $this->loadModel('PVRates');
     }
     
     public function main()
@@ -98,6 +100,18 @@ class RecordGeneratorTask extends Shell {
                     'price' => 1.5
                 ]));
                 $this->out($partTransaction);
+                
+                $partPriceHistories = $this->PartPriceHistories->save($this->PartPriceHistories->newEntity([
+                    'date_changed' => '',   // TODO: DATE STUFF
+                    'price' => 5.25
+                ]));
+                
+                $p_v_rate_histories = $this->PVRateHistories->save($this->PVRateHistories->newEntity([
+                    'part_vendor_id' => 1,
+                    'rate' => 0.45,
+                    'date' => Time::now(),
+                    'comment' => 'I just want this to be done.'
+                ]));
             }
         }
     }

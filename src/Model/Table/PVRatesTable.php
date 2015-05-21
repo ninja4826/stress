@@ -25,7 +25,7 @@ class PVRatesTable extends AppTable
         $this->table('p_v_rates');
         $this->displayField('id');
         $this->primaryKey('id');
-        $this->hasMany('PVRateHistories', [
+        $this->hasOne('PVRateHistories', [
             'foreignKey' => 'p_v_rate_id'
         ]);
     }
