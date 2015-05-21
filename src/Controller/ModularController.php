@@ -64,7 +64,9 @@ class ModularController extends AppController
         $object = $table->get($id, [
             'contain' => $table->assocs
         ]);
-        $this->set('object', $object);
+        $this->loadComponent('API');
+        $info = $this->API->get_info($model, [], false);
+        $this->set(compact('object', 'info'));
     }
 
     /**
@@ -72,10 +74,10 @@ class ModularController extends AppController
      *
      * @return void Redirects on successful add, renders view otherwise.
      */
-    public function add($model = 'Parts')
+    public function add($model = 'Parts', $alterations = [])
     {
         $this->loadComponent('API');
-        $info = $this->API->get_info($model);
+        $info = $this->API->get_info($model, $alterations);
         $this->set(compact('info'));
     }
 
@@ -92,9 +94,23 @@ class ModularController extends AppController
         $this->loadComponent('API');
         $info = $this->API->get_info($model);
         foreach($info['fields'] as $name => $field) {
-            $field['default'] = $object->$name;
+            $info['fields'][$name]['default'] = $object->$name;
         }
-        $this->set(compact('info'));
+        $info['fields']['id'] = [
+            'default' => $object->id,
+            'field_name' => 'id',
+            'label' => 'ID',
+            'required' => true,
+            'search' => false,
+            'type' => 'hidden'
+        ];
+        foreach($info['fields'] as $name => $field) {
+            if (array_key_exists('assoc', $field)) {
+                $table = TableRegistry::get($field['assoc']['model']);
+                $info['fields'][$name]['default'] = $table->get($object[$field['assoc']['key']])->display_name;
+            }
+        }
+        $this->setAction('add', $model, $info['fields']);
     }
 
     /**

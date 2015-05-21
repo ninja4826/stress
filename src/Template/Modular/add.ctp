@@ -18,6 +18,7 @@
     
     $legend = (isset($legend)) ? $legend : 'Add '.$human_s;
 ?>
+<?debug($_SERVER['AUTH_USER'])?>
 <div class="<?=$table_p?> form col-lg-10 col-md-9 columns" id="<?=$table_s?>Form">
     <?= $this->Form->create(null, ['class' => $table_s.'-form']) ?>
         <div id="<?=$table_s?>-unique-warning-alert" class="alert alert-warning" role="alert" style="display:none;">
@@ -46,7 +47,7 @@
                 ?>
                 <div class="<?=$div_class?>" id="<?=$field_html?>-form-group">
                     <?php if ($type == 'checkbox'): ?>
-                        <input type="hidden" name="<?=$field_html?>" value="<?=$options['default']?>">
+                        <input type="hidden" name="<?=$field_html?>" value="<?=($options['default'] ? '1' : '0')?>">
                         <label for="<?=$field_html?>">
                             <input type="checkbox" name="<?=$name?>" value="<?=$options['default']?>" id="<?=$field_html?>">
                             <?=$label?>

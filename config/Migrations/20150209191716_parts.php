@@ -17,7 +17,7 @@ class Parts extends AbstractMigration
             ->addColumn('e_code', 'string')
             ->addColumn('description', 'string', ['null' => true])
             ->addColumn('active', 'boolean')
-            ->addColumn('default_value', 'string')
+            ->addColumn('default_value', 'decimal', ['precision' => 12, 'scale' => 2])
             ->addColumn('project_number', 'integer')
             ->save();
         $table = $this->table('locations');

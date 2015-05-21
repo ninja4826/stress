@@ -18,9 +18,6 @@ class RecordGeneratorTask extends Shell {
         $this->loadModel('PartVendors');
         $this->loadModel('PartTransactions');
         $this->loadModel('PartPriceHistories');
-        $this->loadModel('Staffs');
-        $this->loadModel('Addresses');
-        $this->loadModel('Users');
     }
     
     public function main()
@@ -36,7 +33,7 @@ class RecordGeneratorTask extends Shell {
             'e_code' => 'E9000',
             'description' => 'cost center description',
             'active' => true,
-            'default_value' => 'not sure what this is for',
+            'default_value' => 0.5,
             'project_number' => 9110343
         ]));
         $this->out($cost_center);

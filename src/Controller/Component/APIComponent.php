@@ -90,7 +90,7 @@ class APIComponent extends Component {
                 ],
                 'model' => $model
             ],
-            'fields' => $fields
+            'fields' => $fields_
         ];
         
         if ($search) {
@@ -111,7 +111,11 @@ class APIComponent extends Component {
     public function field_merge(array $first, array $second) {
         foreach ($second as $key => $val) {
             if (gettype($val) == 'array') {
-                $first[$key] = $this->field_merge($first[$key], $val);
+                if (array_key_exists($key, $first)) {
+                    $first[$key] = $this->field_merge($first[$key], $val);
+                } else {
+                    $first[$key] = $val;
+                }
             } else {
                 $first[$key] = $val;
             }

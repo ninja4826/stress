@@ -268,14 +268,6 @@ Form.prototype = {
                     field_name = that.scoreReplace(field_id);
                     field = that.assocs[field_name];
                     var check = $(this).closest('.input-group').find('#' + field_id + '-check');
-                    /*
-                    
-                    
-                    DO TYPEAHEAD STUFF FOR BELONGSTOMANY
-                    
-                    
-                    
-                    */
                     var val = $(this).val();
                     if (that.fields[field_name]['assoc']['type'] == 'belongsToMany') {
                         var parent_group = $(this).parents('.input-group');
@@ -300,6 +292,15 @@ Form.prototype = {
                         .removeClass('glyph-' + remove)
                         .attr('data-original-title', title);
                 });
+                
+            } else if (field.type == 'checkbox') {
+                $(field_id).change(function() {
+                    field_id = $(this).attr('id');
+                    field_name = that.scoreReplace(field_id);
+                    that.fields[field_name]['val'] = $(this).is(':checked');
+                    console.log('CHECKBOX');
+                });
+                $(field_id).click().click();
             } else {
                 $(document).on('keyup', field_id, function() {
                     field_id = $(this).attr('id');

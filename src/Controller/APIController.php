@@ -147,7 +147,13 @@ class APIController extends AppController {
             if (is_null($this->$model)) {
                 return;
             }
-            $entity = $this->$model->newEntity($data);
+            $obj = null;
+            if (array_key_exists('id', $data)) {
+                $obj = $this->$model->get($data['id'], ['contain' => $this->$model->assocs]);
+            } else {
+                $obj = $this->$model->newEntity();
+            }
+            $entity = $this->$model->patchEntity($obj, $data);
             $response['entity'] = $entity;
             $errors = $entity->errors();
             
