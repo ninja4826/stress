@@ -23,4 +23,8 @@ class PVRateHistory extends Entity
         'p_v_rate' => true,
         'part_vendor' => true,
     ];
+    
+    protected function _getRate() {
+        return $this->p_v_rate->rate;
+    }
 }

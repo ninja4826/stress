@@ -15,9 +15,9 @@ class Part extends Entity
         return $this->part_num;
     }
     
-    protected function _getDisplayField() {
-        return 'part_num';
-    }
+    // protected function _getDisplayField() {
+    //     return 'part_num';
+    // }
 
     /**
      * Fields that can be mass assigned using newEntity() or patchEntity().
@@ -36,6 +36,7 @@ class Part extends Entity
         // 'manufacturers' => true,
         'manufacturer_id' => true,
         'category' => true,
-        'cost_center' => true
+        'cost_center' => true,
+        'part_vendors' => true
     ];
 }

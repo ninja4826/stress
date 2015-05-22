@@ -17,6 +17,14 @@ class AppEntity extends Entity
     return array_keys($this->_accessible);
   }
   
+  protected function _getDisplayField() {
+    return TableRegistry::get($this->_registryAlias)->displayField();
+  }
+  
+  protected function _getDisplayName() {
+    return (string)$this[$this->display_field];
+  }
+  
   public function __toString() {
     $display_field = TableRegistry::get($this->_registryAlias)->displayField();
     return (string)$this->$display_field;

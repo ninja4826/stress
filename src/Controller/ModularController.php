@@ -21,7 +21,8 @@ class ModularController extends AppController
     public function index($model = 'Parts')
     {
         $this->loadComponent('API');
-        $info = $this->API->get_info($model, [], false);
+        // $info = $this->API->get_info($model, [], false);
+        $info = $this->API->get_info($model, ['search' => false]);
         $info['results'] = $this->API->search([$model => []]);
         
         $fields = $info['fields'];
@@ -30,21 +31,18 @@ class ModularController extends AppController
             if (array_key_exists('assoc', $field)) {
                 if (array_key_exists('type', $field['assoc']) && $field['assoc']['type'] == 'belongsToMany') {
                     unset($info['fields'][$field_name]);
-                } elseif (array_key_exists('display_field', $field) && $field['display_field']) {
-                    $info['fields'][$field_name]['url'] = Router::url([
-                        'controller' => $model,
-                        'action' => 'view'
-                    ]);
                 } else {
                     $info['fields'][$field_name]['assoc']['url'] = Router::url([
-                        'controller' => $field['assoc']['model'],
-                        'action' => 'view'
+                        'controller' => 'Modular',
+                        'action' => 'view',
+                        $field['assoc']['model']
                     ]);
                 }
             } elseif (array_key_exists('display_field', $field) && $field['display_field']) {
                 $info['fields'][$field_name]['url'] = Router::url([
-                    'controller' => $model,
-                    'action' => 'view'
+                    'controller' => 'Modular',
+                    'action' => 'view',
+                    $model
                 ]);
             }
         }
@@ -65,7 +63,27 @@ class ModularController extends AppController
             'contain' => $table->assocs
         ]);
         $this->loadComponent('API');
-        $info = $this->API->get_info($model, [], false);
+        // $info = $this->API->get_info($model, [], false);
+        $info = $this->API->get_info($model, ['search' => false, 'recursive' => true]);
+        
+        foreach($info['fields'] as $name => $field) {
+            if (array_key_exists('assoc', $field)) {
+                $field['url'] = Router::url([
+                    'controller' => 'Modular',
+                    'action' => 'view',
+                    $field['assoc']['model'],
+                    $object[$name.'_id']
+                ]);
+            } else if (array_key_exists('display_field', $field) && $field['display_field']) {
+                $field['url'] = Router::url([
+                    'controller' => 'Modular',
+                    'action' => 'view',
+                    $model,
+                    $object['id']
+                ]);
+            }
+        }
+        
         $this->set(compact('object', 'info'));
     }
 
@@ -77,7 +95,8 @@ class ModularController extends AppController
     public function add($model = 'Parts', $alterations = [])
     {
         $this->loadComponent('API');
-        $info = $this->API->get_info($model, $alterations);
+        // $info = $this->API->get_info($model, $alterations);
+        $info = $this->API->get_info($model, ['alter' => $alterations]);
         $this->set(compact('info'));
     }
 

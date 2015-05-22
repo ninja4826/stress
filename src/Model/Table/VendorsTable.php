@@ -23,7 +23,7 @@ class VendorsTable extends AppTable
     public function initialize(array $config)
     {
         $this->table('vendors');
-        $this->displayField('id');
+        $this->displayField('vendor_name');
         $this->primaryKey('id');
     }
 

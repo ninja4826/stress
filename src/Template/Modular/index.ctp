@@ -2,7 +2,6 @@
     $this->append('script', $this->Html->script('table'));
     $this->assign('title', $info['name']['plural']['human']);
 ?>
-
 <div class="index col-lg-12 col-md-9 columns">
     <div class="row">
         <div class="col-lg-5 col-md-6 col-xs-6 pull-left">

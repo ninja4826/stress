@@ -16,8 +16,15 @@ class PVRateHistoriesTable extends AppTable
 {
     
     public $fields = [
-        'part_vendor_id' => [],
-        'rate' => [],
+        'part_vendor' => [],
+        'rate' => [
+            'default' => '',
+            'field_name' => 'rate',
+            'label' => 'Rate',
+            'required' => true,
+            'search' => false,
+            'type' => 'number'
+        ],
         'date' => [],
         'comment' => [],
     ];
@@ -36,7 +43,7 @@ class PVRateHistoriesTable extends AppTable
     public function initialize(array $config)
     {
         $this->table('p_v_rate_histories');
-        $this->displayField('id');
+        $this->displayField('date');
         $this->primaryKey('id');
         $this->belongsTo('PVRates', [
             'foreignKey' => 'p_v_rate_id'
@@ -84,8 +91,6 @@ class PVRateHistoriesTable extends AppTable
         if (!array_key_exists('rate', $data)) {
             return false;
         }
-        Log::write('debug', 'PVRATEHISTORY DATA');
-        Log::write('debug', $data);
         $table = TableRegistry::get('PVRates');
         $p_v_rate = $table->newEntity([
             'rate' => $data['rate']

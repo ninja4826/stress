@@ -221,25 +221,6 @@ class APIController extends AppController {
         
         $this->set('_serialize', array_keys($arr));
     }
-    
-    public function get_url($model, $id) {
-        $query = [];
-        if (array_key_exists('query', $this->request->query)) {
-            $query = [];
-            unset($this->request->query['query']);
-        }
-        
-        $url = Router::url([
-            'controller' => $model,
-            'action' => 'view',
-            $id
-            ]);
-        $this->layout = 'ajax';
-        $this->RequestHandler->renderAs($this, 'json');
-        $this->set('url', $url);
-        $this->set('query', $this->request->query);
-        $this->set('_serialize', ['url', 'query']);
-    }
 }
 
 

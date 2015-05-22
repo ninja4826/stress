@@ -45,18 +45,17 @@ class AppTable extends Table {
     }
     
     public function getFields() {
+        Log::write('debug', 'ugh');
         $entity = $this->find('assoc', ['limit' => 1])->first();
         $error = $this->newEntity([])->errors();
         $virtual = $entity->_virtual;
         $fields = [];
-        Log::write('debug', 'GETTING FIELDS');
         foreach($entity->toArray() as $name => $val) {
             if (!in_array($name, $virtual) && substr($name, -3) != '_id' && $name != 'id') {
                 $field = [];
                 $type = gettype($val);
                 if ($type != 'array') {
                     $field['default'] = '';
-                    Log::write('debug', $name.' | TYPE: '.$type);
                     switch($type) {
                         case 'string':
                             $field['type'] = 'text';
@@ -93,8 +92,6 @@ class AppTable extends Table {
                     $field['required'] = array_key_exists($name, $error);
                     $field['field_name'] = $name;
                 } else {
-                    Log::write('debug', 'IS ASSOC');
-                    Log::write('debug', $name);
                     $field['search'] = false;
                     $field['type'] = 'text';
                     $field['required'] = true;

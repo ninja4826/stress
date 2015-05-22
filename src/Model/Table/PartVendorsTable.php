@@ -24,9 +24,7 @@ class PartVendorsTable extends AppTable
         'vendor' => [],
         'part' => [],
         'markup' => [],
-        'discount' => [
-            'type' => 'number'
-        ],
+        'discount' => [],
         'preferred' => [],
     ];
     
@@ -42,8 +40,7 @@ class PartVendorsTable extends AppTable
         $this->displayField('vendor_name');
         $this->primaryKey('id');
         $this->belongsTo('Parts', [
-            'foreignKey' => 'part_id',
-            'joinType' => 'INNER'
+            'foreignKey' => 'part_id'
         ]);
         $this->belongsTo('Vendors', [
             'foreignKey' => 'vendor_id',
@@ -103,7 +100,6 @@ class PartVendorsTable extends AppTable
         if (!array_key_exists('vendor_id', $data)) {
             return false;
         }
-        $vendors = TableRegistry::get('Vendors');
         $data['vendor_name'] = $this->Vendors->get($data['vendor_id'])->vendor_name;
         return true;
     }
