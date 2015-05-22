@@ -10,12 +10,15 @@
                 $assocs[$name] = $field;
             } else {
                 $general[$name] = $field;
-                $this->append('table_header', '<th>'.$field['label'].'</th>');
+                
                 $val = $object[$name];
                 if ($field['type'] == 'checkbox') {
                     $val = ($object[$name] ? 'Yes' : 'No');
                 }
-                $this->append('table_data', '<td>'.$val.'</td>');
+                if (!(array_key_exists('display_field', $field) && $field['display_field'])) {
+                    $this->append('table_data', '<td>'.$val.'</td>');
+                    $this->append('table_header', '<th>'.$field['label'].'</th>');
+                }
             }
         }
     ?>
@@ -23,9 +26,9 @@
     <div class="row">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h3 class="panel-title">
+                <h2 class="panel-title">
                     <?=$object->display_name?>
-                </h3>
+                </h2>
             </div>
             <table class="table">
                 <thead>
@@ -41,12 +44,12 @@
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">
-                    <a data-toggle="collapse" data-target="#assoc-panel">
+                    <a data-toggle="collapse" data-target="#assoc-panel" class="collapsed">
                         <?=h('Associated Objects')?>
                     </a>
                 </h3>
             </div>
-            <div id="assoc-panel" class="panel-collapse collapse in">
+            <div id="assoc-panel" class="panel-collapse collapse">
                 <div class="panel-body">
                     <?php foreach($assocs as $name => $field): ?>
                         <?php

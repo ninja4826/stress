@@ -4,52 +4,92 @@
 ?>
 <div class="index col-lg-12 col-md-9 columns">
     <div class="row">
-        <div class="col-lg-5 col-md-6 col-xs-6 pull-left">
+        <div class="col-lg-6 col-md-6 col-xs-6 pull-left">
             <h4><?=$info['name']['plural']['human']?></h4>
         </div>
-        <form class="col-lg-5 col-md-4 col-xs-6 pull-right" role="search" id="search-form">
-            <div class="input-group pull-right">
-                <span class="input-group-addon" data-toggle="tooltip" title="Selecting a <?=$info['name']['singular']['human']?> will open a new page." data-placement="left"><span class="glyphicon glyphicon-search"></span></span>
-                <input type="text" class="form-control" placeholder="Go To <?=$info['name']['singular']['human']?>" id="<?=$info['name']['plural']['html']?>-search-input">
-            </div>
-        </form>
+        <div class="col-lg-6 col-md-6 col-xs-6 pull-right">
+            <?php if ($info['parts']): ?>
+                <div class="col-lg-4 col-md-4 col-xs-4">
+                    <button class="btn btn-success" id="manual-edit" style="width:100%;">Start Manual Edit</button>
+                </div>
+            <?php endif; ?>
+            <form class="col-lg-8 col-md-8 col-xs-8 pull-right" role="search" id="search-form" style="padding-right:0px;">
+                <div class="input-group pull-right">
+                    <span class="input-group-addon" data-toggle="tooltip" title="Selecting a <?=$info['name']['singular']['human']?> will open a new page." data-placement="left"><span class="glyphicon glyphicon-search"></span></span>
+                    <input type="text" class="form-control" placeholder="Go To <?=$info['name']['singular']['human']?>" id="<?=$info['name']['plural']['html']?>-search-input">
+                </div>
+            </form>
+        </div>
     </div>
     <div class="row">
-        <div class="well well-sm" id="table-well">
-            <table class="table table-condensed" id="<?=$info['name']['plural']['html']?>-table">
-                <thead>
-                    <tr>
-                        <?php
-                            foreach($info['fields'] as $field_name => $field) {
-                                $out = '<th id="'.$field_name.'-header">'.$field['label'].'</th>';
-                                if (array_key_exists('assoc', $field) && array_key_exists('type', $field['assoc']) && $field['assoc']['type'] == 'belongsToMany') {
-                                    $out = '';
-                                    continue;
+        <div class="col-lg-10 col-md-12 col-xs-12">
+            <div class="well well-sm" id="table-well">
+                <table class="table table-condensed" id="<?=$info['name']['plural']['html']?>-table">
+                    <thead>
+                        <tr>
+                            <?php
+                                foreach($info['fields'] as $field_name => $field) {
+                                    $out = '<th id="'.$field_name.'-header" style="font-size:0.78vw;">'.$field['label'].'</th>';
+                                    if (array_key_exists('assoc', $field) && array_key_exists('type', $field['assoc']) && $field['assoc']['type'] == 'belongsToMany') {
+                                        $out = '';
+                                        continue;
+                                    }
+                                    echo $out;
                                 }
-                                echo $out;
-                            }
-                        ?>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr id="placeholder-row" class="placeholder"><td>A</td></tr>
-                </tbody>
-            </table>
+                            ?>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr id="placeholder-row" class="placeholder"><td>A</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <nav id="paginator-nav" style="display: table; margin: 0 auto;">
-            <ul class="pagination" id="paginator">
-                <li class="static-button" id="paginator-prev">
-                    <a href="#" aria-label="Previous" page="prev">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="static-button" id="paginator-next">
-                    <a href="#" aria-label="Next" page="next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+        <form class="col-lg-2 col-md-2 col-xs-2" role="manual">
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+                <input type="text" class="form-control" style="width:100%;">
+            </div>
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+                <input type="text" class="form-control" style="width:100%;">
+            </div>
+        </div>
+    </div>
+    <div class="row" style="max-height:74px">
+        <!-- Meant to be empty. Leave it that way. -->
+        <div class="col-lg-4 col-md-4 col-xs-4" style="height:74px;"></div>
+        <!-- Paginator -->
+        <div class="col-lg-4 col-md-4 col-xs-4">
+            <nav id="paginator-nav" style="display: table; margin: 0 auto;">
+                <ul class="pagination" id="paginator">
+                    <li class="static-button" id="paginator-prev">
+                        <a href="#" aria-label="Previous" page="prev">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="static-button" id="paginator-next">
+                        <a href="#" aria-label="Next" page="next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- if Parts, submit button -->
+        <div class="col-lg-4 col-md-4 col-xs-4" style="height:74px;padding-top:20px;">
+            <?php if ($info['parts']): ?>
+                <button class="btn btn-success pull-right" id="manual-submit" style="display:none;">Submit</button>
+            <?php endif; ?>
+        </div>
     </div>
 </div>
 <script>

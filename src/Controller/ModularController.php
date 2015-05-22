@@ -20,6 +20,8 @@ class ModularController extends AppController
      */
     public function index($model = 'Parts')
     {
+        
+        
         $this->loadComponent('API');
         // $info = $this->API->get_info($model, [], false);
         $info = $this->API->get_info($model, ['search' => false]);
@@ -46,7 +48,8 @@ class ModularController extends AppController
                 ]);
             }
         }
-        $this->set(compact('info'));
+        $info['parts'] = ($model == 'Parts' ? true : false);
+        $this->set(compact('info', 'parts'));
     }
 
     /**

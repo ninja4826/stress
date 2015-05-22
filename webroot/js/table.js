@@ -153,6 +153,10 @@ Table.prototype = {
         }
         
         this.page_nums = page_nums;
+        
+        if (this.info.parts) {
+            this.parts_setup();
+        }
     },
     set_page: function() {
         this.table.find('tbody').children().not('.placeholder').remove();
@@ -201,5 +205,8 @@ Table.prototype = {
             var url = that.names.plural.table + '/view/' + id;
             window.open(url, '_blank');
         });
+    },
+    parts_setup: function() {
+        
     }
 };
