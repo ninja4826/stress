@@ -41,9 +41,11 @@ use Cake\Routing\Router;
  */
 Router::defaultRouteClass('Route');
 
+Router::connect('/', ['controller' => 'Modular', 'action' => 'index']);
+
+Router::connect('/parts_change', ['controller' => 'PartsPurchase', 'action' => 'change']);
+
 Router::scope('/', ['controller' => 'Modular'], function ($routes) {
-    
-    $routes->connect('/', ['action' => 'index']);
     $routes->connect('/:model', ['action' => 'index'], ['pass' => ['model']]);
     $routes->connect('/add/:model', ['action' => 'add'], ['pass' => ['model']]);
     $routes->connect('/view/:model/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['model', 'id']]);

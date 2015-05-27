@@ -139,3 +139,11 @@ body {
     visibility: hidden;
     display: block;
 }
+
+.purchase-panel.panel-body {
+    overflow: scroll;
+    height: 80%;
+}
+.form-control.part-num-input.tt-hint {
+    background-color: rgb(255, 255, 255);
+}

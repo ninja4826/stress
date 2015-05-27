@@ -8832,3 +8832,14 @@ body {
   visibility: hidden;
   display: block;
 }
+
+/* line 143, ../sass/src/styles.scss */
+.purchase-panel.panel-body {
+  overflow: scroll;
+  height: 80%;
+}
+
+/* line 147, ../sass/src/styles.scss */
+.form-control.part-num-input.tt-hint {
+  background-color: white;
+}
