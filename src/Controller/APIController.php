@@ -221,6 +221,41 @@ class APIController extends AppController {
         
         $this->set('_serialize', array_keys($arr));
     }
+    
+    public function purchase_order() {
+        $data = $this->request->data;
+        $table = TableRegistry::get('Parts');
+        $response = [
+            'objects' => [],
+            'status' => ''
+        ];
+        foreach($data as $id => $qty) {
+            $part = $table->get($id);
+            $part->amt_on_hand += intval($qty);
+            $temp = [];
+            if ($table->save($part)) {
+                $temp['status'] = 'ok';
+                $temp['object'] = $part;
+            } else {
+                $temp['status'] = 'error';
+            }
+            $response['objects'][] = $temp;
+        }
+        $status = 'ok';
+        Log::write('error', $response);
+        foreach($response['objects'] as $i => $obj) {
+            if ($obj['status'] == 'error') {
+                $status = 'error';
+            }
+        }
+        
+        $response['status'] = $status;
+        
+        $this->layout = 'ajax';
+        $this->RequestHandler->renderAs($this, 'json');
+        $this->set('response', $response);
+        $this->set('_serialize', ['response']);
+    }
 }
 
 

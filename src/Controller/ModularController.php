@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\Routing\Router;
 use Cake\ORM\TableRegistry;
+use Cake\Log\Log;
 
 /**
  * Modular Controller
@@ -20,12 +21,16 @@ class ModularController extends AppController
      */
     public function index($model = 'Parts')
     {
-        
-        
+        function cmp($a, $b) {
+            return strcasecmp($a.display_name, $b.display_name);
+        }
         $this->loadComponent('API');
         // $info = $this->API->get_info($model, [], false);
         $info = $this->API->get_info($model, ['search' => false]);
         $info['results'] = $this->API->search([$model => []]);
+        // usort($info['results'][$model], function($a, $b) {
+        //     return strcasecmp($a['display_name'], $b['display_name']);
+        // });
         
         $fields = $info['fields'];
         
@@ -48,6 +53,7 @@ class ModularController extends AppController
                 ]);
             }
         }
+        
         $info['parts'] = ($model == 'Parts' ? true : false);
         $this->set(compact('info', 'parts'));
     }

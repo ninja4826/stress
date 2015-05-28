@@ -142,8 +142,11 @@ body {
 
 .purchase-panel.panel-body {
     overflow: scroll;
-    height: 80%;
+    height: 75%;
 }
 .form-control.part-num-input.tt-hint {
     background-color: rgb(255, 255, 255);
+}
+div.fixed-table-body {
+    height: 75%;
 }

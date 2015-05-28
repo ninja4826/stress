@@ -40,6 +40,9 @@ class APIComponent extends Component {
                 $query = $this->$model->find('assoc', $options)->toArray();
             }
             $response[$model] = $query;
+            usort($response[$model], function($a, $b) {
+                return strcasecmp($a['display_name'], $b['display_name']);
+            });
         }
         $response['status'] = 'ok';
         return $response;

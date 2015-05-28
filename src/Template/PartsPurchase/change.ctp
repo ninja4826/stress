@@ -1,46 +1,77 @@
+<div class="alert alert-danger alert-dismissible" id="submit-error" role="alert" style="display:none;">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    <strong>Error!</strong> The order was not valid. Please review your order and try again.
+</div>
 <div class="panel panel-default">
     <div class="panel-body purchase-panel">
-        <div class="purchase-group placeholder row" style="margin-bottom:19px;">
-            <div class="col-lg-6 col-md-6 col-xs-6">
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        Part #
-                    </span>
-                    <input type="text" class="form-control part-num-input">
-                    <span class="input-group-addon glyph-remove">
-                        <span></span>
-                    </span>
+        <div class="row" id="add-part-btn" style="margin-bottom:19px;padding-right:15px;">
+            <div class="col-lg-2 col-md-2 col-xs-2 pull-right">
+                <button class="btn btn-success" style="width:100%">
+                    <span class="glyphicon glyphicon-plus"></span> Add Part
+                </button>
+            </div>
+        </div>
+        <div class="purchase-group placeholder row well well-sm" style="margin-bottom:19px;margin-right:15px;margin-left:15px;">
+            <div class="col-lg-11 col-md-11 col-xs-11">
+                <div class="col-lg-5 col-md-5 col-xs-5" style="padding-left:0px;">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Part #
+                        </span>
+                        <input type="text" class="form-control part-num-input">
+                        <span class="input-group-addon glyph-remove">
+                            <span></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-xs-3">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Current
+                        </span>
+                        <input type="text" class="form-control current-amt" disabled>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-xs-4" style="padding-right:0px;">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            Change
+                        </span>
+                        <input type="number" class="form-control amt-input">
+                        <span class="input-group-btn">
+                            <button class="btn btn-default pos-neg-btn" title="Toggle positive or negative change">
+                                <span class="glyph-plus"><span></span></span>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-md-2 col-xs-2">
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        Current
-                    </span>
-                    <input type="text" class="form-control current-amt" disabled>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-4 col-xs-4">
-                <div class="input-group">
-                    <span class="input-group-addon">
-                        Change
-                    </span>
-                    <input type="number" class="form-control amt-input">
-                    <span class="input-group-btn">
-                        <button class="btn btn-success pos-neg-btn">
-                            <span class="glyphicon glyphicon-plus"></span>
-                        </button>
-                    </span>
-                </div>
+            <div class="col-lg-1 col-md-1 col-xs-1">
+                <button class="btn btn-danger remove-group" style="padding:0px;width:100%;height:34px;">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
             </div>
         </div>
     </div>
 </div>
 <div style="padding-top:10px;padding-right:10px;" class="pull-right">
-    <button class="btn btn-success">Submit</button>
+    <button class="btn btn-success purchase-submit">Submit</button>
 </div>
 
 <script>
+
+    function getCookie(cname) {
+        var name = cname + '=';
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
 
     var purchase_order;
 
@@ -50,12 +81,13 @@
         this.set_btn_click();
         this.set_sources();
         this.set_bloodhound();
-        this.set_duper();
+        this.assign_listeners();
         
         var original = $('.purchase-group.placeholder');
         var clone = original.clone().removeClass('placeholder');
+        clone.find('.pos-neg-btn').prop('val', true);
         this.assign_typeahead(clone);
-        original.before(clone);
+        $('#add-part-btn').before(clone);
     };
     
     PurchaseOrder.prototype = {
@@ -68,11 +100,9 @@
                 val = !val;
                 
                 if (val) {
-                    $(this).addClass('btn-success').removeClass('btn-danger');
-                    $(this).find('.glyphicon').addClass('glyphicon-plus').removeClass('glyphicon-minus');
+                    $(this).find('.glyph-minus').addClass('glyph-plus').removeClass('glyph-minus');
                 } else {
-                    $(this).addClass('btn-danger').removeClass('btn-success');
-                    $(this).find('.glyphicon').addClass('glyphicon-minus').removeClass('glyphicon-plus');
+                    $(this).find('.glyph-plus').addClass('glyph-minus').removeClass('glyph-plus');
                 }
                 $(this).prop('val', val);
             });
@@ -93,7 +123,7 @@
                 source_keys[obj.display_name] = source_info;
             }
             
-            this.sources = sources;
+            this.sources = sources.sort();
             this.source_keys = source_keys;
         },
         
@@ -107,24 +137,9 @@
             this.blood_hound = blood_hound;
         },
         
-        set_duper: function() {
+        assign_listeners: function() {
             var that = this;
-            var keyup_amt = function() {
-                if ($(this).parents('.purchase-group').find('.part-num-input.tt-input').val() != '') {
-                    var original = $('.purchase-group.placeholder');
-                    var clone = original.clone().removeClass('placeholder');
-                    that.assign_typeahead(clone);
-                    original.before(clone);
-                }
-            }
             var keyup_part_num = function() {
-                if ($(this).parents('.purchase-group').find('.amt-input').val() != '') {
-                    var original = $('.purchase-group.placeholder');
-                    var clone = original.clone().removeClass('placeholder');
-                    that.assign_typeahead(clone);
-                    original.before(clone);
-                }
-                
                 if ($(this).val() in that.source_keys) {
                     var check = $(this).parents('.purchase-group').find('.glyph-remove');
                     check.removeClass('glyph-remove').addClass('glyph-ok');
@@ -137,9 +152,27 @@
                     $(this).parents('.purchase-group').find('.current-amt').val('');
                 }
             }
-            $(document).on('keyup', '.amt-input', keyup_amt);
+            
+            $(document).on('click', '#add-part-btn', function() {
+                var original = $('.purchase-group.placeholder');
+                var clone = original.clone().removeClass('placeholder');
+                clone.find('.pos-neg-btn').prop('val', true);
+                that.assign_typeahead(clone);
+                $('#add-part-btn').before(clone);
+            });
             $(document).on('typeahead:select', '.part-num-input.tt-input', keyup_part_num);
             $(document).on('keyup', '.part-num-input.tt-input', keyup_part_num);
+            
+            $(document).on('click', '.remove-group', function() {
+                var purchase_group = $(this).parents('.purchase-group');
+                if (!(purchase_group.is(':first-child'))) {
+                    purchase_group.remove();
+                }
+            });
+            
+            $(document).on('click', '.purchase-submit', function() {
+                that.submit();
+            })
         },
         
         assign_typeahead: function(el) {
@@ -151,22 +184,56 @@
         },
         
         submit_check: function() {
+            var that = this;
             var panel = $('.purchase-panel');
-            var data = [];
+            var data = {};
+            var error = false;
             panel.find('.purchase-group:not(.placeholder)').each(function(i, el) {
-                var obj = {};
-                obj.part_num = $(el).find('.part-num-input.tt-input').val();
-                obj.amt = $(el).find('.amt-input').val();
-                if (obj.part_num != '' && obj.amt != '') {
-                    data.push(obj);
+                
+                var part_num = $(el).find('.part-num-input.tt-input').val();
+                var change = $(el).find('.amt-input').val();
+                
+                if (part_num != '' && change != '') {
+                    var obj = {};
+                    var id = that.source_keys[part_num].obj_id;
+                    var change = ($(el).find('.amt-input').val() * ($(el).find('.pos-neg-btn').prop('val') ? 1 : -1));
+                    if (id in data) {
+                        return false;
+                    } else {
+                        data[id] = change;
+                    }
                 }
             });
-            this.data = data;
-            console.log(data);
+            return data;
         },
         
         submit: function() {
-            
+            var data = this.submit_check();
+            console.log('DATA');
+            console.log(data);
+            if (!($.isEmptyObject(data))) {
+                
+                $.ajax({
+                    url: '/api/purchase_order',
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-CSRF-Token', getCookie('csrfToken'));
+                    },
+                    data: data,
+                    success:function( response ) {
+                        console.log('RESPONSE');
+                        console.log(response);
+                        window.location.href = '..';
+                    }
+                })
+                
+                // $.post('/api/purchase_order', data, function(response) {
+                //     console.log('RESPONSE');
+                //     console.log(response);
+                    
+                // });
+            } else {
+                $('#submit-error').slideDown('fast');
+            }
         },
     };
     

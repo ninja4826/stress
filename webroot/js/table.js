@@ -1,11 +1,13 @@
 var Table = function( info ) {
-    
+    var time_ = {
+        start: ((new Date()).getTime()),
+        comment: 'initialize'
+    };
     var that = this;
     
     var model = info['name']['model'];
     this.json_url = '/api/info/' + model;
     this.page = 1;
-    
     this.results = info['results'][model];
     this.info = info;
     this.model = model;
@@ -16,10 +18,45 @@ var Table = function( info ) {
     
     this.fields = info['fields'];
     
-    this.init_search();
+    var funcs = [
+        'init_search',
+        'fix_row_count',
+        'iterate_results',
+        'set_page',
+        'set_paginator'
+    ];
     
-    this.fix_row_count();
+    time_.end = (new Date()).getTime();
+    time_.change = time_.end - time_.start;
+    console.log(time_);
     
+    for (var i in funcs) {
+        var func = funcs[i];
+        var time = {
+            start: ((new Date()).getTime()),
+            comment: func
+        };
+        switch (func) {
+            case 'init_search':
+                this.init_search();
+                break;
+            case 'fix_row_count':
+                this.fix_row_count();
+                break;
+            case 'iterate_results':
+                this.iterate_results();
+                break;
+            case 'set_page':
+                this.set_page();
+                break;
+            case 'set_paginator':
+                this.set_paginator();
+                break;
+        }
+        time.end = (new Date()).getTime();
+        time.change = time.end - time.start;
+        console.log(time);
+    }
     $(document).on('click', '#paginator > li:not(.disabled) > a', function( event ) {
         event.preventDefault();
         var page_num = $(this).attr('page');
@@ -31,11 +68,44 @@ var Table = function( info ) {
             that.page = parseInt($(this).attr('page'));
         }
         that.set_page();
-        that.set_paginator();
     });
 };
 
 Table.prototype = {
+    init_search: function() {
+        var sel = ('#' + this.names.plural.html + '-search-input');
+        var input = $(sel);
+        
+        var results = this.results;
+        var sources = [];
+        
+        var source_key = {};
+        
+        for (var r in results) {
+            var result = results[r];
+            var val = result.display_name;
+            source_key[val] = result.id;
+            sources.push(val);
+        }
+        
+        var blood_hound = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.whitespace,
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            local: sources
+        });
+        
+        input.typeahead(
+            {highlight: true, minLength: 1},
+            {name: this.names.plural.table, source: blood_hound}
+        );
+        
+        var that = this;
+        $(document).on('typeahead:select', sel, function(search, key) {
+            var id = source_key[key];
+            var url = that.names.plural.table + '/view/' + id;
+            window.open(url, '_blank');
+        });
+    },
     fix_row_count: function() {
         var placeholder = this.table.find('#placeholder-row');
         var pag = $('#paginator-nav');
@@ -49,7 +119,6 @@ Table.prototype = {
         var net_height = $(window).height() - (pag_offset.top + pag_height);
         
         this.num_rows = Math.floor(net_height / row_height);
-        this.iterate_results();
     },
     iterate_results: function() {
         var result_pages = [];
@@ -101,7 +170,19 @@ Table.prototype = {
         var that = this;
         
         this.pages = pages;
-        this.set_page();
+    },
+    set_page: function() {
+        this.table.find('tbody').children().not('.placeholder').remove();
+        var page = this.pages[this.page - 1];
+        for (var row_i in page) {
+            var row_arr = page[row_i];
+            var row = $('<tr>');
+            for (var col_i in row_arr) {
+                var col = $('<td>').append(row_arr[col_i]);
+                row.append(col);
+            }
+            this.table.find('tbody').append(row);
+        }
     },
     set_paginator: function() {
         var paginator = $('#paginator');
@@ -153,60 +234,5 @@ Table.prototype = {
         }
         
         this.page_nums = page_nums;
-        
-        if (this.info.parts) {
-            this.parts_setup();
-        }
-    },
-    set_page: function() {
-        this.table.find('tbody').children().not('.placeholder').remove();
-        var page = this.pages[this.page - 1];
-        for (var row_i in page) {
-            var row_arr = page[row_i];
-            var row = $('<tr>');
-            for (var col_i in row_arr) {
-                var col = $('<td>').append(row_arr[col_i]);
-                row.append(col);
-            }
-            this.table.find('tbody').append(row);
-        }
-        this.set_paginator();
-    },
-    init_search: function() {
-        var sel = ('#' + this.names.plural.html + '-search-input');
-        var input = $(sel);
-        
-        var results = this.results;
-        var sources = [];
-        
-        var source_key = {};
-        
-        for (var r in results) {
-            var result = results[r];
-            var val = result.display_name;
-            source_key[val] = result.id;
-            sources.push(val);
-        }
-        
-        var blood_hound = new Bloodhound({
-            datumTokenizer: Bloodhound.tokenizers.whitespace,
-            queryTokenizer: Bloodhound.tokenizers.whitespace,
-            local: sources
-        });
-        
-        input.typeahead(
-            {highlight: true, minLength: 1},
-            {name: this.names.plural.table, source: blood_hound}
-        );
-        
-        var that = this;
-        $(document).on('typeahead:select', sel, function(search, key) {
-            var id = source_key[key];
-            var url = that.names.plural.table + '/view/' + id;
-            window.open(url, '_blank');
-        });
-    },
-    parts_setup: function() {
-        
     }
 };

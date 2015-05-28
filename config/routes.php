@@ -45,20 +45,12 @@ Router::connect('/', ['controller' => 'Modular', 'action' => 'index']);
 
 Router::connect('/parts_change', ['controller' => 'PartsPurchase', 'action' => 'change']);
 
-Router::scope('/', ['controller' => 'Modular'], function ($routes) {
-    $routes->connect('/:model', ['action' => 'index'], ['pass' => ['model']]);
-    $routes->connect('/add/:model', ['action' => 'add'], ['pass' => ['model']]);
-    $routes->connect('/view/:model/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['model', 'id']]);
-    $routes->connect('/edit/:model/:id', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['model', 'id']]);
-    
-    $routes->fallbacks('InflectedRoute');
-});
-
 Router::scope('/api', ['controller' => 'API'], function($sub) {
     $sub->connect('/info/:model', ['action' => 'get_info'], ['pass' => ['model']]);
     $sub->connect('/save/:model', ['action' => 'save_entity'], ['pass' => ['model']]);
     $sub->connect('/type_search', ['action' => 'type_search']);
     $sub->connect('/url/:model/:id', ['action' => 'get_url'], ['pass' => ['model', 'id']]);
+    $sub->connect('/purchase_order', ['action' => 'purchase_order']);
     $sub->connect('/:func', ['action' => 'main_func'], ['pass' => ['func']]);
 });
 
@@ -68,4 +60,12 @@ Router::scope('/search', ['controller' => 'Search'], function($sub) {
     $sub->connect('/', ['controller' => 'Search', 'action' => 'search']);
 });
 
+Router::scope('/', ['controller' => 'Modular'], function ($routes) {
+    $routes->connect('/:model', ['action' => 'index'], ['pass' => ['model']]);
+    $routes->connect('/add/:model', ['action' => 'add'], ['pass' => ['model']]);
+    $routes->connect('/view/:model/:id', ['action' => 'view'], ['id' => '\d+', 'pass' => ['model', 'id']]);
+    $routes->connect('/edit/:model/:id', ['action' => 'edit'], ['id' => '\d+', 'pass' => ['model', 'id']]);
+    
+    $routes->fallbacks('InflectedRoute');
+});
 Plugin::routes();
