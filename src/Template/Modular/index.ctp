@@ -89,24 +89,16 @@
     </table>
 <?php endif; ?>
 <script>
-
-
-
-
-
-
-
-
-
-// TODO: Use 'state' checkboxes to select initial parts for manual edit.
-    // TODO: Create placeholder for new amount input.
-    // TODO: Create separate table for purchase order creation.
-    // TODO: Use 'insertRow' to add more parts
-
-
-
-
-
+    function getCookie(cname) {
+        var name = cname + '=';
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') c = c.substring(1);
+            if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+        }
+        return "";
+    }
 
 
 
@@ -136,50 +128,6 @@
         $(document).on('click', '.manual', function() {
             manual($(this));
         });
-        
-        $(document).on('click', '#manual-next', function() {
-            var checks = [];
-            var rows = $('#parts-table').bootstrapTable('getData');
-            for (var i in rows) {
-                if (rows[i].state) {
-                    checks.push(rows[i]);
-                }
-            }
-            
-            var new_rows = [];
-            for (var i in checks) {
-                var check = checks[i];
-                new_rows.push({
-                    part_num: check.part_num,
-                    current: check.amt_on_hand,
-                    change: ''
-                });
-            }
-            
-            // TODO: Erase the table and create the new one.
-            $('#table-holder').empty();
-            var toolbar = $('#toolbar.original').clone().removeClass('original').appendTo('#table-row');
-            toolbar.find('#manual-edit').remove();
-            // TODO: Create back button
-            $('<button>').attr('id', 'manual-submit').addClass('btn').addClass('btn-success').text('Submit').appendTo('#toolbar');
-            var clone = $('#order-table.original').clone().appendTo('#table-holder').removeClass('original');
-            clone.bootstrapTable({
-                data: new_rows
-            });
-            
-            // TODO: Fix onSave event
-            // TODO: Fix image loading errors (get from repo)
-            $(document).on('save', function(e, editable) {
-                console.log('SAVED');
-            });
-            
-            $(document).on('editable-save.bs.table', function(e, editable) {
-                console.log('editable-save.bs.table');
-                console.log(e);
-                console.log(editable);
-            });
-            
-        });
     });
     
     function initial() {
@@ -192,12 +140,12 @@
         clone.bootstrapTable({
             data: data
         });
-        clone.bootstrapTable('hideColumn', 'state');
         clone.bootstrapTable('hideColumn', 'change');
         clone.bootstrapTable('hideColumn', 'checked');
         clone.bootstrapTable('hideColumn', 'index');
         init_search();
         table = '#'+info['name']['plural']['html']+'-table:not(.original)';
+        $(table).find('.bs-checkbox').hide();
     }
     
     function event_listeners() {
@@ -213,11 +161,16 @@
                 }
             }
         });
+        $(document).on('editable-save.bs.table', function(a, b, c, d, e) {
+            var tr = $(e).parents('tr');
+            if (tr.nextAll().is(':visible')) {
+                $(e).parents('tr').nextAll('tr:visible').first().find('[data-name="change"]').click();
+            }
+        });
     }
     
     function manual(obj) {
         var cols = [
-            'state',
             'description',
             'active',
             'location_name',
@@ -241,7 +194,7 @@
             // },
             start: function() {
                 $('#toolbar:not(.original)').children('button:not([step="start"])').remove();
-                $(table).bootstrapTable('showColumn', 'state');
+                $(table).find('.bs-checkbox').show();
                 $(obj).attr('step', 'next').text('Next').after($('<button>').addClass('btn btn-danger manual').attr('step', 'cancel').text('Cancel'));
             },
             // next: function() {
@@ -286,6 +239,7 @@
                 for (var i in cols) {
                     $(table).bootstrapTable('hideColumn', cols[i]);
                 }
+                
                 $(table).bootstrapTable('showColumn', 'change');
                 
                 var rows = $(table).bootstrapTable('getData');
@@ -294,11 +248,29 @@
                         $(table).bootstrapTable('hideRow', {index: rows[i].index});
                     }
                 }
-                
+                $(table).find('.bs-checkbox').hide();
                 $(obj).attr('step', 'submit').text('Submit').after($('<button>').addClass('btn btn-warning manual').attr('step', 'back').text('Back'));
             },
             submit: function() {
-                // TODO: Do submission stuff.
+                var rows = $(table).bootstrapTable('getData');
+                var data = {};
+                for (var i in rows) {
+                    if (rows[i].checked && rows[i].change != '') data[rows[i].id] = parseInt(rows[i].change);
+                }
+                console.log(data);
+                $.ajax({
+                    url: '/api/purchase_order?data='+JSON.stringify(data),
+                    beforeSend: function(xhr) {
+                        xhr.setRequestHeader('X-CSRF-Token', getCookie('csrfToken'));
+                    },
+                    data: data,
+                    success: function( response ) {
+                        console.log(data);
+                        console.log('RESPONSE');
+                        console.log(response);
+                        // TODO: Update rows and return to index.
+                    }
+                })
             },
             back: function() {
                 for (var i in cols) {
@@ -311,7 +283,6 @@
                 for (var i in cols) {
                     $(table).bootstrapTable('showColumn', cols[i]);
                 }
-                $(table).bootstrapTable('hideColumn', 'state');
                 $(obj).siblings('.btn-success').attr('step', 'start').text('Start Manual Edit');
                 $('#toolbar:not(.original)').children('button:not([step="start"])').remove();
                 var rows = $(table).bootstrapTable('getData');
@@ -321,6 +292,8 @@
                     row.state = false;
                     row.change = '';
                 }
+                $(table).bootstrapTable('hideColumn', 'change');
+                $(table).find('.bs-checkbox').hide();
             },
             
         };

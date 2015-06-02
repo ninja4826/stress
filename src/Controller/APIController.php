@@ -223,7 +223,14 @@ class APIController extends AppController {
     }
     
     public function purchase_order() {
-        $data = $this->request->data;
+        $this->layout = 'ajax';
+        $this->RequestHandler->renderAs($this, 'json');
+        $this->set('_serialize', ['response']);
+        
+        if (!array_key_exists('data', $this->request->query)) {
+            $this->set('response', ['status' => 'error']);
+        }
+        $data = json_decode($this->request->query['data'], true);
         $table = TableRegistry::get('Parts');
         $response = [
             'objects' => [],
@@ -242,6 +249,7 @@ class APIController extends AppController {
             $response['objects'][] = $temp;
         }
         $status = 'ok';
+        Log::write('error', $data);
         Log::write('error', $response);
         foreach($response['objects'] as $i => $obj) {
             if ($obj['status'] == 'error') {
@@ -251,10 +259,7 @@ class APIController extends AppController {
         
         $response['status'] = $status;
         
-        $this->layout = 'ajax';
-        $this->RequestHandler->renderAs($this, 'json');
         $this->set('response', $response);
-        $this->set('_serialize', ['response']);
     }
 }
 

@@ -222,7 +222,7 @@
                     success:function( response ) {
                         console.log('RESPONSE');
                         console.log(response);
-                        window.location.href = '..';
+                        // window.location.href = '..';
                     }
                 })
                 
