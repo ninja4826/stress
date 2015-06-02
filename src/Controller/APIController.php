@@ -237,16 +237,13 @@ class APIController extends AppController {
             'status' => ''
         ];
         foreach($data as $id => $qty) {
-            $part = $table->get($id);
+            $part = $table->get($id, ['contain' => $table->assocs]);
             $part->amt_on_hand += intval($qty);
             $temp = [];
             if ($table->save($part)) {
-                $temp['status'] = 'ok';
-                $temp['object'] = $part;
-            } else {
-                $temp['status'] = 'error';
+                $temp = $part;
             }
-            $response['objects'][] = $temp;
+            $response['objects'][$part->id] = $temp;
         }
         $status = 'ok';
         Log::write('error', $data);

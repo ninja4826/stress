@@ -100,9 +100,6 @@
         return "";
     }
 
-
-
-    var data;
     var info;
     var keys = {};
     var vals = {
@@ -113,24 +110,20 @@
     var table;
     $(function() {
         info = JSON.parse('<?=json_encode($info)?>');
-        data = info['results'][info['name']['model']];
-        for (var i in data) {
-            var obj = data[i];
-            keys[obj.display_name] = obj.id;
-            data[i].change = '';
-            data[i].checked = false;
-            data[i].index = parseInt(i);
-        }
         
-        initial();
-        event_listeners();
+        load(info['results'][info['name']['model']]);
         
         $(document).on('click', '.manual', function() {
             manual($(this));
         });
     });
-    
-    function initial() {
+    function load(data) {
+        for (var i in data) {
+            data[i].change = null;
+            data[i].checked = false;
+            data[i].index = parseInt(i);
+        }
+        
         var sel = '#'+info['name']['plural']['html']+'-table';
         $('#table-holder').empty();
         $('#toolbar.original').clone().removeClass('original').prependTo('#table-row');
@@ -146,9 +139,7 @@
         init_search();
         table = '#'+info['name']['plural']['html']+'-table:not(.original)';
         $(table).find('.bs-checkbox').hide();
-    }
-    
-    function event_listeners() {
+        
         $(table).on('check.bs.table', function(e, row) {
             row.checked = true;
         }).on('uncheck.bs.table', function(e, row) {
@@ -161,6 +152,7 @@
                 }
             }
         });
+        
         $(document).on('editable-save.bs.table', function(a, b, c, d, e) {
             var tr = $(e).parents('tr');
             if (tr.nextAll().is(':visible')) {
@@ -179,61 +171,11 @@
             'manufacturer'
         ];
         var funcs = {
-            // start: function() {
-            //     $('#table-holder').empty();
-            //     var toolbar = $('#toolbar.original').clone().removeClass('original').appendTo('#table-row');
-            //     toolbar.find('.manual').attr('step', 'next').text('Next');
-            //     $('<button>').addClass('btn btn-danger manual').attr('step', 'cancel').appendTo('#toolbar:not(.original)').text('Cancel');
-            //     var clone = $('#parts-table.original').clone().attr('data-click-to-select', 'true').attr('data-checkbox-header', 'true');
-            //     clone.find('tr > th:first').before($('<th>').attr('data-field', 'state').attr('data-checkbox', 'true'));
-            //     clone.appendTo('#table-holder').removeClass('original');
-            //     clone.bootstrapTable({
-            //         data: data
-            //     });
-            //     console.log($(obj));
-            // },
             start: function() {
                 $('#toolbar:not(.original)').children('button:not([step="start"])').remove();
                 $(table).find('.bs-checkbox').show();
                 $(obj).attr('step', 'next').text('Next').after($('<button>').addClass('btn btn-danger manual').attr('step', 'cancel').text('Cancel'));
             },
-            // next: function() {
-            //     var checks = [];
-            //     var rows = $('#parts-table').bootstrapTable('getData');
-            //     for (var i in rows) {
-            //         if (rows[i].state) {
-            //             checks.push(rows[i]);
-            //             edit_obj[i] = rows[i];
-            //         }
-            //     }
-                
-            //     var new_rows = [];
-            //     for (var i in checks) {
-            //         var check = checks[i];
-            //         new_rows.push({
-            //             row: new_rows.length,
-            //             part_num: check.part_num,
-            //             current: check.amt_on_hand,
-            //             // change: ('change' in check ? check.change : '')
-            //             change: ''
-            //         });
-            //     }
-                
-            //     $('#table-holder').empty();
-            //     var toolbar = $('#toolbar.original').clone().removeClass('original').appendTo('#table-row');
-            //     toolbar.find('.manual').attr('step', 'submit').text('Submit');
-            //     $('<button>').addClass('btn btn-warning manual').attr('step', 'back').css('margin-right', 4).appendTo('#toolbar:not(.original)').text('Back');
-            //     $('<button>').addClass('btn btn-danger manual').attr('step', 'cancel').appendTo('#toolbar:not(.original)').text('Cancel');
-            //     var clone = $('#order-table.original').clone().appendTo('#table-holder').removeClass('original');
-            //     clone.bootstrapTable({
-            //         data: new_rows
-            //     });
-                
-            //     $(document).on('editable-save.bs.table', function(a, b, c, d, e) {
-            //         console.log('SAVED');
-            //         $(e).parents('tr').next().find('[data-name="change"]').click();
-            //     });
-            // },
             next: function() {
                 
                 for (var i in cols) {
@@ -254,8 +196,12 @@
             submit: function() {
                 var rows = $(table).bootstrapTable('getData');
                 var data = {};
+                var update_keys = {};
                 for (var i in rows) {
-                    if (rows[i].checked && rows[i].change != '') data[rows[i].id] = parseInt(rows[i].change);
+                    if (rows[i].checked && rows[i].change != '') {
+                        data[rows[i].id] = parseInt(rows[i].change);
+                        update_keys[rows[i].id] = rows[i];
+                    }
                 }
                 console.log(data);
                 $.ajax({
@@ -265,10 +211,12 @@
                     },
                     data: data,
                     success: function( response ) {
-                        console.log(data);
-                        console.log('RESPONSE');
-                        console.log(response);
-                        // TODO: Update rows and return to index.
+                        var new_data = $(table).bootstrapTable('getData');
+                        for (var i in update_keys) {
+                            var row = update_keys[i];
+                            new_data[row.index] = response['response']['objects'][row.id];
+                        }
+                        load(new_data);
                     }
                 })
             },
