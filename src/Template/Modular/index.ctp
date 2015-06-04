@@ -42,7 +42,6 @@
     data-pagination="true"
     data-page-size="25"
     data-search="true"
-    data-sort-name="part_num"
     data-toolbar="#toolbar"
     <?php if ($info['parts']): ?>
         data-click-to-select="true"
