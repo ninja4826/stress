@@ -2,6 +2,12 @@
     $this->append('script', $this->Html->script('bootstrap-table.min'));
     $this->append('css', $this->Html->css('bootstrap-table.min'));
     $this->assign('title', $info['name']['plural']['human']);
+    
+    if ($info['parts']) {
+        $this->append('script', $this->Html->script('bootstrap-table-editable.min'));
+        $this->append('script', $this->Html->script('bootstrap-editable'));
+        $this->append('css', $this->Html->css('bootstrap-editable'));
+    }
 ?>
 <style>
     .bootstrap-table {
@@ -36,6 +42,7 @@
     data-pagination="true"
     data-page-size="25"
     data-search="true"
+    data-sort-name="part_num"
     data-toolbar="#toolbar"
     <?php if ($info['parts']): ?>
         data-click-to-select="true"
@@ -68,26 +75,7 @@
         </tr>
     </thead>
 </table>
-<?php if ($info['parts']): ?>
-<?php $this->append('script', $this->Html->script('bootstrap-table-editable.min')); ?>
-<?php $this->append('script', $this->Html->script('bootstrap-editable')); ?>
-<?php $this->append('css', $this->Html->css('bootstrap-editable')); ?>
-    <table id="order-table" class="original"
-        data-classes="table table-condensed"
-        data-pagination="true"
-        data-page-size="25"
-        data-search="true"
-        data-toolbar="#toolbar">
-        <thead>
-            <tr>
-                <th data-field="row" data-visible="false"></th>
-                <th style="font-size:0.78vw;" data-field="part_num">Part Number</th>
-                <th style="font-size:0.78vw;" data-field="current">Current Amount</th>
-                <th style="font-size:0.78vw;" data-field="change" data-editable="true" data-classes="change">Amount Changed</th>
-            </tr>
-        </thead>
-    </table>
-<?php endif; ?>
+
 <script>
     function getCookie(cname) {
         var name = cname + '=';
@@ -110,7 +98,12 @@
     var table;
     $(function() {
         info = JSON.parse('<?=json_encode($info)?>');
-        
+        console.log(info);
+        var res = info['results'][info['name']['model']];
+        for (var i in res) {
+            var result = res[i];
+            keys[result.display_name] = result.id;
+        }
         load(info['results'][info['name']['model']]);
         
         $(document).on('click', '.manual', function() {
