@@ -1,12 +1,12 @@
 <?php
-    $this->append('script', $this->Html->script('bootstrap-table.min'));
     $this->append('css', $this->Html->css('bootstrap-table.min'));
     $this->assign('title', $info['name']['plural']['human']);
     
     if ($info['parts']) {
-        $this->append('script', $this->Html->script('bootstrap-table-editable.min'));
-        $this->append('script', $this->Html->script('bootstrap-editable'));
+        $this->append('script', $this->Html->script('bootstrap-table.bundle'));
         $this->append('css', $this->Html->css('bootstrap-editable'));
+    } else {
+        $this->append('script', $this->Html->script('bootstrap-table.min'));
     }
 ?>
 <style>

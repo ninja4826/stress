@@ -7,11 +7,16 @@
 // Import Bootstrap for Sass
 @import "bootstrap";
 
+// Import Bootstrap Table
+// @import "bootstrap-table.min";
+
+// Import Bootstrap Editable
+// @import "bootstrap-editable";
+
 // Import normal CSS library
-
-
-
 @import "global_utils";
+
+
 $green: rgb(92, 184, 92);
 $red: rgb(217, 83, 79);
 $glyph-colors: (

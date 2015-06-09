@@ -49,8 +49,7 @@ $this->prepend('script', $this->Html->script([
     'jquery-2.1.1.min.js',
     'jquery-ui.min',
     'bootstrap.min',
-    'typeahead.bundle.min',
-    'global'
+    'typeahead.bundle.min'
 ]));
 $this->prepend('css', $this->Html->css([
     'styles',
@@ -84,6 +83,30 @@ $this->prepend('css', $this->Html->css([
     ?>
 </head>
 <body>
+    <script>
+        var funcs = {
+            substringMatcher: function( strs ) {
+                return function findMatches(q, cb) {
+                    var matches, substrRegex;
+                    
+                    matches = [];
+                    
+                    substrRegex = new RegExp(q, 'i');
+                    
+                    $.each(strs, function(i, str) {
+                        if (substrRegex.test(str)) {
+                            matches.push({ value: str });
+                        }
+                    });
+                    
+                    cb(matches);
+                };
+            }
+        };
+        for (var f in funcs) {
+            window[f] = funcs[f];
+        }
+    </script>
     <header role="banner" class="navbar navbar-inverse">
         <div class="container">
             <div class="navbar-header">

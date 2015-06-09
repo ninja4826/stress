@@ -8687,94 +8687,94 @@ button.close {
   height: 34px;
 }
 
-/* line 30, ../sass/src/styles.scss */
+/* line 35, ../sass/src/styles.scss */
 .glyph-ok {
   cursor: default;
 }
-/* line 35, ../sass/src/styles.scss */
+/* line 40, ../sass/src/styles.scss */
 .glyph-ok > span {
   color: #5cb85c;
 }
 
-/* line 30, ../sass/src/styles.scss */
+/* line 35, ../sass/src/styles.scss */
 .glyph-remove {
   cursor: default;
 }
-/* line 35, ../sass/src/styles.scss */
+/* line 40, ../sass/src/styles.scss */
 .glyph-remove > span {
   color: #d9534f;
 }
 
-/* line 30, ../sass/src/styles.scss */
+/* line 35, ../sass/src/styles.scss */
 .glyph-plus {
   cursor: default;
 }
-/* line 35, ../sass/src/styles.scss */
+/* line 40, ../sass/src/styles.scss */
 .glyph-plus > span {
   color: #5cb85c;
 }
 
-/* line 30, ../sass/src/styles.scss */
+/* line 35, ../sass/src/styles.scss */
 .glyph-minus {
   cursor: default;
 }
-/* line 35, ../sass/src/styles.scss */
+/* line 40, ../sass/src/styles.scss */
 .glyph-minus > span {
   color: #d9534f;
 }
 
-/* line 45, ../sass/src/styles.scss */
+/* line 50, ../sass/src/styles.scss */
 .btn.dupe-plus > span, .well.well-sm > .input-group:last-child .btn.dupe-control > span {
   color: #5cb85c;
 }
 
-/* line 45, ../sass/src/styles.scss */
+/* line 50, ../sass/src/styles.scss */
 .btn.dupe-minus > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span {
   color: #d9534f;
 }
 
-/* line 51, ../sass/src/styles.scss */
+/* line 56, ../sass/src/styles.scss */
 .well.well-sm > .input-group {
   margin-bottom: 15px;
 }
-/* line 64, ../sass/src/styles.scss */
+/* line 69, ../sass/src/styles.scss */
 .well.well-sm > .input-group:last-child {
   margin-bottom: 0;
 }
-/* line 66, ../sass/src/styles.scss */
+/* line 71, ../sass/src/styles.scss */
 .well.well-sm > .input-group:last-child .dupe-control {
   color: orange;
 }
 
-/* line 72, ../sass/src/styles.scss */
+/* line 77, ../sass/src/styles.scss */
 .table-responsive {
   table-layout: fixed;
   max-width: 100%;
 }
 
-/* line 76, ../sass/src/styles.scss */
+/* line 81, ../sass/src/styles.scss */
 .index {
   max-width: 100%;
 }
 
-/* line 80, ../sass/src/styles.scss */
+/* line 85, ../sass/src/styles.scss */
 html,
 body {
   overflow-x: hidden;
 }
 
-/* line 84, ../sass/src/styles.scss */
+/* line 89, ../sass/src/styles.scss */
 .table {
   margin-bottom: 0px;
 }
 
-/* line 87, ../sass/src/styles.scss */
+/* line 92, ../sass/src/styles.scss */
 .well {
   margin-bottom: 0px;
 }
 
 @media screen and (max-width: 767px) {
-  /* line 104, ../sass/src/styles.scss */
+  /* line 109, ../sass/src/styles.scss */
   .row-offcanvas {
     position: relative;
     -webkit-transition: all .25s ease-out;
@@ -8782,69 +8782,69 @@ body {
     transition: all .25s ease-out;
   }
 
-  /* line 111, ../sass/src/styles.scss */
+  /* line 116, ../sass/src/styles.scss */
   .row-offcanvas-right {
     right: 0;
   }
-  /* line 94, ../sass/src/styles.scss */
+  /* line 99, ../sass/src/styles.scss */
   .row-offcanvas-right .sidebar-offcanvas {
     right: -50%;
   }
-  /* line 98, ../sass/src/styles.scss */
+  /* line 103, ../sass/src/styles.scss */
   .row-offcanvas-right.active {
     right: 50%;
   }
 
-  /* line 115, ../sass/src/styles.scss */
+  /* line 120, ../sass/src/styles.scss */
   .row-offcanvas-left {
     left: 0;
   }
-  /* line 94, ../sass/src/styles.scss */
+  /* line 99, ../sass/src/styles.scss */
   .row-offcanvas-left .sidebar-offcanvas {
     left: -50%;
   }
-  /* line 98, ../sass/src/styles.scss */
+  /* line 103, ../sass/src/styles.scss */
   .row-offcanvas-left.active {
     left: 50%;
   }
 
-  /* line 118, ../sass/src/styles.scss */
+  /* line 123, ../sass/src/styles.scss */
   .sidebar-offcanvas {
     position: absolute;
     top: 0;
     width: 50%;
   }
 }
-/* line 129, ../sass/src/styles.scss */
+/* line 134, ../sass/src/styles.scss */
 .table-condensed {
   table-layout: fixed;
 }
-/* line 131, ../sass/src/styles.scss */
+/* line 136, ../sass/src/styles.scss */
 .table-condensed td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-/* line 137, ../sass/src/styles.scss */
+/* line 142, ../sass/src/styles.scss */
 .placeholder {
   position: absolute;
   visibility: hidden;
   display: block;
 }
 
-/* line 143, ../sass/src/styles.scss */
+/* line 148, ../sass/src/styles.scss */
 .purchase-panel.panel-body {
   overflow: scroll;
   height: 75%;
 }
 
-/* line 147, ../sass/src/styles.scss */
+/* line 152, ../sass/src/styles.scss */
 .form-control.part-num-input.tt-hint {
   background-color: white;
 }
 
-/* line 150, ../sass/src/styles.scss */
+/* line 155, ../sass/src/styles.scss */
 div.fixed-table-body {
   height: 75%;
 }
