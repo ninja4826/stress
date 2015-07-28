@@ -131,7 +131,7 @@ $this->prepend('css', $this->Html->css([
                         </li>
                     <?php endforeach; ?>
                 </ul>
-                <a class="btn btn-default navbar-btn pull-right" href="/search"><span class="glyphicon glyphicon-search"></span> Search</a>
+                <!--<a class="btn btn-default navbar-btn pull-right" href="/search"><span class="glyphicon glyphicon-search"></span> Search</a>-->
             </nav>
         </div>
     </header>

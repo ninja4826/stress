@@ -37,3 +37,8 @@
         </div>
     </div>
 </div>
+<script>
+    $(function() {
+        console.log('FORMAT_RESULTS');
+    });
+</script>

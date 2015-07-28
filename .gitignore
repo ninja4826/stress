@@ -6,4 +6,4 @@
 /webroot/css/*less*
 .c9
 composer.lock
-/webroot/sass/.sass-cache
+/webroot/sass/.sass-cache/

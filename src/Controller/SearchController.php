@@ -21,11 +21,15 @@ class SearchController extends AppController
         Log::write('debug', 'IN SEARCH CONTROLLER');
         Log::write('debug', $this->request->query);
         Log::write('debug', $this->request->data);
-        if (array_key_exists('keyword', $this->request->data)) {
+        if (array_key_exists('q', $this->request->query)) {
+        // if (array_key_exists('keyword', $this->request->data)) {
         // if ($this->request->is('post')) {
             // $data = $this->request->data;
             
             $data = $this->request->data;
+            $test_data = json_decode($this->request->query['q']);
+            Log::write('debug', $test_data);
+            // $data = json_decode($this->request->query['q']);
             
             if (array_key_exists('keyword', $data)) {
                 $search_bar;
@@ -78,6 +82,7 @@ class SearchController extends AppController
                 }
                 $newTable[$table] = $table_arr;
             }
+            Log::write('debug', 'DID SEARCH THING');
             $this->set('tables', $newTable);
             $this->set('_serialize', ['tables', 'search_bar']);
             $this->render('format_results');

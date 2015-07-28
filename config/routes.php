@@ -54,11 +54,11 @@ Router::scope('/api', ['controller' => 'API'], function($sub) {
     $sub->connect('/:func', ['action' => 'main_func'], ['pass' => ['func']]);
 });
 
-Router::scope('/search', ['controller' => 'Search'], function($sub) {
-    $sub->extensions(['json']);
-    $sub->connect('/search/results', ['controller' => 'Search', 'action' => 'format_results']);
-    $sub->connect('/', ['controller' => 'Search', 'action' => 'search']);
-});
+// Router::scope('/search', ['controller' => 'Search'], function($sub) {
+//     $sub->extensions(['json']);
+//     $sub->connect('/search/results', ['controller' => 'Search', 'action' => 'format_results']);
+//     $sub->connect('/', ['controller' => 'Search', 'action' => 'search']);
+// });
 
 Router::scope('/', ['controller' => 'Modular'], function ($routes) {
     $routes->connect('/:model', ['action' => 'index'], ['pass' => ['model']]);
