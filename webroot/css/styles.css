@@ -345,8 +345,10 @@ th {
   }
 
   /* line 83, ../sass/src/bootstrap/_print.scss */
-  .btn > .caret,
-  .dropup > .btn > .caret {
+  .btn > .caret, .btn-add > .caret, .btn-remove > .caret,
+  .dropup > .btn > .caret,
+  .dropup > .btn-add > .caret,
+  .dropup > .btn-remove > .caret {
     border-top-color: #000 !important;
   }
 
@@ -377,7 +379,7 @@ th {
   src: url(/fonts/bootstrap/glyphicons-halflings-regular.eot?&1432050662#iefix) format("embedded-opentype"), url(/fonts/bootstrap/glyphicons-halflings-regular.woff2?1432050662) format("woff2"), url(/fonts/bootstrap/glyphicons-halflings-regular.woff?1432050662) format("woff"), url(/fonts/bootstrap/glyphicons-halflings-regular.ttf?1432050662) format("truetype"), url(/fonts/bootstrap/glyphicons-halflings-regular.svg?1432050662#glyphicons_halflingsregular) format("svg");
 }
 /* line 22, ../sass/src/bootstrap/_glyphicons.scss */
-.glyphicon, .glyph-ok > span, .glyph-remove > span, .glyph-plus > span, .glyph-minus > span, .btn.dupe-plus > span, .well.well-sm > .input-group:last-child .btn.dupe-control > span, .btn.dupe-minus > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span {
+.glyphicon, .glyph-ok > span, .glyph-remove > span, .glyph-plus > span, .btn-add > span, .glyph-minus > span, .btn-remove > span, .btn.dupe-plus > span, .well.well-sm > .input-group:last-child .btn.dupe-control > span, .well.well-sm > .input-group:last-child .dupe-control.btn-add > span, .well.well-sm > .input-group:last-child .dupe-control.btn-remove > span, .dupe-plus.btn-add > span, .dupe-plus.btn-remove > span, .btn.dupe-minus > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove > span, .dupe-minus.btn-add > span, .dupe-minus.btn-remove > span {
   position: relative;
   top: 1px;
   display: inline-block;
@@ -395,7 +397,7 @@ th {
 }
 
 /* line 36, ../sass/src/bootstrap/_glyphicons.scss */
-.glyphicon-plus:before, .glyph-plus > span:before, .btn.dupe-plus > span:before, .well.well-sm > .input-group:last-child .btn.dupe-control > span:before {
+.glyphicon-plus:before, .glyph-plus > span:before, .btn-add > span:before, .btn.dupe-plus > span:before, .well.well-sm > .input-group:last-child .btn.dupe-control > span:before, .well.well-sm > .input-group:last-child .dupe-control.btn-add > span:before, .well.well-sm > .input-group:last-child .dupe-control.btn-remove > span:before, .dupe-plus.btn-add > span:before, .dupe-plus.btn-remove > span:before {
   content: "\2b";
 }
 
@@ -406,7 +408,7 @@ th {
 }
 
 /* line 39, ../sass/src/bootstrap/_glyphicons.scss */
-.glyphicon-minus:before, .glyph-minus > span:before, .btn.dupe-minus > span:before, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span:before {
+.glyphicon-minus:before, .glyph-minus > span:before, .btn-remove > span:before, .btn.dupe-minus > span:before, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span:before, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add > span:before, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove > span:before, .dupe-minus.btn-add > span:before, .dupe-minus.btn-remove > span:before {
   content: "\2212";
 }
 
@@ -3880,42 +3882,58 @@ input[type="search"] {
   /* line 188, ../sass/src/bootstrap/_forms.scss */
   input[type="date"].input-sm, .input-group-sm > input[type="date"].form-control,
   .input-group-sm > input[type="date"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="date"].btn, .input-group-sm input[type="date"],
+  .input-group-sm > .input-group-btn > input[type="date"].btn,
+  .input-group-sm > .input-group-btn > input[type="date"].btn-add,
+  .input-group-sm > .input-group-btn > input[type="date"].btn-remove, .input-group-sm input[type="date"],
   input[type="time"].input-sm,
   .input-group-sm > input[type="time"].form-control,
   .input-group-sm > input[type="time"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="time"].btn, .input-group-sm
+  .input-group-sm > .input-group-btn > input[type="time"].btn,
+  .input-group-sm > .input-group-btn > input[type="time"].btn-add,
+  .input-group-sm > .input-group-btn > input[type="time"].btn-remove, .input-group-sm
   input[type="time"],
   input[type="datetime-local"].input-sm,
   .input-group-sm > input[type="datetime-local"].form-control,
   .input-group-sm > input[type="datetime-local"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="datetime-local"].btn, .input-group-sm
+  .input-group-sm > .input-group-btn > input[type="datetime-local"].btn,
+  .input-group-sm > .input-group-btn > input[type="datetime-local"].btn-add,
+  .input-group-sm > .input-group-btn > input[type="datetime-local"].btn-remove, .input-group-sm
   input[type="datetime-local"],
   input[type="month"].input-sm,
   .input-group-sm > input[type="month"].form-control,
   .input-group-sm > input[type="month"].input-group-addon,
-  .input-group-sm > .input-group-btn > input[type="month"].btn, .input-group-sm
+  .input-group-sm > .input-group-btn > input[type="month"].btn,
+  .input-group-sm > .input-group-btn > input[type="month"].btn-add,
+  .input-group-sm > .input-group-btn > input[type="month"].btn-remove, .input-group-sm
   input[type="month"] {
     line-height: 30px;
   }
   /* line 193, ../sass/src/bootstrap/_forms.scss */
   input[type="date"].input-lg, .input-group-lg > input[type="date"].form-control,
   .input-group-lg > input[type="date"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="date"].btn, .input-group-lg input[type="date"],
+  .input-group-lg > .input-group-btn > input[type="date"].btn,
+  .input-group-lg > .input-group-btn > input[type="date"].btn-add,
+  .input-group-lg > .input-group-btn > input[type="date"].btn-remove, .input-group-lg input[type="date"],
   input[type="time"].input-lg,
   .input-group-lg > input[type="time"].form-control,
   .input-group-lg > input[type="time"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="time"].btn, .input-group-lg
+  .input-group-lg > .input-group-btn > input[type="time"].btn,
+  .input-group-lg > .input-group-btn > input[type="time"].btn-add,
+  .input-group-lg > .input-group-btn > input[type="time"].btn-remove, .input-group-lg
   input[type="time"],
   input[type="datetime-local"].input-lg,
   .input-group-lg > input[type="datetime-local"].form-control,
   .input-group-lg > input[type="datetime-local"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="datetime-local"].btn, .input-group-lg
+  .input-group-lg > .input-group-btn > input[type="datetime-local"].btn,
+  .input-group-lg > .input-group-btn > input[type="datetime-local"].btn-add,
+  .input-group-lg > .input-group-btn > input[type="datetime-local"].btn-remove, .input-group-lg
   input[type="datetime-local"],
   input[type="month"].input-lg,
   .input-group-lg > input[type="month"].form-control,
   .input-group-lg > input[type="month"].input-group-addon,
-  .input-group-lg > .input-group-btn > input[type="month"].btn, .input-group-lg
+  .input-group-lg > .input-group-btn > input[type="month"].btn,
+  .input-group-lg > .input-group-btn > input[type="month"].btn-add,
+  .input-group-lg > .input-group-btn > input[type="month"].btn-remove, .input-group-lg
   input[type="month"] {
     line-height: 46px;
   }
@@ -4010,9 +4028,13 @@ input[type="checkbox"] {
 /* line 306, ../sass/src/bootstrap/_forms.scss */
 .form-control-static.input-lg, .input-group-lg > .form-control-static.form-control,
 .input-group-lg > .form-control-static.input-group-addon,
-.input-group-lg > .input-group-btn > .form-control-static.btn, .form-control-static.input-sm, .input-group-sm > .form-control-static.form-control,
+.input-group-lg > .input-group-btn > .form-control-static.btn,
+.input-group-lg > .input-group-btn > .form-control-static.btn-add,
+.input-group-lg > .input-group-btn > .form-control-static.btn-remove, .form-control-static.input-sm, .input-group-sm > .form-control-static.form-control,
 .input-group-sm > .form-control-static.input-group-addon,
-.input-group-sm > .input-group-btn > .form-control-static.btn {
+.input-group-sm > .input-group-btn > .form-control-static.btn,
+.input-group-sm > .input-group-btn > .form-control-static.btn-add,
+.input-group-sm > .input-group-btn > .form-control-static.btn-remove {
   padding-left: 0;
   padding-right: 0;
 }
@@ -4020,7 +4042,9 @@ input[type="checkbox"] {
 /* line 71, ../sass/src/bootstrap/mixins/_forms.scss */
 .input-sm, .input-group-sm > .form-control,
 .input-group-sm > .input-group-addon,
-.input-group-sm > .input-group-btn > .btn {
+.input-group-sm > .input-group-btn > .btn,
+.input-group-sm > .input-group-btn > .btn-add,
+.input-group-sm > .input-group-btn > .btn-remove {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
@@ -4031,7 +4055,9 @@ input[type="checkbox"] {
 /* line 79, ../sass/src/bootstrap/mixins/_forms.scss */
 select.input-sm, .input-group-sm > select.form-control,
 .input-group-sm > select.input-group-addon,
-.input-group-sm > .input-group-btn > select.btn {
+.input-group-sm > .input-group-btn > select.btn,
+.input-group-sm > .input-group-btn > select.btn-add,
+.input-group-sm > .input-group-btn > select.btn-remove {
   height: 30px;
   line-height: 30px;
 }
@@ -4040,10 +4066,14 @@ select.input-sm, .input-group-sm > select.form-control,
 textarea.input-sm, .input-group-sm > textarea.form-control,
 .input-group-sm > textarea.input-group-addon,
 .input-group-sm > .input-group-btn > textarea.btn,
+.input-group-sm > .input-group-btn > textarea.btn-add,
+.input-group-sm > .input-group-btn > textarea.btn-remove,
 select[multiple].input-sm,
 .input-group-sm > select[multiple].form-control,
 .input-group-sm > select[multiple].input-group-addon,
-.input-group-sm > .input-group-btn > select[multiple].btn {
+.input-group-sm > .input-group-btn > select[multiple].btn,
+.input-group-sm > .input-group-btn > select[multiple].btn-add,
+.input-group-sm > .input-group-btn > select[multiple].btn-remove {
   height: auto;
 }
 
@@ -4077,7 +4107,9 @@ select[multiple].input-sm,
 /* line 71, ../sass/src/bootstrap/mixins/_forms.scss */
 .input-lg, .input-group-lg > .form-control,
 .input-group-lg > .input-group-addon,
-.input-group-lg > .input-group-btn > .btn {
+.input-group-lg > .input-group-btn > .btn,
+.input-group-lg > .input-group-btn > .btn-add,
+.input-group-lg > .input-group-btn > .btn-remove {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
@@ -4088,7 +4120,9 @@ select[multiple].input-sm,
 /* line 79, ../sass/src/bootstrap/mixins/_forms.scss */
 select.input-lg, .input-group-lg > select.form-control,
 .input-group-lg > select.input-group-addon,
-.input-group-lg > .input-group-btn > select.btn {
+.input-group-lg > .input-group-btn > select.btn,
+.input-group-lg > .input-group-btn > select.btn-add,
+.input-group-lg > .input-group-btn > select.btn-remove {
   height: 46px;
   line-height: 46px;
 }
@@ -4097,10 +4131,14 @@ select.input-lg, .input-group-lg > select.form-control,
 textarea.input-lg, .input-group-lg > textarea.form-control,
 .input-group-lg > textarea.input-group-addon,
 .input-group-lg > .input-group-btn > textarea.btn,
+.input-group-lg > .input-group-btn > textarea.btn-add,
+.input-group-lg > .input-group-btn > textarea.btn-remove,
 select[multiple].input-lg,
 .input-group-lg > select[multiple].form-control,
 .input-group-lg > select[multiple].input-group-addon,
-.input-group-lg > .input-group-btn > select[multiple].btn {
+.input-group-lg > .input-group-btn > select[multiple].btn,
+.input-group-lg > .input-group-btn > select[multiple].btn-add,
+.input-group-lg > .input-group-btn > select[multiple].btn-remove {
   height: auto;
 }
 
@@ -4157,7 +4195,9 @@ select[multiple].input-lg,
 /* line 377, ../sass/src/bootstrap/_forms.scss */
 .input-lg + .form-control-feedback, .input-group-lg > .form-control + .form-control-feedback,
 .input-group-lg > .input-group-addon + .form-control-feedback,
-.input-group-lg > .input-group-btn > .btn + .form-control-feedback {
+.input-group-lg > .input-group-btn > .btn + .form-control-feedback,
+.input-group-lg > .input-group-btn > .btn-add + .form-control-feedback,
+.input-group-lg > .input-group-btn > .btn-remove + .form-control-feedback {
   width: 46px;
   height: 46px;
   line-height: 46px;
@@ -4166,7 +4206,9 @@ select[multiple].input-lg,
 /* line 382, ../sass/src/bootstrap/_forms.scss */
 .input-sm + .form-control-feedback, .input-group-sm > .form-control + .form-control-feedback,
 .input-group-sm > .input-group-addon + .form-control-feedback,
-.input-group-sm > .input-group-btn > .btn + .form-control-feedback {
+.input-group-sm > .input-group-btn > .btn + .form-control-feedback,
+.input-group-sm > .input-group-btn > .btn-add + .form-control-feedback,
+.input-group-sm > .input-group-btn > .btn-remove + .form-control-feedback {
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -4401,7 +4443,7 @@ select[multiple].input-lg,
 }
 
 /* line 9, ../sass/src/bootstrap/_buttons.scss */
-.btn {
+.btn, .btn-add, .btn-remove {
   display: inline-block;
   margin-bottom: 0;
   font-weight: normal;
@@ -4422,25 +4464,25 @@ select[multiple].input-lg,
   user-select: none;
 }
 /* line 26, ../sass/src/bootstrap/_buttons.scss */
-.btn:focus, .btn.focus, .btn:active:focus, .btn:active.focus, .btn.active:focus, .btn.active.focus {
+.btn:focus, .btn-add:focus, .btn-remove:focus, .btn.focus, .focus.btn-add, .focus.btn-remove, .btn:active:focus, .btn-add:active:focus, .btn-remove:active:focus, .btn:active.focus, .btn-add:active.focus, .btn-remove:active.focus, .btn.active:focus, .active.btn-add:focus, .active.btn-remove:focus, .btn.active.focus, .active.focus.btn-add, .active.focus.btn-remove {
   outline: thin dotted;
   outline: 5px auto -webkit-focus-ring-color;
   outline-offset: -2px;
 }
 /* line 32, ../sass/src/bootstrap/_buttons.scss */
-.btn:hover, .btn:focus, .btn.focus {
+.btn:hover, .btn-add:hover, .btn-remove:hover, .btn:focus, .btn-add:focus, .btn-remove:focus, .btn.focus, .focus.btn-add, .focus.btn-remove {
   color: #333;
   text-decoration: none;
 }
 /* line 39, ../sass/src/bootstrap/_buttons.scss */
-.btn:active, .btn.active {
+.btn:active, .btn-add:active, .btn-remove:active, .btn.active, .active.btn-add, .active.btn-remove {
   outline: 0;
   background-image: none;
   -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
   box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
 }
 /* line 46, ../sass/src/bootstrap/_buttons.scss */
-.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
+.btn.disabled, .disabled.btn-add, .disabled.btn-remove, .btn[disabled], [disabled].btn-add, [disabled].btn-remove, fieldset[disabled] .btn, fieldset[disabled] .btn-add, fieldset[disabled] .btn-remove {
   cursor: not-allowed;
   pointer-events: none;
   opacity: 0.65;
@@ -4450,28 +4492,28 @@ select[multiple].input-lg,
 }
 
 /* line 60, ../sass/src/bootstrap/_buttons.scss */
-.btn-default, .btn.dupe-plus, .well.well-sm > .input-group:last-child .btn.dupe-control, .btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control {
+.btn-default, .btn.dupe-plus, .well.well-sm > .input-group:last-child .btn.dupe-control, .well.well-sm > .input-group:last-child .dupe-control.btn-add, .well.well-sm > .input-group:last-child .dupe-control.btn-remove, .dupe-plus.btn-add, .dupe-plus.btn-remove, .btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove, .dupe-minus.btn-add, .dupe-minus.btn-remove, .btn-add, .btn-remove {
   color: #333;
   background-color: #fff;
   border-color: #ccc;
 }
 /* line 11, ../sass/src/bootstrap/mixins/_buttons.scss */
-.btn-default:hover, .btn.dupe-plus:hover, .well.well-sm > .input-group:last-child .btn.dupe-control:hover, .btn.dupe-minus:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:hover, .btn-default:focus, .btn.dupe-plus:focus, .well.well-sm > .input-group:last-child .btn.dupe-control:focus, .btn.dupe-minus:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:focus, .btn-default.focus, .focus.btn.dupe-plus, .well.well-sm > .input-group:last-child .focus.btn.dupe-control, .focus.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .focus.btn.dupe-control, .btn-default:active, .btn.dupe-plus:active, .well.well-sm > .input-group:last-child .btn.dupe-control:active, .btn.dupe-minus:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:active, .btn-default.active, .active.btn.dupe-plus, .well.well-sm > .input-group:last-child .active.btn.dupe-control, .active.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.btn.dupe-control, .open > .btn-default.dropdown-toggle, .open > .dropdown-toggle.btn.dupe-plus, .well.well-sm > .input-group:last-child .open > .dropdown-toggle.btn.dupe-control, .open > .dropdown-toggle.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .open > .dropdown-toggle.btn.dupe-control {
+.btn-default:hover, .btn.dupe-plus:hover, .well.well-sm > .input-group:last-child .btn.dupe-control:hover, .well.well-sm > .input-group:last-child .dupe-control.btn-add:hover, .well.well-sm > .input-group:last-child .dupe-control.btn-remove:hover, .btn.dupe-minus:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove:hover, .btn-add:hover, .btn-remove:hover, .btn-default:focus, .btn.dupe-plus:focus, .well.well-sm > .input-group:last-child .btn.dupe-control:focus, .well.well-sm > .input-group:last-child .dupe-control.btn-add:focus, .well.well-sm > .input-group:last-child .dupe-control.btn-remove:focus, .btn.dupe-minus:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove:focus, .btn-add:focus, .btn-remove:focus, .btn-default.focus, .focus.btn.dupe-plus, .well.well-sm > .input-group:last-child .focus.btn.dupe-control, .well.well-sm > .input-group:last-child .focus.dupe-control.btn-add, .well.well-sm > .input-group:last-child .focus.dupe-control.btn-remove, .focus.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .focus.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) .focus.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) .focus.dupe-control.btn-remove, .focus.btn-add, .focus.btn-remove, .btn-default:active, .btn.dupe-plus:active, .well.well-sm > .input-group:last-child .btn.dupe-control:active, .well.well-sm > .input-group:last-child .dupe-control.btn-add:active, .well.well-sm > .input-group:last-child .dupe-control.btn-remove:active, .btn.dupe-minus:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove:active, .btn-add:active, .btn-remove:active, .btn-default.active, .active.btn.dupe-plus, .well.well-sm > .input-group:last-child .active.btn.dupe-control, .well.well-sm > .input-group:last-child .active.dupe-control.btn-add, .well.well-sm > .input-group:last-child .active.dupe-control.btn-remove, .active.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.dupe-control.btn-remove, .active.btn-add, .active.btn-remove, .open > .btn-default.dropdown-toggle, .open > .dropdown-toggle.btn.dupe-plus, .well.well-sm > .input-group:last-child .open > .dropdown-toggle.btn.dupe-control, .well.well-sm > .input-group:last-child .open > .dropdown-toggle.dupe-control.btn-add, .well.well-sm > .input-group:last-child .open > .dropdown-toggle.dupe-control.btn-remove, .open > .dropdown-toggle.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .open > .dropdown-toggle.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) .open > .dropdown-toggle.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) .open > .dropdown-toggle.dupe-control.btn-remove, .open > .dropdown-toggle.btn-add, .open > .dropdown-toggle.btn-remove {
   color: #333;
   background-color: #e6e6e6;
   border-color: #adadad;
 }
 /* line 21, ../sass/src/bootstrap/mixins/_buttons.scss */
-.btn-default:active, .btn.dupe-plus:active, .well.well-sm > .input-group:last-child .btn.dupe-control:active, .btn.dupe-minus:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:active, .btn-default.active, .active.btn.dupe-plus, .well.well-sm > .input-group:last-child .active.btn.dupe-control, .active.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.btn.dupe-control, .open > .btn-default.dropdown-toggle, .open > .dropdown-toggle.btn.dupe-plus, .well.well-sm > .input-group:last-child .open > .dropdown-toggle.btn.dupe-control, .open > .dropdown-toggle.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .open > .dropdown-toggle.btn.dupe-control {
+.btn-default:active, .btn.dupe-plus:active, .well.well-sm > .input-group:last-child .btn.dupe-control:active, .well.well-sm > .input-group:last-child .dupe-control.btn-add:active, .well.well-sm > .input-group:last-child .dupe-control.btn-remove:active, .btn.dupe-minus:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove:active, .btn-add:active, .btn-remove:active, .btn-default.active, .active.btn.dupe-plus, .well.well-sm > .input-group:last-child .active.btn.dupe-control, .well.well-sm > .input-group:last-child .active.dupe-control.btn-add, .well.well-sm > .input-group:last-child .active.dupe-control.btn-remove, .active.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.dupe-control.btn-remove, .active.btn-add, .active.btn-remove, .open > .btn-default.dropdown-toggle, .open > .dropdown-toggle.btn.dupe-plus, .well.well-sm > .input-group:last-child .open > .dropdown-toggle.btn.dupe-control, .well.well-sm > .input-group:last-child .open > .dropdown-toggle.dupe-control.btn-add, .well.well-sm > .input-group:last-child .open > .dropdown-toggle.dupe-control.btn-remove, .open > .dropdown-toggle.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .open > .dropdown-toggle.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) .open > .dropdown-toggle.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) .open > .dropdown-toggle.dupe-control.btn-remove, .open > .dropdown-toggle.btn-add, .open > .dropdown-toggle.btn-remove {
   background-image: none;
 }
 /* line 29, ../sass/src/bootstrap/mixins/_buttons.scss */
-.btn-default.disabled, .disabled.btn.dupe-plus, .well.well-sm > .input-group:last-child .disabled.btn.dupe-control, .disabled.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.btn.dupe-control, .btn-default.disabled:hover, .disabled.btn.dupe-plus:hover, .well.well-sm > .input-group:last-child .disabled.btn.dupe-control:hover, .disabled.btn.dupe-minus:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.btn.dupe-control:hover, .btn-default.disabled:focus, .disabled.btn.dupe-plus:focus, .well.well-sm > .input-group:last-child .disabled.btn.dupe-control:focus, .disabled.btn.dupe-minus:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.btn.dupe-control:focus, .btn-default.disabled.focus, .disabled.focus.btn.dupe-plus, .well.well-sm > .input-group:last-child .disabled.focus.btn.dupe-control, .disabled.focus.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.focus.btn.dupe-control, .btn-default.disabled:active, .disabled.btn.dupe-plus:active, .well.well-sm > .input-group:last-child .disabled.btn.dupe-control:active, .disabled.btn.dupe-minus:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.btn.dupe-control:active, .btn-default.disabled.active, .disabled.active.btn.dupe-plus, .well.well-sm > .input-group:last-child .disabled.active.btn.dupe-control, .disabled.active.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.active.btn.dupe-control, .btn-default[disabled], [disabled].btn.dupe-plus, .well.well-sm > .input-group:last-child [disabled].btn.dupe-control, [disabled].btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].btn.dupe-control, .btn-default[disabled]:hover, [disabled].btn.dupe-plus:hover, .well.well-sm > .input-group:last-child [disabled].btn.dupe-control:hover, [disabled].btn.dupe-minus:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].btn.dupe-control:hover, .btn-default[disabled]:focus, [disabled].btn.dupe-plus:focus, .well.well-sm > .input-group:last-child [disabled].btn.dupe-control:focus, [disabled].btn.dupe-minus:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].btn.dupe-control:focus, .btn-default[disabled].focus, [disabled].focus.btn.dupe-plus, .well.well-sm > .input-group:last-child [disabled].focus.btn.dupe-control, [disabled].focus.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].focus.btn.dupe-control, .btn-default[disabled]:active, [disabled].btn.dupe-plus:active, .well.well-sm > .input-group:last-child [disabled].btn.dupe-control:active, [disabled].btn.dupe-minus:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].btn.dupe-control:active, .btn-default[disabled].active, [disabled].active.btn.dupe-plus, .well.well-sm > .input-group:last-child [disabled].active.btn.dupe-control, [disabled].active.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].active.btn.dupe-control, fieldset[disabled] .btn-default, fieldset[disabled] .btn.dupe-plus, fieldset[disabled] .well.well-sm > .input-group:last-child .btn.dupe-control, .well.well-sm > .input-group:last-child fieldset[disabled] .btn.dupe-control, fieldset[disabled] .btn.dupe-minus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .btn.dupe-control, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn.dupe-plus:hover, fieldset[disabled] .well.well-sm > .input-group:last-child .btn.dupe-control:hover, .well.well-sm > .input-group:last-child fieldset[disabled] .btn.dupe-control:hover, fieldset[disabled] .btn.dupe-minus:hover, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .btn.dupe-control:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn.dupe-plus:focus, fieldset[disabled] .well.well-sm > .input-group:last-child .btn.dupe-control:focus, .well.well-sm > .input-group:last-child fieldset[disabled] .btn.dupe-control:focus, fieldset[disabled] .btn.dupe-minus:focus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .btn.dupe-control:focus, fieldset[disabled] .btn-default.focus, fieldset[disabled] .focus.btn.dupe-plus, fieldset[disabled] .well.well-sm > .input-group:last-child .focus.btn.dupe-control, .well.well-sm > .input-group:last-child fieldset[disabled] .focus.btn.dupe-control, fieldset[disabled] .focus.btn.dupe-minus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .focus.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .focus.btn.dupe-control, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn.dupe-plus:active, fieldset[disabled] .well.well-sm > .input-group:last-child .btn.dupe-control:active, .well.well-sm > .input-group:last-child fieldset[disabled] .btn.dupe-control:active, fieldset[disabled] .btn.dupe-minus:active, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .btn.dupe-control:active, fieldset[disabled] .btn-default.active, fieldset[disabled] .active.btn.dupe-plus, fieldset[disabled] .well.well-sm > .input-group:last-child .active.btn.dupe-control, .well.well-sm > .input-group:last-child fieldset[disabled] .active.btn.dupe-control, fieldset[disabled] .active.btn.dupe-minus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .active.btn.dupe-control {
+.btn-default.disabled, .disabled.btn.dupe-plus, .well.well-sm > .input-group:last-child .disabled.btn.dupe-control, .well.well-sm > .input-group:last-child .disabled.dupe-control.btn-add, .well.well-sm > .input-group:last-child .disabled.dupe-control.btn-remove, .disabled.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.dupe-control.btn-remove, .disabled.btn-add, .disabled.btn-remove, .btn-default.disabled:hover, .disabled.btn.dupe-plus:hover, .well.well-sm > .input-group:last-child .disabled.btn.dupe-control:hover, .well.well-sm > .input-group:last-child .disabled.dupe-control.btn-add:hover, .well.well-sm > .input-group:last-child .disabled.dupe-control.btn-remove:hover, .disabled.btn.dupe-minus:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.btn.dupe-control:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.dupe-control.btn-add:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.dupe-control.btn-remove:hover, .disabled.btn-add:hover, .disabled.btn-remove:hover, .btn-default.disabled:focus, .disabled.btn.dupe-plus:focus, .well.well-sm > .input-group:last-child .disabled.btn.dupe-control:focus, .well.well-sm > .input-group:last-child .disabled.dupe-control.btn-add:focus, .well.well-sm > .input-group:last-child .disabled.dupe-control.btn-remove:focus, .disabled.btn.dupe-minus:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.btn.dupe-control:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.dupe-control.btn-add:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.dupe-control.btn-remove:focus, .disabled.btn-add:focus, .disabled.btn-remove:focus, .btn-default.disabled.focus, .disabled.focus.btn.dupe-plus, .well.well-sm > .input-group:last-child .disabled.focus.btn.dupe-control, .well.well-sm > .input-group:last-child .disabled.focus.dupe-control.btn-add, .well.well-sm > .input-group:last-child .disabled.focus.dupe-control.btn-remove, .disabled.focus.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.focus.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.focus.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.focus.dupe-control.btn-remove, .disabled.focus.btn-add, .disabled.focus.btn-remove, .btn-default.disabled:active, .disabled.btn.dupe-plus:active, .well.well-sm > .input-group:last-child .disabled.btn.dupe-control:active, .well.well-sm > .input-group:last-child .disabled.dupe-control.btn-add:active, .well.well-sm > .input-group:last-child .disabled.dupe-control.btn-remove:active, .disabled.btn.dupe-minus:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.btn.dupe-control:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.dupe-control.btn-add:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.dupe-control.btn-remove:active, .disabled.btn-add:active, .disabled.btn-remove:active, .btn-default.disabled.active, .disabled.active.btn.dupe-plus, .well.well-sm > .input-group:last-child .disabled.active.btn.dupe-control, .well.well-sm > .input-group:last-child .disabled.active.dupe-control.btn-add, .well.well-sm > .input-group:last-child .disabled.active.dupe-control.btn-remove, .disabled.active.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.active.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.active.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) .disabled.active.dupe-control.btn-remove, .disabled.active.btn-add, .disabled.active.btn-remove, .btn-default[disabled], [disabled].btn.dupe-plus, .well.well-sm > .input-group:last-child [disabled].btn.dupe-control, .well.well-sm > .input-group:last-child [disabled].dupe-control.btn-add, .well.well-sm > .input-group:last-child [disabled].dupe-control.btn-remove, [disabled].btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].dupe-control.btn-remove, [disabled].btn-add, [disabled].btn-remove, .btn-default[disabled]:hover, [disabled].btn.dupe-plus:hover, .well.well-sm > .input-group:last-child [disabled].btn.dupe-control:hover, .well.well-sm > .input-group:last-child [disabled].dupe-control.btn-add:hover, .well.well-sm > .input-group:last-child [disabled].dupe-control.btn-remove:hover, [disabled].btn.dupe-minus:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].btn.dupe-control:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].dupe-control.btn-add:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].dupe-control.btn-remove:hover, [disabled].btn-add:hover, [disabled].btn-remove:hover, .btn-default[disabled]:focus, [disabled].btn.dupe-plus:focus, .well.well-sm > .input-group:last-child [disabled].btn.dupe-control:focus, .well.well-sm > .input-group:last-child [disabled].dupe-control.btn-add:focus, .well.well-sm > .input-group:last-child [disabled].dupe-control.btn-remove:focus, [disabled].btn.dupe-minus:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].btn.dupe-control:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].dupe-control.btn-add:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].dupe-control.btn-remove:focus, [disabled].btn-add:focus, [disabled].btn-remove:focus, .btn-default[disabled].focus, [disabled].focus.btn.dupe-plus, .well.well-sm > .input-group:last-child [disabled].focus.btn.dupe-control, .well.well-sm > .input-group:last-child [disabled].focus.dupe-control.btn-add, .well.well-sm > .input-group:last-child [disabled].focus.dupe-control.btn-remove, [disabled].focus.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].focus.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].focus.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].focus.dupe-control.btn-remove, [disabled].focus.btn-add, [disabled].focus.btn-remove, .btn-default[disabled]:active, [disabled].btn.dupe-plus:active, .well.well-sm > .input-group:last-child [disabled].btn.dupe-control:active, .well.well-sm > .input-group:last-child [disabled].dupe-control.btn-add:active, .well.well-sm > .input-group:last-child [disabled].dupe-control.btn-remove:active, [disabled].btn.dupe-minus:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].btn.dupe-control:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].dupe-control.btn-add:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].dupe-control.btn-remove:active, [disabled].btn-add:active, [disabled].btn-remove:active, .btn-default[disabled].active, [disabled].active.btn.dupe-plus, .well.well-sm > .input-group:last-child [disabled].active.btn.dupe-control, .well.well-sm > .input-group:last-child [disabled].active.dupe-control.btn-add, .well.well-sm > .input-group:last-child [disabled].active.dupe-control.btn-remove, [disabled].active.btn.dupe-minus, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].active.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].active.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) [disabled].active.dupe-control.btn-remove, [disabled].active.btn-add, [disabled].active.btn-remove, fieldset[disabled] .btn-default, fieldset[disabled] .btn.dupe-plus, fieldset[disabled] .well.well-sm > .input-group:last-child .btn.dupe-control, .well.well-sm > .input-group:last-child fieldset[disabled] .btn.dupe-control, fieldset[disabled] .well.well-sm > .input-group:last-child .dupe-control.btn-add, .well.well-sm > .input-group:last-child fieldset[disabled] .dupe-control.btn-add, fieldset[disabled] .well.well-sm > .input-group:last-child .dupe-control.btn-remove, .well.well-sm > .input-group:last-child fieldset[disabled] .dupe-control.btn-remove, fieldset[disabled] .btn.dupe-minus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .btn.dupe-control, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .dupe-control.btn-add, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .dupe-control.btn-remove, fieldset[disabled] .btn-add, fieldset[disabled] .btn-remove, fieldset[disabled] .btn-default:hover, fieldset[disabled] .btn.dupe-plus:hover, fieldset[disabled] .well.well-sm > .input-group:last-child .btn.dupe-control:hover, .well.well-sm > .input-group:last-child fieldset[disabled] .btn.dupe-control:hover, fieldset[disabled] .well.well-sm > .input-group:last-child .dupe-control.btn-add:hover, .well.well-sm > .input-group:last-child fieldset[disabled] .dupe-control.btn-add:hover, fieldset[disabled] .well.well-sm > .input-group:last-child .dupe-control.btn-remove:hover, .well.well-sm > .input-group:last-child fieldset[disabled] .dupe-control.btn-remove:hover, fieldset[disabled] .btn.dupe-minus:hover, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .btn.dupe-control:hover, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .dupe-control.btn-add:hover, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove:hover, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .dupe-control.btn-remove:hover, fieldset[disabled] .btn-add:hover, fieldset[disabled] .btn-remove:hover, fieldset[disabled] .btn-default:focus, fieldset[disabled] .btn.dupe-plus:focus, fieldset[disabled] .well.well-sm > .input-group:last-child .btn.dupe-control:focus, .well.well-sm > .input-group:last-child fieldset[disabled] .btn.dupe-control:focus, fieldset[disabled] .well.well-sm > .input-group:last-child .dupe-control.btn-add:focus, .well.well-sm > .input-group:last-child fieldset[disabled] .dupe-control.btn-add:focus, fieldset[disabled] .well.well-sm > .input-group:last-child .dupe-control.btn-remove:focus, .well.well-sm > .input-group:last-child fieldset[disabled] .dupe-control.btn-remove:focus, fieldset[disabled] .btn.dupe-minus:focus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .btn.dupe-control:focus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .dupe-control.btn-add:focus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove:focus, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .dupe-control.btn-remove:focus, fieldset[disabled] .btn-add:focus, fieldset[disabled] .btn-remove:focus, fieldset[disabled] .btn-default.focus, fieldset[disabled] .focus.btn.dupe-plus, fieldset[disabled] .well.well-sm > .input-group:last-child .focus.btn.dupe-control, .well.well-sm > .input-group:last-child fieldset[disabled] .focus.btn.dupe-control, fieldset[disabled] .well.well-sm > .input-group:last-child .focus.dupe-control.btn-add, .well.well-sm > .input-group:last-child fieldset[disabled] .focus.dupe-control.btn-add, fieldset[disabled] .well.well-sm > .input-group:last-child .focus.dupe-control.btn-remove, .well.well-sm > .input-group:last-child fieldset[disabled] .focus.dupe-control.btn-remove, fieldset[disabled] .focus.btn.dupe-minus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .focus.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .focus.btn.dupe-control, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .focus.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .focus.dupe-control.btn-add, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .focus.dupe-control.btn-remove, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .focus.dupe-control.btn-remove, fieldset[disabled] .focus.btn-add, fieldset[disabled] .focus.btn-remove, fieldset[disabled] .btn-default:active, fieldset[disabled] .btn.dupe-plus:active, fieldset[disabled] .well.well-sm > .input-group:last-child .btn.dupe-control:active, .well.well-sm > .input-group:last-child fieldset[disabled] .btn.dupe-control:active, fieldset[disabled] .well.well-sm > .input-group:last-child .dupe-control.btn-add:active, .well.well-sm > .input-group:last-child fieldset[disabled] .dupe-control.btn-add:active, fieldset[disabled] .well.well-sm > .input-group:last-child .dupe-control.btn-remove:active, .well.well-sm > .input-group:last-child fieldset[disabled] .dupe-control.btn-remove:active, fieldset[disabled] .btn.dupe-minus:active, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .btn.dupe-control:active, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .dupe-control.btn-add:active, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove:active, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .dupe-control.btn-remove:active, fieldset[disabled] .btn-add:active, fieldset[disabled] .btn-remove:active, fieldset[disabled] .btn-default.active, fieldset[disabled] .active.btn.dupe-plus, fieldset[disabled] .well.well-sm > .input-group:last-child .active.btn.dupe-control, .well.well-sm > .input-group:last-child fieldset[disabled] .active.btn.dupe-control, fieldset[disabled] .well.well-sm > .input-group:last-child .active.dupe-control.btn-add, .well.well-sm > .input-group:last-child fieldset[disabled] .active.dupe-control.btn-add, fieldset[disabled] .well.well-sm > .input-group:last-child .active.dupe-control.btn-remove, .well.well-sm > .input-group:last-child fieldset[disabled] .active.dupe-control.btn-remove, fieldset[disabled] .active.btn.dupe-minus, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.btn.dupe-control, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .active.btn.dupe-control, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.dupe-control.btn-add, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .active.dupe-control.btn-add, fieldset[disabled] .well.well-sm > .input-group:not(:only-child):not(:last-child) .active.dupe-control.btn-remove, .well.well-sm > .input-group:not(:only-child):not(:last-child) fieldset[disabled] .active.dupe-control.btn-remove, fieldset[disabled] .active.btn-add, fieldset[disabled] .active.btn-remove {
   background-color: #fff;
   border-color: #ccc;
 }
 /* line 40, ../sass/src/bootstrap/mixins/_buttons.scss */
-.btn-default .badge, .btn.dupe-plus .badge, .well.well-sm > .input-group:last-child .btn.dupe-control .badge, .btn.dupe-minus .badge, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control .badge {
+.btn-default .badge, .btn.dupe-plus .badge, .well.well-sm > .input-group:last-child .btn.dupe-control .badge, .well.well-sm > .input-group:last-child .dupe-control.btn-add .badge, .well.well-sm > .input-group:last-child .dupe-control.btn-remove .badge, .btn.dupe-minus .badge, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control .badge, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add .badge, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove .badge, .btn-add .badge, .btn-remove .badge {
   color: #fff;
   background-color: #333;
 }
@@ -4640,7 +4682,7 @@ select[multiple].input-lg,
 }
 
 /* line 127, ../sass/src/bootstrap/_buttons.scss */
-.btn-lg, .btn-group-lg > .btn {
+.btn-lg, .btn-group-lg > .btn, .btn-group-lg > .btn-add, .btn-group-lg > .btn-remove {
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
@@ -4648,7 +4690,7 @@ select[multiple].input-lg,
 }
 
 /* line 131, ../sass/src/bootstrap/_buttons.scss */
-.btn-sm, .btn-group-sm > .btn {
+.btn-sm, .btn-group-sm > .btn, .btn-group-sm > .btn-add, .btn-group-sm > .btn-remove {
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
@@ -4656,7 +4698,7 @@ select[multiple].input-lg,
 }
 
 /* line 135, ../sass/src/bootstrap/_buttons.scss */
-.btn-xs, .btn-group-xs > .btn {
+.btn-xs, .btn-group-xs > .btn, .btn-group-xs > .btn-add, .btn-group-xs > .btn-remove {
   padding: 1px 5px;
   font-size: 12px;
   line-height: 1.5;
@@ -4903,24 +4945,38 @@ tbody.collapse.in {
   vertical-align: middle;
 }
 /* line 11, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn,
-.btn-group-vertical > .btn {
+.btn-group > .btn, .btn-group > .btn-add, .btn-group > .btn-remove,
+.btn-group-vertical > .btn,
+.btn-group-vertical > .btn-add,
+.btn-group-vertical > .btn-remove {
   position: relative;
   float: left;
 }
 /* line 15, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn:hover, .btn-group > .btn:focus, .btn-group > .btn:active, .btn-group > .btn.active,
+.btn-group > .btn:hover, .btn-group > .btn-add:hover, .btn-group > .btn-remove:hover, .btn-group > .btn:focus, .btn-group > .btn-add:focus, .btn-group > .btn-remove:focus, .btn-group > .btn:active, .btn-group > .btn-add:active, .btn-group > .btn-remove:active, .btn-group > .btn.active, .btn-group > .active.btn-add, .btn-group > .active.btn-remove,
 .btn-group-vertical > .btn:hover,
+.btn-group-vertical > .btn-add:hover,
+.btn-group-vertical > .btn-remove:hover,
 .btn-group-vertical > .btn:focus,
+.btn-group-vertical > .btn-add:focus,
+.btn-group-vertical > .btn-remove:focus,
 .btn-group-vertical > .btn:active,
-.btn-group-vertical > .btn.active {
+.btn-group-vertical > .btn-add:active,
+.btn-group-vertical > .btn-remove:active,
+.btn-group-vertical > .btn.active,
+.btn-group-vertical > .active.btn-add,
+.btn-group-vertical > .active.btn-remove {
   z-index: 2;
 }
 
 /* line 26, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group .btn + .btn,
+.btn-group .btn + .btn, .btn-group .btn-add + .btn, .btn-group .btn-remove + .btn, .btn-group .btn + .btn-add, .btn-group .btn-add + .btn-add, .btn-group .btn-remove + .btn-add, .btn-group .btn + .btn-remove, .btn-group .btn-add + .btn-remove, .btn-group .btn-remove + .btn-remove,
 .btn-group .btn + .btn-group,
+.btn-group .btn-add + .btn-group,
+.btn-group .btn-remove + .btn-group,
 .btn-group .btn-group + .btn,
+.btn-group .btn-group + .btn-add,
+.btn-group .btn-group + .btn-remove,
 .btn-group .btn-group + .btn-group {
   margin-left: -1px;
 }
@@ -4944,29 +5000,29 @@ tbody.collapse.in {
   float: left;
 }
 /* line 43, ../sass/src/bootstrap/_button-groups.scss */
-.btn-toolbar > .btn,
+.btn-toolbar > .btn, .btn-toolbar > .btn-add, .btn-toolbar > .btn-remove,
 .btn-toolbar > .btn-group,
 .btn-toolbar > .input-group {
   margin-left: 5px;
 }
 
 /* line 50, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .btn-add:not(:first-child):not(:last-child):not(.dropdown-toggle), .btn-group > .btn-remove:not(:first-child):not(:last-child):not(.dropdown-toggle) {
   border-radius: 0;
 }
 
 /* line 55, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child {
+.btn-group > .btn:first-child, .btn-group > .btn-add:first-child, .btn-group > .btn-remove:first-child {
   margin-left: 0;
 }
 /* line 57, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle) {
+.btn-group > .btn:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-add:first-child:not(:last-child):not(.dropdown-toggle), .btn-group > .btn-remove:first-child:not(:last-child):not(.dropdown-toggle) {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 62, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn:last-child:not(:first-child),
+.btn-group > .btn:last-child:not(:first-child), .btn-group > .btn-add:last-child:not(:first-child), .btn-group > .btn-remove:last-child:not(:first-child),
 .btn-group > .dropdown-toggle:not(:first-child) {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
@@ -4978,19 +5034,19 @@ tbody.collapse.in {
 }
 
 /* line 71, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn {
+.btn-group > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn-add, .btn-group > .btn-group:not(:first-child):not(:last-child) > .btn-remove {
   border-radius: 0;
 }
 
 /* line 75, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child,
+.btn-group > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group > .btn-group:first-child:not(:last-child) > .btn-add:last-child, .btn-group > .btn-group:first-child:not(:last-child) > .btn-remove:last-child,
 .btn-group > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
 
 /* line 80, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child {
+.btn-group > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group > .btn-group:last-child:not(:first-child) > .btn-add:first-child, .btn-group > .btn-group:last-child:not(:first-child) > .btn-remove:first-child {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5002,13 +5058,13 @@ tbody.collapse.in {
 }
 
 /* line 104, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn + .dropdown-toggle {
+.btn-group > .btn + .dropdown-toggle, .btn-group > .btn-add + .dropdown-toggle, .btn-group > .btn-remove + .dropdown-toggle {
   padding-left: 8px;
   padding-right: 8px;
 }
 
 /* line 108, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle {
+.btn-group > .btn-lg + .dropdown-toggle, .btn-group-lg.btn-group > .btn + .dropdown-toggle, .btn-group-lg.btn-group > .btn-add + .dropdown-toggle, .btn-group-lg.btn-group > .btn-remove + .dropdown-toggle {
   padding-left: 12px;
   padding-right: 12px;
 }
@@ -5025,25 +5081,27 @@ tbody.collapse.in {
 }
 
 /* line 126, ../sass/src/bootstrap/_button-groups.scss */
-.btn .caret {
+.btn .caret, .btn-add .caret, .btn-remove .caret {
   margin-left: 0;
 }
 
 /* line 130, ../sass/src/bootstrap/_button-groups.scss */
-.btn-lg .caret, .btn-group-lg > .btn .caret {
+.btn-lg .caret, .btn-group-lg > .btn .caret, .btn-group-lg > .btn-add .caret, .btn-group-lg > .btn-remove .caret {
   border-width: 5px 5px 0;
   border-bottom-width: 0;
 }
 
 /* line 135, ../sass/src/bootstrap/_button-groups.scss */
-.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret {
+.dropup .btn-lg .caret, .dropup .btn-group-lg > .btn .caret, .dropup .btn-group-lg > .btn-add .caret, .dropup .btn-group-lg > .btn-remove .caret {
   border-width: 0 5px 5px;
 }
 
 /* line 144, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn,
+.btn-group-vertical > .btn, .btn-group-vertical > .btn-add, .btn-group-vertical > .btn-remove,
 .btn-group-vertical > .btn-group,
-.btn-group-vertical > .btn-group > .btn {
+.btn-group-vertical > .btn-group > .btn,
+.btn-group-vertical > .btn-group > .btn-add,
+.btn-group-vertical > .btn-group > .btn-remove {
   display: block;
   float: none;
   width: 100%;
@@ -5059,49 +5117,53 @@ tbody.collapse.in {
   clear: both;
 }
 /* line 156, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group > .btn {
+.btn-group-vertical > .btn-group > .btn, .btn-group-vertical > .btn-group > .btn-add, .btn-group-vertical > .btn-group > .btn-remove {
   float: none;
 }
 /* line 161, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn + .btn,
+.btn-group-vertical > .btn + .btn, .btn-group-vertical > .btn-add + .btn, .btn-group-vertical > .btn-remove + .btn, .btn-group-vertical > .btn + .btn-add, .btn-group-vertical > .btn-add + .btn-add, .btn-group-vertical > .btn-remove + .btn-add, .btn-group-vertical > .btn + .btn-remove, .btn-group-vertical > .btn-add + .btn-remove, .btn-group-vertical > .btn-remove + .btn-remove,
 .btn-group-vertical > .btn + .btn-group,
+.btn-group-vertical > .btn-add + .btn-group,
+.btn-group-vertical > .btn-remove + .btn-group,
 .btn-group-vertical > .btn-group + .btn,
+.btn-group-vertical > .btn-group + .btn-add,
+.btn-group-vertical > .btn-group + .btn-remove,
 .btn-group-vertical > .btn-group + .btn-group {
   margin-top: -1px;
   margin-left: 0;
 }
 
 /* line 171, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:not(:first-child):not(:last-child) {
+.btn-group-vertical > .btn:not(:first-child):not(:last-child), .btn-group-vertical > .btn-add:not(:first-child):not(:last-child), .btn-group-vertical > .btn-remove:not(:first-child):not(:last-child) {
   border-radius: 0;
 }
 /* line 174, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:first-child:not(:last-child) {
+.btn-group-vertical > .btn:first-child:not(:last-child), .btn-group-vertical > .btn-add:first-child:not(:last-child), .btn-group-vertical > .btn-remove:first-child:not(:last-child) {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 /* line 178, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn:last-child:not(:first-child) {
+.btn-group-vertical > .btn:last-child:not(:first-child), .btn-group-vertical > .btn-add:last-child:not(:first-child), .btn-group-vertical > .btn-remove:last-child:not(:first-child) {
   border-bottom-left-radius: 4px;
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
 
 /* line 183, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn {
+.btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn-add, .btn-group-vertical > .btn-group:not(:first-child):not(:last-child) > .btn-remove {
   border-radius: 0;
 }
 
 /* line 187, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child,
+.btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn-add:last-child, .btn-group-vertical > .btn-group:first-child:not(:last-child) > .btn-remove:last-child,
 .btn-group-vertical > .btn-group:first-child:not(:last-child) > .dropdown-toggle {
   border-bottom-right-radius: 0;
   border-bottom-left-radius: 0;
 }
 
 /* line 192, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child {
+.btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn-add:first-child, .btn-group-vertical > .btn-group:last-child:not(:first-child) > .btn-remove:first-child {
   border-top-right-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5114,14 +5176,14 @@ tbody.collapse.in {
   border-collapse: separate;
 }
 /* line 205, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn,
+.btn-group-justified > .btn, .btn-group-justified > .btn-add, .btn-group-justified > .btn-remove,
 .btn-group-justified > .btn-group {
   float: none;
   display: table-cell;
   width: 1%;
 }
 /* line 211, ../sass/src/bootstrap/_button-groups.scss */
-.btn-group-justified > .btn-group .btn {
+.btn-group-justified > .btn-group .btn, .btn-group-justified > .btn-group .btn-add, .btn-group-justified > .btn-group .btn-remove {
   width: 100%;
 }
 /* line 215, ../sass/src/bootstrap/_button-groups.scss */
@@ -5130,10 +5192,16 @@ tbody.collapse.in {
 }
 
 /* line 236, ../sass/src/bootstrap/_button-groups.scss */
-[data-toggle="buttons"] > .btn input[type="radio"],
+[data-toggle="buttons"] > .btn input[type="radio"], [data-toggle="buttons"] > .btn-add input[type="radio"], [data-toggle="buttons"] > .btn-remove input[type="radio"],
 [data-toggle="buttons"] > .btn input[type="checkbox"],
+[data-toggle="buttons"] > .btn-add input[type="checkbox"],
+[data-toggle="buttons"] > .btn-remove input[type="checkbox"],
 [data-toggle="buttons"] > .btn-group > .btn input[type="radio"],
-[data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"] {
+[data-toggle="buttons"] > .btn-group > .btn-add input[type="radio"],
+[data-toggle="buttons"] > .btn-group > .btn-remove input[type="radio"],
+[data-toggle="buttons"] > .btn-group > .btn input[type="checkbox"],
+[data-toggle="buttons"] > .btn-group > .btn-add input[type="checkbox"],
+[data-toggle="buttons"] > .btn-group > .btn-remove input[type="checkbox"] {
   position: absolute;
   clip: rect(0, 0, 0, 0);
   pointer-events: none;
@@ -5196,7 +5264,9 @@ tbody.collapse.in {
 /* line 85, ../sass/src/bootstrap/_input-groups.scss */
 .input-group-addon.input-sm,
 .input-group-sm > .input-group-addon,
-.input-group-sm > .input-group-btn > .input-group-addon.btn {
+.input-group-sm > .input-group-btn > .input-group-addon.btn,
+.input-group-sm > .input-group-btn > .input-group-addon.btn-add,
+.input-group-sm > .input-group-btn > .input-group-addon.btn-remove {
   padding: 5px 10px;
   font-size: 12px;
   border-radius: 3px;
@@ -5204,7 +5274,9 @@ tbody.collapse.in {
 /* line 90, ../sass/src/bootstrap/_input-groups.scss */
 .input-group-addon.input-lg,
 .input-group-lg > .input-group-addon,
-.input-group-lg > .input-group-btn > .input-group-addon.btn {
+.input-group-lg > .input-group-btn > .input-group-addon.btn,
+.input-group-lg > .input-group-btn > .input-group-addon.btn-add,
+.input-group-lg > .input-group-btn > .input-group-addon.btn-remove {
   padding: 10px 16px;
   font-size: 18px;
   border-radius: 6px;
@@ -5219,10 +5291,18 @@ tbody.collapse.in {
 .input-group .form-control:first-child,
 .input-group-addon:first-child,
 .input-group-btn:first-child > .btn,
+.input-group-btn:first-child > .btn-add,
+.input-group-btn:first-child > .btn-remove,
 .input-group-btn:first-child > .btn-group > .btn,
+.input-group-btn:first-child > .btn-group > .btn-add,
+.input-group-btn:first-child > .btn-group > .btn-remove,
 .input-group-btn:first-child > .dropdown-toggle,
 .input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle),
-.input-group-btn:last-child > .btn-group:not(:last-child) > .btn {
+.input-group-btn:last-child > .btn-add:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-remove:not(:last-child):not(.dropdown-toggle),
+.input-group-btn:last-child > .btn-group:not(:last-child) > .btn,
+.input-group-btn:last-child > .btn-group:not(:last-child) > .btn-add,
+.input-group-btn:last-child > .btn-group:not(:last-child) > .btn-remove {
   border-bottom-right-radius: 0;
   border-top-right-radius: 0;
 }
@@ -5236,10 +5316,18 @@ tbody.collapse.in {
 .input-group .form-control:last-child,
 .input-group-addon:last-child,
 .input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .btn-add,
+.input-group-btn:last-child > .btn-remove,
 .input-group-btn:last-child > .btn-group > .btn,
+.input-group-btn:last-child > .btn-group > .btn-add,
+.input-group-btn:last-child > .btn-group > .btn-remove,
 .input-group-btn:last-child > .dropdown-toggle,
 .input-group-btn:first-child > .btn:not(:first-child),
-.input-group-btn:first-child > .btn-group:not(:first-child) > .btn {
+.input-group-btn:first-child > .btn-add:not(:first-child),
+.input-group-btn:first-child > .btn-remove:not(:first-child),
+.input-group-btn:first-child > .btn-group:not(:first-child) > .btn,
+.input-group-btn:first-child > .btn-group:not(:first-child) > .btn-add,
+.input-group-btn:first-child > .btn-group:not(:first-child) > .btn-remove {
   border-bottom-left-radius: 0;
   border-top-left-radius: 0;
 }
@@ -5256,24 +5344,24 @@ tbody.collapse.in {
   white-space: nowrap;
 }
 /* line 140, ../sass/src/bootstrap/_input-groups.scss */
-.input-group-btn > .btn {
+.input-group-btn > .btn, .input-group-btn > .btn-add, .input-group-btn > .btn-remove {
   position: relative;
 }
 /* line 142, ../sass/src/bootstrap/_input-groups.scss */
-.input-group-btn > .btn + .btn {
+.input-group-btn > .btn + .btn, .input-group-btn > .btn-add + .btn, .input-group-btn > .btn-remove + .btn, .input-group-btn > .btn + .btn-add, .input-group-btn > .btn-add + .btn-add, .input-group-btn > .btn-remove + .btn-add, .input-group-btn > .btn + .btn-remove, .input-group-btn > .btn-add + .btn-remove, .input-group-btn > .btn-remove + .btn-remove {
   margin-left: -1px;
 }
 /* line 146, ../sass/src/bootstrap/_input-groups.scss */
-.input-group-btn > .btn:hover, .input-group-btn > .btn:focus, .input-group-btn > .btn:active {
+.input-group-btn > .btn:hover, .input-group-btn > .btn-add:hover, .input-group-btn > .btn-remove:hover, .input-group-btn > .btn:focus, .input-group-btn > .btn-add:focus, .input-group-btn > .btn-remove:focus, .input-group-btn > .btn:active, .input-group-btn > .btn-add:active, .input-group-btn > .btn-remove:active {
   z-index: 2;
 }
 /* line 155, ../sass/src/bootstrap/_input-groups.scss */
-.input-group-btn:first-child > .btn,
+.input-group-btn:first-child > .btn, .input-group-btn:first-child > .btn-add, .input-group-btn:first-child > .btn-remove,
 .input-group-btn:first-child > .btn-group {
   margin-right: -1px;
 }
 /* line 161, ../sass/src/bootstrap/_input-groups.scss */
-.input-group-btn:last-child > .btn,
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-add, .input-group-btn:last-child > .btn-remove,
 .input-group-btn:last-child > .btn-group {
   margin-left: -1px;
 }
@@ -5869,12 +5957,12 @@ tbody.collapse.in {
   margin-bottom: 8px;
 }
 /* line 346, ../sass/src/bootstrap/_navbar.scss */
-.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn {
+.navbar-btn.btn-sm, .btn-group-sm > .navbar-btn.btn, .btn-group-sm > .navbar-btn.btn-add, .btn-group-sm > .navbar-btn.btn-remove {
   margin-top: 10px;
   margin-bottom: 10px;
 }
 /* line 349, ../sass/src/bootstrap/_navbar.scss */
-.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn {
+.navbar-btn.btn-xs, .btn-group-xs > .navbar-btn.btn, .btn-group-xs > .navbar-btn.btn-add, .btn-group-xs > .navbar-btn.btn-remove {
   margin-top: 14px;
   margin-bottom: 14px;
 }
@@ -6331,7 +6419,7 @@ tbody.collapse.in {
   display: none;
 }
 /* line 25, ../sass/src/bootstrap/_labels.scss */
-.btn .label {
+.btn .label, .btn-add .label, .btn-remove .label {
   position: relative;
   top: -1px;
 }
@@ -6417,12 +6505,12 @@ a.label:hover, #paginator-next button.label:hover, a.label:focus, #paginator-nex
   display: none;
 }
 /* line 27, ../sass/src/bootstrap/_badges.scss */
-.btn .badge {
+.btn .badge, .btn-add .badge, .btn-remove .badge {
   position: relative;
   top: -1px;
 }
 /* line 32, ../sass/src/bootstrap/_badges.scss */
-.btn-xs .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .btn .badge {
+.btn-xs .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .btn-add .badge, .btn-group-xs > .btn-remove .badge, .btn-group-xs > .btn .badge, .btn-group-xs > .btn-add .badge, .btn-group-xs > .btn-remove .badge {
   top: 0;
   padding: 1px 5px;
 }
@@ -7653,12 +7741,12 @@ button.close {
   clear: both;
 }
 /* line 110, ../sass/src/bootstrap/_modals.scss */
-.modal-footer .btn + .btn {
+.modal-footer .btn + .btn, .modal-footer .btn-add + .btn, .modal-footer .btn-remove + .btn, .modal-footer .btn + .btn-add, .modal-footer .btn-add + .btn-add, .modal-footer .btn-remove + .btn-add, .modal-footer .btn + .btn-remove, .modal-footer .btn-add + .btn-remove, .modal-footer .btn-remove + .btn-remove {
   margin-left: 5px;
   margin-bottom: 0;
 }
 /* line 115, ../sass/src/bootstrap/_modals.scss */
-.modal-footer .btn-group .btn + .btn {
+.modal-footer .btn-group .btn + .btn, .modal-footer .btn-group .btn-add + .btn, .modal-footer .btn-group .btn-remove + .btn, .modal-footer .btn-group .btn + .btn-add, .modal-footer .btn-group .btn-add + .btn-add, .modal-footer .btn-group .btn-remove + .btn-add, .modal-footer .btn-group .btn + .btn-remove, .modal-footer .btn-group .btn-add + .btn-remove, .modal-footer .btn-group .btn-remove + .btn-remove {
   margin-left: -1px;
 }
 /* line 119, ../sass/src/bootstrap/_modals.scss */
@@ -8194,7 +8282,7 @@ button.close {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
 }
 /* line 228, ../sass/src/bootstrap/_carousel.scss */
-.carousel-caption .btn {
+.carousel-caption .btn, .carousel-caption .btn-add, .carousel-caption .btn-remove {
   text-shadow: none;
 }
 
@@ -8678,12 +8766,12 @@ button.close {
 }
 
 /* line 90, ../sass/src/global_utils.scss */
-.glyphicon-calendar.glyphicon, .glyph-ok > span.glyphicon-calendar, .glyph-remove > span.glyphicon-calendar, .glyph-plus > span.glyphicon-calendar, .glyph-minus > span.glyphicon-calendar, .btn.dupe-plus > span.glyphicon-calendar, .well.well-sm > .input-group:last-child .btn.dupe-control > span.glyphicon-calendar, .btn.dupe-minus > span.glyphicon-calendar, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span.glyphicon-calendar {
+.glyphicon-calendar.glyphicon, .glyph-ok > span.glyphicon-calendar, .glyph-remove > span.glyphicon-calendar, .glyph-plus > span.glyphicon-calendar, .btn-add > span.glyphicon-calendar, .glyph-minus > span.glyphicon-calendar, .btn-remove > span.glyphicon-calendar, .btn.dupe-plus > span.glyphicon-calendar, .well.well-sm > .input-group:last-child .btn.dupe-control > span.glyphicon-calendar, .well.well-sm > .input-group:last-child .dupe-control.btn-add > span.glyphicon-calendar, .well.well-sm > .input-group:last-child .dupe-control.btn-remove > span.glyphicon-calendar, .btn.dupe-minus > span.glyphicon-calendar, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span.glyphicon-calendar, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add > span.glyphicon-calendar, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove > span.glyphicon-calendar {
   color: #555555;
 }
 
 /* line 93, ../sass/src/global_utils.scss */
-.input-group-btn button.btn {
+.input-group-btn button.btn, .input-group-btn button.btn-add, .input-group-btn button.btn-remove {
   height: 34px;
 }
 
@@ -8706,30 +8794,30 @@ button.close {
 }
 
 /* line 35, ../sass/src/styles.scss */
-.glyph-plus {
+.glyph-plus, .btn-add {
   cursor: default;
 }
 /* line 40, ../sass/src/styles.scss */
-.glyph-plus > span {
+.glyph-plus > span, .btn-add > span {
   color: #5cb85c;
 }
 
 /* line 35, ../sass/src/styles.scss */
-.glyph-minus {
+.glyph-minus, .btn-remove {
   cursor: default;
 }
 /* line 40, ../sass/src/styles.scss */
-.glyph-minus > span {
+.glyph-minus > span, .btn-remove > span {
   color: #d9534f;
 }
 
 /* line 50, ../sass/src/styles.scss */
-.btn.dupe-plus > span, .well.well-sm > .input-group:last-child .btn.dupe-control > span {
+.btn.dupe-plus > span, .well.well-sm > .input-group:last-child .btn.dupe-control > span, .well.well-sm > .input-group:last-child .dupe-control.btn-add > span, .well.well-sm > .input-group:last-child .dupe-control.btn-remove > span, .dupe-plus.btn-add > span, .dupe-plus.btn-remove > span {
   color: #5cb85c;
 }
 
 /* line 50, ../sass/src/styles.scss */
-.btn.dupe-minus > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span {
+.btn.dupe-minus > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .btn.dupe-control > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-add > span, .well.well-sm > .input-group:not(:only-child):not(:last-child) .dupe-control.btn-remove > span, .dupe-minus.btn-add > span, .dupe-minus.btn-remove > span {
   color: #d9534f;
 }
 
@@ -8826,25 +8914,40 @@ body {
   text-overflow: ellipsis;
 }
 
-/* line 142, ../sass/src/styles.scss */
+/* line 143, ../sass/src/styles.scss */
 .placeholder {
   position: absolute;
   visibility: hidden;
   display: block;
 }
 
-/* line 148, ../sass/src/styles.scss */
+/* line 149, ../sass/src/styles.scss */
 .purchase-panel.panel-body {
   overflow: scroll;
   height: 75%;
 }
 
-/* line 152, ../sass/src/styles.scss */
+/* line 153, ../sass/src/styles.scss */
 .form-control.part-num-input.tt-hint {
   background-color: white;
 }
 
-/* line 155, ../sass/src/styles.scss */
+/* line 156, ../sass/src/styles.scss */
 div.fixed-table-body {
   height: 75%;
+}
+
+/* line 160, ../sass/src/styles.scss */
+.btn-add {
+  cursor: pointer;
+}
+
+/* line 167, ../sass/src/styles.scss */
+.btn-remove {
+  cursor: pointer;
+}
+
+/* line 175, ../sass/src/styles.scss */
+.entry:first-child .btn-remove, .entry.original .btn-remove {
+  display: none;
 }

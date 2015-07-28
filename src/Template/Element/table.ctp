@@ -41,7 +41,8 @@
           $excluded_headers = [];
         }
     ?>
-    <table class="table table-responsive">
+    <table class="table table-condensed">
+    <!--<table class="table table-responsive">-->
         <thead>
             <tr>
                 <?php foreach($headers as $field => $header): ?>
@@ -65,19 +66,19 @@
                             
                             <?php if ($prop === $item->display_name): ?>
                               
-                                <td><?= $this->Html->link($item->display_name, ['controller' => $item->table_name, 'action' => 'view', $item->id]) ?></td>
+                                <td><?= $this->Html->link($item->display_name, ['controller' => $item->table_name, 'action' => 'view', $item->id], ['escapeTitle' => false, 'title' => $item->display_name]) ?></td>
                             
                             <?php elseif (is_subclass_of($prop, 'App\\Model\\Entity\\AppEntity')): ?>
                             
-                                <td><?= $this->Html->link($prop->display_name, ['controller' => $prop->table_name, 'action' => 'view', $prop->id]) ?></td>
+                                <td><?= $this->Html->link($prop->display_name, ['controller' => $prop->table_name, 'action' => 'view', $prop->id], ['escapeTitle' => false, 'title' => $prop->display_name]) ?></td>
                               
                             <?php elseif (gettype($prop) == 'boolean'): ?>
                             
                                 <td><?= $prop ? __('Yes') : __('No') ?></td>
                               
                             <?php else: ?>
-                            
-                                <td><?= $prop ?></td>
+                                
+                                <td<?= ((gettype($prop) == 'integer' || gettype($prop) == 'double') ? '' : ' title="'.$prop.'"') ?>><?= $prop ?></td>
                               
                             <?php endif; ?>
                             

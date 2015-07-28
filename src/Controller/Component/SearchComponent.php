@@ -28,6 +28,8 @@ class SearchComponent extends Component
     }
     
     public function search($arr, $select = ['id']) {
+        Log::write('debug', 'IN SEARCH COMPONENT');
+        Log::write('debug', $arr);
         $response = [];
         if (array_key_exists('filters', $arr) && count(array_keys($arr)) == 1) {
             $arr = $arr['filters'];

@@ -281,6 +281,7 @@ $options = [
             var entry_id = entry.attr('id').toString();
             console.log(entry_id);
             var clone = entry.next('.cond-sep');
+            console.log('ENTRY SEPARATOR');
             console.log(clone);
             console.log(clone.prop('under'));
             clone.remove();
@@ -417,6 +418,8 @@ $options = [
         });
         
         var search_bar = JSON.parse('<?= json_encode($search_bar) ?>');
+        console.log('SEARCH BAR');
+        console.log(search_bar);
         if (search_bar['bar']) {
             console.log(search_bar['k']);
             getResults( search_bar['k'] );

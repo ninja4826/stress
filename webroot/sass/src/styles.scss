@@ -139,6 +139,7 @@ body {
         text-overflow: ellipsis;
     }
 }
+
 .placeholder {
     position: absolute;
     visibility: hidden;
@@ -154,4 +155,25 @@ body {
 }
 div.fixed-table-body {
     height: 75%;
+}
+
+.btn-add {
+    @extend .glyph-plus;
+    @extend .btn-default;
+    @extend .btn;
+    cursor: pointer;
+}
+
+.btn-remove {
+    @extend .glyph-minus;
+    @extend .btn-default;
+    @extend .btn;
+    cursor: pointer;
+}
+.entry {
+    &:first-child, &.original {
+        & .btn-remove {
+            display: none;
+        }
+    }
 }
