@@ -8947,7 +8947,34 @@ div.fixed-table-body {
   cursor: pointer;
 }
 
-/* line 175, ../sass/src/styles.scss */
-.entry:first-child .btn-remove, .entry.original .btn-remove {
+/* line 186, ../sass/src/styles.scss */
+.entry-container.row {
+  padding-right: 5px;
+}
+/* line 187, ../sass/src/styles.scss */
+.entry-container.row:first-child {
+  margin: 10px 10px 0px 10px;
+}
+/* line 188, ../sass/src/styles.scss */
+.entry-container.row:first-child .remove-btn-group {
   display: none;
+}
+/* line 194, ../sass/src/styles.scss */
+.entry-container.row:not(:first-child) {
+  margin: 10px 10px 0px 10px;
+}
+
+/* line 200, ../sass/src/styles.scss */
+.add-btn-row {
+  margin-top: 15px;
+}
+
+/* line 205, ../sass/src/styles.scss */
+.row.entry-container:last-child > .cond-sep {
+  display: none;
+}
+
+/* line 210, ../sass/src/styles.scss */
+select.field-select, select.operation-select {
+  background: none;
 }

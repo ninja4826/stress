@@ -112,6 +112,7 @@ $options = [
 </div>
 <div class="search view col-lg-10 col-md-9 columns">
     <div class="row">
+        <a href="/search/new"><h1>New Search</h1></a>
         <div class="panel-group" id="accordion">
             <div class="panel panel-default" id="search-panel">
                 <div class="panel-heading" data-toggle="collapse" data-target="#collapse-search" href="#collapse-search">

@@ -170,10 +170,43 @@ div.fixed-table-body {
     @extend .btn;
     cursor: pointer;
 }
-.entry {
-    &:first-child, &.original {
-        & .btn-remove {
+// .entry {
+//     &:first-child, &.original {
+//         & .remove-btn-group {
+//             display: none;
+//         }
+//         margin: 10px 10px 0px 10px;
+//     }
+    
+//     &:not(:first-child) {
+//         margin: 10px 5px 0px 10px;
+//     }
+// }
+
+.entry-container.row {
+    &:first-child {
+        & .remove-btn-group {
             display: none;
         }
+        margin: 10px 10px 0px 10px;
     }
+    
+    &:not(:first-child) {
+        margin: 10px 10px 0px 10px;
+    }
+    padding-right: 5px;
+}
+
+.add-btn-row {
+    margin-top: 15px;
+}
+
+.cond-sep {
+    .row.entry-container:last-child > & {
+        display: none;
+    }
+}
+
+select.field-select, select.operation-select {
+    background: none;
 }
