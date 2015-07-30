@@ -71,8 +71,8 @@ class SearchComponent extends Component
         }
         // Log::write('debug', 'CHANGED OPTS');
         // Log::write('debug', $arr);
-        $q = $query->where(function ($exp) use ($arr, $group, $blah) {
-            return $exp->$group(function ($exp_) use ($arr, $blah) {
+        $q = $query->where(function ($exp) use ($arr, $group) {
+            return $exp->$group(function ($exp_) use ($arr) {
                 foreach ($arr as $filter_) {
                     $exp_->$filter_['opt']($filter_['name'], $filter_['val']);
                 }

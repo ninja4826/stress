@@ -71,12 +71,15 @@
             <span class="input-group-btn field-select-span">
                 <select class="btn field-select">
                     <?php foreach ($fields as $field_name => $field_info): ?>
-                        <?php if (array_key_exists('search', $field_info) && $field_info['search']): ?>
-                            <option value="<?=$field_name?>"><?=$field_info['label']?></option>
-                        <?php endif; ?>
+                        <?php
+                            // if (array_key_exists('search', $field_info) && $field_info['search']) {
+                                echo '<option value="'.$field_name.'">'.$field_info['label'].'</option>';
+                            // }
+                        ?>
                     <?php endforeach; ?>
                 </select>
             </span>
+            <span class="input-group-addon" style="border: none; background: none;">is</span>
             <span class="input-group-btn operation-select-span">
                 <select class="btn operation-select">
                     <?php foreach($operations['text'] as $op): ?>
@@ -98,7 +101,7 @@
                 <button type="button" class="close" id="well-close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
         </div>
-        <div class="row row-container"></div>
+        <div class="row entry-container"></div>
     </div>
     <div class="row add-btn-row original">
         <div class="col-lg-1 col-md-1 col-xs-1 pull-right">

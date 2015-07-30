@@ -45,6 +45,12 @@ class CategoriesTable extends AppTable
         $validator
             ->add('id', 'valid', ['rule' => 'numeric'])
             ->allowEmpty('id', 'create')
+            ->add('category_name', [
+                'unique' => [
+                    'rule' => 'validateUnique',
+                    'provider' => 'table'
+                ]
+            ])
             ->requirePresence('category_name', 'create')
             ->notEmpty('category_name');
 

@@ -160,6 +160,11 @@ class PartsTable extends AppTable
     
     public function beforeMarshal($event, $data, $options)
     {
+        if (array_key_exists('active', $data)) {
+            if (gettype($data['active']) == 'string') {
+                $data['active'] = (($data['active'] == 'true') ? true : false);
+            }
+        }
         if (!array_key_exists('location_name', $data))
         {
             return false;
