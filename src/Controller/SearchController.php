@@ -98,42 +98,4 @@ class SearchController extends AppController
     public function format_results() {
             
     }
-    
-    public function new_search() {
-        if (array_key_exists('q', $this->request->query)) {
-            $data = json_decode($this->request->query['q'], true);
-            
-            $items = $this->Search->search($data);
-            $this->layout = 'empty';
-            $tables = json_decode(json_encode($items), true);
-            $newTable = [];
-            foreach($tables as $table => $items) {
-                $table_arr = [];
-                $this->loadModel($table);
-                foreach($items as $item) {
-                    $table_arr[] = $this->$table->get($item['id'], ['contain' => $this->$table->assocs]);
-                }
-                $newTable[$table] = $table_arr;
-            }
-            $this->set('tables', $newTable);
-            $this->set('_serialize', ['tables', 'search_bar']);
-            $this->render('format_results');
-        } else {
-            $tables = [];
-            foreach (['Parts', 'Categories', 'CostCenters', 'Manufacturers'] as $table_name) {
-                $table = TableRegistry::get($table_name);
-                Log::write('debug', $table);
-                $fields = $table->getFields();
-                $tables[$table_name] = $fields;
-                
-            }
-            $this->set('search_bar', ['bar' => false]);
-            $this->set('info', $tables);
-            $this->set('_serialize', ['search_bar', 'info']);
-        }
-    }
-    
-    public function new_format_results() {
-        
-    }
 }

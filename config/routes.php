@@ -58,7 +58,6 @@ Router::scope('/search', ['controller' => 'Search'], function($sub) {
     $sub->extensions(['json']);
     $sub->connect('/search/results', ['action' => 'format_results']);
     $sub->connect('/', ['action' => 'search']);
-    $sub->connect('/new', ['action' => 'new_search']);
 });
 
 Router::scope('/', ['controller' => 'Modular'], function ($routes) {
