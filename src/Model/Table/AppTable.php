@@ -111,6 +111,7 @@ class AppTable extends Table {
                     $field['type'] = 'text';
                     $foreign_display = TableRegistry::get($field['assoc']['model'])->find('all', ['limit' => 1])->first()->display_field;
                     $field['assoc']['display_field'] = $foreign_display;
+                    $field['assoc']['info'] = TableRegistry::get($field['assoc']['model'])->getFields()[$foreign_display];
                     $field['default'] = '';
                 }
                 $field['label'] = Inflector::humanize($name);

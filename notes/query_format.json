@@ -7,6 +7,12 @@ asdf = {
                 "val": 10
             },
             {
+                "name": "category_name",
+                "op": "eq",
+                "val": "blah",
+                "fk": "Categories"
+            },
+            {
                 "or": [
                     {
                         "name": "part_num",
