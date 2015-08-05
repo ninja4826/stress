@@ -73,9 +73,12 @@ class SearchController extends AppController
             //     $this->set('search_bar', ['bar' => false]);
             // }
             $items = $this->Search->search($data);
-            Log::write('debug', $items);
+            Log::write('debug', 'CLASS TYPE: '.get_class($items[array_keys($items)[0]]));
             $this->layout = 'empty';
-            $tables = json_decode(json_encode($items), true);
+            $tables = [];
+            foreach ($items as $table_name => $query_obj) {
+                $tables[$table_name] = $query_obj->toArray();
+            }
             $newTable = [];
             foreach($tables as $table => $items) {
                 $table_arr = [];

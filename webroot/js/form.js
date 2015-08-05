@@ -487,6 +487,8 @@ Form.prototype = {
     after_submit: function( response ) {
         if (response['response']['status'] == 'ok') {
             this.selector.find(this.get_selector(this.name['singular']['table'] + '-alert')).slideUp('fast');
+            console.log('/add/'+this.model_name);
+            window.location.href = '/'+this.model_name;
         } else {
             this.selector.find(this.get_selector(this.name['singular']['table'] + '-alert')).slideDown('fast');
         }

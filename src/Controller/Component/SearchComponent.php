@@ -45,6 +45,7 @@ class SearchComponent extends Component
                     $query_ = $this->_search($query, $filter);
                 }
             }
+            Log::write('debug', $query->sql());
             $query->select($select);
             $response[$model] = $query;
         }
@@ -84,9 +85,17 @@ class SearchComponent extends Component
     
     private function _search($query, $arr) {
         $opt = $this->get_opt($arr['op']);
-        return $query->where(function ($exp) use ($opt, $arr) {
-            return $exp->$opt($arr['name'], $arr['val']);
-        });
+        if (array_key_exists('fk', $arr)) {
+            return $query->matching($arr['fk'], function($q) use ($opt, $arr) {
+                return $q->where(function ($exp) use ($opt, $arr) {
+                    return $exp->$opt($arr['name'], $arr['val']);
+                });
+            });
+        } else {
+            return $query->where(function ($exp) use ($opt, $arr) {
+                return $exp->$opt($arr['name'], $arr['val']);
+            });
+        }
     }
     
     private function get_opt($opt_str) {
@@ -120,6 +129,8 @@ class SearchComponent extends Component
                 $opt = '';
                 break;
         }
+        Log::write('debug', 'OPT');
+        Log::write('debug', $opt);
         return $opt;
     }
 }
